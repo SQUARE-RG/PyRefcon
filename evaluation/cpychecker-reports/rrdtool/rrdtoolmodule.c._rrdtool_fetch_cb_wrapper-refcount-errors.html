@@ -1,0 +1,640 @@
+<html>
+  <head>
+    <title>_rrdtool_fetch_cb_wrapper</title>
+    <style type="text/css">
+.unreached-line {
+    #margin:1em;
+    #border:0.1em dotted #00aa00;
+
+    opacity:1.0;
+    filter:alpha(opacity=0);
+    #color:black;
+}
+
+.reached-line {
+    #margin:1em;
+    #border:0.1em dotted #00aa00;
+    border: 0.1em solid blue;
+    font-weight: bold;
+
+    opacity:1.0;
+    filter:alpha(opacity=0);
+    #color:black;
+}
+
+.reached-lineno {
+    border: 0.1em solid blue;
+    font-weight: bold;
+}
+
+pre {
+    #line-height:200%
+}
+
+._jsPlumb_connector { z-index: -2; }
+._jsPlumb_endpoint { z-index: -1; }
+
+.transition {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #ccc;
+    -moz-box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;
+    margin-left: 5em;
+    font-family: proportional;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.error {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #cc0000;
+    -moz-box-shadow: 2px 2px 2px #cc0000;
+    -webkit-box-shadow: 2px 2px 2px #cc0000;
+    box-shadow: 2px 2px 2px #cc0000;
+    margin-left: 5em;
+    color: red;
+    font-family: proportional;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.note {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #ccc;
+    -moz-box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;
+    margin-left: 5em;
+    font-family: proportional;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.hll { background-color: #ffffcc }
+.source_c { color: #408080; font-style: italic } /* Comment */
+.source_err { border: 1px solid #FF0000 } /* Error */
+.source_k { color: #008000; font-weight: bold } /* Keyword */
+.source_o { color: #666666 } /* Operator */
+.source_ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.source_cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.source_cp { color: #BC7A00 } /* Comment.Preproc */
+.source_cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.source_c1 { color: #408080; font-style: italic } /* Comment.Single */
+.source_cs { color: #408080; font-style: italic } /* Comment.Special */
+.source_gd { color: #A00000 } /* Generic.Deleted */
+.source_ge { font-style: italic } /* Generic.Emph */
+.source_gr { color: #FF0000 } /* Generic.Error */
+.source_gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.source_gi { color: #00A000 } /* Generic.Inserted */
+.source_go { color: #888888 } /* Generic.Output */
+.source_gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.source_gs { font-weight: bold } /* Generic.Strong */
+.source_gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.source_gt { color: #0044DD } /* Generic.Traceback */
+.source_kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.source_kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.source_kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.source_kp { color: #008000 } /* Keyword.Pseudo */
+.source_kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.source_kt { color: #B00040 } /* Keyword.Type */
+.source_m { color: #666666 } /* Literal.Number */
+.source_s { color: #BA2121 } /* Literal.String */
+.source_na { color: #7D9029 } /* Name.Attribute */
+.source_nb { color: #008000 } /* Name.Builtin */
+.source_nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.source_no { color: #880000 } /* Name.Constant */
+.source_nd { color: #AA22FF } /* Name.Decorator */
+.source_ni { color: #999999; font-weight: bold } /* Name.Entity */
+.source_ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.source_nf { color: #0000FF } /* Name.Function */
+.source_nl { color: #A0A000 } /* Name.Label */
+.source_nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.source_nt { color: #008000; font-weight: bold } /* Name.Tag */
+.source_nv { color: #19177C } /* Name.Variable */
+.source_ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.source_w { color: #bbbbbb } /* Text.Whitespace */
+.source_mb { color: #666666 } /* Literal.Number.Bin */
+.source_mf { color: #666666 } /* Literal.Number.Float */
+.source_mh { color: #666666 } /* Literal.Number.Hex */
+.source_mi { color: #666666 } /* Literal.Number.Integer */
+.source_mo { color: #666666 } /* Literal.Number.Oct */
+.source_sa { color: #BA2121 } /* Literal.String.Affix */
+.source_sb { color: #BA2121 } /* Literal.String.Backtick */
+.source_sc { color: #BA2121 } /* Literal.String.Char */
+.source_dl { color: #BA2121 } /* Literal.String.Delimiter */
+.source_sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.source_s2 { color: #BA2121 } /* Literal.String.Double */
+.source_se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.source_sh { color: #BA2121 } /* Literal.String.Heredoc */
+.source_si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.source_sx { color: #008000 } /* Literal.String.Other */
+.source_sr { color: #BB6688 } /* Literal.String.Regex */
+.source_s1 { color: #BA2121 } /* Literal.String.Single */
+.source_ss { color: #19177C } /* Literal.String.Symbol */
+.source_bp { color: #008000 } /* Name.Builtin.Pseudo */
+.source_fm { color: #0000FF } /* Name.Function.Magic */
+.source_vc { color: #19177C } /* Name.Variable.Class */
+.source_vg { color: #19177C } /* Name.Variable.Global */
+.source_vi { color: #19177C } /* Name.Variable.Instance */
+.source_vm { color: #19177C } /* Name.Variable.Magic */
+.source_il { color: #666666 } /* Literal.Number.Integer.Long */    </style>
+  </head>
+  <body>
+<script type="text/javascript" src="http://explorercanvas.googlecode.com/svn/trunk/excanvas.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://jsplumb.googlecode.com/files/jquery.jsPlumb-1.2.6-all-min.js"></script>
+<div id="report-0">
+<table>
+  <tr><td>File:</td> <td><b>rrdtoolmodule.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>_rrdtool_fetch_cb_wrapper</b></td></tr>
+  <tr><td>Error:</td> <td><b>memory leak: ob_refcnt of '*tmp_min_ts' is 1 too high</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">1058</span> <span id="trace0-line1058" class="unreached-line"><span></span><span class="source_k">static</span> <span class="source_kt">int</span></span>
+<span class="lineno">1059</span> <span id="trace0-line1059" class="unreached-line"><span class="source_nf">_rrdtool_fetch_cb_wrapper</span><span class="source_p">(</span></span>
+<span class="lineno">1060</span> <span id="trace0-line1060" class="unreached-line">    <span class="source_k">const</span> <span class="source_kt">char</span> <span class="source_o">*</span><span class="source_n">filename</span><span class="source_p">,</span></span>
+<span class="lineno">1061</span> <span id="trace0-line1061" class="unreached-line">    <span class="source_k">enum</span> <span class="source_n">cf_en</span> <span class="source_n">cf_idx</span><span class="source_p">,</span></span>
+<span class="lineno">1062</span> <span id="trace0-line1062" class="unreached-line">    <span class="source_kt">time_t</span> <span class="source_o">*</span><span class="source_n">start</span><span class="source_p">,</span></span>
+<span class="lineno">1063</span> <span id="trace0-line1063" class="unreached-line">    <span class="source_kt">time_t</span> <span class="source_o">*</span><span class="source_n">end</span><span class="source_p">,</span></span>
+<span class="lineno">1064</span> <span id="trace0-line1064" class="unreached-line">    <span class="source_kt">unsigned</span> <span class="source_kt">long</span> <span class="source_o">*</span><span class="source_n">step</span><span class="source_p">,</span></span>
+<span class="lineno">1065</span> <span id="trace0-line1065" class="unreached-line">    <span class="source_kt">unsigned</span> <span class="source_kt">long</span> <span class="source_o">*</span><span class="source_n">ds_cnt</span><span class="source_p">,</span></span>
+<span class="lineno">1066</span> <span id="trace0-line1066" class="unreached-line">    <span class="source_kt">char</span> <span class="source_o">***</span><span class="source_n">ds_namv</span><span class="source_p">,</span></span>
+<span class="lineno">1067</span> <span id="trace0-line1067" class="unreached-line">    <span class="source_n">rrd_value_t</span> <span class="source_o">**</span><span class="source_n">data</span><span class="source_p">)</span></span>
+<span class="lineno">1068</span> <span id="trace0-line1068" class="unreached-line"><span class="source_p">{</span></span>
+<span class="lineno">1069</span> <span id="trace0-line1069" class="unreached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">args</span><span class="source_p">;</span></span>
+<span class="lineno">1070</span> <span id="trace0-line1070" class="unreached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">kwargs</span><span class="source_p">;</span></span>
+<span class="reached-lineno">1071</span> <span id="trace0-line1071" class="reached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">ret</span> <span class="source_o">=</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">1072</span> <span id="trace0-line1072" class="unreached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">tmp</span><span class="source_p">;</span></span>
+<span class="lineno">1073</span> <span id="trace0-line1073" class="unreached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">tmp_min_ts</span><span class="source_p">;</span></span>
+<span class="lineno">1074</span> <span id="trace0-line1074" class="unreached-line">    <span class="source_n">PyGILState_STATE</span> <span class="source_n">gstate</span><span class="source_p">;</span></span>
+<span class="reached-lineno">1075</span> <span id="trace0-line1075" class="reached-line">    <span class="source_n">Py_ssize_t</span> <span class="source_n">rowcount</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span></span>
+<span class="reached-lineno">1076</span> <span id="trace0-line1076" class="reached-line">    <span class="source_kt">int</span> <span class="source_n">rc</span> <span class="source_o">=</span> <span class="source_o">-</span><span class="source_mi">1</span><span class="source_p">;</span></span>
+<span class="lineno">1077</span> <span id="trace0-line1077" class="unreached-line">    <span class="source_kt">unsigned</span> <span class="source_kt">int</span> <span class="source_n">i</span><span class="source_p">,</span> <span class="source_n">ii</span><span class="source_p">;</span></span>
+<span class="lineno">1078</span> <span id="trace0-line1078" class="unreached-line"></span>
+<span class="reached-lineno">1079</span> <span id="trace0-line1079" class="reached-line">    <span class="source_n">gstate</span> <span class="source_o">=</span> <span class="source_n">PyGILState_Ensure</span><span class="source_p">();</span></span>
+<span class="transition">PyGILState_Ensure</span>
+<span class="lineno">1080</span> <span id="trace0-line1080" class="unreached-line"></span>
+<span class="reached-lineno">1081</span> <span id="trace0-line1081" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">_rrdtool_fetch_callable</span> <span class="source_o">==</span> <span class="source_nb">NULL</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when treating unknown struct PyObject * from rrdtoolmodule.c:1056 as non-NULL</span>
+<span class="transition">taking False path</span>
+<span class="lineno">1082</span> <span id="trace0-line1082" class="unreached-line">        <span class="source_n">rrd_set_error</span><span class="source_p">(</span><span class="source_s">&quot;use rrdtool.register_fetch_cb to register a fetch callback&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1083</span> <span id="trace0-line1083" class="unreached-line">        <span class="source_k">goto</span> <span class="source_n">gil_release_err</span><span class="source_p">;</span></span>
+<span class="lineno">1084</span> <span id="trace0-line1084" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">1085</span> <span id="trace0-line1085" class="unreached-line"></span>
+<span class="reached-lineno">1086</span> <span id="trace0-line1086" class="reached-line">    <span class="source_n">args</span> <span class="source_o">=</span> <span class="source_n">PyTuple_New</span><span class="source_p">(</span><span class="source_mi">0</span><span class="source_p">);</span></span>
+<span class="transition">when PyTuple_New() succeeds</span>
+<span class="reached-lineno">1087</span> <span id="trace0-line1087" class="reached-line">    <span class="source_n">kwargs</span> <span class="source_o">=</span> <span class="source_n">PyDict_New</span><span class="source_p">();</span></span>
+<span class="transition">when PyDict_New() succeeds</span>
+<span class="lineno">1088</span> <span id="trace0-line1088" class="unreached-line"></span>
+<span class="lineno">1089</span> <span id="trace0-line1089" class="unreached-line">    <span class="source_cm">/* minimum possible UNIX datetime */</span></span>
+<span class="reached-lineno">1090</span> <span id="trace0-line1090" class="reached-line">    <span class="source_n">tmp_min_ts</span> <span class="source_o">=</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_mi">0</span><span class="source_p">);</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="note">'*tmp_min_ts' was allocated at:     tmp_min_ts = PyLong_FromLong(0);</span>
+<span class="transition">ob_refcnt is now refs: 1 owned</span>
+<span class="lineno">1091</span> <span id="trace0-line1091" class="unreached-line"></span>
+<span class="reached-lineno">1092</span> <span id="trace0-line1092" class="reached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">po_filename</span> <span class="source_o">=</span> <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_n">filename</span><span class="source_p">);</span></span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="reached-lineno">1093</span> <span id="trace0-line1093" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">kwargs</span><span class="source_p">,</span> <span class="source_s">&quot;filename&quot;</span><span class="source_p">,</span> <span class="source_n">po_filename</span><span class="source_p">);</span></span>
+<span class="transition">when PyDict_SetItemString() succeeds</span>
+<span class="reached-lineno">1094</span> <span id="trace0-line1094" class="reached-line">    <span class="source_n">Py_DECREF</span><span class="source_p">(</span><span class="source_n">po_filename</span><span class="source_p">);</span></span>
+<span class="transition">taking False path</span>
+<span class="lineno">1095</span> <span id="trace0-line1095" class="unreached-line"></span>
+<span class="reached-lineno">1096</span> <span id="trace0-line1096" class="reached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">po_cfstr</span> <span class="source_o">=</span> <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_n">PyRRD_String_FromCF</span><span class="source_p">(</span><span class="source_n">cf_idx</span><span class="source_p">));</span></span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="reached-lineno">1097</span> <span id="trace0-line1097" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">kwargs</span><span class="source_p">,</span> <span class="source_s">&quot;cf&quot;</span><span class="source_p">,</span> <span class="source_n">po_cfstr</span><span class="source_p">);</span></span>
+<span class="transition">when PyDict_SetItemString() succeeds</span>
+<span class="reached-lineno">1098</span> <span id="trace0-line1098" class="reached-line">    <span class="source_n">Py_DECREF</span><span class="source_p">(</span><span class="source_n">po_cfstr</span><span class="source_p">);</span></span>
+<span class="transition">taking False path</span>
+<span class="lineno">1099</span> <span id="trace0-line1099" class="unreached-line"></span>
+<span class="reached-lineno">1100</span> <span id="trace0-line1100" class="reached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">po_start</span> <span class="source_o">=</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_o">*</span><span class="source_n">start</span><span class="source_p">);</span></span>
+<span class="transition">when treating unknown time_t * from rrdtoolmodule.c:1062 as non-NULL</span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="reached-lineno">1101</span> <span id="trace0-line1101" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">kwargs</span><span class="source_p">,</span> <span class="source_s">&quot;start&quot;</span><span class="source_p">,</span> <span class="source_n">po_start</span><span class="source_p">);</span></span>
+<span class="transition">when PyDict_SetItemString() succeeds</span>
+<span class="reached-lineno">1102</span> <span id="trace0-line1102" class="reached-line">    <span class="source_n">Py_DECREF</span><span class="source_p">(</span><span class="source_n">po_start</span><span class="source_p">);</span></span>
+<span class="transition">taking False path</span>
+<span class="lineno">1103</span> <span id="trace0-line1103" class="unreached-line"></span>
+<span class="reached-lineno">1104</span> <span id="trace0-line1104" class="reached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">po_end</span> <span class="source_o">=</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_o">*</span><span class="source_n">end</span><span class="source_p">);</span></span>
+<span class="transition">when treating unknown time_t * from rrdtoolmodule.c:1063 as non-NULL</span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="reached-lineno">1105</span> <span id="trace0-line1105" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">kwargs</span><span class="source_p">,</span> <span class="source_s">&quot;end&quot;</span><span class="source_p">,</span> <span class="source_n">po_end</span><span class="source_p">);</span></span>
+<span class="transition">when PyDict_SetItemString() succeeds</span>
+<span class="reached-lineno">1106</span> <span id="trace0-line1106" class="reached-line">    <span class="source_n">Py_DECREF</span><span class="source_p">(</span><span class="source_n">po_end</span><span class="source_p">);</span></span>
+<span class="transition">taking False path</span>
+<span class="lineno">1107</span> <span id="trace0-line1107" class="unreached-line"></span>
+<span class="reached-lineno">1108</span> <span id="trace0-line1108" class="reached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">po_step</span> <span class="source_o">=</span> <span class="source_n">PyLong_FromUnsignedLong</span><span class="source_p">(</span><span class="source_o">*</span><span class="source_n">step</span><span class="source_p">);</span></span>
+<span class="transition">when treating unknown long unsigned int * from rrdtoolmodule.c:1064 as non-NULL</span>
+<span class="transition">when PyLong_FromUnsignedLong() succeeds</span>
+<span class="reached-lineno">1109</span> <span id="trace0-line1109" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">kwargs</span><span class="source_p">,</span> <span class="source_s">&quot;step&quot;</span><span class="source_p">,</span> <span class="source_n">po_step</span><span class="source_p">);</span></span>
+<span class="transition">when PyDict_SetItemString() succeeds</span>
+<span class="reached-lineno">1110</span> <span id="trace0-line1110" class="reached-line">    <span class="source_n">Py_DECREF</span><span class="source_p">(</span><span class="source_n">po_step</span><span class="source_p">);</span></span>
+<span class="transition">taking False path</span>
+<span class="lineno">1111</span> <span id="trace0-line1111" class="unreached-line"></span>
+<span class="lineno">1112</span> <span id="trace0-line1112" class="unreached-line">    <span class="source_cm">/* execute Python callback method */</span></span>
+<span class="reached-lineno">1113</span> <span id="trace0-line1113" class="reached-line">    <span class="source_n">ret</span> <span class="source_o">=</span> <span class="source_n">PyObject_Call</span><span class="source_p">(</span><span class="source_n">_rrdtool_fetch_callable</span><span class="source_p">,</span> <span class="source_n">args</span><span class="source_p">,</span> <span class="source_n">kwargs</span><span class="source_p">);</span></span>
+<span class="transition">when PyObject_Call() succeeds</span>
+<span class="reached-lineno">1114</span> <span id="trace0-line1114" class="reached-line">    <span class="source_n">Py_DECREF</span><span class="source_p">(</span><span class="source_n">args</span><span class="source_p">);</span></span>
+<span class="transition">when taking True path</span>
+<span class="reached-lineno">1115</span> <span id="trace0-line1115" class="reached-line">    <span class="source_n">Py_DECREF</span><span class="source_p">(</span><span class="source_n">kwargs</span><span class="source_p">);</span></span>
+<span class="transition">when taking True path</span>
+<span class="lineno">1116</span> <span id="trace0-line1116" class="unreached-line"></span>
+<span class="reached-lineno">1117</span> <span id="trace0-line1117" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">ret</span> <span class="source_o">==</span> <span class="source_nb">NULL</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">taking False path</span>
+<span class="lineno">1118</span> <span id="trace0-line1118" class="unreached-line">        <span class="source_n">rrd_set_error</span><span class="source_p">(</span><span class="source_s">&quot;calling python callback failed&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1119</span> <span id="trace0-line1119" class="unreached-line">        <span class="source_k">goto</span> <span class="source_n">gil_release_err</span><span class="source_p">;</span></span>
+<span class="lineno">1120</span> <span id="trace0-line1120" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">1121</span> <span id="trace0-line1121" class="unreached-line"></span>
+<span class="lineno">1122</span> <span id="trace0-line1122" class="unreached-line">    <span class="source_cm">/* handle return value of callback */</span></span>
+<span class="reached-lineno">1123</span> <span id="trace0-line1123" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">PyDict_Check</span><span class="source_p">(</span><span class="source_n">ret</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: 1 <= value <= 0x20000000</span>
+<span class="transition">taking False path</span>
+<span class="lineno">1124</span> <span id="trace0-line1124" class="unreached-line">        <span class="source_n">rrd_set_error</span><span class="source_p">(</span><span class="source_s">&quot;expected callback method to be a dict&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1125</span> <span id="trace0-line1125" class="unreached-line">        <span class="source_k">goto</span> <span class="source_n">gil_release_err</span><span class="source_p">;</span></span>
+<span class="lineno">1126</span> <span id="trace0-line1126" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">1127</span> <span id="trace0-line1127" class="unreached-line"></span>
+<span class="reached-lineno">1128</span> <span id="trace0-line1128" class="reached-line">    <span class="source_n">tmp</span> <span class="source_o">=</span> <span class="source_n">PyDict_GetItemString</span><span class="source_p">(</span><span class="source_n">ret</span><span class="source_p">,</span> <span class="source_s">&quot;step&quot;</span><span class="source_p">);</span></span>
+<span class="transition">when PyDict_GetItemString() succeeds</span>
+<span class="reached-lineno">1129</span> <span id="trace0-line1129" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">tmp</span> <span class="source_o">==</span> <span class="source_nb">NULL</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">taking False path</span>
+<span class="lineno">1130</span> <span id="trace0-line1130" class="unreached-line">        <span class="source_n">rrd_set_error</span><span class="source_p">(</span><span class="source_s">&quot;expected &#39;step&#39; key in callback return value&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1131</span> <span id="trace0-line1131" class="unreached-line">        <span class="source_k">goto</span> <span class="source_n">gil_release_err</span><span class="source_p">;</span></span>
+<span class="reached-lineno">1132</span> <span id="trace0-line1132" class="reached-line">    <span class="source_p">}</span> <span class="source_k">else</span> <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">PyRRD_Long_Check</span><span class="source_p">(</span><span class="source_n">tmp</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: 1 <= value <= 0x1000000</span>
+<span class="transition">taking False path</span>
+<span class="lineno">1133</span> <span id="trace0-line1133" class="unreached-line">        <span class="source_n">rrd_set_error</span><span class="source_p">(</span><span class="source_s">&quot;the &#39;step&#39; key in callback return value must be int&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1134</span> <span id="trace0-line1134" class="unreached-line">        <span class="source_k">goto</span> <span class="source_n">gil_release_err</span><span class="source_p">;</span></span>
+<span class="lineno">1135</span> <span id="trace0-line1135" class="unreached-line">    <span class="source_p">}</span> <span class="source_k">else</span></span>
+<span class="reached-lineno">1136</span> <span id="trace0-line1136" class="reached-line">        <span class="source_o">*</span><span class="source_n">step</span> <span class="source_o">=</span> <span class="source_n">PyLong_AsLong</span><span class="source_p">(</span><span class="source_n">tmp</span><span class="source_p">);</span></span>
+<span class="lineno">1137</span> <span id="trace0-line1137" class="unreached-line"></span>
+<span class="reached-lineno">1138</span> <span id="trace0-line1138" class="reached-line">    <span class="source_n">tmp</span> <span class="source_o">=</span> <span class="source_n">PyDict_GetItemString</span><span class="source_p">(</span><span class="source_n">ret</span><span class="source_p">,</span> <span class="source_s">&quot;start&quot;</span><span class="source_p">);</span></span>
+<span class="transition">when PyDict_GetItemString() succeeds</span>
+<span class="reached-lineno">1139</span> <span id="trace0-line1139" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">tmp</span> <span class="source_o">==</span> <span class="source_nb">NULL</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">taking False path</span>
+<span class="lineno">1140</span> <span id="trace0-line1140" class="unreached-line">        <span class="source_n">rrd_set_error</span><span class="source_p">(</span><span class="source_s">&quot;expected &#39;start&#39; key in callback return value&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1141</span> <span id="trace0-line1141" class="unreached-line">        <span class="source_k">goto</span> <span class="source_n">gil_release_err</span><span class="source_p">;</span></span>
+<span class="reached-lineno">1142</span> <span id="trace0-line1142" class="reached-line">    <span class="source_p">}</span> <span class="source_k">else</span> <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">PyRRD_Long_Check</span><span class="source_p">(</span><span class="source_n">tmp</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: 1 <= value <= 0x1000000</span>
+<span class="transition">taking False path</span>
+<span class="lineno">1143</span> <span id="trace0-line1143" class="unreached-line">        <span class="source_n">rrd_set_error</span><span class="source_p">(</span><span class="source_s">&quot;expected &#39;start&#39; key in callback return value to be &quot;</span></span>
+<span class="lineno">1144</span> <span id="trace0-line1144" class="unreached-line">            <span class="source_s">&quot;of type int&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1145</span> <span id="trace0-line1145" class="unreached-line">        <span class="source_k">goto</span> <span class="source_n">gil_release_err</span><span class="source_p">;</span></span>
+<span class="reached-lineno">1146</span> <span id="trace0-line1146" class="reached-line">    <span class="source_p">}</span> <span class="source_k">else</span> <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">PyObject_RichCompareBool</span><span class="source_p">(</span><span class="source_n">tmp</span><span class="source_p">,</span> <span class="source_n">tmp_min_ts</span><span class="source_p">,</span> <span class="source_n">Py_EQ</span><span class="source_p">)</span> <span class="source_o">||</span></span>
+<span class="transition">when considering value == (int)0 from rrdtoolmodule.c:1146</span>
+<span class="transition">taking False path</span>
+<span class="transition">when considering value == (int)0 from rrdtoolmodule.c:1147</span>
+<span class="transition">taking False path</span>
+<span class="reached-lineno">1147</span> <span id="trace0-line1147" class="reached-line">               <span class="source_n">PyObject_RichCompareBool</span><span class="source_p">(</span><span class="source_n">tmp</span><span class="source_p">,</span> <span class="source_n">po_start</span><span class="source_p">,</span> <span class="source_n">Py_LT</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="lineno">1148</span> <span id="trace0-line1148" class="unreached-line">        <span class="source_n">rrd_set_error</span><span class="source_p">(</span><span class="source_s">&quot;expected &#39;start&#39; value in callback return dict to be &quot;</span></span>
+<span class="lineno">1149</span> <span id="trace0-line1149" class="unreached-line">            <span class="source_s">&quot;equal or earlier than passed start timestamp&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1150</span> <span id="trace0-line1150" class="unreached-line">        <span class="source_k">goto</span> <span class="source_n">gil_release_err</span><span class="source_p">;</span></span>
+<span class="lineno">1151</span> <span id="trace0-line1151" class="unreached-line">    <span class="source_p">}</span> <span class="source_k">else</span> <span class="source_p">{</span></span>
+<span class="reached-lineno">1152</span> <span id="trace0-line1152" class="reached-line">        <span class="source_o">*</span><span class="source_n">start</span> <span class="source_o">=</span> <span class="source_n">PyLong_AsLong</span><span class="source_p">(</span><span class="source_n">po_start</span><span class="source_p">);</span></span>
+<span class="lineno">1153</span> <span id="trace0-line1153" class="unreached-line"></span>
+<span class="reached-lineno">1154</span> <span id="trace0-line1154" class="reached-line">        <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">*</span><span class="source_n">start</span> <span class="source_o">==</span> <span class="source_o">-</span><span class="source_mi">1</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: -0x8000000000000000 <= value <= -2</span>
+<span class="transition">taking False path</span>
+<span class="lineno">1155</span> <span id="trace0-line1155" class="unreached-line">            <span class="source_n">rrd_set_error</span><span class="source_p">(</span><span class="source_s">&quot;expected &#39;start&#39; value in callback return value to&quot;</span></span>
+<span class="lineno">1156</span> <span id="trace0-line1156" class="unreached-line">                <span class="source_s">&quot; not exceed LONG_MAX&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1157</span> <span id="trace0-line1157" class="unreached-line">            <span class="source_k">goto</span> <span class="source_n">gil_release_err</span><span class="source_p">;</span></span>
+<span class="lineno">1158</span> <span id="trace0-line1158" class="unreached-line">        <span class="source_p">}</span></span>
+<span class="lineno">1159</span> <span id="trace0-line1159" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">1160</span> <span id="trace0-line1160" class="unreached-line"></span>
+<span class="reached-lineno">1161</span> <span id="trace0-line1161" class="reached-line">    <span class="source_n">tmp</span> <span class="source_o">=</span> <span class="source_n">PyDict_GetItemString</span><span class="source_p">(</span><span class="source_n">ret</span><span class="source_p">,</span> <span class="source_s">&quot;data&quot;</span><span class="source_p">);</span></span>
+<span class="transition">when PyDict_GetItemString() succeeds</span>
+<span class="reached-lineno">1162</span> <span id="trace0-line1162" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">tmp</span> <span class="source_o">==</span> <span class="source_nb">NULL</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">taking False path</span>
+<span class="lineno">1163</span> <span id="trace0-line1163" class="unreached-line">        <span class="source_n">rrd_set_error</span><span class="source_p">(</span><span class="source_s">&quot;expected &#39;data&#39; key in callback return value&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1164</span> <span id="trace0-line1164" class="unreached-line">        <span class="source_k">goto</span> <span class="source_n">gil_release_err</span><span class="source_p">;</span></span>
+<span class="reached-lineno">1165</span> <span id="trace0-line1165" class="reached-line">    <span class="source_p">}</span> <span class="source_k">else</span> <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">PyDict_Check</span><span class="source_p">(</span><span class="source_n">tmp</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="transition">when considering value == (long unsigned int)0 from rrdtoolmodule.c:1165</span>
+<span class="transition">taking True path</span>
+<span class="reached-lineno">1166</span> <span id="trace0-line1166" class="reached-line">        <span class="source_n">rrd_set_error</span><span class="source_p">(</span><span class="source_s">&quot;expected &#39;data&#39; key in callback return value of type &quot;</span></span>
+<span class="lineno">1167</span> <span id="trace0-line1167" class="unreached-line">            <span class="source_s">&quot;dict&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1168</span> <span id="trace0-line1168" class="unreached-line">        <span class="source_k">goto</span> <span class="source_n">gil_release_err</span><span class="source_p">;</span></span>
+<span class="lineno">1169</span> <span id="trace0-line1169" class="unreached-line">    <span class="source_p">}</span> <span class="source_k">else</span> <span class="source_p">{</span></span>
+<span class="lineno">1170</span> <span id="trace0-line1170" class="unreached-line">        <span class="source_o">*</span><span class="source_n">ds_cnt</span> <span class="source_o">=</span> <span class="source_p">(</span><span class="source_kt">unsigned</span> <span class="source_kt">long</span><span class="source_p">)</span><span class="source_n">PyDict_Size</span><span class="source_p">(</span><span class="source_n">tmp</span><span class="source_p">);</span></span>
+<span class="lineno">1171</span> <span id="trace0-line1171" class="unreached-line">        <span class="source_o">*</span><span class="source_n">ds_namv</span> <span class="source_o">=</span> <span class="source_p">(</span><span class="source_kt">char</span> <span class="source_o">**</span><span class="source_p">)</span><span class="source_n">calloc</span><span class="source_p">(</span><span class="source_o">*</span><span class="source_n">ds_cnt</span><span class="source_p">,</span> <span class="source_k">sizeof</span><span class="source_p">(</span><span class="source_kt">char</span> <span class="source_o">*</span><span class="source_p">));</span></span>
+<span class="lineno">1172</span> <span id="trace0-line1172" class="unreached-line"></span>
+<span class="lineno">1173</span> <span id="trace0-line1173" class="unreached-line">        <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">*</span><span class="source_n">ds_namv</span> <span class="source_o">==</span> <span class="source_nb">NULL</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">1174</span> <span id="trace0-line1174" class="unreached-line">            <span class="source_n">rrd_set_error</span><span class="source_p">(</span><span class="source_s">&quot;an error occurred while allocating memory for &quot;</span></span>
+<span class="lineno">1175</span> <span id="trace0-line1175" class="unreached-line">                <span class="source_s">&quot;ds_namv when allocating memory for python callback&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1176</span> <span id="trace0-line1176" class="unreached-line">            <span class="source_k">goto</span> <span class="source_n">gil_release_err</span><span class="source_p">;</span></span>
+<span class="lineno">1177</span> <span id="trace0-line1177" class="unreached-line">        <span class="source_p">}</span></span>
+<span class="lineno">1178</span> <span id="trace0-line1178" class="unreached-line"></span>
+<span class="lineno">1179</span> <span id="trace0-line1179" class="unreached-line">        <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">key</span><span class="source_p">,</span> <span class="source_o">*</span><span class="source_n">value</span><span class="source_p">;</span></span>
+<span class="lineno">1180</span> <span id="trace0-line1180" class="unreached-line">        <span class="source_n">Py_ssize_t</span> <span class="source_n">pos</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span>  <span class="source_cm">/* don&#39;t use pos for indexing */</span></span>
+<span class="lineno">1181</span> <span id="trace0-line1181" class="unreached-line">        <span class="source_kt">unsigned</span> <span class="source_kt">int</span> <span class="source_n">x</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span></span>
+<span class="lineno">1182</span> <span id="trace0-line1182" class="unreached-line"></span>
+<span class="lineno">1183</span> <span id="trace0-line1183" class="unreached-line">        <span class="source_k">while</span> <span class="source_p">(</span><span class="source_n">PyDict_Next</span><span class="source_p">(</span><span class="source_n">tmp</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">pos</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">key</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">value</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="lineno">1184</span> <span id="trace0-line1184" class="unreached-line">            <span class="source_k">const</span> <span class="source_kt">char</span> <span class="source_o">*</span><span class="source_n">key_str</span> <span class="source_o">=</span> <span class="source_n">PyRRD_String_AS_STRING</span><span class="source_p">(</span><span class="source_n">key</span><span class="source_p">);</span></span>
+<span class="lineno">1185</span> <span id="trace0-line1185" class="unreached-line"></span>
+<span class="lineno">1186</span> <span id="trace0-line1186" class="unreached-line">            <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">key_str</span> <span class="source_o">==</span> <span class="source_nb">NULL</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">1187</span> <span id="trace0-line1187" class="unreached-line">                <span class="source_n">rrd_set_error</span><span class="source_p">(</span><span class="source_s">&quot;key of &#39;data&#39; element from callback return &quot;</span></span>
+<span class="lineno">1188</span> <span id="trace0-line1188" class="unreached-line">                    <span class="source_s">&quot;value is not a string&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1189</span> <span id="trace0-line1189" class="unreached-line">                <span class="source_k">goto</span> <span class="source_n">gil_release_free_dsnamv_err</span><span class="source_p">;</span></span>
+<span class="lineno">1190</span> <span id="trace0-line1190" class="unreached-line">            <span class="source_p">}</span> <span class="source_k">else</span> <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">strlen</span><span class="source_p">(</span><span class="source_n">key_str</span><span class="source_p">)</span> <span class="source_o">&gt;</span> <span class="source_n">DS_NAM_SIZE</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">1191</span> <span id="trace0-line1191" class="unreached-line">                <span class="source_n">rrd_set_error</span><span class="source_p">(</span><span class="source_s">&quot;key &#39;%s&#39; longer than the allowed maximum of %d &quot;</span></span>
+<span class="lineno">1192</span> <span id="trace0-line1192" class="unreached-line">                    <span class="source_s">&quot;byte&quot;</span><span class="source_p">,</span> <span class="source_n">key_str</span><span class="source_p">,</span> <span class="source_n">DS_NAM_SIZE</span> <span class="source_o">-</span> <span class="source_mi">1</span><span class="source_p">);</span></span>
+<span class="lineno">1193</span> <span id="trace0-line1193" class="unreached-line">                <span class="source_k">goto</span> <span class="source_n">gil_release_free_dsnamv_err</span><span class="source_p">;</span></span>
+<span class="lineno">1194</span> <span id="trace0-line1194" class="unreached-line">            <span class="source_p">}</span></span>
+<span class="lineno">1195</span> <span id="trace0-line1195" class="unreached-line"></span>
+<span class="lineno">1196</span> <span id="trace0-line1196" class="unreached-line">            <span class="source_k">if</span> <span class="source_p">((((</span><span class="source_o">*</span><span class="source_n">ds_namv</span><span class="source_p">)[</span><span class="source_n">x</span><span class="source_p">])</span> <span class="source_o">=</span> <span class="source_p">(</span><span class="source_kt">char</span> <span class="source_o">*</span><span class="source_p">)</span><span class="source_n">malloc</span><span class="source_p">(</span><span class="source_k">sizeof</span><span class="source_p">(</span><span class="source_kt">char</span><span class="source_p">)</span> <span class="source_o">*</span> <span class="source_n">DS_NAM_SIZE</span><span class="source_p">))</span> <span class="source_o">==</span> <span class="source_nb">NULL</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">1197</span> <span id="trace0-line1197" class="unreached-line">                <span class="source_n">rrd_set_error</span><span class="source_p">(</span><span class="source_s">&quot;malloc fetch ds_namv entry&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1198</span> <span id="trace0-line1198" class="unreached-line">                <span class="source_k">goto</span> <span class="source_n">gil_release_free_dsnamv_err</span><span class="source_p">;</span></span>
+<span class="lineno">1199</span> <span id="trace0-line1199" class="unreached-line">            <span class="source_p">}</span></span>
+<span class="lineno">1200</span> <span id="trace0-line1200" class="unreached-line"></span>
+<span class="lineno">1201</span> <span id="trace0-line1201" class="unreached-line">            <span class="source_n">strncpy</span><span class="source_p">((</span><span class="source_o">*</span><span class="source_n">ds_namv</span><span class="source_p">)[</span><span class="source_n">x</span><span class="source_p">],</span> <span class="source_n">key_str</span><span class="source_p">,</span> <span class="source_n">DS_NAM_SIZE</span> <span class="source_o">-</span> <span class="source_mi">1</span><span class="source_p">);</span></span>
+<span class="lineno">1202</span> <span id="trace0-line1202" class="unreached-line">            <span class="source_p">(</span><span class="source_o">*</span><span class="source_n">ds_namv</span><span class="source_p">)[</span><span class="source_n">x</span><span class="source_p">][</span><span class="source_n">DS_NAM_SIZE</span> <span class="source_o">-</span> <span class="source_mi">1</span><span class="source_p">]</span> <span class="source_o">=</span> <span class="source_sc">&#39;\0&#39;</span><span class="source_p">;</span></span>
+<span class="lineno">1203</span> <span id="trace0-line1203" class="unreached-line"></span>
+<span class="lineno">1204</span> <span id="trace0-line1204" class="unreached-line">            <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">PyList_Check</span><span class="source_p">(</span><span class="source_n">value</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="lineno">1205</span> <span id="trace0-line1205" class="unreached-line">                <span class="source_n">rrd_set_error</span><span class="source_p">(</span><span class="source_s">&quot;expected &#39;data&#39; dict values in callback return &quot;</span></span>
+<span class="lineno">1206</span> <span id="trace0-line1206" class="unreached-line">                    <span class="source_s">&quot;value of type list&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1207</span> <span id="trace0-line1207" class="unreached-line">                <span class="source_k">goto</span> <span class="source_n">gil_release_free_dsnamv_err</span><span class="source_p">;</span></span>
+<span class="lineno">1208</span> <span id="trace0-line1208" class="unreached-line">            <span class="source_p">}</span> <span class="source_k">else</span> <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">PyList_Size</span><span class="source_p">(</span><span class="source_n">value</span><span class="source_p">)</span> <span class="source_o">&gt;</span> <span class="source_n">rowcount</span><span class="source_p">)</span></span>
+<span class="lineno">1209</span> <span id="trace0-line1209" class="unreached-line">                <span class="source_n">rowcount</span> <span class="source_o">=</span> <span class="source_n">PyList_Size</span><span class="source_p">(</span><span class="source_n">value</span><span class="source_p">);</span></span>
+<span class="lineno">1210</span> <span id="trace0-line1210" class="unreached-line"></span>
+<span class="lineno">1211</span> <span id="trace0-line1211" class="unreached-line">            <span class="source_o">++</span><span class="source_n">x</span><span class="source_p">;</span></span>
+<span class="lineno">1212</span> <span id="trace0-line1212" class="unreached-line">        <span class="source_p">}</span></span>
+<span class="lineno">1213</span> <span id="trace0-line1213" class="unreached-line"></span>
+<span class="lineno">1214</span> <span id="trace0-line1214" class="unreached-line">        <span class="source_o">*</span><span class="source_n">end</span> <span class="source_o">=</span> <span class="source_o">*</span><span class="source_n">start</span> <span class="source_o">+</span> <span class="source_o">*</span><span class="source_n">step</span> <span class="source_o">*</span> <span class="source_n">rowcount</span><span class="source_p">;</span></span>
+<span class="lineno">1215</span> <span id="trace0-line1215" class="unreached-line"></span>
+<span class="lineno">1216</span> <span id="trace0-line1216" class="unreached-line">        <span class="source_k">if</span> <span class="source_p">(((</span><span class="source_o">*</span><span class="source_n">data</span><span class="source_p">)</span> <span class="source_o">=</span> <span class="source_p">(</span><span class="source_n">rrd_value_t</span> <span class="source_o">*</span><span class="source_p">)</span><span class="source_n">malloc</span><span class="source_p">(</span><span class="source_o">*</span><span class="source_n">ds_cnt</span> <span class="source_o">*</span> <span class="source_n">rowcount</span> <span class="source_o">*</span> <span class="source_k">sizeof</span><span class="source_p">(</span><span class="source_n">rrd_value_t</span><span class="source_p">)))</span> <span class="source_o">==</span> <span class="source_nb">NULL</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">1217</span> <span id="trace0-line1217" class="unreached-line">            <span class="source_n">rrd_set_error</span><span class="source_p">(</span><span class="source_s">&quot;malloc fetch data area&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1218</span> <span id="trace0-line1218" class="unreached-line">            <span class="source_k">goto</span> <span class="source_n">gil_release_free_dsnamv_err</span><span class="source_p">;</span></span>
+<span class="lineno">1219</span> <span id="trace0-line1219" class="unreached-line">        <span class="source_p">}</span></span>
+<span class="lineno">1220</span> <span id="trace0-line1220" class="unreached-line"></span>
+<span class="lineno">1221</span> <span id="trace0-line1221" class="unreached-line">        <span class="source_k">for</span> <span class="source_p">(</span><span class="source_n">i</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span> <span class="source_n">i</span> <span class="source_o">&lt;</span> <span class="source_o">*</span><span class="source_n">ds_cnt</span><span class="source_p">;</span> <span class="source_n">i</span><span class="source_o">++</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">1222</span> <span id="trace0-line1222" class="unreached-line">            <span class="source_k">for</span> <span class="source_p">(</span><span class="source_n">ii</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span> <span class="source_n">ii</span> <span class="source_o">&lt;</span> <span class="source_p">(</span><span class="source_kt">unsigned</span> <span class="source_kt">int</span><span class="source_p">)</span><span class="source_n">rowcount</span><span class="source_p">;</span> <span class="source_n">ii</span><span class="source_o">++</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">1223</span> <span id="trace0-line1223" class="unreached-line">                <span class="source_kt">char</span> <span class="source_o">*</span><span class="source_n">ds_namv_i</span> <span class="source_o">=</span> <span class="source_p">(</span><span class="source_o">*</span><span class="source_n">ds_namv</span><span class="source_p">)[</span><span class="source_n">i</span><span class="source_p">];</span></span>
+<span class="lineno">1224</span> <span id="trace0-line1224" class="unreached-line">                <span class="source_kt">double</span> <span class="source_n">va</span><span class="source_p">;</span></span>
+<span class="lineno">1225</span> <span id="trace0-line1225" class="unreached-line">                <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">lstv</span> <span class="source_o">=</span> <span class="source_n">PyList_GetItem</span><span class="source_p">(</span><span class="source_n">PyDict_GetItemString</span><span class="source_p">(</span><span class="source_n">tmp</span><span class="source_p">,</span> <span class="source_n">ds_namv_i</span><span class="source_p">),</span> <span class="source_n">ii</span><span class="source_p">);</span></span>
+<span class="lineno">1226</span> <span id="trace0-line1226" class="unreached-line"></span>
+<span class="lineno">1227</span> <span id="trace0-line1227" class="unreached-line">                <span class="source_cm">/* lstv may be NULL here in case an IndexError has been raised;</span></span>
+<span class="lineno">1228</span> <span id="trace0-line1228" class="unreached-line"><span class="source_cm">                   in such case the rowcount is higher than the number of elements for</span></span>
+<span class="lineno">1229</span> <span id="trace0-line1229" class="unreached-line"><span class="source_cm">                   the list of that ds. use DNAN as value for these then */</span></span>
+<span class="lineno">1230</span> <span id="trace0-line1230" class="unreached-line">                <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">lstv</span> <span class="source_o">==</span> <span class="source_nb">NULL</span> <span class="source_o">||</span> <span class="source_n">lstv</span> <span class="source_o">==</span> <span class="source_n">Py_None</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">1231</span> <span id="trace0-line1231" class="unreached-line">                    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">lstv</span> <span class="source_o">==</span> <span class="source_nb">NULL</span><span class="source_p">)</span></span>
+<span class="lineno">1232</span> <span id="trace0-line1232" class="unreached-line">                        <span class="source_n">PyErr_Clear</span><span class="source_p">();</span></span>
+<span class="lineno">1233</span> <span id="trace0-line1233" class="unreached-line">                    <span class="source_n">va</span> <span class="source_o">=</span> <span class="source_n">DNAN</span><span class="source_p">;</span></span>
+<span class="lineno">1234</span> <span id="trace0-line1234" class="unreached-line">                <span class="source_p">}</span></span>
+<span class="lineno">1235</span> <span id="trace0-line1235" class="unreached-line">                <span class="source_k">else</span> <span class="source_p">{</span></span>
+<span class="lineno">1236</span> <span id="trace0-line1236" class="unreached-line">                    <span class="source_n">va</span> <span class="source_o">=</span> <span class="source_n">PyFloat_AsDouble</span><span class="source_p">(</span><span class="source_n">lstv</span><span class="source_p">);</span></span>
+<span class="lineno">1237</span> <span id="trace0-line1237" class="unreached-line">                    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">va</span> <span class="source_o">==</span> <span class="source_o">-</span><span class="source_mf">1.0</span> <span class="source_o">&amp;&amp;</span> <span class="source_n">PyErr_Occurred</span><span class="source_p">())</span> <span class="source_p">{</span></span>
+<span class="lineno">1238</span> <span id="trace0-line1238" class="unreached-line">                        <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">exc_type</span><span class="source_p">,</span> <span class="source_o">*</span><span class="source_n">exc_value</span><span class="source_p">,</span> <span class="source_o">*</span><span class="source_n">exc_value_str</span> <span class="source_o">=</span> <span class="source_nb">NULL</span><span class="source_p">,</span> <span class="source_o">*</span><span class="source_n">exc_tb</span><span class="source_p">;</span></span>
+<span class="lineno">1239</span> <span id="trace0-line1239" class="unreached-line">                        <span class="source_n">PyErr_Fetch</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">exc_type</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">exc_value</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">exc_tb</span><span class="source_p">);</span></span>
+<span class="lineno">1240</span> <span id="trace0-line1240" class="unreached-line"></span>
+<span class="lineno">1241</span> <span id="trace0-line1241" class="unreached-line">                        <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">exc_value</span> <span class="source_o">!=</span> <span class="source_nb">NULL</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">1242</span> <span id="trace0-line1242" class="unreached-line">                            <span class="source_n">exc_value_str</span> <span class="source_o">=</span> <span class="source_n">PyObject_Str</span><span class="source_p">(</span><span class="source_n">exc_value</span><span class="source_p">);</span></span>
+<span class="lineno">1243</span> <span id="trace0-line1243" class="unreached-line">                            <span class="source_n">rrd_set_error</span><span class="source_p">((</span><span class="source_kt">char</span> <span class="source_o">*</span><span class="source_p">)</span><span class="source_n">PyRRD_String_AS_STRING</span><span class="source_p">(</span><span class="source_n">exc_value_str</span><span class="source_p">));</span></span>
+<span class="lineno">1244</span> <span id="trace0-line1244" class="unreached-line">                            <span class="source_n">Py_DECREF</span><span class="source_p">(</span><span class="source_n">exc_value</span><span class="source_p">);</span></span>
+<span class="lineno">1245</span> <span id="trace0-line1245" class="unreached-line">                        <span class="source_p">}</span></span>
+<span class="lineno">1246</span> <span id="trace0-line1246" class="unreached-line"></span>
+<span class="lineno">1247</span> <span id="trace0-line1247" class="unreached-line">                        <span class="source_n">Py_DECREF</span><span class="source_p">(</span><span class="source_n">exc_type</span><span class="source_p">);</span></span>
+<span class="lineno">1248</span> <span id="trace0-line1248" class="unreached-line">                        <span class="source_n">Py_DECREF</span><span class="source_p">(</span><span class="source_n">exc_value_str</span><span class="source_p">);</span></span>
+<span class="lineno">1249</span> <span id="trace0-line1249" class="unreached-line">                        <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">exc_tb</span> <span class="source_o">!=</span> <span class="source_nb">NULL</span><span class="source_p">)</span></span>
+<span class="lineno">1250</span> <span id="trace0-line1250" class="unreached-line">                            <span class="source_n">Py_DECREF</span><span class="source_p">(</span><span class="source_n">exc_tb</span><span class="source_p">);</span></span>
+<span class="lineno">1251</span> <span id="trace0-line1251" class="unreached-line">                        <span class="source_k">goto</span> <span class="source_n">gil_release_free_dsnamv_err</span><span class="source_p">;</span></span>
+<span class="lineno">1252</span> <span id="trace0-line1252" class="unreached-line">                    <span class="source_p">}</span></span>
+<span class="lineno">1253</span> <span id="trace0-line1253" class="unreached-line">                <span class="source_p">}</span></span>
+<span class="lineno">1254</span> <span id="trace0-line1254" class="unreached-line"></span>
+<span class="lineno">1255</span> <span id="trace0-line1255" class="unreached-line">                <span class="source_p">(</span><span class="source_o">*</span><span class="source_n">data</span><span class="source_p">)[</span><span class="source_n">i</span> <span class="source_o">+</span> <span class="source_n">ii</span> <span class="source_o">*</span> <span class="source_p">(</span><span class="source_o">*</span><span class="source_n">ds_cnt</span><span class="source_p">)]</span> <span class="source_o">=</span> <span class="source_n">va</span><span class="source_p">;</span></span>
+<span class="lineno">1256</span> <span id="trace0-line1256" class="unreached-line">            <span class="source_p">}</span></span>
+<span class="lineno">1257</span> <span id="trace0-line1257" class="unreached-line">        <span class="source_p">}</span></span>
+<span class="lineno">1258</span> <span id="trace0-line1258" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">1259</span> <span id="trace0-line1259" class="unreached-line"></span>
+<span class="lineno">1260</span> <span id="trace0-line1260" class="unreached-line">    <span class="source_cm">/* success */</span></span>
+<span class="lineno">1261</span> <span id="trace0-line1261" class="unreached-line">    <span class="source_n">rc</span> <span class="source_o">=</span> <span class="source_mi">1</span><span class="source_p">;</span></span>
+<span class="lineno">1262</span> <span id="trace0-line1262" class="unreached-line">    <span class="source_k">goto</span> <span class="source_n">gil_release</span><span class="source_p">;</span></span>
+<span class="lineno">1263</span> <span id="trace0-line1263" class="unreached-line"></span>
+<span class="lineno">1264</span> <span id="trace0-line1264" class="unreached-line"><span class="source_nl">gil_release_free_dsnamv_err</span><span class="source_p">:</span></span>
+<span class="lineno">1265</span> <span id="trace0-line1265" class="unreached-line">    <span class="source_k">for</span> <span class="source_p">(</span><span class="source_n">i</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span> <span class="source_n">i</span> <span class="source_o">&lt;</span> <span class="source_o">*</span><span class="source_n">ds_cnt</span><span class="source_p">;</span> <span class="source_n">i</span><span class="source_o">++</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">1266</span> <span id="trace0-line1266" class="unreached-line">        <span class="source_k">if</span> <span class="source_p">((</span><span class="source_o">*</span><span class="source_n">ds_namv</span><span class="source_p">)[</span><span class="source_n">i</span><span class="source_p">])</span> <span class="source_p">{</span></span>
+<span class="lineno">1267</span> <span id="trace0-line1267" class="unreached-line">            <span class="source_n">free</span><span class="source_p">((</span><span class="source_o">*</span><span class="source_n">ds_namv</span><span class="source_p">)[</span><span class="source_n">i</span><span class="source_p">]);</span></span>
+<span class="lineno">1268</span> <span id="trace0-line1268" class="unreached-line">        <span class="source_p">}</span></span>
+<span class="lineno">1269</span> <span id="trace0-line1269" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">1270</span> <span id="trace0-line1270" class="unreached-line"></span>
+<span class="lineno">1271</span> <span id="trace0-line1271" class="unreached-line">    <span class="source_n">free</span><span class="source_p">(</span><span class="source_o">*</span><span class="source_n">ds_namv</span><span class="source_p">);</span></span>
+<span class="lineno">1272</span> <span id="trace0-line1272" class="unreached-line"></span>
+<span class="lineno">1273</span> <span id="trace0-line1273" class="unreached-line"><span class="source_nl">gil_release_err</span><span class="source_p">:</span></span>
+<span class="reached-lineno">1274</span> <span id="trace0-line1274" class="reached-line">    <span class="source_n">rc</span> <span class="source_o">=</span> <span class="source_o">-</span><span class="source_mi">1</span><span class="source_p">;</span></span>
+<span class="lineno">1275</span> <span id="trace0-line1275" class="unreached-line"></span>
+<span class="lineno">1276</span> <span id="trace0-line1276" class="unreached-line"><span class="source_nl">gil_release</span><span class="source_p">:</span></span>
+<span class="reached-lineno">1277</span> <span id="trace0-line1277" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">ret</span> <span class="source_o">!=</span> <span class="source_nb">NULL</span><span class="source_p">)</span></span>
+<span class="transition">taking True path</span>
+<span class="reached-lineno">1278</span> <span id="trace0-line1278" class="reached-line">        <span class="source_n">Py_DECREF</span><span class="source_p">(</span><span class="source_n">ret</span><span class="source_p">);</span></span>
+<span class="transition">when taking True path</span>
+<span class="reached-lineno">1279</span> <span id="trace0-line1279" class="reached-line">    <span class="source_n">PyGILState_Release</span><span class="source_p">(</span><span class="source_n">gstate</span><span class="source_p">);</span></span>
+<span class="transition">calling PyGILState_Release()</span>
+<span class="reached-lineno">1280</span> <span id="trace0-line1280" class="reached-line">    <span class="source_k">return</span> <span class="source_n">rc</span><span class="source_p">;</span></span>
+<span class="transition">returning</span>
+<span class="error">memory leak: ob_refcnt of '*tmp_min_ts' is 1 too high</span>
+<span class="note">was expecting final owned ob_refcnt of '*tmp_min_ts' to be 0 since nothing references it but final ob_refcnt is refs: 1 owned</span>
+<span class="note">found 11 similar trace(s) to this</span>
+<span class="lineno">1281</span> <span id="trace0-line1281" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace0-line1079',
+                     target:'trace0-line1081',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1081',
+                     target:'trace0-line1086',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1086',
+                     target:'trace0-line1087',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1087',
+                     target:'trace0-line1090',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1090',
+                     target:'trace0-line1092',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1092',
+                     target:'trace0-line1093',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1093',
+                     target:'trace0-line1094',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1094',
+                     target:'trace0-line1096',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1096',
+                     target:'trace0-line1097',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1097',
+                     target:'trace0-line1098',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1098',
+                     target:'trace0-line1100',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1100',
+                     target:'trace0-line1101',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1101',
+                     target:'trace0-line1102',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1102',
+                     target:'trace0-line1104',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1104',
+                     target:'trace0-line1105',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1105',
+                     target:'trace0-line1106',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1106',
+                     target:'trace0-line1108',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1108',
+                     target:'trace0-line1109',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1109',
+                     target:'trace0-line1110',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1110',
+                     target:'trace0-line1113',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1113',
+                     target:'trace0-line1114',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1117',
+                     target:'trace0-line1123',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1123',
+                     target:'trace0-line1128',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1128',
+                     target:'trace0-line1129',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1129',
+                     target:'trace0-line1132',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1132',
+                     target:'trace0-line1136',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1138',
+                     target:'trace0-line1139',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1139',
+                     target:'trace0-line1142',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1142',
+                     target:'trace0-line1146',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1146',
+                     target:'trace0-line1147',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1146',
+                     target:'trace0-line1152',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1154',
+                     target:'trace0-line1161',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1161',
+                     target:'trace0-line1162',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1162',
+                     target:'trace0-line1165',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1165',
+                     target:'trace0-line1166',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1277',
+                     target:'trace0-line1278',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1279',
+                     target:'trace0-line1280',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+  </body>

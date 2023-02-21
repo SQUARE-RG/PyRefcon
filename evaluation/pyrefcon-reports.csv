@@ -1,0 +1,278 @@
+project,bug type,file,function,line,path length,report,result,category,issue,submit,count
+pyaudio,RL,src/_portaudiomodule.c,_pyAudio_Stream_get_structVersion,987,5,report-f81f43.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,_pyAudio_Stream_get_structVersion,995,8,report-a216fd.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,_pyAudio_Stream_get_inputLatency,1011,5,report-d4f598.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,_pyAudio_Stream_get_inputLatency,1020,8,report-ae0729.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,_pyAudio_Stream_get_outputLatency,1036,5,report-1f5f9e.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,_pyAudio_Stream_get_outputLatency,1045,8,report-38648a.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,_pyAudio_Stream_get_sampleRate,1061,5,report-72d89c.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,_pyAudio_Stream_get_sampleRate,1070,8,report-5614ba.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_initialize,1216,6,report-d69ddb.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_get_host_api_count,1256,8,report-7eace3.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_get_default_host_api,1283,8,report-a1c054.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_host_api_type_id_to_host_api_index,1311,8,report-ac675f.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_host_api_device_index_to_device_index,1340,8,report-4a55f1.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_get_host_api_info,1362,8,report-fc7894.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_get_device_count,1396,8,report-303ec1.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_get_default_input_device,1425,10,report-162d67.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_get_default_output_device,1454,10,report-113888.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_get_device_info,1476,8,report-7c3d12.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_open,1810,17,report-e1e597.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_open,1847,20,report-dcbfa1.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_open,1904,26,report-2b7589.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_open,1913,28,report-76a5b3.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_get_sample_size,1960,8,report-d4051b.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_is_format_supported,2034,18,report-9e84e2.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_start_stream,2060,7,report-64d8e1.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_start_stream,2079,11,report-31cb64.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_stop_stream,2124,11,report-4eae35.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_abort_stream,2168,11,report-10925a.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_is_stream_stopped,2193,7,report-df9537.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_is_stream_stopped,2211,10,report-79b52a.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_is_stream_active,2257,10,report-65b201.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_get_stream_time,2287,7,report-64f023.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_get_stream_time,2298,10,report-543e69.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_get_stream_cpu_load,2321,7,report-93829b.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_write_stream,2369,9,report-905457.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_write_stream,2403,15,report-ebc9dd.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_read_stream,2439,9,report-b31a34.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_read_stream,2454,12,report-d8817e.html,TP,leak on error handling branch,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_read_stream,2459,12,report-a0122a.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_read_stream,2493,16,report-dbb2f0.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_get_stream_write_available,2516,7,report-9ec679.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pyaudio,RL,src/_portaudiomodule.c,pa_get_stream_read_available,2542,7,report-32d4d0.html,TP,created passed to non-stealing,-,Non integrated Git platform,1
+pycrypto,RL,src/_counter.c,_CounterObject_next_value,154,18,report-2b6754.html,FP,noreturn,-,False positive,1
+pycrypto,RL,src/_counter.c,_CounterObject_next_value,159,18,report-491f73.html,FP,noreturn,-,False positive,1
+pycrypto,RL,src/_counter.c,CounterLE_new,421,7,report-f94406.html,TP,leak on error handling branch,-,Project archived,1
+pycrypto,RL,src/_counter.c,CounterBE_new,447,7,report-9ff272.html,TP,leak on error handling branch,-,Project archived,1
+pycrypto,UaR,src/_fastmath.c,dsaKey__sign,535,12,report-2cd25e.html,TP,use after decrement on captured,-,Project archived,1
+pycrypto,UaR,src/_fastmath.c,rsaKey__encrypt,795,10,report-5d3d4e.html,TP,use after decrement on captured,-,Project archived,1
+pycrypto,UaR,src/_fastmath.c,rsaKey__decrypt,831,12,report-f308a8.html,TP,use after decrement on captured,-,Project archived,1
+pycrypto,UaR,src/_fastmath.c,rsaKey__blind,895,12,report-800873.html,TP,use after decrement on captured,-,Project archived,1
+pycrypto,UaR,src/_fastmath.c,rsaKey__unblind,938,14,report-bdb342.html,TP,use after decrement on captured,-,Project archived,1
+pyxattr,RL,xattr.c,get_all,632,21,report-19f80b.html,TP,leak on error handling branch,https://github.com/iustin/pyxattr/issues/35,fixed,1
+pyxattr,RL,xattr.c,PyInit_xattr,1185,9,report-1eed62.html,TP,leak on error handling branch,https://github.com/iustin/pyxattr/issues/35,fixed,1
+rrdtool,RL,rrdtoolmodule.c,_rrdtool_xport,724,8,report-1c2c68.html,TP,created passed to non-stealing,-,No operations within one year,1
+rrdtool,RL,rrdtoolmodule.c,_rrdtool_xport,725,10,report-f468c9.html,TP,created passed to non-stealing,-,No operations within one year,1
+rrdtool,RL,rrdtoolmodule.c,_rrdtool_xport,726,12,report-bc304d.html,TP,created passed to non-stealing,-,No operations within one year,1
+rrdtool,RL,rrdtoolmodule.c,_rrdtool_xport,728,8,report-009c82.html,TP,created passed to non-stealing,-,No operations within one year,1
+rrdtool,RL,rrdtoolmodule.c,_rrdtool_xport,729,8,report-7215fe.html,TP,created passed to non-stealing,-,No operations within one year,1
+rrdtool,RL,rrdtoolmodule.c,_rrdtool_xport,734,8,report-30a5c0.html,TP,created passed to non-stealing,-,No operations within one year,1
+rrdtool,RL,rrdtoolmodule.c,_rrdtool_xport,735,8,report-db5331.html,TP,created passed to non-stealing,-,No operations within one year,1
+rrdtool,RL,rrdtoolmodule.c,_rrdtool_xport,737,8,report-cfe0f2.html,TP,created passed to non-stealing,-,No operations within one year,1
+rrdtool,RL,rrdtoolmodule.c,_rrdtool_xport,738,8,report-df36bb.html,TP,created passed to non-stealing,-,No operations within one year,1
+rrdtool,RL,rrdtoolmodule.c,_rrdtool_xport,740,8,report-82d98c.html,TP,created passed to non-stealing,-,No operations within one year,1
+rrdtool,RL,rrdtoolmodule.c,_rrdtool_xport,741,8,report-8bc208.html,TP,created passed to non-stealing,-,No operations within one year,1
+rrdtool,RL,rrdtoolmodule.c,_rrdtool_xport,743,8,report-3d4807.html,TP,created passed to non-stealing,-,No operations within one year,1
+rrdtool,RL,rrdtoolmodule.c,_rrdtool_xport,744,8,report-9d67d5.html,TP,created passed to non-stealing,-,No operations within one year,1
+rrdtool,RL,rrdtoolmodule.c,_rrdtool_xport,746,8,report-aa5d00.html,TP,created passed to non-stealing,-,No operations within one year,1
+rrdtool,RL,rrdtoolmodule.c,_rrdtool_xport,747,8,report-89352b.html,TP,created passed to non-stealing,-,No operations within one year,1
+rrdtool,RL,rrdtoolmodule.c,_rrdtool_xport,749,8,report-1a6dd6.html,TP,created passed to non-stealing,-,No operations within one year,1
+rrdtool,RL,rrdtoolmodule.c,_rrdtool_lastupdate,1013,16,report-0ee6bb.html,TP,leak on error handling branch,-,No operations within one year,1
+rrdtool,RL,rrdtoolmodule.c,_rrdtool_fetch_cb_wrapper,1090,8,report-3b432d.html,TP,leak on error handling branch,-,No operations within one year,1
+rrdtool,UaR,rrdtoolmodule.c,_rrdtool_lastupdate,1034,19,report-c0bfa3.html,TP,use after created passed to decrease,-,No operations within one year,1
+rrdtool,UaR,rrdtoolmodule.c,_rrdtool_fetch_cb_wrapper,1147,22,report-1f0810.html,TP,use after created passed to decrease,-,No operations within one year,1
+rrdtool,UaR,rrdtoolmodule.c,_rrdtool_fetch,459,11,report-ccb78b.html,TP,use after created passed to steal,-,No operations within one year,1
+rrdtool,UaR,rrdtoolmodule.c,_rrdtool_graph,628,14,report-afeddd.html,TP,use after created passed to steal,-,No operations within one year,1
+rrdtool,UaR,rrdtoolmodule.c,_rrdtool_xport,763,20,report-503983.html,TP,use after created passed to steal,-,No operations within one year,1
+rrdtool,UaR,rrdtoolmodule.c,_rrdtool_xport,766,20,report-11079d.html,TP,use after created passed to steal,-,No operations within one year,1
+dbus,RL,dbus_bindings/conn-methods.c,Connection__register_object_path,756,32,report-9deefd.html,TP,leak on error handling branch,-,Issue is not enabled,1
+dbus,RL,dbus_bindings/mainloop.c,dbus_py_insert_mainloop_types,160,11,report-ea78d9.html,TP,leak on error handling branch,-,Issue is not enabled,2
+dbus,RL,dbus_bindings/message-append.c,_signature_string_from_pyobject,320,40,report-2ac658.html,TP,leak on error handling branch,-,Issue is not enabled,1
+dbus,RL,dbus_bindings/message-append.c,dbus_py_Message_append,414,26,report-f0f2ea.html,FP,noreturn,-,False positive,1
+dbus,RL,dbus_bindings/message-append.c,dbus_py_Message_append,446,35,report-8f3c74.html,FP,noreturn,-,False positive,1
+dbus,RL,dbus_bindings/message-append.c,_message_iter_append_string,490,28,report-21227b.html,TP,leak on error handling branch,-,Issue is not enabled,1
+dbus,RL,dbus_bindings/message-append.c,_message_iter_append_multi,722,41,report-b56bdd.html,TP,leak on error handling branch,-,Issue is not enabled,1
+dbus,RL,dbus_bindings/message.c,Message_get_path_decomposed,544,17,report-c58513.html,TP,leak on error handling branch,-,Issue is not enabled,1
+dbus,RL,dbus_bindings/module.c,PyInit__dbus_bindings,401,163,report-a8aea3.html,TP,leak on error handling branch,-,Issue is not enabled,1
+dbus,RL,dbus_bindings/server.c,DBusPyServer_set_auth_mechanisms,123,60,report-5911ce.html,TP,leak on error handling branch,-,Issue is not enabled,1
+dbus,RL,test/dbus_py_test.c,UnusableMainLoop,102,20,report-02ad8b.html,TP,pure leak,-,Issue is not enabled,1
+duplicity,RL,duplicity/_librsyncmodule.c,_librsync_new_deltamaker,188,10,report-a80c0e.html,TP,leak on error handling branch,https://gitlab.com/duplicity/duplicity/-/issues/128,fixed,1
+duplicity,RL,duplicity/_librsyncmodule.c,moduleinit,483,7,report-117c91.html,TP,created passed to non-stealing,https://gitlab.com/duplicity/duplicity/-/issues/129,fixed,1
+duplicity,RL,duplicity/_librsyncmodule.c,moduleinit,485,7,report-c3da48.html,TP,created passed to non-stealing,https://gitlab.com/duplicity/duplicity/-/issues/129,fixed,1
+NumPy,RL,numpy/core/src/_simd/_simd_convert.inc,simd_sequence_from_iterable,87,11,report-7fbd6f.html,TP,leak on error handling branch,cf19a9ca8f13efe8d8dff550043cf9c9e5f7f9d3,Fixed before submitting,1
+NumPy,RL,numpy/core/src/multiarray/array_coercion.c,PyArray_DiscoverDTypeAndShape_Recursive,1075,23,report-bdf365.html,TP,leak on error handling branch,https://github.com/numpy/numpy/issues/19288,fixed,15
+NumPy,RL,numpy/core/src/multiarray/array_method.c,boundarraymethod_repr,474,8,report-c8fdc0.html,TP,pure leak,https://github.com/numpy/numpy/issues/19931,fixed,1
+NumPy,RL,numpy/core/src/multiarray/arrayfunction_override.c,array_implement_c_array_function_creation,407,19,report-f5e33e.html,TP,leak on error handling branch,https://github.com/numpy/numpy/issues/21532,issued,1
+NumPy,RL,numpy/core/src/multiarray/calculation.c,__New_PyArray_Std,407,26,report-a7dae8.html,TP,leak on error handling branch,https://github.com/numpy/numpy/issues/21532,issued,1
+NumPy,RL,numpy/core/src/multiarray/descriptor.c,_convert_from_array_descr,435,30,report-347302.html,TP,leak on error handling branch,https://github.com/numpy/numpy/issues/21532,issued,6
+NumPy,RL,numpy/core/src/multiarray/descriptor.c,_convert_from_array_descr,549,64,report-3e48a7.html,TP,leak on error handling branch,https://github.com/numpy/numpy/issues/21532,issued,6
+NumPy,RL,numpy/core/src/multiarray/descriptor.c,PyArray_CastScalarToCtype,1792,29,report-8db89e.html,TP,leak on error handling branch,https://github.com/numpy/numpy/issues/19287,fixed,2
+NumPy,RL,numpy/core/src/multiarray/descriptor.c,arraydescr_setstate,2697,21,report-d3830d.html,TP,leak on error handling branch,https://github.com/numpy/numpy/issues/21532,issued,1
+NumPy,RL,numpy/core/src/multiarray/descriptor.c,arraydescr_setstate,2698,27,report-f9b533.html,TP,leak on error handling branch,https://github.com/numpy/numpy/issues/21532,issued,1
+NumPy,RL,numpy/core/src/multiarray/descriptor.c,arraydescr_setstate,2800,50,report-b4258c.html,TP,leak on error handling branch,https://github.com/numpy/numpy/issues/21532,issued,1
+NumPy,RL,numpy/core/src/multiarray/getset.c,array_struct_get,675,18,report-42895d.html,TP,leak on error handling branch,https://github.com/numpy/numpy/issues/21532,issued,1
+NumPy,RL,numpy/core/src/multiarray/methods.c,array_setstate,2005,33,report-d15060.html,TP,leak on error handling branch,https://github.com/numpy/numpy/issues/21532,issued,1
+NumPy,RL,numpy/core/src/multiarray/multiarraymodule.c,PyInit__multiarray_umath,4673,10,report-dab3b2.html,TP,leak on error handling branch,https://github.com/numpy/numpy/issues/19307,fixed,1
+NumPy,RL,numpy/core/src/multiarray/nditer_pywrap.c,npyiter_multi_index_set,1596,16,report-d708ed.html,TP,pure leak,https://github.com/numpy/numpy/issues/19375,fixed,1
+NumPy,RL,numpy/core/src/multiarray/number.c,__New_PyArray_Std,270,34,report-fbd6d9.html,TP,leak on error handling branch,https://github.com/numpy/numpy/issues/21532,issued,1
+NumPy,RL,numpy/core/src/multiarray/number.c,is_scalar_with_conversion,423,30,report-5bd392.html,TP,pure leak,https://github.com/numpy/numpy/issues/19376,fixed,1
+NumPy,RL,numpy/core/src/multiarray/usertypes.c,PyArray_RegisterCastFunc,296,11,report-9d9216.html,FP,unmodeled behavior,-,False positive,1
+NumPy,RL,numpy/core/src/umath/ufunc_object.c,execute_fancy_ufunc_loop,1528,24,report-2c767e.html,FP,unmodeled behavior,-,False positive,2
+NumPy,RL,numpy/core/src/umath/ufunc_object.c,execute_fancy_ufunc_loop,1532,21,report-94d845.html,FP,unmodeled behavior,-,False positive,1
+NumPy,RL,numpy/core/src/umath/ufunc_object.c,PyUFunc_RegisterLoopForDescr,5376,10,report-397d33.html,TP,leak on error handling branch,https://github.com/numpy/numpy/issues/19337,fixed,1
+NumPy,RL,numpy/core/src/umath/ufunc_object.c,PyUFunc_RegisterLoopForType,5487,33,report-dc9217.html,TP,leak on error handling branch,https://github.com/numpy/numpy/issues/19336,fixed,1
+NumPy,RL,numpy/core/src/umath/umathmodule.c,initumath,283,4,report-c7a933.html,TP,created passed to non-stealing,https://github.com/numpy/numpy/issues/21532,issued,1
+NumPy,RL,numpy/core/src/umath/umathmodule.c,initumath,284,4,report-ee4e9c.html,TP,created passed to non-stealing,https://github.com/numpy/numpy/issues/21532,issued,1
+NumPy,RL,numpy/core/src/umath/umathmodule.c,initumath,285,4,report-0b9cee.html,TP,created passed to non-stealing,https://github.com/numpy/numpy/issues/21532,issued,1
+NumPy,RL,numpy/core/src/umath/umathmodule.c,initumath,286,4,report-afba91.html,TP,created passed to non-stealing,https://github.com/numpy/numpy/issues/21532,issued,1
+NumPy,RL,numpy/core/src/umath/umathmodule.c,initumath,287,4,report-08c0c8.html,TP,created passed to non-stealing,https://github.com/numpy/numpy/issues/21532,issued,1
+NumPy,RL,numpy/fft/_pocketfft.c,PyInit__pocketfft_internal,2372,7,report-ab547b.html,TP,leak on error handling branch,https://github.com/numpy/numpy/issues/21532,issued,1
+NumPy,RL,numpy/linalg/lapack_litemodule.c,PyInit_lapack_lite,396,7,report-9bedd0.html,TP,leak on error handling branch,https://github.com/numpy/numpy/issues/21532,issued,1
+NumPy,UaR,numpy/core/src/multiarray/ctors.c,PyArray_FromAny,1681,55,report-adaa87.html,TP,use after decrement on captured,https://github.com/numpy/numpy/issues/19878,fixed,1,-,infer
+NumPy,UaR,numpy/core/src/multiarray/ctors.c,PyArray_Zeros,2870,16,report-0b2473.html,TP,use after decrement on captured,https://github.com/numpy/numpy/issues/19859,fixed,4,-,infer
+NumPy,UaR,numpy/core/src/multiarray/descriptor.c,arraydescr_names_set,2204,19,report-1cd19d.html,TP,use after created passed to decrease,https://github.com/numpy/numpy/issues/19851,fixed,1
+NumPy,UaR,numpy/core/src/umath/ufunc_object.c,_get_normalized_typetup,4637,64,report-edd85d.html,TP,use after created passed to decrease,https://github.com/numpy/numpy/issues/19848,confirmed,1
+NumPy,UaR,numpy/core/src/_simd/_simd.c,PyInit__simd,67,19,report-d20a89.html,TP,use after created passed to steal,-,closed,1
+NumPy,UaR,numpy/core/src/multiarray/descriptor.c,_convert_from_array_descr,527,56,report-03c8b1.html,TP,use after created passed to steal,-,closed,5
+NumPy,UaR,numpy/core/src/multiarray/descriptor.c,_convert_from_array_descr,589,63,report-1cb399.html,TP,use after created passed to steal,-,closed,6,-,infer
+NumPy,UaR,numpy/core/src/multiarray/descriptor.c,_convert_from_list,697,60,report-14801d.html,TP,use after created passed to steal,https://github.com/numpy/numpy/issues/19847,closed,1
+NumPy,UaR,numpy/core/src/multiarray/descriptor.c,_convert_from_dict,1157,29,report-37fc0d.html,TP,use after created passed to steal,-,closed,1,-,infer
+NumPy,UaR,numpy/core/src/multiarray/descriptor.c,_convert_from_dict,1199,40,report-ed62a9.html,TP,use after created passed to steal,-,closed,1,-,infer
+NumPy,UaR,numpy/core/src/multiarray/descriptor.c,_convert_from_dict,1208,32,report-936d5b.html,TP,use after created passed to steal,-,closed,1,-,infer
+NumPy,UaR,numpy/core/src/multiarray/descriptor.c,arraydescr_setstate,2895,61,report-a6f290.html,TP,use after created passed to steal,-,closed,1
+NumPy,UaR,numpy/core/src/multiarray/descriptor.c,arraydescr_field_subset_view,3410,23,report-089bdc.html,TP,use after created passed to steal,-,closed,4
+PyTorch,RL,torch/csrc/Layout.cpp,initializeLayouts,22,14,report-e2a925.html,TP,created passed to non-stealing,https://github.com/pytorch/pytorch/issues/77839,confirmed,1
+PyTorch,RL,torch/csrc/MemoryFormat.cpp,initializeMemoryFormats,22,14,report-09d8df.html,TP,created passed to non-stealing,https://github.com/pytorch/pytorch/issues/77839,confirmed,1
+PyTorch,RL,torch/csrc/autograd/python_function.cpp,unpack_saved_variables,699,12,report-1f661d.html,FP,unmodeled behavior,-,False positive,1
+PyTorch,RL,torch/csrc/fx/fx_init.cpp,patch_function,89,10,report-64c00e.html,TP,pure leak,-,Function deleted,1
+PyTorch,RL,torch/csrc/fx/fx_init.cpp,initFx,133,7,report-135821.html,TP,created passed to non-stealing,-,Function deleted,1
+SciPy,RL,scipy/integrate/_odepackmodule.c,PyInit__odepack,830,5,report-0bfe48.html,TP,leak on error handling branch,https://github.com/scipy/scipy/issues/16231,fixed,1
+SciPy,RL,scipy/integrate/_quadpackmodule.c,PyInit__quadpack,33,5,report-77bbba.html,TP,leak on error handling branch,https://github.com/scipy/scipy/issues/16231,fixed,1
+SciPy,RL,scipy/interpolate/_rbfinterp_pythran.cpp,PyInit__rbfinterp_pythran,2301,9,report-52c40a.html,TP,pure leak,-,Function deleted,1
+SciPy,RL,scipy/interpolate/src/_fitpackmodule.c,PyInit__fitpack,1554,5,report-a43576.html,TP,leak on error handling branch,https://github.com/scipy/scipy/issues/16231,fixed,1
+SciPy,RL,scipy/ndimage/src/_ctest.c,py_filter2d,90,17,report-3e77e6.html,TP,leak on error handling branch,https://github.com/scipy/scipy/issues/16236,fixed,1
+SciPy,RL,scipy/ndimage/src/nd_image.c,Py_FindObjects,888,28,report-c5db6d.html,TP,leak on error handling branch,https://github.com/scipy/scipy/issues/16235,fixed,1,-,CVE?
+SciPy,RL,scipy/ndimage/src/nd_image.c,PyInit__nd_image,1184,5,report-3eb20e.html,TP,leak on error handling branch,https://github.com/scipy/scipy/issues/16231,fixed,1
+SciPy,RL,scipy/optimize/_group_columns.cpp,PyInit__group_columns,631,9,report-72ee50.html,TP,created passed to non-stealing,-,Function deleted,1
+SciPy,RL,scipy/optimize/_lsap_module.c,PyInit__lsap_module,121,5,report-e2207c.html,TP,leak on error handling branch,https://github.com/scipy/scipy/issues/16231,fixed,1
+SciPy,RL,scipy/optimize/_minpackmodule.c,PyInit__minpack,32,5,report-be4614.html,TP,leak on error handling branch,https://github.com/scipy/scipy/issues/16231,fixed,1
+SciPy,RL,scipy/signal/_max_len_seq_inner.cpp,PyInit__max_len_seq_inner,232,9,report-ad95e0.html,TP,created passed to non-stealing,-,Function deleted,1
+SciPy,RL,scipy/signal/_spectral.cpp,PyInit__spectral,386,9,report-35e974.html,TP,created passed to non-stealing,-,Function deleted,1
+SciPy,RL,scipy/signal/sigtoolsmodule.c,PyInit_sigtools,1425,5,report-24e435.html,TP,leak on error handling branch,https://github.com/scipy/scipy/issues/16231,fixed,1
+SciPy,RL,scipy/signal/splinemodule.c,PyInit_spline,558,5,report-076730.html,TP,leak on error handling branch,https://github.com/scipy/scipy/issues/16231,fixed,1
+SciPy,RL,scipy/sparse/linalg/dsolve/_superlu_utils.c,superlu_python_module_free,46,17,report-fd73a1.html,TP,pure leak,https://github.com/scipy/scipy/issues/16232,issued,118
+SciPy,RL,scipy/sparse/linalg/dsolve/_superlu_utils.c,superlu_python_module_malloc,114,15,report-690360.html,FP,incomplete path,-,False positive,107
+SciPy,RL,scipy/sparse/linalg/dsolve/_superlumodule.c,PyInit__superlu,336,11,report-206823.html,FP,unmodeled behavior,-,False positive,1
+SciPy,RL,scipy/sparse/linalg/dsolve/_superluobject.c,trans_cvt,910,23,report-d8636a.html,TP,pure leak,https://github.com/scipy/scipy/issues/16234,issued,1
+SciPy,RL,scipy/sparse/linalg/dsolve/_superluobject.c,droprule_one_cvt,963,28,report-972b9e.html,TP,pure leak,same bug with report-d8636a.html,issued,1
+SciPy,RL,scipy/sparse/sparsetools/sparsetools.cxx,PyInit__sparsetools,569,5,report-da7180.html,TP,leak on error handling branch,https://github.com/scipy/scipy/issues/16231,fixed,1
+SciPy,RL,scipy/spatial/src/distance_wrap.c,PyInit__distance_wrap,923,5,report-bb9ac7.html,TP,leak on error handling branch,https://github.com/scipy/scipy/issues/16231,fixed,1
+SciPy,RL,scipy/special/sf_error.c,sf_error,93,20,report-1917e6.html,TP,pure leak,https://github.com/scipy/scipy/issues/16233,fixed,3
+SciPy,RL,scipy/stats/_hypotests_pythran.cpp,PyInit__hypotests_pythran,1208,9,report-b091ba.html,TP,created passed to non-stealing,-,Function deleted,1
+SciPy,UaR,scipy/ndimage/src/nd_image.c,Py_FindObjects,931,34,report-52c86c.html,TP,use after created passed to decrease,https://github.com/scipy/scipy/issues/14713,fixed,1
+SciPy,UaR,scipy/ndimage/src/nd_image.c,Py_FindObjects,934,34,report-65df7d.html,FP,unmodeled behavior,-,False positive,1
+SciPy,UaR,scipy/odr/__odrpack.c,fcn_callback,74,6,report-da8789.html,TP,use after decrement on captured,https://github.com/scipy/scipy/issues/18014,issued,1
+Numba,RL,numba/_dispatcher.cpp,PyInit__dispatcher,1001,9,report-0dc3d1.html,TP,leak on error handling branch,https://github.com/numba/numba/issues/8091,confirmed,1
+Numba,RL,numba/_dynfuncmod.c,PyInit__dynfunc,36,18,report-c33201.html,TP,created passed to non-stealing,https://github.com/numba/numba/issues/8090,confirmed,1
+Numba,RL,numba/_dynfuncmod.c,PyInit__dynfunc,66,7,report-235f50.html,TP,leak on error handling branch,https://github.com/numba/numba/issues/8091,confirmed,1
+Numba,RL,numba/_dynfuncmod.c,PyInit__dynfunc,73,9,report-66bdf9.html,TP,created passed to non-stealing,https://github.com/numba/numba/issues/8090,confirmed,1
+Numba,RL,numba/_helpermod.c,PyInit__helperlib,287,7,report-f3d5d2.html,TP,leak on error handling branch,https://github.com/numba/numba/issues/8091,confirmed,1
+Numba,RL,numba/_typeof.c,compute_fingerprint,284,24,report-b8bc21.html,TP,leak on error handling branch,https://github.com/numba/numba/issues/8092,confirmed,1
+Numba,RL,numba/_typeof.c,compute_fingerprint,300,30,report-ade41c.html,TP,leak on error handling branch,https://github.com/numba/numba/issues/8092,confirmed,1
+Numba,RL,numba/_typeof.c,compute_fingerprint,323,44,report-acbd1a.html,TP,leak on error handling branch,https://github.com/numba/numba/issues/8092,confirmed,1
+Numba,RL,numba/_typeof.c,compute_fingerprint,345,28,report-92e957.html,TP,leak on error handling branch,https://github.com/numba/numba/issues/8092,confirmed,1
+Numba,RL,numba/_typeof.c,_typecode_fallback,533,28,report-f434a8.html,FP,maybe on purpose,-,False positive,1
+Numba,RL,numba/_typeof.c,_typecode_fallback,539,26,report-960423.html,FP,maybe on purpose,-,False positive,1
+Numba,RL,numba/_typeof.c,get_cached_ndarray_typecode,726,28,report-5c0301.html,TP,leak on error handling branch,https://github.com/numba/numba/issues/8092,confirmed,1
+Numba,RL,numba/core/runtime/_nrt_pythonmod.c,PyInit__nrt_python,193,7,report-724a48.html,TP,leak on error handling branch,https://github.com/numba/numba/issues/8091,confirmed,1
+Numba,RL,numba/cuda/cudadrv/_extras.c,PyInit__extras,41,6,report-02b47d.html,TP,created passed to non-stealing,https://github.com/numba/numba/issues/8090,confirmed,1
+Numba,RL,numba/cuda/cudadrv/_extras.c,PyInit__extras,42,6,report-e871fc.html,TP,created passed to non-stealing,https://github.com/numba/numba/issues/8090,confirmed,1
+Numba,RL,numba/experimental/jitclass/_box.c,PyInit__box,156,8,report-31f898.html,TP,leak on error handling branch,https://github.com/numba/numba/issues/8091,confirmed,1
+Numba,RL,numba/experimental/jitclass/_box.c,PyInit__box,174,10,report-7e4a97.html,TP,created passed to non-stealing,https://github.com/numba/numba/issues/8090,confirmed,1
+Numba,RL,numba/experimental/jitclass/_box.c,PyInit__box,176,10,report-fe73cf.html,TP,created passed to non-stealing,https://github.com/numba/numba/issues/8090,confirmed,1
+Numba,RL,numba/numba/mviewbuf.c,get_bufinfo,238,12,report-541cf3.html,FP,maybe on purpose,-,False positive,1
+Numba,RL,numba/mviewbuf.c,PyInit_mviewbuf,356,8,report-f68b83.html,TP,leak on error handling branch,https://github.com/numba/numba/issues/8091,confirmed,1
+Numba,RL,numba/np/ufunc/_internal.c,PyInit__internal,674,11,report-ed7b7c.html,TP,leak on error handling branch,https://github.com/numba/numba/issues/8091,confirmed,1
+Numba,RL,numba/np/ufunc/_num_threads.c,PyInit__num_threads,32,6,report-3232dc.html,TP,created passed to non-stealing,https://github.com/numba/numba/issues/7210,fixed,1
+Numba,RL,numba/np/ufunc/_num_threads.c,PyInit__num_threads,34,6,report-a11ed8.html,TP,created passed to non-stealing,https://github.com/numba/numba/issues/7210,fixed,1
+Numba,RL,numba/np/ufunc/workqueue.c,PyInit_workqueue,575,6,report-6d9f57.html,TP,created passed to non-stealing,https://github.com/numba/numba/issues/7210,fixed,1
+Numba,RL,numba/np/ufunc/workqueue.c,PyInit_workqueue,577,6,report-235b15.html,TP,created passed to non-stealing,https://github.com/numba/numba/issues/7210,fixed,1
+Numba,RL,numba/np/ufunc/workqueue.c,PyInit_workqueue,579,6,report-4ab930.html,TP,created passed to non-stealing,https://github.com/numba/numba/issues/7210,fixed,1
+Numba,RL,numba/np/ufunc/workqueue.c,PyInit_workqueue,581,6,report-6eaae8.html,TP,created passed to non-stealing,https://github.com/numba/numba/issues/7210,fixed,1
+Numba,RL,numba/np/ufunc/workqueue.c,PyInit_workqueue,583,6,report-efb0a1.html,TP,created passed to non-stealing,https://github.com/numba/numba/issues/7210,fixed,1
+Numba,RL,numba/np/ufunc/workqueue.c,PyInit_workqueue,585,6,report-c0f604.html,TP,created passed to non-stealing,https://github.com/numba/numba/issues/7210,fixed,1
+Numba,RL,numba/np/ufunc/workqueue.c,PyInit_workqueue,587,6,report-d272e9.html,TP,created passed to non-stealing,https://github.com/numba/numba/issues/7210,fixed,1
+Numba,RL,numba/np/ufunc/workqueue.c,PyInit_workqueue,589,6,report-7232b6.html,TP,created passed to non-stealing,https://github.com/numba/numba/issues/7210,fixed,1
+Numba,RL,numba/np/ufunc/workqueue.c,PyInit_workqueue,591,6,report-224dc3.html,TP,created passed to non-stealing,https://github.com/numba/numba/issues/7210,fixed,1
+Numba,RL,numba/np/ufunc/workqueue.c,PyInit_workqueue,593,6,report-5a20bc.html,TP,created passed to non-stealing,https://github.com/numba/numba/issues/7210,fixed,1
+Numba,UaR,numba/_devicearray.cpp,PyInit__devicearray,136,20,report-e42cca.html,TP,use after created passed to decrease,https://github.com/numba/numba/issues/8088,fixed,1
+Pillow,RL,src/Tk/tkImaging.c,fname2char,371,12,report-c6d448.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6319,fixed,2
+Pillow,RL,src/_imaging.c,_getxy,1122,17,report-e70944.html,FP,unmodeled behavior,-,False positive,1
+Pillow,RL,src/_imaging.c,_getxy,1136,19,report-c40445.html,FP,unmodeled behavior,-,False positive,1
+Pillow,RL,src/_imaging.c,_get_stats,3758,8,report-1b7403.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_imaging.c,_get_stats,3760,8,report-6fa78e.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_imaging.c,_get_stats,3762,8,report-b43c87.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_imaging.c,_get_stats,3764,8,report-1640ab.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_imaging.c,_get_stats,3765,8,report-78d881.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_imaging.c,_get_stats,3766,8,report-6acded.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_imaging.c,setup_module,4139,13,report-15cbc4.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_imaging.c,setup_module,4147,13,report-a78d30.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_imaging.c,setup_module,4157,13,report-446850.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_imaging.c,setup_module,4172,13,report-3c8041.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_imaging.c,setup_module,4190,13,report-1abe89.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_imaging.c,setup_module,4198,13,report-b9e74a.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_imaging.c,setup_module,4221,13,report-be23b5.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_imaging.c,PyInit__imaging,4238,5,report-3fa97f.html,TP,leak on error handling branch,https://github.com/python-pillow/Pillow/issues/6322,issued,1
+Pillow,RL,src/_imagingcms.c,_is_intent_supported,936,20,report-1e988b.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_imagingcms.c,_is_intent_supported,937,20,report-0ef1f7.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_imagingcms.c,setup_module,1531,7,report-e4a37b.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_imagingcms.c,setup_module,1533,7,report-dc5fd5.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_imagingft.c,text_layout_raqm,301,36,report-3d6af5.html,TP,pure leak,https://github.com/python-pillow/Pillow/issues/6321,fixed,1
+Pillow,RL,src/_imagingft.c,text_layout_raqm,319,45,report-54b828.html,TP,pure leak,https://github.com/python-pillow/Pillow/issues/6321,fixed,1
+Pillow,RL,src/_imagingft.c,font_getvarnames,1075,10,report-60bc38.html,TP,leak on error handling branch,https://github.com/python-pillow/Pillow/issues/6322,issued,1
+Pillow,RL,src/_imagingft.c,font_getvaraxes,1118,12,report-775d14.html,TP,leak on error handling branch,https://github.com/python-pillow/Pillow/issues/6322,issued,1
+Pillow,RL,src/_imagingft.c,font_getvaraxes,1122,12,report-379efb.html,TP,leak on error handling branch,https://github.com/python-pillow/Pillow/issues/6322,issued,1
+Pillow,RL,src/_imagingft.c,font_getvaraxes,1124,8,report-611fdf.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_imagingft.c,font_getvaraxes,1125,8,report-7c0d23.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_imagingft.c,font_getvaraxes,1127,8,report-b84747.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_imagingft.c,font_getvaraxes,1136,17,report-fce490.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_imagingft.c,setup_module,1351,7,report-d17f14.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_imagingft.c,setup_module,1366,9,report-e80f52.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_imagingft.c,setup_module,1372,9,report-21a68f.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_imagingmorph.c,match,138,6,report-8cc0d2.html,TP,leak on error handling branch,https://github.com/python-pillow/Pillow/issues/6322,issued,1
+Pillow,RL,src/_imagingmorph.c,match,195,19,report-29a870.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_imagingmorph.c,get_on_pixels,215,6,report-239db5.html,TP,leak on error handling branch,https://github.com/python-pillow/Pillow/issues/6322,issued,1
+Pillow,RL,src/_imagingmorph.c,get_on_pixels,231,12,report-fddf55.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_imagingmorph.c,setup_module,243,5,report-3c802a.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_imagingtk.c,PyInit__imagingtk,77,5,report-bc9c58.html,TP,leak on error handling branch,https://github.com/python-pillow/Pillow/issues/6322,issued,1
+Pillow,RL,src/_webp.c,addTransparencyFlagToModule,948,6,report-213466.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_webp.c,setup_module,959,5,report-71bbbc.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_webp.c,PyInit__webp,983,5,report-e4ed93.html,TP,leak on error handling branch,https://github.com/python-pillow/Pillow/issues/6322,issued,1
+Pillow,RL,src/encode.c,PyImaging_JpegEncoderNew,60,26,report-b75e6e.html,FP,incomplete path,-,False positive,1
+Pillow,RL,src/encode.c,_encode,131,12,report-738827.html,FP,unmodeled behavior,-,False positive,1
+TensorFlow,UaR,tensorflow/python/eager/pywrap_tensor.cc,EagerTensor_shape_tuple,618,22,report-378fc6.html,TP,use after decrement on captured,https://github.com/tensorflow/tensorflow/issues/52085,confirmed,1
+TensorFlow,UaR,tensorflow/python/lib/core/ndarray_tensor.cc,GetPyArrayDescrForTensor,352,21,report-073dd5.html,TP,use after decrement on captured,https://github.com/tensorflow/tensorflow/issues/52087,fixed,1
+TensorFlow,RL,tensorflow/lite/python/interpreter_wrapper/interpreter_wrapper.cc,PyDictFromSparsityParam,140,13,report-271ec8.html,TP,created passed to non-stealing,https://github.com/tensorflow/tensorflow/issues/56236,issued,1
+TensorFlow,RL,tensorflow/lite/python/interpreter_wrapper/interpreter_wrapper.cc,PyDictFromSparsityParam,144,15,report-7311bd.html,TP,created passed to non-stealing,https://github.com/tensorflow/tensorflow/issues/56236,issued,1
+TensorFlow,RL,tensorflow/lite/python/interpreter_wrapper/interpreter_wrapper.cc,PyDictFromSparsityParam,146,15,report-0bf563.html,TP,created passed to non-stealing,https://github.com/tensorflow/tensorflow/issues/56236,issued,1
+TensorFlow,RL,tensorflow/lite/python/interpreter_wrapper/interpreter_wrapper.cc,PyDictFromSparsityParam,148,15,report-107a6c.html,TP,created passed to non-stealing,https://github.com/tensorflow/tensorflow/issues/56236,issued,1
+TensorFlow,RL,tensorflow/lite/python/interpreter_wrapper/interpreter_wrapper.cc,GetSignatureDefs,638,4,report-c41b64.html,TP,created passed to non-stealing,https://github.com/tensorflow/tensorflow/issues/56236,issued,1
+TensorFlow,RL,tensorflow/lite/python/interpreter_wrapper/interpreter_wrapper.cc,GetSignatureDefs,639,4,report-7193e8.html,TP,created passed to non-stealing,https://github.com/tensorflow/tensorflow/issues/56236,issued,1
+TensorFlow,RL,tensorflow/lite/python/interpreter_wrapper/interpreter_wrapper.cc,GetSignatureDefs,640,4,report-9dcdd9.html,TP,created passed to non-stealing,https://github.com/tensorflow/tensorflow/issues/56236,issued,1
+TensorFlow,RL,tensorflow/lite/python/interpreter_wrapper/interpreter_wrapper.cc,GetSignatureDefs,647,4,report-336e4b.html,TP,created passed to non-stealing,https://github.com/tensorflow/tensorflow/issues/56236,issued,1
+TensorFlow,RL,tensorflow/lite/python/interpreter_wrapper/interpreter_wrapper.cc,GetSignatureDefs,651,4,report-f40c5f.html,TP,created passed to non-stealing,https://github.com/tensorflow/tensorflow/issues/56236,issued,1
+TensorFlow,RL,tensorflow/lite/toco/python/toco_python_api.cc,TocoConvert,233,23,report-253804.html,TP,created passed to non-stealing,https://github.com/tensorflow/tensorflow/issues/56236,issued,1
+TensorFlow,RL,tensorflow/lite/toco/python/toco_python_api.cc,ToStringSet,276,13,report-8235b2.html,TP,pure leak,https://github.com/tensorflow/tensorflow/issues/56236,issued,1
+TensorFlow,RL,tensorflow/python/client/tf_session_wrapper.cc,operator(),279,10,report-cd62b9.html,TP,leak on error handling branch,https://github.com/tensorflow/tensorflow/issues/56238,issued,1
+TensorFlow,RL,tensorflow/python/eager/pywrap_tensor.cc,EagerTensor_shape_tuple,593,8,report-404420.html,FP,unmodeled behavior,-,False positive,1
+TensorFlow,RL,tensorflow/python/eager/pywrap_tensor.cc,TFE_Py_InitEagerTensor,1050,12,report-9ede7a.html,TP,created passed to non-stealing,https://github.com/tensorflow/tensorflow/issues/56236,issued,1
+TensorFlow,RL,tensorflow/python/eager/pywrap_tfe_src.cc,SetOpAttrList,495,43,report-b665b7.html,TP,pure leak,https://github.com/tensorflow/tensorflow/issues/56236,issued,1
+TensorFlow,RL,tensorflow/python/eager/pywrap_tfe_src.cc,SetOpAttrScalar,702,26,report-3eadfd.html,TP,pure leak,https://github.com/tensorflow/tensorflow/issues/56236,issued,1
+TensorFlow,RL,tensorflow/python/eager/pywrap_tfe_src.cc,FormatErrorStatusStackTrace,994,12,report-6a12cf.html,TP,created passed to non-stealing,https://github.com/tensorflow/tensorflow/issues/56236,issued,1
+TensorFlow,RL,tensorflow/python/eager/pywrap_tfe_src.cc,MaybeRaiseExceptionFromTFStatus,1031,15,report-9b7aa7.html,TP,created passed to non-stealing,https://github.com/tensorflow/tensorflow/issues/56236,issued,1
+TensorFlow,RL,tensorflow/python/eager/pywrap_tfe_src.cc,MaybeRaiseExceptionFromTFStatus,1032,15,report-66dcb9.html,TP,created passed to non-stealing,https://github.com/tensorflow/tensorflow/issues/56236,issued,1
+TensorFlow,RL,tensorflow/python/eager/pywrap_tfe_src.cc,MaybeRaiseExceptionFromStatus,1065,9,report-327452.html,TP,created passed to non-stealing,https://github.com/tensorflow/tensorflow/issues/56236,issued,1
+TensorFlow,RL,tensorflow/python/eager/pywrap_tfe_src.cc,MaybeRaiseExceptionFromStatus,1066,9,report-c80650.html,TP,created passed to non-stealing,https://github.com/tensorflow/tensorflow/issues/56236,issued,1
+TensorFlow,RL,tensorflow/python/eager/pywrap_tfe_src.cc,AggregateGradients,1271,8,report-3ba4d6.html,FP,noreturn,-,False positive,1
+TensorFlow,RL,tensorflow/python/eager/pywrap_tfe_src.cc,CallBackwardFunction,1362,14,report-471b1c.html,TP,leak on error handling branch,https://github.com/tensorflow/tensorflow/issues/56238,issued,1
+TensorFlow,RL,tensorflow/python/eager/pywrap_tfe_src.cc,RegisterForwardAccumulatorCleanup,2312,5,report-0e40ef.html,FP,maybe on purpose,-,False positive,1
+TensorFlow,RL,tensorflow/python/eager/pywrap_tfe_src.cc,TFE_Py_FastPathExecute_C,3601,6,report-506234.html,TP,created passed to non-stealing,https://github.com/tensorflow/tensorflow/issues/56236,issued,1
+TensorFlow,RL,tensorflow/python/eager/pywrap_tfe_src.cc,EncodeTensorOrTensorSpec,4087,16,report-55542a.html,TP,created passed to non-stealing,-,Function deleted,1
+TensorFlow,RL,tensorflow/python/framework/op_def_util.cc,operator(),179,13,report-8566d6.html,TP,pure leak,https://github.com/tensorflow/tensorflow/issues/56237,issued,2
+TensorFlow,RL,tensorflow/python/framework/python_api_parameter_converter_wrapper.cc,Convert,33,7,report-bf3201.html,TP,pure leak,https://github.com/tensorflow/tensorflow/issues/56236,issued,1
+TensorFlow,RL,tensorflow/python/lib/core/ndarray_tensor.cc,PyArrayDescr_to_TF_DataType,90,15,report-918a9a.html,TP,created passed to non-stealing,https://github.com/tensorflow/tensorflow/issues/56236,issued,1
+TensorFlow,RL,tensorflow/python/lib/core/py_func.cc,DoCallPyFunc,201,18,report-fffdc2.html,TP,created passed to non-stealing,https://github.com/tensorflow/tensorflow/issues/56236,issued,1
+TensorFlow,RL,tensorflow/python/lib/core/py_func.cc,DoCallPyFunc,240,22,report-34df8e.html,TP,created passed to non-stealing,https://github.com/tensorflow/tensorflow/issues/56236,issued,1
+TensorFlow,RL,tensorflow/python/util/fast_module_type.cc,FastTpGetattro,192,9,report-9e7c5b.html,TP,pure leak,https://github.com/tensorflow/tensorflow/issues/56236,issued,1
+TensorFlow,RL,tensorflow/python/util/nest.cc,FlattenDictItems,93,11,report-86960d.html,TP,leak on error handling branch,https://github.com/tensorflow/tensorflow/issues/56238,issued,1

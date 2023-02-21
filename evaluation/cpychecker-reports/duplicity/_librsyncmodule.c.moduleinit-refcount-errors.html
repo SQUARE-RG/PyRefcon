@@ -1,0 +1,469 @@
+<html>
+  <head>
+    <title>moduleinit</title>
+    <style type="text/css">
+.unreached-line {
+    #margin:1em;
+    #border:0.1em dotted #00aa00;
+
+    opacity:1.0;
+    filter:alpha(opacity=0);
+    #color:black;
+}
+
+.reached-line {
+    #margin:1em;
+    #border:0.1em dotted #00aa00;
+    border: 0.1em solid blue;
+    font-weight: bold;
+
+    opacity:1.0;
+    filter:alpha(opacity=0);
+    #color:black;
+}
+
+.reached-lineno {
+    border: 0.1em solid blue;
+    font-weight: bold;
+}
+
+pre {
+    #line-height:200%
+}
+
+._jsPlumb_connector { z-index: -2; }
+._jsPlumb_endpoint { z-index: -1; }
+
+.transition {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #ccc;
+    -moz-box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;
+    margin-left: 5em;
+    font-family: proportional;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.error {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #cc0000;
+    -moz-box-shadow: 2px 2px 2px #cc0000;
+    -webkit-box-shadow: 2px 2px 2px #cc0000;
+    box-shadow: 2px 2px 2px #cc0000;
+    margin-left: 5em;
+    color: red;
+    font-family: proportional;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.note {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #ccc;
+    -moz-box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;
+    margin-left: 5em;
+    font-family: proportional;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.hll { background-color: #ffffcc }
+.source_c { color: #408080; font-style: italic } /* Comment */
+.source_err { border: 1px solid #FF0000 } /* Error */
+.source_k { color: #008000; font-weight: bold } /* Keyword */
+.source_o { color: #666666 } /* Operator */
+.source_ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.source_cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.source_cp { color: #BC7A00 } /* Comment.Preproc */
+.source_cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.source_c1 { color: #408080; font-style: italic } /* Comment.Single */
+.source_cs { color: #408080; font-style: italic } /* Comment.Special */
+.source_gd { color: #A00000 } /* Generic.Deleted */
+.source_ge { font-style: italic } /* Generic.Emph */
+.source_gr { color: #FF0000 } /* Generic.Error */
+.source_gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.source_gi { color: #00A000 } /* Generic.Inserted */
+.source_go { color: #888888 } /* Generic.Output */
+.source_gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.source_gs { font-weight: bold } /* Generic.Strong */
+.source_gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.source_gt { color: #0044DD } /* Generic.Traceback */
+.source_kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.source_kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.source_kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.source_kp { color: #008000 } /* Keyword.Pseudo */
+.source_kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.source_kt { color: #B00040 } /* Keyword.Type */
+.source_m { color: #666666 } /* Literal.Number */
+.source_s { color: #BA2121 } /* Literal.String */
+.source_na { color: #7D9029 } /* Name.Attribute */
+.source_nb { color: #008000 } /* Name.Builtin */
+.source_nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.source_no { color: #880000 } /* Name.Constant */
+.source_nd { color: #AA22FF } /* Name.Decorator */
+.source_ni { color: #999999; font-weight: bold } /* Name.Entity */
+.source_ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.source_nf { color: #0000FF } /* Name.Function */
+.source_nl { color: #A0A000 } /* Name.Label */
+.source_nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.source_nt { color: #008000; font-weight: bold } /* Name.Tag */
+.source_nv { color: #19177C } /* Name.Variable */
+.source_ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.source_w { color: #bbbbbb } /* Text.Whitespace */
+.source_mb { color: #666666 } /* Literal.Number.Bin */
+.source_mf { color: #666666 } /* Literal.Number.Float */
+.source_mh { color: #666666 } /* Literal.Number.Hex */
+.source_mi { color: #666666 } /* Literal.Number.Integer */
+.source_mo { color: #666666 } /* Literal.Number.Oct */
+.source_sa { color: #BA2121 } /* Literal.String.Affix */
+.source_sb { color: #BA2121 } /* Literal.String.Backtick */
+.source_sc { color: #BA2121 } /* Literal.String.Char */
+.source_dl { color: #BA2121 } /* Literal.String.Delimiter */
+.source_sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.source_s2 { color: #BA2121 } /* Literal.String.Double */
+.source_se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.source_sh { color: #BA2121 } /* Literal.String.Heredoc */
+.source_si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.source_sx { color: #008000 } /* Literal.String.Other */
+.source_sr { color: #BB6688 } /* Literal.String.Regex */
+.source_s1 { color: #BA2121 } /* Literal.String.Single */
+.source_ss { color: #19177C } /* Literal.String.Symbol */
+.source_bp { color: #008000 } /* Name.Builtin.Pseudo */
+.source_fm { color: #0000FF } /* Name.Function.Magic */
+.source_vc { color: #19177C } /* Name.Variable.Class */
+.source_vg { color: #19177C } /* Name.Variable.Global */
+.source_vi { color: #19177C } /* Name.Variable.Instance */
+.source_vm { color: #19177C } /* Name.Variable.Magic */
+.source_il { color: #666666 } /* Literal.Number.Integer.Long */    </style>
+  </head>
+  <body>
+<script type="text/javascript" src="http://explorercanvas.googlecode.com/svn/trunk/excanvas.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://jsplumb.googlecode.com/files/jquery.jsPlumb-1.2.6-all-min.js"></script>
+<div id="report-0">
+<table>
+  <tr><td>File:</td> <td><b>duplicity/_librsyncmodule.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>moduleinit</b></td></tr>
+  <tr><td>Error:</td> <td><b>memory leak: ob_refcnt of new ref from call to _Py_BuildValue_SizeT is 1 too high</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">462</span> <span id="trace0-line462" class="unreached-line"><span></span><span class="source_k">static</span> <span class="source_n">PyObject</span> <span class="source_o">*</span></span>
+<span class="lineno">463</span> <span id="trace0-line463" class="unreached-line"><span class="source_nf">moduleinit</span><span class="source_p">(</span><span class="source_kt">void</span><span class="source_p">)</span></span>
+<span class="lineno">464</span> <span id="trace0-line464" class="unreached-line"><span class="source_p">{</span></span>
+<span class="lineno">465</span> <span id="trace0-line465" class="unreached-line">  <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">m</span><span class="source_p">,</span> <span class="source_o">*</span><span class="source_n">d</span><span class="source_p">;</span></span>
+<span class="lineno">466</span> <span id="trace0-line466" class="unreached-line"></span>
+<span class="lineno">467</span> <span id="trace0-line467" class="unreached-line">  <span class="source_cp">#if PY_MAJOR_VERSION &gt;= 3 &amp;&amp; PY_MINOR_VERSION &gt;= 10</span></span>
+<span class="lineno">468</span> <span id="trace0-line468" class="unreached-line">  <span class="source_n">Py_SET_TYPE</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">_librsync_SigMakerType</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">PyType_Type</span><span class="source_p">);</span></span>
+<span class="lineno">469</span> <span id="trace0-line469" class="unreached-line">  <span class="source_n">Py_SET_TYPE</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">_librsync_DeltaMakerType</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">PyType_Type</span><span class="source_p">);</span></span>
+<span class="lineno">470</span> <span id="trace0-line470" class="unreached-line">  <span class="source_cp">#else </span></span>
+<span class="reached-lineno">471</span> <span id="trace0-line471" class="reached-line">  <span class="source_n">Py_TYPE</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">_librsync_SigMakerType</span><span class="source_p">)</span> <span class="source_o">=</span> <span class="source_o">&amp;</span><span class="source_n">PyType_Type</span><span class="source_p">;</span></span>
+<span class="reached-lineno">472</span> <span id="trace0-line472" class="reached-line">  <span class="source_n">Py_TYPE</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">_librsync_DeltaMakerType</span><span class="source_p">)</span> <span class="source_o">=</span> <span class="source_o">&amp;</span><span class="source_n">PyType_Type</span><span class="source_p">;</span></span>
+<span class="lineno">473</span> <span id="trace0-line473" class="unreached-line">  <span class="source_cp">#endif </span></span>
+<span class="lineno">474</span> <span id="trace0-line474" class="unreached-line"></span>
+<span class="reached-lineno">475</span> <span id="trace0-line475" class="reached-line">  <span class="source_n">MOD_DEF</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">,</span> <span class="source_s">&quot;_librsync&quot;</span><span class="source_p">,</span> <span class="source_s">&quot;&quot;</span><span class="source_p">,</span> <span class="source_n">_librsyncMethods</span><span class="source_p">)</span></span>
+<span class="transition">when PyModule_Create2() succeeds</span>
+<span class="reached-lineno">476</span> <span id="trace0-line476" class="reached-line">  <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">m</span> <span class="source_o">==</span> <span class="source_nb">NULL</span><span class="source_p">)</span></span>
+<span class="transition">taking False path</span>
+<span class="lineno">477</span> <span id="trace0-line477" class="unreached-line">      <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">478</span> <span id="trace0-line478" class="unreached-line"></span>
+<span class="reached-lineno">479</span> <span id="trace0-line479" class="reached-line">  <span class="source_n">d</span> <span class="source_o">=</span> <span class="source_n">PyModule_GetDict</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">);</span></span>
+<span class="reached-lineno">480</span> <span id="trace0-line480" class="reached-line">  <span class="source_n">librsyncError</span> <span class="source_o">=</span> <span class="source_n">PyErr_NewException</span><span class="source_p">(</span><span class="source_s">&quot;_librsync.librsyncError&quot;</span><span class="source_p">,</span> <span class="source_nb">NULL</span><span class="source_p">,</span> <span class="source_nb">NULL</span><span class="source_p">);</span></span>
+<span class="transition">when PyErr_NewException() succeeds</span>
+<span class="reached-lineno">481</span> <span id="trace0-line481" class="reached-line">  <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;librsyncError&quot;</span><span class="source_p">,</span> <span class="source_n">librsyncError</span><span class="source_p">);</span></span>
+<span class="transition">when PyDict_SetItemString() succeeds</span>
+<span class="reached-lineno">482</span> <span id="trace0-line482" class="reached-line">  <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;RS_JOB_BLOCKSIZE&quot;</span><span class="source_p">,</span></span>
+<span class="transition">when _Py_BuildValue_SizeT() succeeds</span>
+<span class="transition">when PyDict_SetItemString() succeeds</span>
+<span class="note">new ref from call to _Py_BuildValue_SizeT was allocated at:   PyDict_SetItemString(d, "RS_JOB_BLOCKSIZE",</span>
+<span class="transition">ob_refcnt is now refs: 1 owned</span>
+<span class="transition">ob_refcnt is now refs: 1 owned, 1 borrowed</span>
+<span class="lineno">483</span> <span id="trace0-line483" class="unreached-line">                       <span class="source_n">Py_BuildValue</span><span class="source_p">(</span><span class="source_s">&quot;l&quot;</span><span class="source_p">,</span> <span class="source_p">(</span><span class="source_kt">long</span><span class="source_p">)</span><span class="source_n">RS_JOB_BLOCKSIZE</span><span class="source_p">));</span></span>
+<span class="reached-lineno">484</span> <span id="trace0-line484" class="reached-line">  <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;RS_DEFAULT_BLOCK_LEN&quot;</span><span class="source_p">,</span></span>
+<span class="transition">when _Py_BuildValue_SizeT() succeeds</span>
+<span class="transition">when PyDict_SetItemString() succeeds</span>
+<span class="lineno">485</span> <span id="trace0-line485" class="unreached-line">                       <span class="source_n">Py_BuildValue</span><span class="source_p">(</span><span class="source_s">&quot;l&quot;</span><span class="source_p">,</span> <span class="source_p">(</span><span class="source_kt">long</span><span class="source_p">)</span><span class="source_n">RS_DEFAULT_BLOCK_LEN</span><span class="source_p">));</span></span>
+<span class="lineno">486</span> <span id="trace0-line486" class="unreached-line"></span>
+<span class="reached-lineno">487</span> <span id="trace0-line487" class="reached-line">  <span class="source_k">return</span> <span class="source_n">m</span><span class="source_p">;</span></span>
+<span class="error">memory leak: ob_refcnt of new ref from call to _Py_BuildValue_SizeT is 1 too high</span>
+<span class="note">was expecting final owned ob_refcnt of new ref from call to _Py_BuildValue_SizeT to be 0 since nothing references it but final ob_refcnt is refs: 1 owned, 1 borrowed</span>
+<span class="note">found 15 similar trace(s) to this</span>
+<span class="lineno">488</span> <span id="trace0-line488" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace0-line475',
+                     target:'trace0-line476',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line476',
+                     target:'trace0-line479',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line480',
+                     target:'trace0-line480',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line481',
+                     target:'trace0-line482',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line482',
+                     target:'trace0-line484',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line484',
+                     target:'trace0-line487',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+<div id="report-1">
+<table>
+  <tr><td>File:</td> <td><b>duplicity/_librsyncmodule.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>moduleinit</b></td></tr>
+  <tr><td>Error:</td> <td><b>calling PyDict_SetItemString with NULL as argument 3 (D.15157) at duplicity/_librsyncmodule.c:484</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">462</span> <span id="trace1-line462" class="unreached-line"><span></span><span class="source_k">static</span> <span class="source_n">PyObject</span> <span class="source_o">*</span></span>
+<span class="lineno">463</span> <span id="trace1-line463" class="unreached-line"><span class="source_nf">moduleinit</span><span class="source_p">(</span><span class="source_kt">void</span><span class="source_p">)</span></span>
+<span class="lineno">464</span> <span id="trace1-line464" class="unreached-line"><span class="source_p">{</span></span>
+<span class="lineno">465</span> <span id="trace1-line465" class="unreached-line">  <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">m</span><span class="source_p">,</span> <span class="source_o">*</span><span class="source_n">d</span><span class="source_p">;</span></span>
+<span class="lineno">466</span> <span id="trace1-line466" class="unreached-line"></span>
+<span class="lineno">467</span> <span id="trace1-line467" class="unreached-line">  <span class="source_cp">#if PY_MAJOR_VERSION &gt;= 3 &amp;&amp; PY_MINOR_VERSION &gt;= 10</span></span>
+<span class="lineno">468</span> <span id="trace1-line468" class="unreached-line">  <span class="source_n">Py_SET_TYPE</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">_librsync_SigMakerType</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">PyType_Type</span><span class="source_p">);</span></span>
+<span class="lineno">469</span> <span id="trace1-line469" class="unreached-line">  <span class="source_n">Py_SET_TYPE</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">_librsync_DeltaMakerType</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">PyType_Type</span><span class="source_p">);</span></span>
+<span class="lineno">470</span> <span id="trace1-line470" class="unreached-line">  <span class="source_cp">#else </span></span>
+<span class="reached-lineno">471</span> <span id="trace1-line471" class="reached-line">  <span class="source_n">Py_TYPE</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">_librsync_SigMakerType</span><span class="source_p">)</span> <span class="source_o">=</span> <span class="source_o">&amp;</span><span class="source_n">PyType_Type</span><span class="source_p">;</span></span>
+<span class="reached-lineno">472</span> <span id="trace1-line472" class="reached-line">  <span class="source_n">Py_TYPE</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">_librsync_DeltaMakerType</span><span class="source_p">)</span> <span class="source_o">=</span> <span class="source_o">&amp;</span><span class="source_n">PyType_Type</span><span class="source_p">;</span></span>
+<span class="lineno">473</span> <span id="trace1-line473" class="unreached-line">  <span class="source_cp">#endif </span></span>
+<span class="lineno">474</span> <span id="trace1-line474" class="unreached-line"></span>
+<span class="reached-lineno">475</span> <span id="trace1-line475" class="reached-line">  <span class="source_n">MOD_DEF</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">,</span> <span class="source_s">&quot;_librsync&quot;</span><span class="source_p">,</span> <span class="source_s">&quot;&quot;</span><span class="source_p">,</span> <span class="source_n">_librsyncMethods</span><span class="source_p">)</span></span>
+<span class="transition">when PyModule_Create2() succeeds</span>
+<span class="reached-lineno">476</span> <span id="trace1-line476" class="reached-line">  <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">m</span> <span class="source_o">==</span> <span class="source_nb">NULL</span><span class="source_p">)</span></span>
+<span class="transition">taking False path</span>
+<span class="lineno">477</span> <span id="trace1-line477" class="unreached-line">      <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">478</span> <span id="trace1-line478" class="unreached-line"></span>
+<span class="reached-lineno">479</span> <span id="trace1-line479" class="reached-line">  <span class="source_n">d</span> <span class="source_o">=</span> <span class="source_n">PyModule_GetDict</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">);</span></span>
+<span class="reached-lineno">480</span> <span id="trace1-line480" class="reached-line">  <span class="source_n">librsyncError</span> <span class="source_o">=</span> <span class="source_n">PyErr_NewException</span><span class="source_p">(</span><span class="source_s">&quot;_librsync.librsyncError&quot;</span><span class="source_p">,</span> <span class="source_nb">NULL</span><span class="source_p">,</span> <span class="source_nb">NULL</span><span class="source_p">);</span></span>
+<span class="transition">when PyErr_NewException() succeeds</span>
+<span class="reached-lineno">481</span> <span id="trace1-line481" class="reached-line">  <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;librsyncError&quot;</span><span class="source_p">,</span> <span class="source_n">librsyncError</span><span class="source_p">);</span></span>
+<span class="transition">when PyDict_SetItemString() succeeds</span>
+<span class="reached-lineno">482</span> <span id="trace1-line482" class="reached-line">  <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;RS_JOB_BLOCKSIZE&quot;</span><span class="source_p">,</span></span>
+<span class="transition">when _Py_BuildValue_SizeT() succeeds</span>
+<span class="transition">when PyDict_SetItemString() succeeds</span>
+<span class="lineno">483</span> <span id="trace1-line483" class="unreached-line">                       <span class="source_n">Py_BuildValue</span><span class="source_p">(</span><span class="source_s">&quot;l&quot;</span><span class="source_p">,</span> <span class="source_p">(</span><span class="source_kt">long</span><span class="source_p">)</span><span class="source_n">RS_JOB_BLOCKSIZE</span><span class="source_p">));</span></span>
+<span class="reached-lineno">484</span> <span id="trace1-line484" class="reached-line">  <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;RS_DEFAULT_BLOCK_LEN&quot;</span><span class="source_p">,</span></span>
+<span class="transition">when _Py_BuildValue_SizeT() fails</span>
+<span class="error">calling PyDict_SetItemString with NULL as argument 3 (D.15157) at duplicity/_librsyncmodule.c:484</span>
+<span class="note">found 3 similar trace(s) to this</span>
+<span class="lineno">485</span> <span id="trace1-line485" class="unreached-line">                       <span class="source_n">Py_BuildValue</span><span class="source_p">(</span><span class="source_s">&quot;l&quot;</span><span class="source_p">,</span> <span class="source_p">(</span><span class="source_kt">long</span><span class="source_p">)</span><span class="source_n">RS_DEFAULT_BLOCK_LEN</span><span class="source_p">));</span></span>
+<span class="lineno">486</span> <span id="trace1-line486" class="unreached-line"></span>
+<span class="lineno">487</span> <span id="trace1-line487" class="unreached-line">  <span class="source_k">return</span> <span class="source_n">m</span><span class="source_p">;</span></span>
+<span class="lineno">488</span> <span id="trace1-line488" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace1-line475',
+                     target:'trace1-line476',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line476',
+                     target:'trace1-line479',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line480',
+                     target:'trace1-line480',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line481',
+                     target:'trace1-line482',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line482',
+                     target:'trace1-line484',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+<div id="report-2">
+<table>
+  <tr><td>File:</td> <td><b>duplicity/_librsyncmodule.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>moduleinit</b></td></tr>
+  <tr><td>Error:</td> <td><b>calling PyDict_SetItemString with NULL as argument 3 (D.15156) at duplicity/_librsyncmodule.c:482</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">462</span> <span id="trace2-line462" class="unreached-line"><span></span><span class="source_k">static</span> <span class="source_n">PyObject</span> <span class="source_o">*</span></span>
+<span class="lineno">463</span> <span id="trace2-line463" class="unreached-line"><span class="source_nf">moduleinit</span><span class="source_p">(</span><span class="source_kt">void</span><span class="source_p">)</span></span>
+<span class="lineno">464</span> <span id="trace2-line464" class="unreached-line"><span class="source_p">{</span></span>
+<span class="lineno">465</span> <span id="trace2-line465" class="unreached-line">  <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">m</span><span class="source_p">,</span> <span class="source_o">*</span><span class="source_n">d</span><span class="source_p">;</span></span>
+<span class="lineno">466</span> <span id="trace2-line466" class="unreached-line"></span>
+<span class="lineno">467</span> <span id="trace2-line467" class="unreached-line">  <span class="source_cp">#if PY_MAJOR_VERSION &gt;= 3 &amp;&amp; PY_MINOR_VERSION &gt;= 10</span></span>
+<span class="lineno">468</span> <span id="trace2-line468" class="unreached-line">  <span class="source_n">Py_SET_TYPE</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">_librsync_SigMakerType</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">PyType_Type</span><span class="source_p">);</span></span>
+<span class="lineno">469</span> <span id="trace2-line469" class="unreached-line">  <span class="source_n">Py_SET_TYPE</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">_librsync_DeltaMakerType</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">PyType_Type</span><span class="source_p">);</span></span>
+<span class="lineno">470</span> <span id="trace2-line470" class="unreached-line">  <span class="source_cp">#else </span></span>
+<span class="reached-lineno">471</span> <span id="trace2-line471" class="reached-line">  <span class="source_n">Py_TYPE</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">_librsync_SigMakerType</span><span class="source_p">)</span> <span class="source_o">=</span> <span class="source_o">&amp;</span><span class="source_n">PyType_Type</span><span class="source_p">;</span></span>
+<span class="reached-lineno">472</span> <span id="trace2-line472" class="reached-line">  <span class="source_n">Py_TYPE</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">_librsync_DeltaMakerType</span><span class="source_p">)</span> <span class="source_o">=</span> <span class="source_o">&amp;</span><span class="source_n">PyType_Type</span><span class="source_p">;</span></span>
+<span class="lineno">473</span> <span id="trace2-line473" class="unreached-line">  <span class="source_cp">#endif </span></span>
+<span class="lineno">474</span> <span id="trace2-line474" class="unreached-line"></span>
+<span class="reached-lineno">475</span> <span id="trace2-line475" class="reached-line">  <span class="source_n">MOD_DEF</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">,</span> <span class="source_s">&quot;_librsync&quot;</span><span class="source_p">,</span> <span class="source_s">&quot;&quot;</span><span class="source_p">,</span> <span class="source_n">_librsyncMethods</span><span class="source_p">)</span></span>
+<span class="transition">when PyModule_Create2() succeeds</span>
+<span class="reached-lineno">476</span> <span id="trace2-line476" class="reached-line">  <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">m</span> <span class="source_o">==</span> <span class="source_nb">NULL</span><span class="source_p">)</span></span>
+<span class="transition">taking False path</span>
+<span class="lineno">477</span> <span id="trace2-line477" class="unreached-line">      <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">478</span> <span id="trace2-line478" class="unreached-line"></span>
+<span class="reached-lineno">479</span> <span id="trace2-line479" class="reached-line">  <span class="source_n">d</span> <span class="source_o">=</span> <span class="source_n">PyModule_GetDict</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">);</span></span>
+<span class="reached-lineno">480</span> <span id="trace2-line480" class="reached-line">  <span class="source_n">librsyncError</span> <span class="source_o">=</span> <span class="source_n">PyErr_NewException</span><span class="source_p">(</span><span class="source_s">&quot;_librsync.librsyncError&quot;</span><span class="source_p">,</span> <span class="source_nb">NULL</span><span class="source_p">,</span> <span class="source_nb">NULL</span><span class="source_p">);</span></span>
+<span class="transition">when PyErr_NewException() succeeds</span>
+<span class="reached-lineno">481</span> <span id="trace2-line481" class="reached-line">  <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;librsyncError&quot;</span><span class="source_p">,</span> <span class="source_n">librsyncError</span><span class="source_p">);</span></span>
+<span class="transition">when PyDict_SetItemString() succeeds</span>
+<span class="reached-lineno">482</span> <span id="trace2-line482" class="reached-line">  <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;RS_JOB_BLOCKSIZE&quot;</span><span class="source_p">,</span></span>
+<span class="transition">when _Py_BuildValue_SizeT() fails</span>
+<span class="error">calling PyDict_SetItemString with NULL as argument 3 (D.15156) at duplicity/_librsyncmodule.c:482</span>
+<span class="note">found 1 similar trace(s) to this</span>
+<span class="lineno">483</span> <span id="trace2-line483" class="unreached-line">                       <span class="source_n">Py_BuildValue</span><span class="source_p">(</span><span class="source_s">&quot;l&quot;</span><span class="source_p">,</span> <span class="source_p">(</span><span class="source_kt">long</span><span class="source_p">)</span><span class="source_n">RS_JOB_BLOCKSIZE</span><span class="source_p">));</span></span>
+<span class="lineno">484</span> <span id="trace2-line484" class="unreached-line">  <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;RS_DEFAULT_BLOCK_LEN&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">485</span> <span id="trace2-line485" class="unreached-line">                       <span class="source_n">Py_BuildValue</span><span class="source_p">(</span><span class="source_s">&quot;l&quot;</span><span class="source_p">,</span> <span class="source_p">(</span><span class="source_kt">long</span><span class="source_p">)</span><span class="source_n">RS_DEFAULT_BLOCK_LEN</span><span class="source_p">));</span></span>
+<span class="lineno">486</span> <span id="trace2-line486" class="unreached-line"></span>
+<span class="lineno">487</span> <span id="trace2-line487" class="unreached-line">  <span class="source_k">return</span> <span class="source_n">m</span><span class="source_p">;</span></span>
+<span class="lineno">488</span> <span id="trace2-line488" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace2-line475',
+                     target:'trace2-line476',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line476',
+                     target:'trace2-line479',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line480',
+                     target:'trace2-line480',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line481',
+                     target:'trace2-line482',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+<div id="report-3">
+<table>
+  <tr><td>File:</td> <td><b>duplicity/_librsyncmodule.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>moduleinit</b></td></tr>
+  <tr><td>Error:</td> <td><b>calling PyDict_SetItemString with NULL as argument 3 (librsyncError.2) at duplicity/_librsyncmodule.c:481</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">462</span> <span id="trace3-line462" class="unreached-line"><span></span><span class="source_k">static</span> <span class="source_n">PyObject</span> <span class="source_o">*</span></span>
+<span class="lineno">463</span> <span id="trace3-line463" class="unreached-line"><span class="source_nf">moduleinit</span><span class="source_p">(</span><span class="source_kt">void</span><span class="source_p">)</span></span>
+<span class="lineno">464</span> <span id="trace3-line464" class="unreached-line"><span class="source_p">{</span></span>
+<span class="lineno">465</span> <span id="trace3-line465" class="unreached-line">  <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">m</span><span class="source_p">,</span> <span class="source_o">*</span><span class="source_n">d</span><span class="source_p">;</span></span>
+<span class="lineno">466</span> <span id="trace3-line466" class="unreached-line"></span>
+<span class="lineno">467</span> <span id="trace3-line467" class="unreached-line">  <span class="source_cp">#if PY_MAJOR_VERSION &gt;= 3 &amp;&amp; PY_MINOR_VERSION &gt;= 10</span></span>
+<span class="lineno">468</span> <span id="trace3-line468" class="unreached-line">  <span class="source_n">Py_SET_TYPE</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">_librsync_SigMakerType</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">PyType_Type</span><span class="source_p">);</span></span>
+<span class="lineno">469</span> <span id="trace3-line469" class="unreached-line">  <span class="source_n">Py_SET_TYPE</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">_librsync_DeltaMakerType</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">PyType_Type</span><span class="source_p">);</span></span>
+<span class="lineno">470</span> <span id="trace3-line470" class="unreached-line">  <span class="source_cp">#else </span></span>
+<span class="reached-lineno">471</span> <span id="trace3-line471" class="reached-line">  <span class="source_n">Py_TYPE</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">_librsync_SigMakerType</span><span class="source_p">)</span> <span class="source_o">=</span> <span class="source_o">&amp;</span><span class="source_n">PyType_Type</span><span class="source_p">;</span></span>
+<span class="reached-lineno">472</span> <span id="trace3-line472" class="reached-line">  <span class="source_n">Py_TYPE</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">_librsync_DeltaMakerType</span><span class="source_p">)</span> <span class="source_o">=</span> <span class="source_o">&amp;</span><span class="source_n">PyType_Type</span><span class="source_p">;</span></span>
+<span class="lineno">473</span> <span id="trace3-line473" class="unreached-line">  <span class="source_cp">#endif </span></span>
+<span class="lineno">474</span> <span id="trace3-line474" class="unreached-line"></span>
+<span class="reached-lineno">475</span> <span id="trace3-line475" class="reached-line">  <span class="source_n">MOD_DEF</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">,</span> <span class="source_s">&quot;_librsync&quot;</span><span class="source_p">,</span> <span class="source_s">&quot;&quot;</span><span class="source_p">,</span> <span class="source_n">_librsyncMethods</span><span class="source_p">)</span></span>
+<span class="transition">when PyModule_Create2() succeeds</span>
+<span class="reached-lineno">476</span> <span id="trace3-line476" class="reached-line">  <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">m</span> <span class="source_o">==</span> <span class="source_nb">NULL</span><span class="source_p">)</span></span>
+<span class="transition">taking False path</span>
+<span class="lineno">477</span> <span id="trace3-line477" class="unreached-line">      <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">478</span> <span id="trace3-line478" class="unreached-line"></span>
+<span class="reached-lineno">479</span> <span id="trace3-line479" class="reached-line">  <span class="source_n">d</span> <span class="source_o">=</span> <span class="source_n">PyModule_GetDict</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">);</span></span>
+<span class="reached-lineno">480</span> <span id="trace3-line480" class="reached-line">  <span class="source_n">librsyncError</span> <span class="source_o">=</span> <span class="source_n">PyErr_NewException</span><span class="source_p">(</span><span class="source_s">&quot;_librsync.librsyncError&quot;</span><span class="source_p">,</span> <span class="source_nb">NULL</span><span class="source_p">,</span> <span class="source_nb">NULL</span><span class="source_p">);</span></span>
+<span class="transition">when PyErr_NewException() fails</span>
+<span class="reached-lineno">481</span> <span id="trace3-line481" class="reached-line">  <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;librsyncError&quot;</span><span class="source_p">,</span> <span class="source_n">librsyncError</span><span class="source_p">);</span></span>
+<span class="error">calling PyDict_SetItemString with NULL as argument 3 (librsyncError.2) at duplicity/_librsyncmodule.c:481</span>
+<span class="lineno">482</span> <span id="trace3-line482" class="unreached-line">  <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;RS_JOB_BLOCKSIZE&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">483</span> <span id="trace3-line483" class="unreached-line">                       <span class="source_n">Py_BuildValue</span><span class="source_p">(</span><span class="source_s">&quot;l&quot;</span><span class="source_p">,</span> <span class="source_p">(</span><span class="source_kt">long</span><span class="source_p">)</span><span class="source_n">RS_JOB_BLOCKSIZE</span><span class="source_p">));</span></span>
+<span class="lineno">484</span> <span id="trace3-line484" class="unreached-line">  <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;RS_DEFAULT_BLOCK_LEN&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">485</span> <span id="trace3-line485" class="unreached-line">                       <span class="source_n">Py_BuildValue</span><span class="source_p">(</span><span class="source_s">&quot;l&quot;</span><span class="source_p">,</span> <span class="source_p">(</span><span class="source_kt">long</span><span class="source_p">)</span><span class="source_n">RS_DEFAULT_BLOCK_LEN</span><span class="source_p">));</span></span>
+<span class="lineno">486</span> <span id="trace3-line486" class="unreached-line"></span>
+<span class="lineno">487</span> <span id="trace3-line487" class="unreached-line">  <span class="source_k">return</span> <span class="source_n">m</span><span class="source_p">;</span></span>
+<span class="lineno">488</span> <span id="trace3-line488" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace3-line475',
+                     target:'trace3-line476',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line476',
+                     target:'trace3-line479',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line480',
+                     target:'trace3-line480',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+  </body>

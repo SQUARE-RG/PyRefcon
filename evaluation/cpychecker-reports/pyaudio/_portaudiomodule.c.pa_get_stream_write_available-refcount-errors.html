@@ -1,0 +1,228 @@
+<html>
+  <head>
+    <title>pa_get_stream_write_available</title>
+    <style type="text/css">
+.unreached-line {
+    #margin:1em;
+    #border:0.1em dotted #00aa00;
+
+    opacity:1.0;
+    filter:alpha(opacity=0);
+    #color:black;
+}
+
+.reached-line {
+    #margin:1em;
+    #border:0.1em dotted #00aa00;
+    border: 0.1em solid blue;
+    font-weight: bold;
+
+    opacity:1.0;
+    filter:alpha(opacity=0);
+    #color:black;
+}
+
+.reached-lineno {
+    border: 0.1em solid blue;
+    font-weight: bold;
+}
+
+pre {
+    #line-height:200%
+}
+
+._jsPlumb_connector { z-index: -2; }
+._jsPlumb_endpoint { z-index: -1; }
+
+.transition {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #ccc;
+    -moz-box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;
+    margin-left: 5em;
+    font-family: proportional;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.error {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #cc0000;
+    -moz-box-shadow: 2px 2px 2px #cc0000;
+    -webkit-box-shadow: 2px 2px 2px #cc0000;
+    box-shadow: 2px 2px 2px #cc0000;
+    margin-left: 5em;
+    color: red;
+    font-family: proportional;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.note {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #ccc;
+    -moz-box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;
+    margin-left: 5em;
+    font-family: proportional;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.hll { background-color: #ffffcc }
+.source_c { color: #408080; font-style: italic } /* Comment */
+.source_err { border: 1px solid #FF0000 } /* Error */
+.source_k { color: #008000; font-weight: bold } /* Keyword */
+.source_o { color: #666666 } /* Operator */
+.source_ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.source_cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.source_cp { color: #BC7A00 } /* Comment.Preproc */
+.source_cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.source_c1 { color: #408080; font-style: italic } /* Comment.Single */
+.source_cs { color: #408080; font-style: italic } /* Comment.Special */
+.source_gd { color: #A00000 } /* Generic.Deleted */
+.source_ge { font-style: italic } /* Generic.Emph */
+.source_gr { color: #FF0000 } /* Generic.Error */
+.source_gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.source_gi { color: #00A000 } /* Generic.Inserted */
+.source_go { color: #888888 } /* Generic.Output */
+.source_gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.source_gs { font-weight: bold } /* Generic.Strong */
+.source_gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.source_gt { color: #0044DD } /* Generic.Traceback */
+.source_kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.source_kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.source_kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.source_kp { color: #008000 } /* Keyword.Pseudo */
+.source_kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.source_kt { color: #B00040 } /* Keyword.Type */
+.source_m { color: #666666 } /* Literal.Number */
+.source_s { color: #BA2121 } /* Literal.String */
+.source_na { color: #7D9029 } /* Name.Attribute */
+.source_nb { color: #008000 } /* Name.Builtin */
+.source_nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.source_no { color: #880000 } /* Name.Constant */
+.source_nd { color: #AA22FF } /* Name.Decorator */
+.source_ni { color: #999999; font-weight: bold } /* Name.Entity */
+.source_ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.source_nf { color: #0000FF } /* Name.Function */
+.source_nl { color: #A0A000 } /* Name.Label */
+.source_nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.source_nt { color: #008000; font-weight: bold } /* Name.Tag */
+.source_nv { color: #19177C } /* Name.Variable */
+.source_ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.source_w { color: #bbbbbb } /* Text.Whitespace */
+.source_mb { color: #666666 } /* Literal.Number.Bin */
+.source_mf { color: #666666 } /* Literal.Number.Float */
+.source_mh { color: #666666 } /* Literal.Number.Hex */
+.source_mi { color: #666666 } /* Literal.Number.Integer */
+.source_mo { color: #666666 } /* Literal.Number.Oct */
+.source_sa { color: #BA2121 } /* Literal.String.Affix */
+.source_sb { color: #BA2121 } /* Literal.String.Backtick */
+.source_sc { color: #BA2121 } /* Literal.String.Char */
+.source_dl { color: #BA2121 } /* Literal.String.Delimiter */
+.source_sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.source_s2 { color: #BA2121 } /* Literal.String.Double */
+.source_se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.source_sh { color: #BA2121 } /* Literal.String.Heredoc */
+.source_si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.source_sx { color: #008000 } /* Literal.String.Other */
+.source_sr { color: #BB6688 } /* Literal.String.Regex */
+.source_s1 { color: #BA2121 } /* Literal.String.Single */
+.source_ss { color: #19177C } /* Literal.String.Symbol */
+.source_bp { color: #008000 } /* Name.Builtin.Pseudo */
+.source_fm { color: #0000FF } /* Name.Function.Magic */
+.source_vc { color: #19177C } /* Name.Variable.Class */
+.source_vg { color: #19177C } /* Name.Variable.Global */
+.source_vi { color: #19177C } /* Name.Variable.Instance */
+.source_vm { color: #19177C } /* Name.Variable.Magic */
+.source_il { color: #666666 } /* Literal.Number.Integer.Long */    </style>
+  </head>
+  <body>
+<script type="text/javascript" src="http://explorercanvas.googlecode.com/svn/trunk/excanvas.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://jsplumb.googlecode.com/files/jquery.jsPlumb-1.2.6-all-min.js"></script>
+<div id="report-0">
+<table>
+  <tr><td>File:</td> <td><b>src/_portaudiomodule.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>pa_get_stream_write_available</b></td></tr>
+  <tr><td>Error:</td> <td><b>memory leak: ob_refcnt of new ref from call to Py_BuildValue is 1 too high</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">2501</span> <span id="trace0-line2501" class="unreached-line"><span></span><span class="source_k">static</span> <span class="source_n">PyObject</span> <span class="source_o">*</span></span>
+<span class="lineno">2502</span> <span id="trace0-line2502" class="unreached-line"><span class="source_nf">pa_get_stream_write_available</span><span class="source_p">(</span><span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">self</span><span class="source_p">,</span> <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">args</span><span class="source_p">)</span></span>
+<span class="lineno">2503</span> <span id="trace0-line2503" class="unreached-line"><span class="source_p">{</span></span>
+<span class="lineno">2504</span> <span id="trace0-line2504" class="unreached-line">  <span class="source_kt">signed</span> <span class="source_kt">long</span> <span class="source_n">frames</span><span class="source_p">;</span></span>
+<span class="lineno">2505</span> <span id="trace0-line2505" class="unreached-line">  <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">stream_arg</span><span class="source_p">;</span></span>
+<span class="lineno">2506</span> <span id="trace0-line2506" class="unreached-line">  <span class="source_n">_pyAudio_Stream</span> <span class="source_o">*</span><span class="source_n">streamObject</span><span class="source_p">;</span></span>
+<span class="lineno">2507</span> <span id="trace0-line2507" class="unreached-line">  <span class="source_n">PaStream</span> <span class="source_o">*</span><span class="source_n">stream</span><span class="source_p">;</span></span>
+<span class="lineno">2508</span> <span id="trace0-line2508" class="unreached-line"></span>
+<span class="reached-lineno">2509</span> <span id="trace0-line2509" class="reached-line">  <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">PyArg_ParseTuple</span><span class="source_p">(</span><span class="source_n">args</span><span class="source_p">,</span> <span class="source_s">&quot;O!&quot;</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">_pyAudio_StreamType</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">stream_arg</span><span class="source_p">))</span></span>
+<span class="transition">when PyArg_ParseTuple() succeeds</span>
+<span class="transition">taking False path</span>
+<span class="lineno">2510</span> <span id="trace0-line2510" class="unreached-line">    <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">2511</span> <span id="trace0-line2511" class="unreached-line"></span>
+<span class="reached-lineno">2512</span> <span id="trace0-line2512" class="reached-line">  <span class="source_n">streamObject</span> <span class="source_o">=</span> <span class="source_p">(</span><span class="source_n">_pyAudio_Stream</span> <span class="source_o">*</span><span class="source_p">)</span> <span class="source_n">stream_arg</span><span class="source_p">;</span></span>
+<span class="lineno">2513</span> <span id="trace0-line2513" class="unreached-line"></span>
+<span class="reached-lineno">2514</span> <span id="trace0-line2514" class="reached-line">  <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">_is_open</span><span class="source_p">(</span><span class="source_n">streamObject</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="transition">when considering value == (int)0 from src/_portaudiomodule.c:2514</span>
+<span class="transition">taking True path</span>
+<span class="reached-lineno">2515</span> <span id="trace0-line2515" class="reached-line">    <span class="source_n">PyErr_SetObject</span><span class="source_p">(</span><span class="source_n">PyExc_IOError</span><span class="source_p">,</span></span>
+<span class="transition">when Py_BuildValue() succeeds</span>
+<span class="transition">calling PyErr_SetObject()</span>
+<span class="note">new ref from call to Py_BuildValue was allocated at:     PyErr_SetObject(PyExc_IOError,</span>
+<span class="transition">ob_refcnt is now refs: 1 owned</span>
+<span class="transition">ob_refcnt is now refs: 1 owned, 1 borrowed</span>
+<span class="lineno">2516</span> <span id="trace0-line2516" class="unreached-line">		    <span class="source_n">Py_BuildValue</span><span class="source_p">(</span><span class="source_s">&quot;(s,i)&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">2517</span> <span id="trace0-line2517" class="unreached-line">				  <span class="source_s">&quot;Stream closed&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">2518</span> <span id="trace0-line2518" class="unreached-line">				  <span class="source_n">paBadStreamPtr</span><span class="source_p">));</span></span>
+<span class="reached-lineno">2519</span> <span id="trace0-line2519" class="reached-line">    <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">2520</span> <span id="trace0-line2520" class="unreached-line">  <span class="source_p">}</span></span>
+<span class="lineno">2521</span> <span id="trace0-line2521" class="unreached-line"></span>
+<span class="lineno">2522</span> <span id="trace0-line2522" class="unreached-line">  <span class="source_n">stream</span> <span class="source_o">=</span> <span class="source_n">streamObject</span><span class="source_o">-&gt;</span><span class="source_n">stream</span><span class="source_p">;</span></span>
+<span class="lineno">2523</span> <span id="trace0-line2523" class="unreached-line">  <span class="source_n">frames</span> <span class="source_o">=</span> <span class="source_n">Pa_GetStreamWriteAvailable</span><span class="source_p">(</span><span class="source_n">stream</span><span class="source_p">);</span></span>
+<span class="lineno">2524</span> <span id="trace0-line2524" class="unreached-line">  <span class="source_k">return</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">frames</span><span class="source_p">);</span></span>
+<span class="lineno">2525</span> <span id="trace0-line2525" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace0-line2509',
+                     target:'trace0-line2509',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line2509',
+                     target:'trace0-line2512',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line2514',
+                     target:'trace0-line2515',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line2515',
+                     target:'trace0-line2519',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+  </body>

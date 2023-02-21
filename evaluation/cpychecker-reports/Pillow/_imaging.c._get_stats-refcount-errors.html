@@ -1,0 +1,655 @@
+<html>
+  <head>
+    <title>_get_stats</title>
+    <style type="text/css">
+.unreached-line {
+    #margin:1em;
+    #border:0.1em dotted #00aa00;
+
+    opacity:1.0;
+    filter:alpha(opacity=0);
+    #color:black;
+}
+
+.reached-line {
+    #margin:1em;
+    #border:0.1em dotted #00aa00;
+    border: 0.1em solid blue;
+    font-weight: bold;
+
+    opacity:1.0;
+    filter:alpha(opacity=0);
+    #color:black;
+}
+
+.reached-lineno {
+    border: 0.1em solid blue;
+    font-weight: bold;
+}
+
+pre {
+    #line-height:200%
+}
+
+._jsPlumb_connector { z-index: -2; }
+._jsPlumb_endpoint { z-index: -1; }
+
+.transition {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #ccc;
+    -moz-box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;
+    margin-left: 5em;
+    font-family: proportional;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.error {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #cc0000;
+    -moz-box-shadow: 2px 2px 2px #cc0000;
+    -webkit-box-shadow: 2px 2px 2px #cc0000;
+    box-shadow: 2px 2px 2px #cc0000;
+    margin-left: 5em;
+    color: red;
+    font-family: proportional;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.note {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #ccc;
+    -moz-box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;
+    margin-left: 5em;
+    font-family: proportional;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.hll { background-color: #ffffcc }
+.source_c { color: #408080; font-style: italic } /* Comment */
+.source_err { border: 1px solid #FF0000 } /* Error */
+.source_k { color: #008000; font-weight: bold } /* Keyword */
+.source_o { color: #666666 } /* Operator */
+.source_ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.source_cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.source_cp { color: #BC7A00 } /* Comment.Preproc */
+.source_cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.source_c1 { color: #408080; font-style: italic } /* Comment.Single */
+.source_cs { color: #408080; font-style: italic } /* Comment.Special */
+.source_gd { color: #A00000 } /* Generic.Deleted */
+.source_ge { font-style: italic } /* Generic.Emph */
+.source_gr { color: #FF0000 } /* Generic.Error */
+.source_gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.source_gi { color: #00A000 } /* Generic.Inserted */
+.source_go { color: #888888 } /* Generic.Output */
+.source_gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.source_gs { font-weight: bold } /* Generic.Strong */
+.source_gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.source_gt { color: #0044DD } /* Generic.Traceback */
+.source_kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.source_kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.source_kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.source_kp { color: #008000 } /* Keyword.Pseudo */
+.source_kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.source_kt { color: #B00040 } /* Keyword.Type */
+.source_m { color: #666666 } /* Literal.Number */
+.source_s { color: #BA2121 } /* Literal.String */
+.source_na { color: #7D9029 } /* Name.Attribute */
+.source_nb { color: #008000 } /* Name.Builtin */
+.source_nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.source_no { color: #880000 } /* Name.Constant */
+.source_nd { color: #AA22FF } /* Name.Decorator */
+.source_ni { color: #999999; font-weight: bold } /* Name.Entity */
+.source_ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.source_nf { color: #0000FF } /* Name.Function */
+.source_nl { color: #A0A000 } /* Name.Label */
+.source_nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.source_nt { color: #008000; font-weight: bold } /* Name.Tag */
+.source_nv { color: #19177C } /* Name.Variable */
+.source_ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.source_w { color: #bbbbbb } /* Text.Whitespace */
+.source_mb { color: #666666 } /* Literal.Number.Bin */
+.source_mf { color: #666666 } /* Literal.Number.Float */
+.source_mh { color: #666666 } /* Literal.Number.Hex */
+.source_mi { color: #666666 } /* Literal.Number.Integer */
+.source_mo { color: #666666 } /* Literal.Number.Oct */
+.source_sa { color: #BA2121 } /* Literal.String.Affix */
+.source_sb { color: #BA2121 } /* Literal.String.Backtick */
+.source_sc { color: #BA2121 } /* Literal.String.Char */
+.source_dl { color: #BA2121 } /* Literal.String.Delimiter */
+.source_sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.source_s2 { color: #BA2121 } /* Literal.String.Double */
+.source_se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.source_sh { color: #BA2121 } /* Literal.String.Heredoc */
+.source_si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.source_sx { color: #008000 } /* Literal.String.Other */
+.source_sr { color: #BB6688 } /* Literal.String.Regex */
+.source_s1 { color: #BA2121 } /* Literal.String.Single */
+.source_ss { color: #19177C } /* Literal.String.Symbol */
+.source_bp { color: #008000 } /* Name.Builtin.Pseudo */
+.source_fm { color: #0000FF } /* Name.Function.Magic */
+.source_vc { color: #19177C } /* Name.Variable.Class */
+.source_vg { color: #19177C } /* Name.Variable.Global */
+.source_vi { color: #19177C } /* Name.Variable.Instance */
+.source_vm { color: #19177C } /* Name.Variable.Magic */
+.source_il { color: #666666 } /* Literal.Number.Integer.Long */    </style>
+  </head>
+  <body>
+<script type="text/javascript" src="http://explorercanvas.googlecode.com/svn/trunk/excanvas.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://jsplumb.googlecode.com/files/jquery.jsPlumb-1.2.6-all-min.js"></script>
+<div id="report-0">
+<table>
+  <tr><td>File:</td> <td><b>src/_imaging.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>_get_stats</b></td></tr>
+  <tr><td>Error:</td> <td><b>memory leak: ob_refcnt of PyLongObject is 1 too high</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">3745</span> <span id="trace0-line3745" class="unreached-line"><span></span><span class="source_k">static</span> <span class="source_n">PyObject</span> <span class="source_o">*</span></span>
+<span class="lineno">3746</span> <span id="trace0-line3746" class="unreached-line"><span class="source_nf">_get_stats</span><span class="source_p">(</span><span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">self</span><span class="source_p">,</span> <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">args</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">3747</span> <span id="trace0-line3747" class="unreached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">d</span><span class="source_p">;</span></span>
+<span class="reached-lineno">3748</span> <span id="trace0-line3748" class="reached-line">    <span class="source_n">ImagingMemoryArena</span> <span class="source_n">arena</span> <span class="source_o">=</span> <span class="source_o">&amp;</span><span class="source_n">ImagingDefaultArena</span><span class="source_p">;</span></span>
+<span class="lineno">3749</span> <span id="trace0-line3749" class="unreached-line"></span>
+<span class="reached-lineno">3750</span> <span id="trace0-line3750" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">PyArg_ParseTuple</span><span class="source_p">(</span><span class="source_n">args</span><span class="source_p">,</span> <span class="source_s">&quot;:get_stats&quot;</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="transition">when _PyArg_ParseTuple_SizeT() succeeds</span>
+<span class="transition">taking False path</span>
+<span class="lineno">3751</span> <span id="trace0-line3751" class="unreached-line">        <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">3752</span> <span id="trace0-line3752" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">3753</span> <span id="trace0-line3753" class="unreached-line"></span>
+<span class="reached-lineno">3754</span> <span id="trace0-line3754" class="reached-line">    <span class="source_n">d</span> <span class="source_o">=</span> <span class="source_n">PyDict_New</span><span class="source_p">();</span></span>
+<span class="transition">when PyDict_New() succeeds</span>
+<span class="reached-lineno">3755</span> <span id="trace0-line3755" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">d</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">taking False path</span>
+<span class="lineno">3756</span> <span id="trace0-line3756" class="unreached-line">        <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">3757</span> <span id="trace0-line3757" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="reached-lineno">3758</span> <span id="trace0-line3758" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;new_count&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">stats_new_count</span><span class="source_p">));</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyDict_SetItemString() succeeds</span>
+<span class="note">PyLongObject was allocated at:     PyDict_SetItemString(d, "new_count", PyLong_FromLong(arena->stats_new_count));</span>
+<span class="transition">ob_refcnt is now refs: 1 owned</span>
+<span class="transition">ob_refcnt is now refs: 1 owned, 1 borrowed</span>
+<span class="reached-lineno">3759</span> <span id="trace0-line3759" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyDict_SetItemString() fails</span>
+<span class="reached-lineno">3760</span> <span id="trace0-line3760" class="reached-line">        <span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;allocated_blocks&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">stats_allocated_blocks</span><span class="source_p">));</span></span>
+<span class="reached-lineno">3761</span> <span id="trace0-line3761" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyDict_SetItemString() fails</span>
+<span class="reached-lineno">3762</span> <span id="trace0-line3762" class="reached-line">        <span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;reused_blocks&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">stats_reused_blocks</span><span class="source_p">));</span></span>
+<span class="reached-lineno">3763</span> <span id="trace0-line3763" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyDict_SetItemString() fails</span>
+<span class="reached-lineno">3764</span> <span id="trace0-line3764" class="reached-line">        <span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;reallocated_blocks&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">stats_reallocated_blocks</span><span class="source_p">));</span></span>
+<span class="reached-lineno">3765</span> <span id="trace0-line3765" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;freed_blocks&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">stats_freed_blocks</span><span class="source_p">));</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyDict_SetItemString() succeeds</span>
+<span class="reached-lineno">3766</span> <span id="trace0-line3766" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;blocks_cached&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">blocks_cached</span><span class="source_p">));</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyDict_SetItemString() succeeds</span>
+<span class="reached-lineno">3767</span> <span id="trace0-line3767" class="reached-line">    <span class="source_k">return</span> <span class="source_n">d</span><span class="source_p">;</span></span>
+<span class="error">memory leak: ob_refcnt of PyLongObject is 1 too high</span>
+<span class="note">was expecting final owned ob_refcnt of PyLongObject to be 0 since nothing references it but final ob_refcnt is refs: 1 owned, 1 borrowed</span>
+<span class="note">found 191 similar trace(s) to this</span>
+<span class="lineno">3768</span> <span id="trace0-line3768" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace0-line3750',
+                     target:'trace0-line3750',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line3750',
+                     target:'trace0-line3754',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line3754',
+                     target:'trace0-line3755',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line3755',
+                     target:'trace0-line3758',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line3758',
+                     target:'trace0-line3760',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line3759',
+                     target:'trace0-line3762',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line3761',
+                     target:'trace0-line3764',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line3763',
+                     target:'trace0-line3765',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line3765',
+                     target:'trace0-line3766',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line3766',
+                     target:'trace0-line3767',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+<div id="report-1">
+<table>
+  <tr><td>File:</td> <td><b>src/_imaging.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>_get_stats</b></td></tr>
+  <tr><td>Error:</td> <td><b>calling PyDict_SetItemString with NULL as argument 3 (D.20514) at src/_imaging.c:3766</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">3745</span> <span id="trace1-line3745" class="unreached-line"><span></span><span class="source_k">static</span> <span class="source_n">PyObject</span> <span class="source_o">*</span></span>
+<span class="lineno">3746</span> <span id="trace1-line3746" class="unreached-line"><span class="source_nf">_get_stats</span><span class="source_p">(</span><span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">self</span><span class="source_p">,</span> <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">args</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">3747</span> <span id="trace1-line3747" class="unreached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">d</span><span class="source_p">;</span></span>
+<span class="reached-lineno">3748</span> <span id="trace1-line3748" class="reached-line">    <span class="source_n">ImagingMemoryArena</span> <span class="source_n">arena</span> <span class="source_o">=</span> <span class="source_o">&amp;</span><span class="source_n">ImagingDefaultArena</span><span class="source_p">;</span></span>
+<span class="lineno">3749</span> <span id="trace1-line3749" class="unreached-line"></span>
+<span class="reached-lineno">3750</span> <span id="trace1-line3750" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">PyArg_ParseTuple</span><span class="source_p">(</span><span class="source_n">args</span><span class="source_p">,</span> <span class="source_s">&quot;:get_stats&quot;</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="transition">when _PyArg_ParseTuple_SizeT() succeeds</span>
+<span class="transition">taking False path</span>
+<span class="lineno">3751</span> <span id="trace1-line3751" class="unreached-line">        <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">3752</span> <span id="trace1-line3752" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">3753</span> <span id="trace1-line3753" class="unreached-line"></span>
+<span class="reached-lineno">3754</span> <span id="trace1-line3754" class="reached-line">    <span class="source_n">d</span> <span class="source_o">=</span> <span class="source_n">PyDict_New</span><span class="source_p">();</span></span>
+<span class="transition">when PyDict_New() succeeds</span>
+<span class="reached-lineno">3755</span> <span id="trace1-line3755" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">d</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">taking False path</span>
+<span class="lineno">3756</span> <span id="trace1-line3756" class="unreached-line">        <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">3757</span> <span id="trace1-line3757" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="reached-lineno">3758</span> <span id="trace1-line3758" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;new_count&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">stats_new_count</span><span class="source_p">));</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyDict_SetItemString() succeeds</span>
+<span class="reached-lineno">3759</span> <span id="trace1-line3759" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyDict_SetItemString() fails</span>
+<span class="reached-lineno">3760</span> <span id="trace1-line3760" class="reached-line">        <span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;allocated_blocks&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">stats_allocated_blocks</span><span class="source_p">));</span></span>
+<span class="reached-lineno">3761</span> <span id="trace1-line3761" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyDict_SetItemString() fails</span>
+<span class="reached-lineno">3762</span> <span id="trace1-line3762" class="reached-line">        <span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;reused_blocks&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">stats_reused_blocks</span><span class="source_p">));</span></span>
+<span class="reached-lineno">3763</span> <span id="trace1-line3763" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyDict_SetItemString() fails</span>
+<span class="reached-lineno">3764</span> <span id="trace1-line3764" class="reached-line">        <span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;reallocated_blocks&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">stats_reallocated_blocks</span><span class="source_p">));</span></span>
+<span class="reached-lineno">3765</span> <span id="trace1-line3765" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;freed_blocks&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">stats_freed_blocks</span><span class="source_p">));</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyDict_SetItemString() succeeds</span>
+<span class="reached-lineno">3766</span> <span id="trace1-line3766" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;blocks_cached&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">blocks_cached</span><span class="source_p">));</span></span>
+<span class="transition">when PyLong_FromLong() fails</span>
+<span class="error">calling PyDict_SetItemString with NULL as argument 3 (D.20514) at src/_imaging.c:3766</span>
+<span class="note">found 15 similar trace(s) to this</span>
+<span class="lineno">3767</span> <span id="trace1-line3767" class="unreached-line">    <span class="source_k">return</span> <span class="source_n">d</span><span class="source_p">;</span></span>
+<span class="lineno">3768</span> <span id="trace1-line3768" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace1-line3750',
+                     target:'trace1-line3750',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line3750',
+                     target:'trace1-line3754',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line3754',
+                     target:'trace1-line3755',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line3755',
+                     target:'trace1-line3758',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line3758',
+                     target:'trace1-line3760',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line3759',
+                     target:'trace1-line3762',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line3761',
+                     target:'trace1-line3764',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line3763',
+                     target:'trace1-line3765',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line3765',
+                     target:'trace1-line3766',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+<div id="report-2">
+<table>
+  <tr><td>File:</td> <td><b>src/_imaging.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>_get_stats</b></td></tr>
+  <tr><td>Error:</td> <td><b>calling PyDict_SetItemString with NULL as argument 3 (D.20511) at src/_imaging.c:3765</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">3745</span> <span id="trace2-line3745" class="unreached-line"><span></span><span class="source_k">static</span> <span class="source_n">PyObject</span> <span class="source_o">*</span></span>
+<span class="lineno">3746</span> <span id="trace2-line3746" class="unreached-line"><span class="source_nf">_get_stats</span><span class="source_p">(</span><span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">self</span><span class="source_p">,</span> <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">args</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">3747</span> <span id="trace2-line3747" class="unreached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">d</span><span class="source_p">;</span></span>
+<span class="reached-lineno">3748</span> <span id="trace2-line3748" class="reached-line">    <span class="source_n">ImagingMemoryArena</span> <span class="source_n">arena</span> <span class="source_o">=</span> <span class="source_o">&amp;</span><span class="source_n">ImagingDefaultArena</span><span class="source_p">;</span></span>
+<span class="lineno">3749</span> <span id="trace2-line3749" class="unreached-line"></span>
+<span class="reached-lineno">3750</span> <span id="trace2-line3750" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">PyArg_ParseTuple</span><span class="source_p">(</span><span class="source_n">args</span><span class="source_p">,</span> <span class="source_s">&quot;:get_stats&quot;</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="transition">when _PyArg_ParseTuple_SizeT() succeeds</span>
+<span class="transition">taking False path</span>
+<span class="lineno">3751</span> <span id="trace2-line3751" class="unreached-line">        <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">3752</span> <span id="trace2-line3752" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">3753</span> <span id="trace2-line3753" class="unreached-line"></span>
+<span class="reached-lineno">3754</span> <span id="trace2-line3754" class="reached-line">    <span class="source_n">d</span> <span class="source_o">=</span> <span class="source_n">PyDict_New</span><span class="source_p">();</span></span>
+<span class="transition">when PyDict_New() succeeds</span>
+<span class="reached-lineno">3755</span> <span id="trace2-line3755" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">d</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">taking False path</span>
+<span class="lineno">3756</span> <span id="trace2-line3756" class="unreached-line">        <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">3757</span> <span id="trace2-line3757" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="reached-lineno">3758</span> <span id="trace2-line3758" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;new_count&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">stats_new_count</span><span class="source_p">));</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyDict_SetItemString() succeeds</span>
+<span class="reached-lineno">3759</span> <span id="trace2-line3759" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyDict_SetItemString() fails</span>
+<span class="reached-lineno">3760</span> <span id="trace2-line3760" class="reached-line">        <span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;allocated_blocks&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">stats_allocated_blocks</span><span class="source_p">));</span></span>
+<span class="reached-lineno">3761</span> <span id="trace2-line3761" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyDict_SetItemString() fails</span>
+<span class="reached-lineno">3762</span> <span id="trace2-line3762" class="reached-line">        <span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;reused_blocks&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">stats_reused_blocks</span><span class="source_p">));</span></span>
+<span class="reached-lineno">3763</span> <span id="trace2-line3763" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyDict_SetItemString() succeeds</span>
+<span class="reached-lineno">3764</span> <span id="trace2-line3764" class="reached-line">        <span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;reallocated_blocks&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">stats_reallocated_blocks</span><span class="source_p">));</span></span>
+<span class="reached-lineno">3765</span> <span id="trace2-line3765" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;freed_blocks&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">stats_freed_blocks</span><span class="source_p">));</span></span>
+<span class="transition">when PyLong_FromLong() fails</span>
+<span class="error">calling PyDict_SetItemString with NULL as argument 3 (D.20511) at src/_imaging.c:3765</span>
+<span class="note">found 6 similar trace(s) to this</span>
+<span class="lineno">3766</span> <span id="trace2-line3766" class="unreached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;blocks_cached&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">blocks_cached</span><span class="source_p">));</span></span>
+<span class="lineno">3767</span> <span id="trace2-line3767" class="unreached-line">    <span class="source_k">return</span> <span class="source_n">d</span><span class="source_p">;</span></span>
+<span class="lineno">3768</span> <span id="trace2-line3768" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace2-line3750',
+                     target:'trace2-line3750',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line3750',
+                     target:'trace2-line3754',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line3754',
+                     target:'trace2-line3755',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line3755',
+                     target:'trace2-line3758',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line3758',
+                     target:'trace2-line3760',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line3759',
+                     target:'trace2-line3762',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line3761',
+                     target:'trace2-line3764',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line3763',
+                     target:'trace2-line3765',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+<div id="report-3">
+<table>
+  <tr><td>File:</td> <td><b>src/_imaging.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>_get_stats</b></td></tr>
+  <tr><td>Error:</td> <td><b>calling PyDict_SetItemString with NULL as argument 3 (D.20508) at src/_imaging.c:3763</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">3745</span> <span id="trace3-line3745" class="unreached-line"><span></span><span class="source_k">static</span> <span class="source_n">PyObject</span> <span class="source_o">*</span></span>
+<span class="lineno">3746</span> <span id="trace3-line3746" class="unreached-line"><span class="source_nf">_get_stats</span><span class="source_p">(</span><span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">self</span><span class="source_p">,</span> <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">args</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">3747</span> <span id="trace3-line3747" class="unreached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">d</span><span class="source_p">;</span></span>
+<span class="reached-lineno">3748</span> <span id="trace3-line3748" class="reached-line">    <span class="source_n">ImagingMemoryArena</span> <span class="source_n">arena</span> <span class="source_o">=</span> <span class="source_o">&amp;</span><span class="source_n">ImagingDefaultArena</span><span class="source_p">;</span></span>
+<span class="lineno">3749</span> <span id="trace3-line3749" class="unreached-line"></span>
+<span class="reached-lineno">3750</span> <span id="trace3-line3750" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">PyArg_ParseTuple</span><span class="source_p">(</span><span class="source_n">args</span><span class="source_p">,</span> <span class="source_s">&quot;:get_stats&quot;</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="transition">when _PyArg_ParseTuple_SizeT() succeeds</span>
+<span class="transition">taking False path</span>
+<span class="lineno">3751</span> <span id="trace3-line3751" class="unreached-line">        <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">3752</span> <span id="trace3-line3752" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">3753</span> <span id="trace3-line3753" class="unreached-line"></span>
+<span class="reached-lineno">3754</span> <span id="trace3-line3754" class="reached-line">    <span class="source_n">d</span> <span class="source_o">=</span> <span class="source_n">PyDict_New</span><span class="source_p">();</span></span>
+<span class="transition">when PyDict_New() succeeds</span>
+<span class="reached-lineno">3755</span> <span id="trace3-line3755" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">d</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">taking False path</span>
+<span class="lineno">3756</span> <span id="trace3-line3756" class="unreached-line">        <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">3757</span> <span id="trace3-line3757" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="reached-lineno">3758</span> <span id="trace3-line3758" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;new_count&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">stats_new_count</span><span class="source_p">));</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyDict_SetItemString() succeeds</span>
+<span class="reached-lineno">3759</span> <span id="trace3-line3759" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyDict_SetItemString() fails</span>
+<span class="reached-lineno">3760</span> <span id="trace3-line3760" class="reached-line">        <span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;allocated_blocks&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">stats_allocated_blocks</span><span class="source_p">));</span></span>
+<span class="reached-lineno">3761</span> <span id="trace3-line3761" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyDict_SetItemString() succeeds</span>
+<span class="reached-lineno">3762</span> <span id="trace3-line3762" class="reached-line">        <span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;reused_blocks&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">stats_reused_blocks</span><span class="source_p">));</span></span>
+<span class="reached-lineno">3763</span> <span id="trace3-line3763" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span></span>
+<span class="transition">when PyLong_FromLong() fails</span>
+<span class="error">calling PyDict_SetItemString with NULL as argument 3 (D.20508) at src/_imaging.c:3763</span>
+<span class="note">found 2 similar trace(s) to this</span>
+<span class="reached-lineno">3764</span> <span id="trace3-line3764" class="reached-line">        <span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;reallocated_blocks&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">stats_reallocated_blocks</span><span class="source_p">));</span></span>
+<span class="lineno">3765</span> <span id="trace3-line3765" class="unreached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;freed_blocks&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">stats_freed_blocks</span><span class="source_p">));</span></span>
+<span class="lineno">3766</span> <span id="trace3-line3766" class="unreached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;blocks_cached&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">blocks_cached</span><span class="source_p">));</span></span>
+<span class="lineno">3767</span> <span id="trace3-line3767" class="unreached-line">    <span class="source_k">return</span> <span class="source_n">d</span><span class="source_p">;</span></span>
+<span class="lineno">3768</span> <span id="trace3-line3768" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace3-line3750',
+                     target:'trace3-line3750',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line3750',
+                     target:'trace3-line3754',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line3754',
+                     target:'trace3-line3755',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line3755',
+                     target:'trace3-line3758',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line3758',
+                     target:'trace3-line3760',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line3759',
+                     target:'trace3-line3762',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line3761',
+                     target:'trace3-line3764',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+<div id="report-4">
+<table>
+  <tr><td>File:</td> <td><b>src/_imaging.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>_get_stats</b></td></tr>
+  <tr><td>Error:</td> <td><b>calling PyDict_SetItemString with NULL as argument 3 (D.20505) at src/_imaging.c:3761</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">3745</span> <span id="trace4-line3745" class="unreached-line"><span></span><span class="source_k">static</span> <span class="source_n">PyObject</span> <span class="source_o">*</span></span>
+<span class="lineno">3746</span> <span id="trace4-line3746" class="unreached-line"><span class="source_nf">_get_stats</span><span class="source_p">(</span><span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">self</span><span class="source_p">,</span> <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">args</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">3747</span> <span id="trace4-line3747" class="unreached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">d</span><span class="source_p">;</span></span>
+<span class="reached-lineno">3748</span> <span id="trace4-line3748" class="reached-line">    <span class="source_n">ImagingMemoryArena</span> <span class="source_n">arena</span> <span class="source_o">=</span> <span class="source_o">&amp;</span><span class="source_n">ImagingDefaultArena</span><span class="source_p">;</span></span>
+<span class="lineno">3749</span> <span id="trace4-line3749" class="unreached-line"></span>
+<span class="reached-lineno">3750</span> <span id="trace4-line3750" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">PyArg_ParseTuple</span><span class="source_p">(</span><span class="source_n">args</span><span class="source_p">,</span> <span class="source_s">&quot;:get_stats&quot;</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="transition">when _PyArg_ParseTuple_SizeT() succeeds</span>
+<span class="transition">taking False path</span>
+<span class="lineno">3751</span> <span id="trace4-line3751" class="unreached-line">        <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">3752</span> <span id="trace4-line3752" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">3753</span> <span id="trace4-line3753" class="unreached-line"></span>
+<span class="reached-lineno">3754</span> <span id="trace4-line3754" class="reached-line">    <span class="source_n">d</span> <span class="source_o">=</span> <span class="source_n">PyDict_New</span><span class="source_p">();</span></span>
+<span class="transition">when PyDict_New() succeeds</span>
+<span class="reached-lineno">3755</span> <span id="trace4-line3755" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">d</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">taking False path</span>
+<span class="lineno">3756</span> <span id="trace4-line3756" class="unreached-line">        <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">3757</span> <span id="trace4-line3757" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="reached-lineno">3758</span> <span id="trace4-line3758" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;new_count&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">stats_new_count</span><span class="source_p">));</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyDict_SetItemString() succeeds</span>
+<span class="reached-lineno">3759</span> <span id="trace4-line3759" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyDict_SetItemString() succeeds</span>
+<span class="reached-lineno">3760</span> <span id="trace4-line3760" class="reached-line">        <span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;allocated_blocks&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">stats_allocated_blocks</span><span class="source_p">));</span></span>
+<span class="reached-lineno">3761</span> <span id="trace4-line3761" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span></span>
+<span class="transition">when PyLong_FromLong() fails</span>
+<span class="error">calling PyDict_SetItemString with NULL as argument 3 (D.20505) at src/_imaging.c:3761</span>
+<span class="reached-lineno">3762</span> <span id="trace4-line3762" class="reached-line">        <span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;reused_blocks&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">stats_reused_blocks</span><span class="source_p">));</span></span>
+<span class="lineno">3763</span> <span id="trace4-line3763" class="unreached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span></span>
+<span class="lineno">3764</span> <span id="trace4-line3764" class="unreached-line">        <span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;reallocated_blocks&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">stats_reallocated_blocks</span><span class="source_p">));</span></span>
+<span class="lineno">3765</span> <span id="trace4-line3765" class="unreached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;freed_blocks&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">stats_freed_blocks</span><span class="source_p">));</span></span>
+<span class="lineno">3766</span> <span id="trace4-line3766" class="unreached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span><span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;blocks_cached&quot;</span><span class="source_p">,</span> <span class="source_n">PyLong_FromLong</span><span class="source_p">(</span><span class="source_n">arena</span><span class="source_o">-&gt;</span><span class="source_n">blocks_cached</span><span class="source_p">));</span></span>
+<span class="lineno">3767</span> <span id="trace4-line3767" class="unreached-line">    <span class="source_k">return</span> <span class="source_n">d</span><span class="source_p">;</span></span>
+<span class="lineno">3768</span> <span id="trace4-line3768" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace4-line3750',
+                     target:'trace4-line3750',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line3750',
+                     target:'trace4-line3754',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line3754',
+                     target:'trace4-line3755',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line3755',
+                     target:'trace4-line3758',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line3758',
+                     target:'trace4-line3760',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line3759',
+                     target:'trace4-line3762',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+  </body>

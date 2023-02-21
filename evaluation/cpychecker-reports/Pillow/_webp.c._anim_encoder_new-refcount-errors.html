@@ -1,0 +1,304 @@
+<html>
+  <head>
+    <title>_anim_encoder_new</title>
+    <style type="text/css">
+.unreached-line {
+    #margin:1em;
+    #border:0.1em dotted #00aa00;
+
+    opacity:1.0;
+    filter:alpha(opacity=0);
+    #color:black;
+}
+
+.reached-line {
+    #margin:1em;
+    #border:0.1em dotted #00aa00;
+    border: 0.1em solid blue;
+    font-weight: bold;
+
+    opacity:1.0;
+    filter:alpha(opacity=0);
+    #color:black;
+}
+
+.reached-lineno {
+    border: 0.1em solid blue;
+    font-weight: bold;
+}
+
+pre {
+    #line-height:200%
+}
+
+._jsPlumb_connector { z-index: -2; }
+._jsPlumb_endpoint { z-index: -1; }
+
+.transition {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #ccc;
+    -moz-box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;
+    margin-left: 5em;
+    font-family: proportional;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.error {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #cc0000;
+    -moz-box-shadow: 2px 2px 2px #cc0000;
+    -webkit-box-shadow: 2px 2px 2px #cc0000;
+    box-shadow: 2px 2px 2px #cc0000;
+    margin-left: 5em;
+    color: red;
+    font-family: proportional;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.note {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #ccc;
+    -moz-box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;
+    margin-left: 5em;
+    font-family: proportional;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.hll { background-color: #ffffcc }
+.source_c { color: #408080; font-style: italic } /* Comment */
+.source_err { border: 1px solid #FF0000 } /* Error */
+.source_k { color: #008000; font-weight: bold } /* Keyword */
+.source_o { color: #666666 } /* Operator */
+.source_ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.source_cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.source_cp { color: #BC7A00 } /* Comment.Preproc */
+.source_cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.source_c1 { color: #408080; font-style: italic } /* Comment.Single */
+.source_cs { color: #408080; font-style: italic } /* Comment.Special */
+.source_gd { color: #A00000 } /* Generic.Deleted */
+.source_ge { font-style: italic } /* Generic.Emph */
+.source_gr { color: #FF0000 } /* Generic.Error */
+.source_gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.source_gi { color: #00A000 } /* Generic.Inserted */
+.source_go { color: #888888 } /* Generic.Output */
+.source_gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.source_gs { font-weight: bold } /* Generic.Strong */
+.source_gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.source_gt { color: #0044DD } /* Generic.Traceback */
+.source_kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.source_kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.source_kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.source_kp { color: #008000 } /* Keyword.Pseudo */
+.source_kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.source_kt { color: #B00040 } /* Keyword.Type */
+.source_m { color: #666666 } /* Literal.Number */
+.source_s { color: #BA2121 } /* Literal.String */
+.source_na { color: #7D9029 } /* Name.Attribute */
+.source_nb { color: #008000 } /* Name.Builtin */
+.source_nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.source_no { color: #880000 } /* Name.Constant */
+.source_nd { color: #AA22FF } /* Name.Decorator */
+.source_ni { color: #999999; font-weight: bold } /* Name.Entity */
+.source_ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.source_nf { color: #0000FF } /* Name.Function */
+.source_nl { color: #A0A000 } /* Name.Label */
+.source_nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.source_nt { color: #008000; font-weight: bold } /* Name.Tag */
+.source_nv { color: #19177C } /* Name.Variable */
+.source_ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.source_w { color: #bbbbbb } /* Text.Whitespace */
+.source_mb { color: #666666 } /* Literal.Number.Bin */
+.source_mf { color: #666666 } /* Literal.Number.Float */
+.source_mh { color: #666666 } /* Literal.Number.Hex */
+.source_mi { color: #666666 } /* Literal.Number.Integer */
+.source_mo { color: #666666 } /* Literal.Number.Oct */
+.source_sa { color: #BA2121 } /* Literal.String.Affix */
+.source_sb { color: #BA2121 } /* Literal.String.Backtick */
+.source_sc { color: #BA2121 } /* Literal.String.Char */
+.source_dl { color: #BA2121 } /* Literal.String.Delimiter */
+.source_sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.source_s2 { color: #BA2121 } /* Literal.String.Double */
+.source_se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.source_sh { color: #BA2121 } /* Literal.String.Heredoc */
+.source_si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.source_sx { color: #008000 } /* Literal.String.Other */
+.source_sr { color: #BB6688 } /* Literal.String.Regex */
+.source_s1 { color: #BA2121 } /* Literal.String.Single */
+.source_ss { color: #19177C } /* Literal.String.Symbol */
+.source_bp { color: #008000 } /* Name.Builtin.Pseudo */
+.source_fm { color: #0000FF } /* Name.Function.Magic */
+.source_vc { color: #19177C } /* Name.Variable.Class */
+.source_vg { color: #19177C } /* Name.Variable.Global */
+.source_vi { color: #19177C } /* Name.Variable.Instance */
+.source_vm { color: #19177C } /* Name.Variable.Magic */
+.source_il { color: #666666 } /* Literal.Number.Integer.Long */    </style>
+  </head>
+  <body>
+<script type="text/javascript" src="http://explorercanvas.googlecode.com/svn/trunk/excanvas.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://jsplumb.googlecode.com/files/jquery.jsPlumb-1.2.6-all-min.js"></script>
+<div id="report-0">
+<table>
+  <tr><td>File:</td> <td><b>src/_webp.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>_anim_encoder_new</b></td></tr>
+  <tr><td>Error:</td> <td><b>memory leak: ob_refcnt of '*encp' is 1 too high</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">117</span> <span id="trace0-line117" class="unreached-line"><span></span><span class="source_n">PyObject</span> <span class="source_o">*</span></span>
+<span class="lineno">118</span> <span id="trace0-line118" class="unreached-line"><span class="source_nf">_anim_encoder_new</span><span class="source_p">(</span><span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">self</span><span class="source_p">,</span> <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">args</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">119</span> <span id="trace0-line119" class="unreached-line">    <span class="source_kt">int</span> <span class="source_n">width</span><span class="source_p">,</span> <span class="source_n">height</span><span class="source_p">;</span></span>
+<span class="lineno">120</span> <span id="trace0-line120" class="unreached-line">    <span class="source_kt">uint32_t</span> <span class="source_n">bgcolor</span><span class="source_p">;</span></span>
+<span class="lineno">121</span> <span id="trace0-line121" class="unreached-line">    <span class="source_kt">int</span> <span class="source_n">loop_count</span><span class="source_p">;</span></span>
+<span class="lineno">122</span> <span id="trace0-line122" class="unreached-line">    <span class="source_kt">int</span> <span class="source_n">minimize_size</span><span class="source_p">;</span></span>
+<span class="lineno">123</span> <span id="trace0-line123" class="unreached-line">    <span class="source_kt">int</span> <span class="source_n">kmin</span><span class="source_p">,</span> <span class="source_n">kmax</span><span class="source_p">;</span></span>
+<span class="lineno">124</span> <span id="trace0-line124" class="unreached-line">    <span class="source_kt">int</span> <span class="source_n">allow_mixed</span><span class="source_p">;</span></span>
+<span class="lineno">125</span> <span id="trace0-line125" class="unreached-line">    <span class="source_kt">int</span> <span class="source_n">verbose</span><span class="source_p">;</span></span>
+<span class="lineno">126</span> <span id="trace0-line126" class="unreached-line">    <span class="source_n">WebPAnimEncoderOptions</span> <span class="source_n">enc_options</span><span class="source_p">;</span></span>
+<span class="reached-lineno">127</span> <span id="trace0-line127" class="reached-line">    <span class="source_n">WebPAnimEncoderObject</span> <span class="source_o">*</span><span class="source_n">encp</span> <span class="source_o">=</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="reached-lineno">128</span> <span id="trace0-line128" class="reached-line">    <span class="source_n">WebPAnimEncoder</span> <span class="source_o">*</span><span class="source_n">enc</span> <span class="source_o">=</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">129</span> <span id="trace0-line129" class="unreached-line"></span>
+<span class="reached-lineno">130</span> <span id="trace0-line130" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">PyArg_ParseTuple</span><span class="source_p">(</span></span>
+<span class="transition">when _PyArg_ParseTuple_SizeT() succeeds</span>
+<span class="transition">taking False path</span>
+<span class="lineno">131</span> <span id="trace0-line131" class="unreached-line">            <span class="source_n">args</span><span class="source_p">,</span></span>
+<span class="lineno">132</span> <span id="trace0-line132" class="unreached-line">            <span class="source_s">&quot;iiIiiiiii&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">133</span> <span id="trace0-line133" class="unreached-line">            <span class="source_o">&amp;</span><span class="source_n">width</span><span class="source_p">,</span></span>
+<span class="lineno">134</span> <span id="trace0-line134" class="unreached-line">            <span class="source_o">&amp;</span><span class="source_n">height</span><span class="source_p">,</span></span>
+<span class="lineno">135</span> <span id="trace0-line135" class="unreached-line">            <span class="source_o">&amp;</span><span class="source_n">bgcolor</span><span class="source_p">,</span></span>
+<span class="lineno">136</span> <span id="trace0-line136" class="unreached-line">            <span class="source_o">&amp;</span><span class="source_n">loop_count</span><span class="source_p">,</span></span>
+<span class="lineno">137</span> <span id="trace0-line137" class="unreached-line">            <span class="source_o">&amp;</span><span class="source_n">minimize_size</span><span class="source_p">,</span></span>
+<span class="lineno">138</span> <span id="trace0-line138" class="unreached-line">            <span class="source_o">&amp;</span><span class="source_n">kmin</span><span class="source_p">,</span></span>
+<span class="lineno">139</span> <span id="trace0-line139" class="unreached-line">            <span class="source_o">&amp;</span><span class="source_n">kmax</span><span class="source_p">,</span></span>
+<span class="lineno">140</span> <span id="trace0-line140" class="unreached-line">            <span class="source_o">&amp;</span><span class="source_n">allow_mixed</span><span class="source_p">,</span></span>
+<span class="lineno">141</span> <span id="trace0-line141" class="unreached-line">            <span class="source_o">&amp;</span><span class="source_n">verbose</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="lineno">142</span> <span id="trace0-line142" class="unreached-line">        <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">143</span> <span id="trace0-line143" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">144</span> <span id="trace0-line144" class="unreached-line"></span>
+<span class="lineno">145</span> <span id="trace0-line145" class="unreached-line">    <span class="source_c1">// Setup and configure the encoder&#39;s options (these are animation-specific)</span></span>
+<span class="reached-lineno">146</span> <span id="trace0-line146" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">WebPAnimEncoderOptionsInit</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">enc_options</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: -0x80000000 <= value <= -1</span>
+<span class="transition">taking False path</span>
+<span class="lineno">147</span> <span id="trace0-line147" class="unreached-line">        <span class="source_n">PyErr_SetString</span><span class="source_p">(</span><span class="source_n">PyExc_RuntimeError</span><span class="source_p">,</span> <span class="source_s">&quot;failed to initialize encoder options&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">148</span> <span id="trace0-line148" class="unreached-line">        <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">149</span> <span id="trace0-line149" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="reached-lineno">150</span> <span id="trace0-line150" class="reached-line">    <span class="source_n">enc_options</span><span class="source_p">.</span><span class="source_n">anim_params</span><span class="source_p">.</span><span class="source_n">bgcolor</span> <span class="source_o">=</span> <span class="source_n">bgcolor</span><span class="source_p">;</span></span>
+<span class="reached-lineno">151</span> <span id="trace0-line151" class="reached-line">    <span class="source_n">enc_options</span><span class="source_p">.</span><span class="source_n">anim_params</span><span class="source_p">.</span><span class="source_n">loop_count</span> <span class="source_o">=</span> <span class="source_n">loop_count</span><span class="source_p">;</span></span>
+<span class="reached-lineno">152</span> <span id="trace0-line152" class="reached-line">    <span class="source_n">enc_options</span><span class="source_p">.</span><span class="source_n">minimize_size</span> <span class="source_o">=</span> <span class="source_n">minimize_size</span><span class="source_p">;</span></span>
+<span class="reached-lineno">153</span> <span id="trace0-line153" class="reached-line">    <span class="source_n">enc_options</span><span class="source_p">.</span><span class="source_n">kmin</span> <span class="source_o">=</span> <span class="source_n">kmin</span><span class="source_p">;</span></span>
+<span class="reached-lineno">154</span> <span id="trace0-line154" class="reached-line">    <span class="source_n">enc_options</span><span class="source_p">.</span><span class="source_n">kmax</span> <span class="source_o">=</span> <span class="source_n">kmax</span><span class="source_p">;</span></span>
+<span class="reached-lineno">155</span> <span id="trace0-line155" class="reached-line">    <span class="source_n">enc_options</span><span class="source_p">.</span><span class="source_n">allow_mixed</span> <span class="source_o">=</span> <span class="source_n">allow_mixed</span><span class="source_p">;</span></span>
+<span class="reached-lineno">156</span> <span id="trace0-line156" class="reached-line">    <span class="source_n">enc_options</span><span class="source_p">.</span><span class="source_n">verbose</span> <span class="source_o">=</span> <span class="source_n">verbose</span><span class="source_p">;</span></span>
+<span class="lineno">157</span> <span id="trace0-line157" class="unreached-line"></span>
+<span class="lineno">158</span> <span id="trace0-line158" class="unreached-line">    <span class="source_c1">// Validate canvas dimensions</span></span>
+<span class="reached-lineno">159</span> <span id="trace0-line159" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">width</span> <span class="source_o">&lt;=</span> <span class="source_mi">0</span> <span class="source_o">||</span> <span class="source_n">height</span> <span class="source_o">&lt;=</span> <span class="source_mi">0</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: 1 <= value <= 0x7fffffff</span>
+<span class="transition">taking False path</span>
+<span class="transition">when considering range: 1 <= value <= 0x7fffffff</span>
+<span class="transition">taking False path</span>
+<span class="lineno">160</span> <span id="trace0-line160" class="unreached-line">        <span class="source_n">PyErr_SetString</span><span class="source_p">(</span><span class="source_n">PyExc_ValueError</span><span class="source_p">,</span> <span class="source_s">&quot;invalid canvas dimensions&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">161</span> <span id="trace0-line161" class="unreached-line">        <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">162</span> <span id="trace0-line162" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">163</span> <span id="trace0-line163" class="unreached-line"></span>
+<span class="lineno">164</span> <span id="trace0-line164" class="unreached-line">    <span class="source_c1">// Create a new animation encoder and picture frame</span></span>
+<span class="reached-lineno">165</span> <span id="trace0-line165" class="reached-line">    <span class="source_n">encp</span> <span class="source_o">=</span> <span class="source_n">PyObject_New</span><span class="source_p">(</span><span class="source_n">WebPAnimEncoderObject</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">WebPAnimEncoder_Type</span><span class="source_p">);</span></span>
+<span class="transition">when _PyObject_New() succeeds</span>
+<span class="note">'*encp' was allocated at:     encp = PyObject_New(WebPAnimEncoderObject, &WebPAnimEncoder_Type);</span>
+<span class="transition">ob_refcnt is now refs: 1 owned</span>
+<span class="reached-lineno">166</span> <span id="trace0-line166" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">encp</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">taking True path</span>
+<span class="reached-lineno">167</span> <span id="trace0-line167" class="reached-line">        <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">WebPPictureInit</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_p">(</span><span class="source_n">encp</span><span class="source_o">-&gt;</span><span class="source_n">frame</span><span class="source_p">)))</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: -0x80000000 <= value <= -1</span>
+<span class="transition">taking True path</span>
+<span class="reached-lineno">168</span> <span id="trace0-line168" class="reached-line">            <span class="source_n">enc</span> <span class="source_o">=</span> <span class="source_n">WebPAnimEncoderNew</span><span class="source_p">(</span><span class="source_n">width</span><span class="source_p">,</span> <span class="source_n">height</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">enc_options</span><span class="source_p">);</span></span>
+<span class="reached-lineno">169</span> <span id="trace0-line169" class="reached-line">            <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">enc</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when treating unknown struct WebPAnimEncoder * from src/_webp.c:168 as NULL</span>
+<span class="transition">taking False path</span>
+<span class="lineno">170</span> <span id="trace0-line170" class="unreached-line">                <span class="source_n">encp</span><span class="source_o">-&gt;</span><span class="source_n">enc</span> <span class="source_o">=</span> <span class="source_n">enc</span><span class="source_p">;</span></span>
+<span class="lineno">171</span> <span id="trace0-line171" class="unreached-line">                <span class="source_k">return</span> <span class="source_p">(</span><span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_p">)</span><span class="source_n">encp</span><span class="source_p">;</span></span>
+<span class="lineno">172</span> <span id="trace0-line172" class="unreached-line">            <span class="source_p">}</span></span>
+<span class="reached-lineno">173</span> <span id="trace0-line173" class="reached-line">            <span class="source_n">WebPPictureFree</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_p">(</span><span class="source_n">encp</span><span class="source_o">-&gt;</span><span class="source_n">frame</span><span class="source_p">));</span></span>
+<span class="lineno">174</span> <span id="trace0-line174" class="unreached-line">        <span class="source_p">}</span></span>
+<span class="reached-lineno">175</span> <span id="trace0-line175" class="reached-line">        <span class="source_n">PyObject_Del</span><span class="source_p">(</span><span class="source_n">encp</span><span class="source_p">);</span></span>
+<span class="lineno">176</span> <span id="trace0-line176" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="reached-lineno">177</span> <span id="trace0-line177" class="reached-line">    <span class="source_n">PyErr_SetString</span><span class="source_p">(</span><span class="source_n">PyExc_RuntimeError</span><span class="source_p">,</span> <span class="source_s">&quot;could not create encoder object&quot;</span><span class="source_p">);</span></span>
+<span class="transition">calling PyErr_SetString()</span>
+<span class="reached-lineno">178</span> <span id="trace0-line178" class="reached-line">    <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">179</span> <span id="trace0-line179" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace0-line130',
+                     target:'trace0-line130',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line130',
+                     target:'trace0-line146',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line146',
+                     target:'trace0-line150',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line159',
+                     target:'trace0-line159',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line159',
+                     target:'trace0-line165',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line165',
+                     target:'trace0-line166',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line166',
+                     target:'trace0-line167',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line167',
+                     target:'trace0-line168',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line169',
+                     target:'trace0-line173',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line177',
+                     target:'trace0-line178',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+  </body>

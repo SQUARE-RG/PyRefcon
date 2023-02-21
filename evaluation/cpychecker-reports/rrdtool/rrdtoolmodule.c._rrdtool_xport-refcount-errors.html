@@ -1,0 +1,1602 @@
+<html>
+  <head>
+    <title>_rrdtool_xport</title>
+    <style type="text/css">
+.unreached-line {
+    #margin:1em;
+    #border:0.1em dotted #00aa00;
+
+    opacity:1.0;
+    filter:alpha(opacity=0);
+    #color:black;
+}
+
+.reached-line {
+    #margin:1em;
+    #border:0.1em dotted #00aa00;
+    border: 0.1em solid blue;
+    font-weight: bold;
+
+    opacity:1.0;
+    filter:alpha(opacity=0);
+    #color:black;
+}
+
+.reached-lineno {
+    border: 0.1em solid blue;
+    font-weight: bold;
+}
+
+pre {
+    #line-height:200%
+}
+
+._jsPlumb_connector { z-index: -2; }
+._jsPlumb_endpoint { z-index: -1; }
+
+.transition {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #ccc;
+    -moz-box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;
+    margin-left: 5em;
+    font-family: proportional;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.error {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #cc0000;
+    -moz-box-shadow: 2px 2px 2px #cc0000;
+    -webkit-box-shadow: 2px 2px 2px #cc0000;
+    box-shadow: 2px 2px 2px #cc0000;
+    margin-left: 5em;
+    color: red;
+    font-family: proportional;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.note {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #ccc;
+    -moz-box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;
+    margin-left: 5em;
+    font-family: proportional;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.hll { background-color: #ffffcc }
+.source_c { color: #408080; font-style: italic } /* Comment */
+.source_err { border: 1px solid #FF0000 } /* Error */
+.source_k { color: #008000; font-weight: bold } /* Keyword */
+.source_o { color: #666666 } /* Operator */
+.source_ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.source_cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.source_cp { color: #BC7A00 } /* Comment.Preproc */
+.source_cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.source_c1 { color: #408080; font-style: italic } /* Comment.Single */
+.source_cs { color: #408080; font-style: italic } /* Comment.Special */
+.source_gd { color: #A00000 } /* Generic.Deleted */
+.source_ge { font-style: italic } /* Generic.Emph */
+.source_gr { color: #FF0000 } /* Generic.Error */
+.source_gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.source_gi { color: #00A000 } /* Generic.Inserted */
+.source_go { color: #888888 } /* Generic.Output */
+.source_gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.source_gs { font-weight: bold } /* Generic.Strong */
+.source_gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.source_gt { color: #0044DD } /* Generic.Traceback */
+.source_kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.source_kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.source_kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.source_kp { color: #008000 } /* Keyword.Pseudo */
+.source_kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.source_kt { color: #B00040 } /* Keyword.Type */
+.source_m { color: #666666 } /* Literal.Number */
+.source_s { color: #BA2121 } /* Literal.String */
+.source_na { color: #7D9029 } /* Name.Attribute */
+.source_nb { color: #008000 } /* Name.Builtin */
+.source_nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.source_no { color: #880000 } /* Name.Constant */
+.source_nd { color: #AA22FF } /* Name.Decorator */
+.source_ni { color: #999999; font-weight: bold } /* Name.Entity */
+.source_ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.source_nf { color: #0000FF } /* Name.Function */
+.source_nl { color: #A0A000 } /* Name.Label */
+.source_nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.source_nt { color: #008000; font-weight: bold } /* Name.Tag */
+.source_nv { color: #19177C } /* Name.Variable */
+.source_ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.source_w { color: #bbbbbb } /* Text.Whitespace */
+.source_mb { color: #666666 } /* Literal.Number.Bin */
+.source_mf { color: #666666 } /* Literal.Number.Float */
+.source_mh { color: #666666 } /* Literal.Number.Hex */
+.source_mi { color: #666666 } /* Literal.Number.Integer */
+.source_mo { color: #666666 } /* Literal.Number.Oct */
+.source_sa { color: #BA2121 } /* Literal.String.Affix */
+.source_sb { color: #BA2121 } /* Literal.String.Backtick */
+.source_sc { color: #BA2121 } /* Literal.String.Char */
+.source_dl { color: #BA2121 } /* Literal.String.Delimiter */
+.source_sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.source_s2 { color: #BA2121 } /* Literal.String.Double */
+.source_se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.source_sh { color: #BA2121 } /* Literal.String.Heredoc */
+.source_si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.source_sx { color: #008000 } /* Literal.String.Other */
+.source_sr { color: #BB6688 } /* Literal.String.Regex */
+.source_s1 { color: #BA2121 } /* Literal.String.Single */
+.source_ss { color: #19177C } /* Literal.String.Symbol */
+.source_bp { color: #008000 } /* Name.Builtin.Pseudo */
+.source_fm { color: #0000FF } /* Name.Function.Magic */
+.source_vc { color: #19177C } /* Name.Variable.Class */
+.source_vg { color: #19177C } /* Name.Variable.Global */
+.source_vi { color: #19177C } /* Name.Variable.Instance */
+.source_vm { color: #19177C } /* Name.Variable.Magic */
+.source_il { color: #666666 } /* Literal.Number.Integer.Long */    </style>
+  </head>
+  <body>
+<script type="text/javascript" src="http://explorercanvas.googlecode.com/svn/trunk/excanvas.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://jsplumb.googlecode.com/files/jquery.jsPlumb-1.2.6-all-min.js"></script>
+<div id="report-0">
+<table>
+  <tr><td>File:</td> <td><b>rrdtoolmodule.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>_rrdtool_xport</b></td></tr>
+  <tr><td>Error:</td> <td><b>memory leak: ob_refcnt of '*meta_dict' is 1 too high</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">694</span> <span id="trace0-line694" class="unreached-line"><span></span><span class="source_k">static</span> <span class="source_n">PyObject</span> <span class="source_o">*</span></span>
+<span class="lineno">695</span> <span id="trace0-line695" class="unreached-line"><span class="source_nf">_rrdtool_xport</span><span class="source_p">(</span><span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">Py_UNUSED</span><span class="source_p">(</span><span class="source_n">self</span><span class="source_p">),</span> <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">args</span><span class="source_p">)</span></span>
+<span class="lineno">696</span> <span id="trace0-line696" class="unreached-line"><span class="source_p">{</span></span>
+<span class="reached-lineno">697</span> <span id="trace0-line697" class="reached-line">    <span class="source_kt">char</span> <span class="source_o">**</span><span class="source_n">rrdtool_argv</span> <span class="source_o">=</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="reached-lineno">698</span> <span id="trace0-line698" class="reached-line">    <span class="source_kt">int</span>    <span class="source_n">rrdtool_argc</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span></span>
+<span class="lineno">699</span> <span id="trace0-line699" class="unreached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">ret</span><span class="source_p">;</span></span>
+<span class="lineno">700</span> <span id="trace0-line700" class="unreached-line">    <span class="source_kt">int</span> <span class="source_n">xsize</span><span class="source_p">,</span> <span class="source_n">status</span><span class="source_p">;</span></span>
+<span class="lineno">701</span> <span id="trace0-line701" class="unreached-line">    <span class="source_kt">char</span> <span class="source_o">**</span><span class="source_n">legend_v</span><span class="source_p">;</span></span>
+<span class="lineno">702</span> <span id="trace0-line702" class="unreached-line">    <span class="source_kt">time_t</span> <span class="source_n">start</span><span class="source_p">,</span> <span class="source_n">end</span><span class="source_p">;</span></span>
+<span class="lineno">703</span> <span id="trace0-line703" class="unreached-line">    <span class="source_kt">unsigned</span> <span class="source_kt">long</span> <span class="source_n">step</span><span class="source_p">,</span> <span class="source_n">col_cnt</span><span class="source_p">;</span></span>
+<span class="lineno">704</span> <span id="trace0-line704" class="unreached-line">    <span class="source_n">rrd_value_t</span> <span class="source_o">*</span><span class="source_n">data</span><span class="source_p">,</span> <span class="source_o">*</span><span class="source_n">datai</span><span class="source_p">;</span></span>
+<span class="lineno">705</span> <span id="trace0-line705" class="unreached-line"></span>
+<span class="reached-lineno">706</span> <span id="trace0-line706" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">convert_args</span><span class="source_p">(</span><span class="source_s">&quot;xport&quot;</span><span class="source_p">,</span> <span class="source_n">args</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">rrdtool_argv</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">rrdtool_argc</span><span class="source_p">)</span> <span class="source_o">==</span> <span class="source_o">-</span><span class="source_mi">1</span><span class="source_p">)</span></span>
+<span class="transition">when considering range: -0x80000000 <= value <= -2</span>
+<span class="transition">taking False path</span>
+<span class="lineno">707</span> <span id="trace0-line707" class="unreached-line">        <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">708</span> <span id="trace0-line708" class="unreached-line"></span>
+<span class="reached-lineno">709</span> <span id="trace0-line709" class="reached-line">    <span class="source_n">Py_BEGIN_ALLOW_THREADS</span></span>
+<span class="transition">releasing the GIL by calling PyEval_SaveThread()</span>
+<span class="reached-lineno">710</span> <span id="trace0-line710" class="reached-line">    <span class="source_n">status</span> <span class="source_o">=</span> <span class="source_n">rrd_xport</span><span class="source_p">(</span><span class="source_n">rrdtool_argc</span><span class="source_p">,</span> <span class="source_n">rrdtool_argv</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">xsize</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">start</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">end</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">step</span><span class="source_p">,</span></span>
+<span class="lineno">711</span> <span id="trace0-line711" class="unreached-line">                       <span class="source_o">&amp;</span><span class="source_n">col_cnt</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">legend_v</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">data</span><span class="source_p">);</span></span>
+<span class="reached-lineno">712</span> <span id="trace0-line712" class="reached-line">    <span class="source_n">Py_END_ALLOW_THREADS</span></span>
+<span class="transition">reacquiring the GIL by calling PyEval_RestoreThread()</span>
+<span class="lineno">713</span> <span id="trace0-line713" class="unreached-line"></span>
+<span class="reached-lineno">714</span> <span id="trace0-line714" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">status</span> <span class="source_o">==</span> <span class="source_o">-</span><span class="source_mi">1</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: -0x80000000 <= value <= -2</span>
+<span class="transition">taking False path</span>
+<span class="lineno">715</span> <span id="trace0-line715" class="unreached-line">        <span class="source_n">PyErr_SetString</span><span class="source_p">(</span><span class="source_n">rrdtool_OperationalError</span><span class="source_p">,</span> <span class="source_n">rrd_get_error</span><span class="source_p">());</span></span>
+<span class="lineno">716</span> <span id="trace0-line716" class="unreached-line">        <span class="source_n">rrd_clear_error</span><span class="source_p">();</span></span>
+<span class="lineno">717</span> <span id="trace0-line717" class="unreached-line">        <span class="source_n">ret</span> <span class="source_o">=</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">718</span> <span id="trace0-line718" class="unreached-line">    <span class="source_p">}</span> <span class="source_k">else</span> <span class="source_p">{</span></span>
+<span class="lineno">719</span> <span id="trace0-line719" class="unreached-line">        <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">meta_dict</span><span class="source_p">,</span> <span class="source_o">*</span><span class="source_n">data_list</span><span class="source_p">,</span> <span class="source_o">*</span><span class="source_n">legend_list</span><span class="source_p">,</span> <span class="source_o">*</span><span class="source_n">t</span><span class="source_p">;</span></span>
+<span class="lineno">720</span> <span id="trace0-line720" class="unreached-line">        <span class="source_n">rrd_value_t</span> <span class="source_n">dv</span><span class="source_p">;</span></span>
+<span class="reached-lineno">721</span> <span id="trace0-line721" class="reached-line">        <span class="source_kt">unsigned</span> <span class="source_kt">long</span> <span class="source_n">i</span><span class="source_p">,</span> <span class="source_n">j</span><span class="source_p">,</span> <span class="source_n">row_cnt</span> <span class="source_o">=</span> <span class="source_p">(</span><span class="source_n">end</span> <span class="source_o">-</span> <span class="source_n">start</span><span class="source_p">)</span> <span class="source_o">/</span> <span class="source_n">step</span><span class="source_p">;</span></span>
+<span class="lineno">722</span> <span id="trace0-line722" class="unreached-line"></span>
+<span class="reached-lineno">723</span> <span id="trace0-line723" class="reached-line">        <span class="source_n">ret</span> <span class="source_o">=</span> <span class="source_n">PyDict_New</span><span class="source_p">();</span></span>
+<span class="transition">when PyDict_New() succeeds</span>
+<span class="reached-lineno">724</span> <span id="trace0-line724" class="reached-line">        <span class="source_n">meta_dict</span> <span class="source_o">=</span> <span class="source_n">PyDict_New</span><span class="source_p">();</span></span>
+<span class="transition">when PyDict_New() succeeds</span>
+<span class="note">'*meta_dict' was allocated at:         meta_dict = PyDict_New();</span>
+<span class="transition">ob_refcnt is now refs: 1 owned</span>
+<span class="reached-lineno">725</span> <span id="trace0-line725" class="reached-line">        <span class="source_n">legend_list</span> <span class="source_o">=</span> <span class="source_n">PyList_New</span><span class="source_p">(</span><span class="source_n">col_cnt</span><span class="source_p">);</span></span>
+<span class="transition">when PyList_New() succeeds</span>
+<span class="reached-lineno">726</span> <span id="trace0-line726" class="reached-line">        <span class="source_n">data_list</span> <span class="source_o">=</span> <span class="source_n">PyList_New</span><span class="source_p">(</span><span class="source_n">row_cnt</span><span class="source_p">);</span></span>
+<span class="transition">when PyList_New() succeeds</span>
+<span class="lineno">727</span> <span id="trace0-line727" class="unreached-line"></span>
+<span class="reached-lineno">728</span> <span id="trace0-line728" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">ret</span><span class="source_p">,</span> <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;meta&quot;</span><span class="source_p">),</span> <span class="source_n">meta_dict</span><span class="source_p">);</span></span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="transition">ob_refcnt is now refs: 1 owned, 1 borrowed</span>
+<span class="reached-lineno">729</span> <span id="trace0-line729" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">ret</span><span class="source_p">,</span> <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;data&quot;</span><span class="source_p">),</span> <span class="source_n">data_list</span><span class="source_p">);</span></span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">730</span> <span id="trace0-line730" class="unreached-line"></span>
+<span class="reached-lineno">731</span> <span id="trace0-line731" class="reached-line">        <span class="source_n">datai</span> <span class="source_o">=</span> <span class="source_n">data</span><span class="source_p">;</span></span>
+<span class="lineno">732</span> <span id="trace0-line732" class="unreached-line"></span>
+<span class="reached-lineno">733</span> <span id="trace0-line733" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">734</span> <span id="trace0-line734" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;start&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">735</span> <span id="trace0-line735" class="unreached-line">            <span class="source_n">PyRRD_Int_FromLong</span><span class="source_p">((</span><span class="source_kt">long</span><span class="source_p">)</span> <span class="source_n">start</span><span class="source_p">));</span></span>
+<span class="reached-lineno">736</span> <span id="trace0-line736" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">737</span> <span id="trace0-line737" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;end&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">738</span> <span id="trace0-line738" class="unreached-line">            <span class="source_n">PyRRD_Int_FromLong</span><span class="source_p">((</span><span class="source_kt">long</span><span class="source_p">)</span> <span class="source_n">end</span><span class="source_p">));</span></span>
+<span class="reached-lineno">739</span> <span id="trace0-line739" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">740</span> <span id="trace0-line740" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;step&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">741</span> <span id="trace0-line741" class="unreached-line">            <span class="source_n">PyRRD_Int_FromLong</span><span class="source_p">((</span><span class="source_kt">long</span><span class="source_p">)</span> <span class="source_n">step</span><span class="source_p">));</span></span>
+<span class="reached-lineno">742</span> <span id="trace0-line742" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">743</span> <span id="trace0-line743" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;rows&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">744</span> <span id="trace0-line744" class="unreached-line">            <span class="source_n">PyRRD_Int_FromLong</span><span class="source_p">((</span><span class="source_kt">long</span><span class="source_p">)</span> <span class="source_n">row_cnt</span><span class="source_p">));</span></span>
+<span class="reached-lineno">745</span> <span id="trace0-line745" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">746</span> <span id="trace0-line746" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;columns&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">747</span> <span id="trace0-line747" class="unreached-line">            <span class="source_n">PyRRD_Int_FromLong</span><span class="source_p">((</span><span class="source_kt">long</span><span class="source_p">)</span> <span class="source_n">col_cnt</span><span class="source_p">));</span></span>
+<span class="reached-lineno">748</span> <span id="trace0-line748" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">749</span> <span id="trace0-line749" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;legend&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">750</span> <span id="trace0-line750" class="unreached-line">            <span class="source_n">legend_list</span><span class="source_p">);</span></span>
+<span class="lineno">751</span> <span id="trace0-line751" class="unreached-line"></span>
+<span class="reached-lineno">752</span> <span id="trace0-line752" class="reached-line">        <span class="source_k">for</span> <span class="source_p">(</span><span class="source_n">i</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span> <span class="source_n">i</span> <span class="source_o">&lt;</span> <span class="source_n">col_cnt</span><span class="source_p">;</span> <span class="source_n">i</span><span class="source_o">++</span><span class="source_p">)</span></span>
+<span class="transition">when taking True path</span>
+<span class="transition">when taking False path</span>
+<span class="reached-lineno">753</span> <span id="trace0-line753" class="reached-line">            <span class="source_n">PyList_SET_ITEM</span><span class="source_p">(</span><span class="source_n">legend_list</span><span class="source_p">,</span> <span class="source_n">i</span><span class="source_p">,</span> <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_n">legend_v</span><span class="source_p">[</span><span class="source_n">i</span><span class="source_p">]));</span></span>
+<span class="transition">when treating unknown char * * from rrdtoolmodule.c:753 as non-NULL</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="lineno">754</span> <span id="trace0-line754" class="unreached-line"></span>
+<span class="reached-lineno">755</span> <span id="trace0-line755" class="reached-line">        <span class="source_k">for</span> <span class="source_p">(</span><span class="source_n">i</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span> <span class="source_n">i</span> <span class="source_o">&lt;</span> <span class="source_n">row_cnt</span><span class="source_p">;</span> <span class="source_n">i</span><span class="source_o">++</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: 1 <= row_cnt <= 0xffffffffffffffff</span>
+<span class="transition">taking True path</span>
+<span class="transition">when considering row_cnt == (long unsigned int)1 from rrdtoolmodule.c:721</span>
+<span class="transition">taking False path</span>
+<span class="reached-lineno">756</span> <span id="trace0-line756" class="reached-line">            <span class="source_n">t</span> <span class="source_o">=</span> <span class="source_n">PyTuple_New</span><span class="source_p">(</span><span class="source_n">col_cnt</span><span class="source_p">);</span></span>
+<span class="transition">when PyTuple_New() succeeds</span>
+<span class="reached-lineno">757</span> <span id="trace0-line757" class="reached-line">            <span class="source_n">PyList_SET_ITEM</span><span class="source_p">(</span><span class="source_n">data_list</span><span class="source_p">,</span> <span class="source_n">i</span><span class="source_p">,</span> <span class="source_n">t</span><span class="source_p">);</span></span>
+<span class="lineno">758</span> <span id="trace0-line758" class="unreached-line"></span>
+<span class="reached-lineno">759</span> <span id="trace0-line759" class="reached-line">            <span class="source_k">for</span> <span class="source_p">(</span><span class="source_n">j</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span> <span class="source_n">j</span> <span class="source_o">&lt;</span> <span class="source_n">col_cnt</span><span class="source_p">;</span> <span class="source_n">j</span><span class="source_o">++</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when taking True path</span>
+<span class="transition">when taking False path</span>
+<span class="reached-lineno">760</span> <span id="trace0-line760" class="reached-line">                <span class="source_n">dv</span> <span class="source_o">=</span> <span class="source_o">*</span><span class="source_p">(</span><span class="source_n">datai</span><span class="source_o">++</span><span class="source_p">);</span></span>
+<span class="transition">when treating unknown rrd_value_t * * from rrdtoolmodule.c:710 as non-NULL</span>
+<span class="lineno">761</span> <span id="trace0-line761" class="unreached-line"></span>
+<span class="reached-lineno">762</span> <span id="trace0-line762" class="reached-line">                <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">isnan</span><span class="source_p">(</span><span class="source_n">dv</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="transition">when taking False path</span>
+<span class="lineno">763</span> <span id="trace0-line763" class="unreached-line">                    <span class="source_n">PyTuple_SET_ITEM</span><span class="source_p">(</span><span class="source_n">t</span><span class="source_p">,</span> <span class="source_n">j</span><span class="source_p">,</span> <span class="source_n">Py_None</span><span class="source_p">);</span></span>
+<span class="lineno">764</span> <span id="trace0-line764" class="unreached-line">                    <span class="source_n">Py_INCREF</span><span class="source_p">(</span><span class="source_n">Py_None</span><span class="source_p">);</span></span>
+<span class="lineno">765</span> <span id="trace0-line765" class="unreached-line">                <span class="source_p">}</span> <span class="source_k">else</span> <span class="source_p">{</span></span>
+<span class="reached-lineno">766</span> <span id="trace0-line766" class="reached-line">                    <span class="source_n">PyTuple_SET_ITEM</span><span class="source_p">(</span><span class="source_n">t</span><span class="source_p">,</span> <span class="source_n">j</span><span class="source_p">,</span> <span class="source_n">PyFloat_FromDouble</span><span class="source_p">((</span><span class="source_kt">double</span><span class="source_p">)</span> <span class="source_n">dv</span><span class="source_p">));</span></span>
+<span class="transition">when PyFloat_FromDouble() succeeds</span>
+<span class="lineno">767</span> <span id="trace0-line767" class="unreached-line">                <span class="source_p">}</span></span>
+<span class="lineno">768</span> <span id="trace0-line768" class="unreached-line">            <span class="source_p">}</span></span>
+<span class="lineno">769</span> <span id="trace0-line769" class="unreached-line">        <span class="source_p">}</span></span>
+<span class="lineno">770</span> <span id="trace0-line770" class="unreached-line"></span>
+<span class="reached-lineno">771</span> <span id="trace0-line771" class="reached-line">        <span class="source_k">for</span> <span class="source_p">(</span><span class="source_n">i</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span> <span class="source_n">i</span> <span class="source_o">&lt;</span> <span class="source_n">col_cnt</span><span class="source_p">;</span> <span class="source_n">i</span><span class="source_o">++</span><span class="source_p">)</span></span>
+<span class="transition">when taking True path</span>
+<span class="transition">when taking False path</span>
+<span class="reached-lineno">772</span> <span id="trace0-line772" class="reached-line">            <span class="source_n">rrd_freemem</span><span class="source_p">(</span><span class="source_n">legend_v</span><span class="source_p">[</span><span class="source_n">i</span><span class="source_p">]);</span></span>
+<span class="transition">when treating unknown char * * from rrdtoolmodule.c:772 as non-NULL</span>
+<span class="lineno">773</span> <span id="trace0-line773" class="unreached-line"></span>
+<span class="reached-lineno">774</span> <span id="trace0-line774" class="reached-line">        <span class="source_n">rrd_freemem</span><span class="source_p">(</span><span class="source_n">legend_v</span><span class="source_p">);</span></span>
+<span class="reached-lineno">775</span> <span id="trace0-line775" class="reached-line">        <span class="source_n">rrd_freemem</span><span class="source_p">(</span><span class="source_n">data</span><span class="source_p">);</span></span>
+<span class="lineno">776</span> <span id="trace0-line776" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">777</span> <span id="trace0-line777" class="unreached-line"></span>
+<span class="reached-lineno">778</span> <span id="trace0-line778" class="reached-line">    <span class="source_n">destroy_args</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">rrdtool_argv</span><span class="source_p">);</span></span>
+<span class="lineno">779</span> <span id="trace0-line779" class="unreached-line"></span>
+<span class="reached-lineno">780</span> <span id="trace0-line780" class="reached-line">    <span class="source_k">return</span> <span class="source_n">ret</span><span class="source_p">;</span></span>
+<span class="lineno">781</span> <span id="trace0-line781" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace0-line706',
+                     target:'trace0-line709',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line709',
+                     target:'trace0-line710',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line712',
+                     target:'trace0-line714',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line714',
+                     target:'trace0-line721',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line723',
+                     target:'trace0-line724',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line724',
+                     target:'trace0-line725',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line725',
+                     target:'trace0-line726',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line726',
+                     target:'trace0-line728',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line728',
+                     target:'trace0-line729',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line729',
+                     target:'trace0-line731',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line733',
+                     target:'trace0-line736',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line736',
+                     target:'trace0-line739',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line739',
+                     target:'trace0-line742',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line742',
+                     target:'trace0-line745',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line745',
+                     target:'trace0-line748',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line748',
+                     target:'trace0-line752',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line752',
+                     target:'trace0-line753',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line752',
+                     target:'trace0-line755',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line755',
+                     target:'trace0-line756',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line756',
+                     target:'trace0-line757',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line759',
+                     target:'trace0-line760',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line762',
+                     target:'trace0-line766',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line759',
+                     target:'trace0-line755',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line755',
+                     target:'trace0-line771',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line771',
+                     target:'trace0-line772',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line771',
+                     target:'trace0-line774',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+<div id="report-1">
+<table>
+  <tr><td>File:</td> <td><b>rrdtoolmodule.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>_rrdtool_xport</b></td></tr>
+  <tr><td>Error:</td> <td><b>memory leak: ob_refcnt of '*legend_list' is 1 too high</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">694</span> <span id="trace1-line694" class="unreached-line"><span></span><span class="source_k">static</span> <span class="source_n">PyObject</span> <span class="source_o">*</span></span>
+<span class="lineno">695</span> <span id="trace1-line695" class="unreached-line"><span class="source_nf">_rrdtool_xport</span><span class="source_p">(</span><span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">Py_UNUSED</span><span class="source_p">(</span><span class="source_n">self</span><span class="source_p">),</span> <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">args</span><span class="source_p">)</span></span>
+<span class="lineno">696</span> <span id="trace1-line696" class="unreached-line"><span class="source_p">{</span></span>
+<span class="reached-lineno">697</span> <span id="trace1-line697" class="reached-line">    <span class="source_kt">char</span> <span class="source_o">**</span><span class="source_n">rrdtool_argv</span> <span class="source_o">=</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="reached-lineno">698</span> <span id="trace1-line698" class="reached-line">    <span class="source_kt">int</span>    <span class="source_n">rrdtool_argc</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span></span>
+<span class="lineno">699</span> <span id="trace1-line699" class="unreached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">ret</span><span class="source_p">;</span></span>
+<span class="lineno">700</span> <span id="trace1-line700" class="unreached-line">    <span class="source_kt">int</span> <span class="source_n">xsize</span><span class="source_p">,</span> <span class="source_n">status</span><span class="source_p">;</span></span>
+<span class="lineno">701</span> <span id="trace1-line701" class="unreached-line">    <span class="source_kt">char</span> <span class="source_o">**</span><span class="source_n">legend_v</span><span class="source_p">;</span></span>
+<span class="lineno">702</span> <span id="trace1-line702" class="unreached-line">    <span class="source_kt">time_t</span> <span class="source_n">start</span><span class="source_p">,</span> <span class="source_n">end</span><span class="source_p">;</span></span>
+<span class="lineno">703</span> <span id="trace1-line703" class="unreached-line">    <span class="source_kt">unsigned</span> <span class="source_kt">long</span> <span class="source_n">step</span><span class="source_p">,</span> <span class="source_n">col_cnt</span><span class="source_p">;</span></span>
+<span class="lineno">704</span> <span id="trace1-line704" class="unreached-line">    <span class="source_n">rrd_value_t</span> <span class="source_o">*</span><span class="source_n">data</span><span class="source_p">,</span> <span class="source_o">*</span><span class="source_n">datai</span><span class="source_p">;</span></span>
+<span class="lineno">705</span> <span id="trace1-line705" class="unreached-line"></span>
+<span class="reached-lineno">706</span> <span id="trace1-line706" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">convert_args</span><span class="source_p">(</span><span class="source_s">&quot;xport&quot;</span><span class="source_p">,</span> <span class="source_n">args</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">rrdtool_argv</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">rrdtool_argc</span><span class="source_p">)</span> <span class="source_o">==</span> <span class="source_o">-</span><span class="source_mi">1</span><span class="source_p">)</span></span>
+<span class="transition">when considering range: -0x80000000 <= value <= -2</span>
+<span class="transition">taking False path</span>
+<span class="lineno">707</span> <span id="trace1-line707" class="unreached-line">        <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">708</span> <span id="trace1-line708" class="unreached-line"></span>
+<span class="reached-lineno">709</span> <span id="trace1-line709" class="reached-line">    <span class="source_n">Py_BEGIN_ALLOW_THREADS</span></span>
+<span class="transition">releasing the GIL by calling PyEval_SaveThread()</span>
+<span class="reached-lineno">710</span> <span id="trace1-line710" class="reached-line">    <span class="source_n">status</span> <span class="source_o">=</span> <span class="source_n">rrd_xport</span><span class="source_p">(</span><span class="source_n">rrdtool_argc</span><span class="source_p">,</span> <span class="source_n">rrdtool_argv</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">xsize</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">start</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">end</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">step</span><span class="source_p">,</span></span>
+<span class="lineno">711</span> <span id="trace1-line711" class="unreached-line">                       <span class="source_o">&amp;</span><span class="source_n">col_cnt</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">legend_v</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">data</span><span class="source_p">);</span></span>
+<span class="reached-lineno">712</span> <span id="trace1-line712" class="reached-line">    <span class="source_n">Py_END_ALLOW_THREADS</span></span>
+<span class="transition">reacquiring the GIL by calling PyEval_RestoreThread()</span>
+<span class="lineno">713</span> <span id="trace1-line713" class="unreached-line"></span>
+<span class="reached-lineno">714</span> <span id="trace1-line714" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">status</span> <span class="source_o">==</span> <span class="source_o">-</span><span class="source_mi">1</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: -0x80000000 <= value <= -2</span>
+<span class="transition">taking False path</span>
+<span class="lineno">715</span> <span id="trace1-line715" class="unreached-line">        <span class="source_n">PyErr_SetString</span><span class="source_p">(</span><span class="source_n">rrdtool_OperationalError</span><span class="source_p">,</span> <span class="source_n">rrd_get_error</span><span class="source_p">());</span></span>
+<span class="lineno">716</span> <span id="trace1-line716" class="unreached-line">        <span class="source_n">rrd_clear_error</span><span class="source_p">();</span></span>
+<span class="lineno">717</span> <span id="trace1-line717" class="unreached-line">        <span class="source_n">ret</span> <span class="source_o">=</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">718</span> <span id="trace1-line718" class="unreached-line">    <span class="source_p">}</span> <span class="source_k">else</span> <span class="source_p">{</span></span>
+<span class="lineno">719</span> <span id="trace1-line719" class="unreached-line">        <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">meta_dict</span><span class="source_p">,</span> <span class="source_o">*</span><span class="source_n">data_list</span><span class="source_p">,</span> <span class="source_o">*</span><span class="source_n">legend_list</span><span class="source_p">,</span> <span class="source_o">*</span><span class="source_n">t</span><span class="source_p">;</span></span>
+<span class="lineno">720</span> <span id="trace1-line720" class="unreached-line">        <span class="source_n">rrd_value_t</span> <span class="source_n">dv</span><span class="source_p">;</span></span>
+<span class="reached-lineno">721</span> <span id="trace1-line721" class="reached-line">        <span class="source_kt">unsigned</span> <span class="source_kt">long</span> <span class="source_n">i</span><span class="source_p">,</span> <span class="source_n">j</span><span class="source_p">,</span> <span class="source_n">row_cnt</span> <span class="source_o">=</span> <span class="source_p">(</span><span class="source_n">end</span> <span class="source_o">-</span> <span class="source_n">start</span><span class="source_p">)</span> <span class="source_o">/</span> <span class="source_n">step</span><span class="source_p">;</span></span>
+<span class="lineno">722</span> <span id="trace1-line722" class="unreached-line"></span>
+<span class="reached-lineno">723</span> <span id="trace1-line723" class="reached-line">        <span class="source_n">ret</span> <span class="source_o">=</span> <span class="source_n">PyDict_New</span><span class="source_p">();</span></span>
+<span class="transition">when PyDict_New() succeeds</span>
+<span class="reached-lineno">724</span> <span id="trace1-line724" class="reached-line">        <span class="source_n">meta_dict</span> <span class="source_o">=</span> <span class="source_n">PyDict_New</span><span class="source_p">();</span></span>
+<span class="transition">when PyDict_New() succeeds</span>
+<span class="reached-lineno">725</span> <span id="trace1-line725" class="reached-line">        <span class="source_n">legend_list</span> <span class="source_o">=</span> <span class="source_n">PyList_New</span><span class="source_p">(</span><span class="source_n">col_cnt</span><span class="source_p">);</span></span>
+<span class="transition">when PyList_New() succeeds</span>
+<span class="note">'*legend_list' was allocated at:         legend_list = PyList_New(col_cnt);</span>
+<span class="transition">ob_refcnt is now refs: 1 owned</span>
+<span class="reached-lineno">726</span> <span id="trace1-line726" class="reached-line">        <span class="source_n">data_list</span> <span class="source_o">=</span> <span class="source_n">PyList_New</span><span class="source_p">(</span><span class="source_n">row_cnt</span><span class="source_p">);</span></span>
+<span class="transition">when PyList_New() succeeds</span>
+<span class="lineno">727</span> <span id="trace1-line727" class="unreached-line"></span>
+<span class="reached-lineno">728</span> <span id="trace1-line728" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">ret</span><span class="source_p">,</span> <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;meta&quot;</span><span class="source_p">),</span> <span class="source_n">meta_dict</span><span class="source_p">);</span></span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="reached-lineno">729</span> <span id="trace1-line729" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">ret</span><span class="source_p">,</span> <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;data&quot;</span><span class="source_p">),</span> <span class="source_n">data_list</span><span class="source_p">);</span></span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">730</span> <span id="trace1-line730" class="unreached-line"></span>
+<span class="reached-lineno">731</span> <span id="trace1-line731" class="reached-line">        <span class="source_n">datai</span> <span class="source_o">=</span> <span class="source_n">data</span><span class="source_p">;</span></span>
+<span class="lineno">732</span> <span id="trace1-line732" class="unreached-line"></span>
+<span class="reached-lineno">733</span> <span id="trace1-line733" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">734</span> <span id="trace1-line734" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;start&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">735</span> <span id="trace1-line735" class="unreached-line">            <span class="source_n">PyRRD_Int_FromLong</span><span class="source_p">((</span><span class="source_kt">long</span><span class="source_p">)</span> <span class="source_n">start</span><span class="source_p">));</span></span>
+<span class="reached-lineno">736</span> <span id="trace1-line736" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">737</span> <span id="trace1-line737" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;end&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">738</span> <span id="trace1-line738" class="unreached-line">            <span class="source_n">PyRRD_Int_FromLong</span><span class="source_p">((</span><span class="source_kt">long</span><span class="source_p">)</span> <span class="source_n">end</span><span class="source_p">));</span></span>
+<span class="reached-lineno">739</span> <span id="trace1-line739" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">740</span> <span id="trace1-line740" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;step&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">741</span> <span id="trace1-line741" class="unreached-line">            <span class="source_n">PyRRD_Int_FromLong</span><span class="source_p">((</span><span class="source_kt">long</span><span class="source_p">)</span> <span class="source_n">step</span><span class="source_p">));</span></span>
+<span class="reached-lineno">742</span> <span id="trace1-line742" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">743</span> <span id="trace1-line743" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;rows&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">744</span> <span id="trace1-line744" class="unreached-line">            <span class="source_n">PyRRD_Int_FromLong</span><span class="source_p">((</span><span class="source_kt">long</span><span class="source_p">)</span> <span class="source_n">row_cnt</span><span class="source_p">));</span></span>
+<span class="reached-lineno">745</span> <span id="trace1-line745" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">746</span> <span id="trace1-line746" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;columns&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">747</span> <span id="trace1-line747" class="unreached-line">            <span class="source_n">PyRRD_Int_FromLong</span><span class="source_p">((</span><span class="source_kt">long</span><span class="source_p">)</span> <span class="source_n">col_cnt</span><span class="source_p">));</span></span>
+<span class="reached-lineno">748</span> <span id="trace1-line748" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="transition">ob_refcnt is now refs: 1 owned, 1 borrowed</span>
+<span class="lineno">749</span> <span id="trace1-line749" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;legend&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">750</span> <span id="trace1-line750" class="unreached-line">            <span class="source_n">legend_list</span><span class="source_p">);</span></span>
+<span class="lineno">751</span> <span id="trace1-line751" class="unreached-line"></span>
+<span class="reached-lineno">752</span> <span id="trace1-line752" class="reached-line">        <span class="source_k">for</span> <span class="source_p">(</span><span class="source_n">i</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span> <span class="source_n">i</span> <span class="source_o">&lt;</span> <span class="source_n">col_cnt</span><span class="source_p">;</span> <span class="source_n">i</span><span class="source_o">++</span><span class="source_p">)</span></span>
+<span class="transition">when taking True path</span>
+<span class="transition">when taking False path</span>
+<span class="reached-lineno">753</span> <span id="trace1-line753" class="reached-line">            <span class="source_n">PyList_SET_ITEM</span><span class="source_p">(</span><span class="source_n">legend_list</span><span class="source_p">,</span> <span class="source_n">i</span><span class="source_p">,</span> <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_n">legend_v</span><span class="source_p">[</span><span class="source_n">i</span><span class="source_p">]));</span></span>
+<span class="transition">when treating unknown char * * from rrdtoolmodule.c:753 as non-NULL</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="lineno">754</span> <span id="trace1-line754" class="unreached-line"></span>
+<span class="reached-lineno">755</span> <span id="trace1-line755" class="reached-line">        <span class="source_k">for</span> <span class="source_p">(</span><span class="source_n">i</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span> <span class="source_n">i</span> <span class="source_o">&lt;</span> <span class="source_n">row_cnt</span><span class="source_p">;</span> <span class="source_n">i</span><span class="source_o">++</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: 1 <= row_cnt <= 0xffffffffffffffff</span>
+<span class="transition">taking True path</span>
+<span class="transition">when considering row_cnt == (long unsigned int)1 from rrdtoolmodule.c:721</span>
+<span class="transition">taking False path</span>
+<span class="reached-lineno">756</span> <span id="trace1-line756" class="reached-line">            <span class="source_n">t</span> <span class="source_o">=</span> <span class="source_n">PyTuple_New</span><span class="source_p">(</span><span class="source_n">col_cnt</span><span class="source_p">);</span></span>
+<span class="transition">when PyTuple_New() succeeds</span>
+<span class="reached-lineno">757</span> <span id="trace1-line757" class="reached-line">            <span class="source_n">PyList_SET_ITEM</span><span class="source_p">(</span><span class="source_n">data_list</span><span class="source_p">,</span> <span class="source_n">i</span><span class="source_p">,</span> <span class="source_n">t</span><span class="source_p">);</span></span>
+<span class="lineno">758</span> <span id="trace1-line758" class="unreached-line"></span>
+<span class="reached-lineno">759</span> <span id="trace1-line759" class="reached-line">            <span class="source_k">for</span> <span class="source_p">(</span><span class="source_n">j</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span> <span class="source_n">j</span> <span class="source_o">&lt;</span> <span class="source_n">col_cnt</span><span class="source_p">;</span> <span class="source_n">j</span><span class="source_o">++</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when taking True path</span>
+<span class="transition">when taking False path</span>
+<span class="reached-lineno">760</span> <span id="trace1-line760" class="reached-line">                <span class="source_n">dv</span> <span class="source_o">=</span> <span class="source_o">*</span><span class="source_p">(</span><span class="source_n">datai</span><span class="source_o">++</span><span class="source_p">);</span></span>
+<span class="transition">when treating unknown rrd_value_t * * from rrdtoolmodule.c:710 as non-NULL</span>
+<span class="lineno">761</span> <span id="trace1-line761" class="unreached-line"></span>
+<span class="reached-lineno">762</span> <span id="trace1-line762" class="reached-line">                <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">isnan</span><span class="source_p">(</span><span class="source_n">dv</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="transition">when taking False path</span>
+<span class="lineno">763</span> <span id="trace1-line763" class="unreached-line">                    <span class="source_n">PyTuple_SET_ITEM</span><span class="source_p">(</span><span class="source_n">t</span><span class="source_p">,</span> <span class="source_n">j</span><span class="source_p">,</span> <span class="source_n">Py_None</span><span class="source_p">);</span></span>
+<span class="lineno">764</span> <span id="trace1-line764" class="unreached-line">                    <span class="source_n">Py_INCREF</span><span class="source_p">(</span><span class="source_n">Py_None</span><span class="source_p">);</span></span>
+<span class="lineno">765</span> <span id="trace1-line765" class="unreached-line">                <span class="source_p">}</span> <span class="source_k">else</span> <span class="source_p">{</span></span>
+<span class="reached-lineno">766</span> <span id="trace1-line766" class="reached-line">                    <span class="source_n">PyTuple_SET_ITEM</span><span class="source_p">(</span><span class="source_n">t</span><span class="source_p">,</span> <span class="source_n">j</span><span class="source_p">,</span> <span class="source_n">PyFloat_FromDouble</span><span class="source_p">((</span><span class="source_kt">double</span><span class="source_p">)</span> <span class="source_n">dv</span><span class="source_p">));</span></span>
+<span class="transition">when PyFloat_FromDouble() succeeds</span>
+<span class="lineno">767</span> <span id="trace1-line767" class="unreached-line">                <span class="source_p">}</span></span>
+<span class="lineno">768</span> <span id="trace1-line768" class="unreached-line">            <span class="source_p">}</span></span>
+<span class="lineno">769</span> <span id="trace1-line769" class="unreached-line">        <span class="source_p">}</span></span>
+<span class="lineno">770</span> <span id="trace1-line770" class="unreached-line"></span>
+<span class="reached-lineno">771</span> <span id="trace1-line771" class="reached-line">        <span class="source_k">for</span> <span class="source_p">(</span><span class="source_n">i</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span> <span class="source_n">i</span> <span class="source_o">&lt;</span> <span class="source_n">col_cnt</span><span class="source_p">;</span> <span class="source_n">i</span><span class="source_o">++</span><span class="source_p">)</span></span>
+<span class="transition">when taking True path</span>
+<span class="transition">when taking False path</span>
+<span class="reached-lineno">772</span> <span id="trace1-line772" class="reached-line">            <span class="source_n">rrd_freemem</span><span class="source_p">(</span><span class="source_n">legend_v</span><span class="source_p">[</span><span class="source_n">i</span><span class="source_p">]);</span></span>
+<span class="transition">when treating unknown char * * from rrdtoolmodule.c:772 as non-NULL</span>
+<span class="lineno">773</span> <span id="trace1-line773" class="unreached-line"></span>
+<span class="reached-lineno">774</span> <span id="trace1-line774" class="reached-line">        <span class="source_n">rrd_freemem</span><span class="source_p">(</span><span class="source_n">legend_v</span><span class="source_p">);</span></span>
+<span class="reached-lineno">775</span> <span id="trace1-line775" class="reached-line">        <span class="source_n">rrd_freemem</span><span class="source_p">(</span><span class="source_n">data</span><span class="source_p">);</span></span>
+<span class="lineno">776</span> <span id="trace1-line776" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">777</span> <span id="trace1-line777" class="unreached-line"></span>
+<span class="reached-lineno">778</span> <span id="trace1-line778" class="reached-line">    <span class="source_n">destroy_args</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">rrdtool_argv</span><span class="source_p">);</span></span>
+<span class="lineno">779</span> <span id="trace1-line779" class="unreached-line"></span>
+<span class="reached-lineno">780</span> <span id="trace1-line780" class="reached-line">    <span class="source_k">return</span> <span class="source_n">ret</span><span class="source_p">;</span></span>
+<span class="lineno">781</span> <span id="trace1-line781" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace1-line706',
+                     target:'trace1-line709',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line709',
+                     target:'trace1-line710',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line712',
+                     target:'trace1-line714',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line714',
+                     target:'trace1-line721',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line723',
+                     target:'trace1-line724',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line724',
+                     target:'trace1-line725',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line725',
+                     target:'trace1-line726',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line726',
+                     target:'trace1-line728',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line728',
+                     target:'trace1-line729',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line729',
+                     target:'trace1-line731',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line733',
+                     target:'trace1-line736',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line736',
+                     target:'trace1-line739',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line739',
+                     target:'trace1-line742',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line742',
+                     target:'trace1-line745',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line745',
+                     target:'trace1-line748',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line748',
+                     target:'trace1-line752',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line752',
+                     target:'trace1-line753',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line752',
+                     target:'trace1-line755',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line755',
+                     target:'trace1-line756',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line756',
+                     target:'trace1-line757',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line759',
+                     target:'trace1-line760',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line762',
+                     target:'trace1-line766',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line759',
+                     target:'trace1-line755',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line755',
+                     target:'trace1-line771',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line771',
+                     target:'trace1-line772',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line771',
+                     target:'trace1-line774',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+<div id="report-2">
+<table>
+  <tr><td>File:</td> <td><b>rrdtoolmodule.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>_rrdtool_xport</b></td></tr>
+  <tr><td>Error:</td> <td><b>memory leak: ob_refcnt of '*data_list' is 1 too high</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">694</span> <span id="trace2-line694" class="unreached-line"><span></span><span class="source_k">static</span> <span class="source_n">PyObject</span> <span class="source_o">*</span></span>
+<span class="lineno">695</span> <span id="trace2-line695" class="unreached-line"><span class="source_nf">_rrdtool_xport</span><span class="source_p">(</span><span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">Py_UNUSED</span><span class="source_p">(</span><span class="source_n">self</span><span class="source_p">),</span> <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">args</span><span class="source_p">)</span></span>
+<span class="lineno">696</span> <span id="trace2-line696" class="unreached-line"><span class="source_p">{</span></span>
+<span class="reached-lineno">697</span> <span id="trace2-line697" class="reached-line">    <span class="source_kt">char</span> <span class="source_o">**</span><span class="source_n">rrdtool_argv</span> <span class="source_o">=</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="reached-lineno">698</span> <span id="trace2-line698" class="reached-line">    <span class="source_kt">int</span>    <span class="source_n">rrdtool_argc</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span></span>
+<span class="lineno">699</span> <span id="trace2-line699" class="unreached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">ret</span><span class="source_p">;</span></span>
+<span class="lineno">700</span> <span id="trace2-line700" class="unreached-line">    <span class="source_kt">int</span> <span class="source_n">xsize</span><span class="source_p">,</span> <span class="source_n">status</span><span class="source_p">;</span></span>
+<span class="lineno">701</span> <span id="trace2-line701" class="unreached-line">    <span class="source_kt">char</span> <span class="source_o">**</span><span class="source_n">legend_v</span><span class="source_p">;</span></span>
+<span class="lineno">702</span> <span id="trace2-line702" class="unreached-line">    <span class="source_kt">time_t</span> <span class="source_n">start</span><span class="source_p">,</span> <span class="source_n">end</span><span class="source_p">;</span></span>
+<span class="lineno">703</span> <span id="trace2-line703" class="unreached-line">    <span class="source_kt">unsigned</span> <span class="source_kt">long</span> <span class="source_n">step</span><span class="source_p">,</span> <span class="source_n">col_cnt</span><span class="source_p">;</span></span>
+<span class="lineno">704</span> <span id="trace2-line704" class="unreached-line">    <span class="source_n">rrd_value_t</span> <span class="source_o">*</span><span class="source_n">data</span><span class="source_p">,</span> <span class="source_o">*</span><span class="source_n">datai</span><span class="source_p">;</span></span>
+<span class="lineno">705</span> <span id="trace2-line705" class="unreached-line"></span>
+<span class="reached-lineno">706</span> <span id="trace2-line706" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">convert_args</span><span class="source_p">(</span><span class="source_s">&quot;xport&quot;</span><span class="source_p">,</span> <span class="source_n">args</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">rrdtool_argv</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">rrdtool_argc</span><span class="source_p">)</span> <span class="source_o">==</span> <span class="source_o">-</span><span class="source_mi">1</span><span class="source_p">)</span></span>
+<span class="transition">when considering range: -0x80000000 <= value <= -2</span>
+<span class="transition">taking False path</span>
+<span class="lineno">707</span> <span id="trace2-line707" class="unreached-line">        <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">708</span> <span id="trace2-line708" class="unreached-line"></span>
+<span class="reached-lineno">709</span> <span id="trace2-line709" class="reached-line">    <span class="source_n">Py_BEGIN_ALLOW_THREADS</span></span>
+<span class="transition">releasing the GIL by calling PyEval_SaveThread()</span>
+<span class="reached-lineno">710</span> <span id="trace2-line710" class="reached-line">    <span class="source_n">status</span> <span class="source_o">=</span> <span class="source_n">rrd_xport</span><span class="source_p">(</span><span class="source_n">rrdtool_argc</span><span class="source_p">,</span> <span class="source_n">rrdtool_argv</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">xsize</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">start</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">end</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">step</span><span class="source_p">,</span></span>
+<span class="lineno">711</span> <span id="trace2-line711" class="unreached-line">                       <span class="source_o">&amp;</span><span class="source_n">col_cnt</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">legend_v</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">data</span><span class="source_p">);</span></span>
+<span class="reached-lineno">712</span> <span id="trace2-line712" class="reached-line">    <span class="source_n">Py_END_ALLOW_THREADS</span></span>
+<span class="transition">reacquiring the GIL by calling PyEval_RestoreThread()</span>
+<span class="lineno">713</span> <span id="trace2-line713" class="unreached-line"></span>
+<span class="reached-lineno">714</span> <span id="trace2-line714" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">status</span> <span class="source_o">==</span> <span class="source_o">-</span><span class="source_mi">1</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: -0x80000000 <= value <= -2</span>
+<span class="transition">taking False path</span>
+<span class="lineno">715</span> <span id="trace2-line715" class="unreached-line">        <span class="source_n">PyErr_SetString</span><span class="source_p">(</span><span class="source_n">rrdtool_OperationalError</span><span class="source_p">,</span> <span class="source_n">rrd_get_error</span><span class="source_p">());</span></span>
+<span class="lineno">716</span> <span id="trace2-line716" class="unreached-line">        <span class="source_n">rrd_clear_error</span><span class="source_p">();</span></span>
+<span class="lineno">717</span> <span id="trace2-line717" class="unreached-line">        <span class="source_n">ret</span> <span class="source_o">=</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">718</span> <span id="trace2-line718" class="unreached-line">    <span class="source_p">}</span> <span class="source_k">else</span> <span class="source_p">{</span></span>
+<span class="lineno">719</span> <span id="trace2-line719" class="unreached-line">        <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">meta_dict</span><span class="source_p">,</span> <span class="source_o">*</span><span class="source_n">data_list</span><span class="source_p">,</span> <span class="source_o">*</span><span class="source_n">legend_list</span><span class="source_p">,</span> <span class="source_o">*</span><span class="source_n">t</span><span class="source_p">;</span></span>
+<span class="lineno">720</span> <span id="trace2-line720" class="unreached-line">        <span class="source_n">rrd_value_t</span> <span class="source_n">dv</span><span class="source_p">;</span></span>
+<span class="reached-lineno">721</span> <span id="trace2-line721" class="reached-line">        <span class="source_kt">unsigned</span> <span class="source_kt">long</span> <span class="source_n">i</span><span class="source_p">,</span> <span class="source_n">j</span><span class="source_p">,</span> <span class="source_n">row_cnt</span> <span class="source_o">=</span> <span class="source_p">(</span><span class="source_n">end</span> <span class="source_o">-</span> <span class="source_n">start</span><span class="source_p">)</span> <span class="source_o">/</span> <span class="source_n">step</span><span class="source_p">;</span></span>
+<span class="lineno">722</span> <span id="trace2-line722" class="unreached-line"></span>
+<span class="reached-lineno">723</span> <span id="trace2-line723" class="reached-line">        <span class="source_n">ret</span> <span class="source_o">=</span> <span class="source_n">PyDict_New</span><span class="source_p">();</span></span>
+<span class="transition">when PyDict_New() succeeds</span>
+<span class="reached-lineno">724</span> <span id="trace2-line724" class="reached-line">        <span class="source_n">meta_dict</span> <span class="source_o">=</span> <span class="source_n">PyDict_New</span><span class="source_p">();</span></span>
+<span class="transition">when PyDict_New() succeeds</span>
+<span class="reached-lineno">725</span> <span id="trace2-line725" class="reached-line">        <span class="source_n">legend_list</span> <span class="source_o">=</span> <span class="source_n">PyList_New</span><span class="source_p">(</span><span class="source_n">col_cnt</span><span class="source_p">);</span></span>
+<span class="transition">when PyList_New() succeeds</span>
+<span class="reached-lineno">726</span> <span id="trace2-line726" class="reached-line">        <span class="source_n">data_list</span> <span class="source_o">=</span> <span class="source_n">PyList_New</span><span class="source_p">(</span><span class="source_n">row_cnt</span><span class="source_p">);</span></span>
+<span class="transition">when PyList_New() succeeds</span>
+<span class="note">'*data_list' was allocated at:         data_list = PyList_New(row_cnt);</span>
+<span class="transition">ob_refcnt is now refs: 1 owned</span>
+<span class="lineno">727</span> <span id="trace2-line727" class="unreached-line"></span>
+<span class="reached-lineno">728</span> <span id="trace2-line728" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">ret</span><span class="source_p">,</span> <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;meta&quot;</span><span class="source_p">),</span> <span class="source_n">meta_dict</span><span class="source_p">);</span></span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="reached-lineno">729</span> <span id="trace2-line729" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">ret</span><span class="source_p">,</span> <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;data&quot;</span><span class="source_p">),</span> <span class="source_n">data_list</span><span class="source_p">);</span></span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="transition">ob_refcnt is now refs: 1 owned, 1 borrowed</span>
+<span class="lineno">730</span> <span id="trace2-line730" class="unreached-line"></span>
+<span class="reached-lineno">731</span> <span id="trace2-line731" class="reached-line">        <span class="source_n">datai</span> <span class="source_o">=</span> <span class="source_n">data</span><span class="source_p">;</span></span>
+<span class="lineno">732</span> <span id="trace2-line732" class="unreached-line"></span>
+<span class="reached-lineno">733</span> <span id="trace2-line733" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">734</span> <span id="trace2-line734" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;start&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">735</span> <span id="trace2-line735" class="unreached-line">            <span class="source_n">PyRRD_Int_FromLong</span><span class="source_p">((</span><span class="source_kt">long</span><span class="source_p">)</span> <span class="source_n">start</span><span class="source_p">));</span></span>
+<span class="reached-lineno">736</span> <span id="trace2-line736" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">737</span> <span id="trace2-line737" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;end&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">738</span> <span id="trace2-line738" class="unreached-line">            <span class="source_n">PyRRD_Int_FromLong</span><span class="source_p">((</span><span class="source_kt">long</span><span class="source_p">)</span> <span class="source_n">end</span><span class="source_p">));</span></span>
+<span class="reached-lineno">739</span> <span id="trace2-line739" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">740</span> <span id="trace2-line740" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;step&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">741</span> <span id="trace2-line741" class="unreached-line">            <span class="source_n">PyRRD_Int_FromLong</span><span class="source_p">((</span><span class="source_kt">long</span><span class="source_p">)</span> <span class="source_n">step</span><span class="source_p">));</span></span>
+<span class="reached-lineno">742</span> <span id="trace2-line742" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">743</span> <span id="trace2-line743" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;rows&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">744</span> <span id="trace2-line744" class="unreached-line">            <span class="source_n">PyRRD_Int_FromLong</span><span class="source_p">((</span><span class="source_kt">long</span><span class="source_p">)</span> <span class="source_n">row_cnt</span><span class="source_p">));</span></span>
+<span class="reached-lineno">745</span> <span id="trace2-line745" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">746</span> <span id="trace2-line746" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;columns&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">747</span> <span id="trace2-line747" class="unreached-line">            <span class="source_n">PyRRD_Int_FromLong</span><span class="source_p">((</span><span class="source_kt">long</span><span class="source_p">)</span> <span class="source_n">col_cnt</span><span class="source_p">));</span></span>
+<span class="reached-lineno">748</span> <span id="trace2-line748" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">749</span> <span id="trace2-line749" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;legend&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">750</span> <span id="trace2-line750" class="unreached-line">            <span class="source_n">legend_list</span><span class="source_p">);</span></span>
+<span class="lineno">751</span> <span id="trace2-line751" class="unreached-line"></span>
+<span class="reached-lineno">752</span> <span id="trace2-line752" class="reached-line">        <span class="source_k">for</span> <span class="source_p">(</span><span class="source_n">i</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span> <span class="source_n">i</span> <span class="source_o">&lt;</span> <span class="source_n">col_cnt</span><span class="source_p">;</span> <span class="source_n">i</span><span class="source_o">++</span><span class="source_p">)</span></span>
+<span class="transition">when taking True path</span>
+<span class="transition">when taking False path</span>
+<span class="reached-lineno">753</span> <span id="trace2-line753" class="reached-line">            <span class="source_n">PyList_SET_ITEM</span><span class="source_p">(</span><span class="source_n">legend_list</span><span class="source_p">,</span> <span class="source_n">i</span><span class="source_p">,</span> <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_n">legend_v</span><span class="source_p">[</span><span class="source_n">i</span><span class="source_p">]));</span></span>
+<span class="transition">when treating unknown char * * from rrdtoolmodule.c:753 as non-NULL</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="lineno">754</span> <span id="trace2-line754" class="unreached-line"></span>
+<span class="reached-lineno">755</span> <span id="trace2-line755" class="reached-line">        <span class="source_k">for</span> <span class="source_p">(</span><span class="source_n">i</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span> <span class="source_n">i</span> <span class="source_o">&lt;</span> <span class="source_n">row_cnt</span><span class="source_p">;</span> <span class="source_n">i</span><span class="source_o">++</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: 1 <= row_cnt <= 0xffffffffffffffff</span>
+<span class="transition">taking True path</span>
+<span class="transition">when considering row_cnt == (long unsigned int)1 from rrdtoolmodule.c:721</span>
+<span class="transition">taking False path</span>
+<span class="reached-lineno">756</span> <span id="trace2-line756" class="reached-line">            <span class="source_n">t</span> <span class="source_o">=</span> <span class="source_n">PyTuple_New</span><span class="source_p">(</span><span class="source_n">col_cnt</span><span class="source_p">);</span></span>
+<span class="transition">when PyTuple_New() succeeds</span>
+<span class="reached-lineno">757</span> <span id="trace2-line757" class="reached-line">            <span class="source_n">PyList_SET_ITEM</span><span class="source_p">(</span><span class="source_n">data_list</span><span class="source_p">,</span> <span class="source_n">i</span><span class="source_p">,</span> <span class="source_n">t</span><span class="source_p">);</span></span>
+<span class="lineno">758</span> <span id="trace2-line758" class="unreached-line"></span>
+<span class="reached-lineno">759</span> <span id="trace2-line759" class="reached-line">            <span class="source_k">for</span> <span class="source_p">(</span><span class="source_n">j</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span> <span class="source_n">j</span> <span class="source_o">&lt;</span> <span class="source_n">col_cnt</span><span class="source_p">;</span> <span class="source_n">j</span><span class="source_o">++</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when taking True path</span>
+<span class="transition">when taking False path</span>
+<span class="reached-lineno">760</span> <span id="trace2-line760" class="reached-line">                <span class="source_n">dv</span> <span class="source_o">=</span> <span class="source_o">*</span><span class="source_p">(</span><span class="source_n">datai</span><span class="source_o">++</span><span class="source_p">);</span></span>
+<span class="transition">when treating unknown rrd_value_t * * from rrdtoolmodule.c:710 as non-NULL</span>
+<span class="lineno">761</span> <span id="trace2-line761" class="unreached-line"></span>
+<span class="reached-lineno">762</span> <span id="trace2-line762" class="reached-line">                <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">isnan</span><span class="source_p">(</span><span class="source_n">dv</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="transition">when taking False path</span>
+<span class="lineno">763</span> <span id="trace2-line763" class="unreached-line">                    <span class="source_n">PyTuple_SET_ITEM</span><span class="source_p">(</span><span class="source_n">t</span><span class="source_p">,</span> <span class="source_n">j</span><span class="source_p">,</span> <span class="source_n">Py_None</span><span class="source_p">);</span></span>
+<span class="lineno">764</span> <span id="trace2-line764" class="unreached-line">                    <span class="source_n">Py_INCREF</span><span class="source_p">(</span><span class="source_n">Py_None</span><span class="source_p">);</span></span>
+<span class="lineno">765</span> <span id="trace2-line765" class="unreached-line">                <span class="source_p">}</span> <span class="source_k">else</span> <span class="source_p">{</span></span>
+<span class="reached-lineno">766</span> <span id="trace2-line766" class="reached-line">                    <span class="source_n">PyTuple_SET_ITEM</span><span class="source_p">(</span><span class="source_n">t</span><span class="source_p">,</span> <span class="source_n">j</span><span class="source_p">,</span> <span class="source_n">PyFloat_FromDouble</span><span class="source_p">((</span><span class="source_kt">double</span><span class="source_p">)</span> <span class="source_n">dv</span><span class="source_p">));</span></span>
+<span class="transition">when PyFloat_FromDouble() succeeds</span>
+<span class="lineno">767</span> <span id="trace2-line767" class="unreached-line">                <span class="source_p">}</span></span>
+<span class="lineno">768</span> <span id="trace2-line768" class="unreached-line">            <span class="source_p">}</span></span>
+<span class="lineno">769</span> <span id="trace2-line769" class="unreached-line">        <span class="source_p">}</span></span>
+<span class="lineno">770</span> <span id="trace2-line770" class="unreached-line"></span>
+<span class="reached-lineno">771</span> <span id="trace2-line771" class="reached-line">        <span class="source_k">for</span> <span class="source_p">(</span><span class="source_n">i</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span> <span class="source_n">i</span> <span class="source_o">&lt;</span> <span class="source_n">col_cnt</span><span class="source_p">;</span> <span class="source_n">i</span><span class="source_o">++</span><span class="source_p">)</span></span>
+<span class="transition">when taking True path</span>
+<span class="transition">when taking False path</span>
+<span class="reached-lineno">772</span> <span id="trace2-line772" class="reached-line">            <span class="source_n">rrd_freemem</span><span class="source_p">(</span><span class="source_n">legend_v</span><span class="source_p">[</span><span class="source_n">i</span><span class="source_p">]);</span></span>
+<span class="transition">when treating unknown char * * from rrdtoolmodule.c:772 as non-NULL</span>
+<span class="lineno">773</span> <span id="trace2-line773" class="unreached-line"></span>
+<span class="reached-lineno">774</span> <span id="trace2-line774" class="reached-line">        <span class="source_n">rrd_freemem</span><span class="source_p">(</span><span class="source_n">legend_v</span><span class="source_p">);</span></span>
+<span class="reached-lineno">775</span> <span id="trace2-line775" class="reached-line">        <span class="source_n">rrd_freemem</span><span class="source_p">(</span><span class="source_n">data</span><span class="source_p">);</span></span>
+<span class="lineno">776</span> <span id="trace2-line776" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">777</span> <span id="trace2-line777" class="unreached-line"></span>
+<span class="reached-lineno">778</span> <span id="trace2-line778" class="reached-line">    <span class="source_n">destroy_args</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">rrdtool_argv</span><span class="source_p">);</span></span>
+<span class="lineno">779</span> <span id="trace2-line779" class="unreached-line"></span>
+<span class="reached-lineno">780</span> <span id="trace2-line780" class="reached-line">    <span class="source_k">return</span> <span class="source_n">ret</span><span class="source_p">;</span></span>
+<span class="lineno">781</span> <span id="trace2-line781" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace2-line706',
+                     target:'trace2-line709',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line709',
+                     target:'trace2-line710',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line712',
+                     target:'trace2-line714',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line714',
+                     target:'trace2-line721',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line723',
+                     target:'trace2-line724',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line724',
+                     target:'trace2-line725',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line725',
+                     target:'trace2-line726',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line726',
+                     target:'trace2-line728',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line728',
+                     target:'trace2-line729',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line729',
+                     target:'trace2-line731',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line733',
+                     target:'trace2-line736',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line736',
+                     target:'trace2-line739',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line739',
+                     target:'trace2-line742',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line742',
+                     target:'trace2-line745',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line745',
+                     target:'trace2-line748',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line748',
+                     target:'trace2-line752',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line752',
+                     target:'trace2-line753',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line752',
+                     target:'trace2-line755',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line755',
+                     target:'trace2-line756',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line756',
+                     target:'trace2-line757',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line759',
+                     target:'trace2-line760',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line762',
+                     target:'trace2-line766',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line759',
+                     target:'trace2-line755',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line755',
+                     target:'trace2-line771',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line771',
+                     target:'trace2-line772',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line771',
+                     target:'trace2-line774',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+<div id="report-3">
+<table>
+  <tr><td>File:</td> <td><b>rrdtoolmodule.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>_rrdtool_xport</b></td></tr>
+  <tr><td>Error:</td> <td><b>memory leak: ob_refcnt of new ref from (unknown) PyUnicode_FromString is 1 too high</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">694</span> <span id="trace3-line694" class="unreached-line"><span></span><span class="source_k">static</span> <span class="source_n">PyObject</span> <span class="source_o">*</span></span>
+<span class="lineno">695</span> <span id="trace3-line695" class="unreached-line"><span class="source_nf">_rrdtool_xport</span><span class="source_p">(</span><span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">Py_UNUSED</span><span class="source_p">(</span><span class="source_n">self</span><span class="source_p">),</span> <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">args</span><span class="source_p">)</span></span>
+<span class="lineno">696</span> <span id="trace3-line696" class="unreached-line"><span class="source_p">{</span></span>
+<span class="reached-lineno">697</span> <span id="trace3-line697" class="reached-line">    <span class="source_kt">char</span> <span class="source_o">**</span><span class="source_n">rrdtool_argv</span> <span class="source_o">=</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="reached-lineno">698</span> <span id="trace3-line698" class="reached-line">    <span class="source_kt">int</span>    <span class="source_n">rrdtool_argc</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span></span>
+<span class="lineno">699</span> <span id="trace3-line699" class="unreached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">ret</span><span class="source_p">;</span></span>
+<span class="lineno">700</span> <span id="trace3-line700" class="unreached-line">    <span class="source_kt">int</span> <span class="source_n">xsize</span><span class="source_p">,</span> <span class="source_n">status</span><span class="source_p">;</span></span>
+<span class="lineno">701</span> <span id="trace3-line701" class="unreached-line">    <span class="source_kt">char</span> <span class="source_o">**</span><span class="source_n">legend_v</span><span class="source_p">;</span></span>
+<span class="lineno">702</span> <span id="trace3-line702" class="unreached-line">    <span class="source_kt">time_t</span> <span class="source_n">start</span><span class="source_p">,</span> <span class="source_n">end</span><span class="source_p">;</span></span>
+<span class="lineno">703</span> <span id="trace3-line703" class="unreached-line">    <span class="source_kt">unsigned</span> <span class="source_kt">long</span> <span class="source_n">step</span><span class="source_p">,</span> <span class="source_n">col_cnt</span><span class="source_p">;</span></span>
+<span class="lineno">704</span> <span id="trace3-line704" class="unreached-line">    <span class="source_n">rrd_value_t</span> <span class="source_o">*</span><span class="source_n">data</span><span class="source_p">,</span> <span class="source_o">*</span><span class="source_n">datai</span><span class="source_p">;</span></span>
+<span class="lineno">705</span> <span id="trace3-line705" class="unreached-line"></span>
+<span class="reached-lineno">706</span> <span id="trace3-line706" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">convert_args</span><span class="source_p">(</span><span class="source_s">&quot;xport&quot;</span><span class="source_p">,</span> <span class="source_n">args</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">rrdtool_argv</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">rrdtool_argc</span><span class="source_p">)</span> <span class="source_o">==</span> <span class="source_o">-</span><span class="source_mi">1</span><span class="source_p">)</span></span>
+<span class="transition">when considering range: -0x80000000 <= value <= -2</span>
+<span class="transition">taking False path</span>
+<span class="lineno">707</span> <span id="trace3-line707" class="unreached-line">        <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">708</span> <span id="trace3-line708" class="unreached-line"></span>
+<span class="reached-lineno">709</span> <span id="trace3-line709" class="reached-line">    <span class="source_n">Py_BEGIN_ALLOW_THREADS</span></span>
+<span class="transition">releasing the GIL by calling PyEval_SaveThread()</span>
+<span class="reached-lineno">710</span> <span id="trace3-line710" class="reached-line">    <span class="source_n">status</span> <span class="source_o">=</span> <span class="source_n">rrd_xport</span><span class="source_p">(</span><span class="source_n">rrdtool_argc</span><span class="source_p">,</span> <span class="source_n">rrdtool_argv</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">xsize</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">start</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">end</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">step</span><span class="source_p">,</span></span>
+<span class="lineno">711</span> <span id="trace3-line711" class="unreached-line">                       <span class="source_o">&amp;</span><span class="source_n">col_cnt</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">legend_v</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">data</span><span class="source_p">);</span></span>
+<span class="reached-lineno">712</span> <span id="trace3-line712" class="reached-line">    <span class="source_n">Py_END_ALLOW_THREADS</span></span>
+<span class="transition">reacquiring the GIL by calling PyEval_RestoreThread()</span>
+<span class="lineno">713</span> <span id="trace3-line713" class="unreached-line"></span>
+<span class="reached-lineno">714</span> <span id="trace3-line714" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">status</span> <span class="source_o">==</span> <span class="source_o">-</span><span class="source_mi">1</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: -0x80000000 <= value <= -2</span>
+<span class="transition">taking False path</span>
+<span class="lineno">715</span> <span id="trace3-line715" class="unreached-line">        <span class="source_n">PyErr_SetString</span><span class="source_p">(</span><span class="source_n">rrdtool_OperationalError</span><span class="source_p">,</span> <span class="source_n">rrd_get_error</span><span class="source_p">());</span></span>
+<span class="lineno">716</span> <span id="trace3-line716" class="unreached-line">        <span class="source_n">rrd_clear_error</span><span class="source_p">();</span></span>
+<span class="lineno">717</span> <span id="trace3-line717" class="unreached-line">        <span class="source_n">ret</span> <span class="source_o">=</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">718</span> <span id="trace3-line718" class="unreached-line">    <span class="source_p">}</span> <span class="source_k">else</span> <span class="source_p">{</span></span>
+<span class="lineno">719</span> <span id="trace3-line719" class="unreached-line">        <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">meta_dict</span><span class="source_p">,</span> <span class="source_o">*</span><span class="source_n">data_list</span><span class="source_p">,</span> <span class="source_o">*</span><span class="source_n">legend_list</span><span class="source_p">,</span> <span class="source_o">*</span><span class="source_n">t</span><span class="source_p">;</span></span>
+<span class="lineno">720</span> <span id="trace3-line720" class="unreached-line">        <span class="source_n">rrd_value_t</span> <span class="source_n">dv</span><span class="source_p">;</span></span>
+<span class="reached-lineno">721</span> <span id="trace3-line721" class="reached-line">        <span class="source_kt">unsigned</span> <span class="source_kt">long</span> <span class="source_n">i</span><span class="source_p">,</span> <span class="source_n">j</span><span class="source_p">,</span> <span class="source_n">row_cnt</span> <span class="source_o">=</span> <span class="source_p">(</span><span class="source_n">end</span> <span class="source_o">-</span> <span class="source_n">start</span><span class="source_p">)</span> <span class="source_o">/</span> <span class="source_n">step</span><span class="source_p">;</span></span>
+<span class="lineno">722</span> <span id="trace3-line722" class="unreached-line"></span>
+<span class="reached-lineno">723</span> <span id="trace3-line723" class="reached-line">        <span class="source_n">ret</span> <span class="source_o">=</span> <span class="source_n">PyDict_New</span><span class="source_p">();</span></span>
+<span class="transition">when PyDict_New() succeeds</span>
+<span class="reached-lineno">724</span> <span id="trace3-line724" class="reached-line">        <span class="source_n">meta_dict</span> <span class="source_o">=</span> <span class="source_n">PyDict_New</span><span class="source_p">();</span></span>
+<span class="transition">when PyDict_New() succeeds</span>
+<span class="reached-lineno">725</span> <span id="trace3-line725" class="reached-line">        <span class="source_n">legend_list</span> <span class="source_o">=</span> <span class="source_n">PyList_New</span><span class="source_p">(</span><span class="source_n">col_cnt</span><span class="source_p">);</span></span>
+<span class="transition">when PyList_New() succeeds</span>
+<span class="reached-lineno">726</span> <span id="trace3-line726" class="reached-line">        <span class="source_n">data_list</span> <span class="source_o">=</span> <span class="source_n">PyList_New</span><span class="source_p">(</span><span class="source_n">row_cnt</span><span class="source_p">);</span></span>
+<span class="transition">when PyList_New() succeeds</span>
+<span class="lineno">727</span> <span id="trace3-line727" class="unreached-line"></span>
+<span class="reached-lineno">728</span> <span id="trace3-line728" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">ret</span><span class="source_p">,</span> <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;meta&quot;</span><span class="source_p">),</span> <span class="source_n">meta_dict</span><span class="source_p">);</span></span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="note">new ref from (unknown) PyUnicode_FromString was allocated at:         PyDict_SetItem(ret, PyRRD_String_FromString("meta"), meta_dict);</span>
+<span class="transition">ob_refcnt is now refs: 1 owned</span>
+<span class="reached-lineno">729</span> <span id="trace3-line729" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">ret</span><span class="source_p">,</span> <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;data&quot;</span><span class="source_p">),</span> <span class="source_n">data_list</span><span class="source_p">);</span></span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">730</span> <span id="trace3-line730" class="unreached-line"></span>
+<span class="reached-lineno">731</span> <span id="trace3-line731" class="reached-line">        <span class="source_n">datai</span> <span class="source_o">=</span> <span class="source_n">data</span><span class="source_p">;</span></span>
+<span class="lineno">732</span> <span id="trace3-line732" class="unreached-line"></span>
+<span class="reached-lineno">733</span> <span id="trace3-line733" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">734</span> <span id="trace3-line734" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;start&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">735</span> <span id="trace3-line735" class="unreached-line">            <span class="source_n">PyRRD_Int_FromLong</span><span class="source_p">((</span><span class="source_kt">long</span><span class="source_p">)</span> <span class="source_n">start</span><span class="source_p">));</span></span>
+<span class="reached-lineno">736</span> <span id="trace3-line736" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">737</span> <span id="trace3-line737" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;end&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">738</span> <span id="trace3-line738" class="unreached-line">            <span class="source_n">PyRRD_Int_FromLong</span><span class="source_p">((</span><span class="source_kt">long</span><span class="source_p">)</span> <span class="source_n">end</span><span class="source_p">));</span></span>
+<span class="reached-lineno">739</span> <span id="trace3-line739" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">740</span> <span id="trace3-line740" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;step&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">741</span> <span id="trace3-line741" class="unreached-line">            <span class="source_n">PyRRD_Int_FromLong</span><span class="source_p">((</span><span class="source_kt">long</span><span class="source_p">)</span> <span class="source_n">step</span><span class="source_p">));</span></span>
+<span class="reached-lineno">742</span> <span id="trace3-line742" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">743</span> <span id="trace3-line743" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;rows&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">744</span> <span id="trace3-line744" class="unreached-line">            <span class="source_n">PyRRD_Int_FromLong</span><span class="source_p">((</span><span class="source_kt">long</span><span class="source_p">)</span> <span class="source_n">row_cnt</span><span class="source_p">));</span></span>
+<span class="reached-lineno">745</span> <span id="trace3-line745" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">746</span> <span id="trace3-line746" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;columns&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">747</span> <span id="trace3-line747" class="unreached-line">            <span class="source_n">PyRRD_Int_FromLong</span><span class="source_p">((</span><span class="source_kt">long</span><span class="source_p">)</span> <span class="source_n">col_cnt</span><span class="source_p">));</span></span>
+<span class="reached-lineno">748</span> <span id="trace3-line748" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">749</span> <span id="trace3-line749" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;legend&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">750</span> <span id="trace3-line750" class="unreached-line">            <span class="source_n">legend_list</span><span class="source_p">);</span></span>
+<span class="lineno">751</span> <span id="trace3-line751" class="unreached-line"></span>
+<span class="reached-lineno">752</span> <span id="trace3-line752" class="reached-line">        <span class="source_k">for</span> <span class="source_p">(</span><span class="source_n">i</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span> <span class="source_n">i</span> <span class="source_o">&lt;</span> <span class="source_n">col_cnt</span><span class="source_p">;</span> <span class="source_n">i</span><span class="source_o">++</span><span class="source_p">)</span></span>
+<span class="transition">when taking True path</span>
+<span class="transition">when taking False path</span>
+<span class="reached-lineno">753</span> <span id="trace3-line753" class="reached-line">            <span class="source_n">PyList_SET_ITEM</span><span class="source_p">(</span><span class="source_n">legend_list</span><span class="source_p">,</span> <span class="source_n">i</span><span class="source_p">,</span> <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_n">legend_v</span><span class="source_p">[</span><span class="source_n">i</span><span class="source_p">]));</span></span>
+<span class="transition">when treating unknown char * * from rrdtoolmodule.c:753 as non-NULL</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="lineno">754</span> <span id="trace3-line754" class="unreached-line"></span>
+<span class="reached-lineno">755</span> <span id="trace3-line755" class="reached-line">        <span class="source_k">for</span> <span class="source_p">(</span><span class="source_n">i</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span> <span class="source_n">i</span> <span class="source_o">&lt;</span> <span class="source_n">row_cnt</span><span class="source_p">;</span> <span class="source_n">i</span><span class="source_o">++</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: 1 <= row_cnt <= 0xffffffffffffffff</span>
+<span class="transition">taking True path</span>
+<span class="transition">when considering row_cnt == (long unsigned int)1 from rrdtoolmodule.c:721</span>
+<span class="transition">taking False path</span>
+<span class="reached-lineno">756</span> <span id="trace3-line756" class="reached-line">            <span class="source_n">t</span> <span class="source_o">=</span> <span class="source_n">PyTuple_New</span><span class="source_p">(</span><span class="source_n">col_cnt</span><span class="source_p">);</span></span>
+<span class="transition">when PyTuple_New() succeeds</span>
+<span class="reached-lineno">757</span> <span id="trace3-line757" class="reached-line">            <span class="source_n">PyList_SET_ITEM</span><span class="source_p">(</span><span class="source_n">data_list</span><span class="source_p">,</span> <span class="source_n">i</span><span class="source_p">,</span> <span class="source_n">t</span><span class="source_p">);</span></span>
+<span class="lineno">758</span> <span id="trace3-line758" class="unreached-line"></span>
+<span class="reached-lineno">759</span> <span id="trace3-line759" class="reached-line">            <span class="source_k">for</span> <span class="source_p">(</span><span class="source_n">j</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span> <span class="source_n">j</span> <span class="source_o">&lt;</span> <span class="source_n">col_cnt</span><span class="source_p">;</span> <span class="source_n">j</span><span class="source_o">++</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when taking True path</span>
+<span class="transition">when taking False path</span>
+<span class="reached-lineno">760</span> <span id="trace3-line760" class="reached-line">                <span class="source_n">dv</span> <span class="source_o">=</span> <span class="source_o">*</span><span class="source_p">(</span><span class="source_n">datai</span><span class="source_o">++</span><span class="source_p">);</span></span>
+<span class="transition">when treating unknown rrd_value_t * * from rrdtoolmodule.c:710 as non-NULL</span>
+<span class="lineno">761</span> <span id="trace3-line761" class="unreached-line"></span>
+<span class="reached-lineno">762</span> <span id="trace3-line762" class="reached-line">                <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">isnan</span><span class="source_p">(</span><span class="source_n">dv</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="transition">when taking False path</span>
+<span class="lineno">763</span> <span id="trace3-line763" class="unreached-line">                    <span class="source_n">PyTuple_SET_ITEM</span><span class="source_p">(</span><span class="source_n">t</span><span class="source_p">,</span> <span class="source_n">j</span><span class="source_p">,</span> <span class="source_n">Py_None</span><span class="source_p">);</span></span>
+<span class="lineno">764</span> <span id="trace3-line764" class="unreached-line">                    <span class="source_n">Py_INCREF</span><span class="source_p">(</span><span class="source_n">Py_None</span><span class="source_p">);</span></span>
+<span class="lineno">765</span> <span id="trace3-line765" class="unreached-line">                <span class="source_p">}</span> <span class="source_k">else</span> <span class="source_p">{</span></span>
+<span class="reached-lineno">766</span> <span id="trace3-line766" class="reached-line">                    <span class="source_n">PyTuple_SET_ITEM</span><span class="source_p">(</span><span class="source_n">t</span><span class="source_p">,</span> <span class="source_n">j</span><span class="source_p">,</span> <span class="source_n">PyFloat_FromDouble</span><span class="source_p">((</span><span class="source_kt">double</span><span class="source_p">)</span> <span class="source_n">dv</span><span class="source_p">));</span></span>
+<span class="transition">when PyFloat_FromDouble() succeeds</span>
+<span class="lineno">767</span> <span id="trace3-line767" class="unreached-line">                <span class="source_p">}</span></span>
+<span class="lineno">768</span> <span id="trace3-line768" class="unreached-line">            <span class="source_p">}</span></span>
+<span class="lineno">769</span> <span id="trace3-line769" class="unreached-line">        <span class="source_p">}</span></span>
+<span class="lineno">770</span> <span id="trace3-line770" class="unreached-line"></span>
+<span class="reached-lineno">771</span> <span id="trace3-line771" class="reached-line">        <span class="source_k">for</span> <span class="source_p">(</span><span class="source_n">i</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span> <span class="source_n">i</span> <span class="source_o">&lt;</span> <span class="source_n">col_cnt</span><span class="source_p">;</span> <span class="source_n">i</span><span class="source_o">++</span><span class="source_p">)</span></span>
+<span class="transition">when taking True path</span>
+<span class="transition">when taking False path</span>
+<span class="reached-lineno">772</span> <span id="trace3-line772" class="reached-line">            <span class="source_n">rrd_freemem</span><span class="source_p">(</span><span class="source_n">legend_v</span><span class="source_p">[</span><span class="source_n">i</span><span class="source_p">]);</span></span>
+<span class="transition">when treating unknown char * * from rrdtoolmodule.c:772 as non-NULL</span>
+<span class="lineno">773</span> <span id="trace3-line773" class="unreached-line"></span>
+<span class="reached-lineno">774</span> <span id="trace3-line774" class="reached-line">        <span class="source_n">rrd_freemem</span><span class="source_p">(</span><span class="source_n">legend_v</span><span class="source_p">);</span></span>
+<span class="reached-lineno">775</span> <span id="trace3-line775" class="reached-line">        <span class="source_n">rrd_freemem</span><span class="source_p">(</span><span class="source_n">data</span><span class="source_p">);</span></span>
+<span class="lineno">776</span> <span id="trace3-line776" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">777</span> <span id="trace3-line777" class="unreached-line"></span>
+<span class="reached-lineno">778</span> <span id="trace3-line778" class="reached-line">    <span class="source_n">destroy_args</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">rrdtool_argv</span><span class="source_p">);</span></span>
+<span class="lineno">779</span> <span id="trace3-line779" class="unreached-line"></span>
+<span class="reached-lineno">780</span> <span id="trace3-line780" class="reached-line">    <span class="source_k">return</span> <span class="source_n">ret</span><span class="source_p">;</span></span>
+<span class="lineno">781</span> <span id="trace3-line781" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace3-line706',
+                     target:'trace3-line709',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line709',
+                     target:'trace3-line710',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line712',
+                     target:'trace3-line714',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line714',
+                     target:'trace3-line721',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line723',
+                     target:'trace3-line724',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line724',
+                     target:'trace3-line725',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line725',
+                     target:'trace3-line726',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line726',
+                     target:'trace3-line728',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line728',
+                     target:'trace3-line729',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line729',
+                     target:'trace3-line731',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line733',
+                     target:'trace3-line736',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line736',
+                     target:'trace3-line739',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line739',
+                     target:'trace3-line742',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line742',
+                     target:'trace3-line745',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line745',
+                     target:'trace3-line748',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line748',
+                     target:'trace3-line752',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line752',
+                     target:'trace3-line753',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line752',
+                     target:'trace3-line755',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line755',
+                     target:'trace3-line756',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line756',
+                     target:'trace3-line757',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line759',
+                     target:'trace3-line760',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line762',
+                     target:'trace3-line766',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line759',
+                     target:'trace3-line755',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line755',
+                     target:'trace3-line771',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line771',
+                     target:'trace3-line772',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line771',
+                     target:'trace3-line774',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+<div id="report-4">
+<table>
+  <tr><td>File:</td> <td><b>rrdtoolmodule.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>_rrdtool_xport</b></td></tr>
+  <tr><td>Error:</td> <td><b>memory leak: ob_refcnt of PyLongObject is 1 too high</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">694</span> <span id="trace4-line694" class="unreached-line"><span></span><span class="source_k">static</span> <span class="source_n">PyObject</span> <span class="source_o">*</span></span>
+<span class="lineno">695</span> <span id="trace4-line695" class="unreached-line"><span class="source_nf">_rrdtool_xport</span><span class="source_p">(</span><span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">Py_UNUSED</span><span class="source_p">(</span><span class="source_n">self</span><span class="source_p">),</span> <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">args</span><span class="source_p">)</span></span>
+<span class="lineno">696</span> <span id="trace4-line696" class="unreached-line"><span class="source_p">{</span></span>
+<span class="reached-lineno">697</span> <span id="trace4-line697" class="reached-line">    <span class="source_kt">char</span> <span class="source_o">**</span><span class="source_n">rrdtool_argv</span> <span class="source_o">=</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="reached-lineno">698</span> <span id="trace4-line698" class="reached-line">    <span class="source_kt">int</span>    <span class="source_n">rrdtool_argc</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span></span>
+<span class="lineno">699</span> <span id="trace4-line699" class="unreached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">ret</span><span class="source_p">;</span></span>
+<span class="lineno">700</span> <span id="trace4-line700" class="unreached-line">    <span class="source_kt">int</span> <span class="source_n">xsize</span><span class="source_p">,</span> <span class="source_n">status</span><span class="source_p">;</span></span>
+<span class="lineno">701</span> <span id="trace4-line701" class="unreached-line">    <span class="source_kt">char</span> <span class="source_o">**</span><span class="source_n">legend_v</span><span class="source_p">;</span></span>
+<span class="lineno">702</span> <span id="trace4-line702" class="unreached-line">    <span class="source_kt">time_t</span> <span class="source_n">start</span><span class="source_p">,</span> <span class="source_n">end</span><span class="source_p">;</span></span>
+<span class="lineno">703</span> <span id="trace4-line703" class="unreached-line">    <span class="source_kt">unsigned</span> <span class="source_kt">long</span> <span class="source_n">step</span><span class="source_p">,</span> <span class="source_n">col_cnt</span><span class="source_p">;</span></span>
+<span class="lineno">704</span> <span id="trace4-line704" class="unreached-line">    <span class="source_n">rrd_value_t</span> <span class="source_o">*</span><span class="source_n">data</span><span class="source_p">,</span> <span class="source_o">*</span><span class="source_n">datai</span><span class="source_p">;</span></span>
+<span class="lineno">705</span> <span id="trace4-line705" class="unreached-line"></span>
+<span class="reached-lineno">706</span> <span id="trace4-line706" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">convert_args</span><span class="source_p">(</span><span class="source_s">&quot;xport&quot;</span><span class="source_p">,</span> <span class="source_n">args</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">rrdtool_argv</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">rrdtool_argc</span><span class="source_p">)</span> <span class="source_o">==</span> <span class="source_o">-</span><span class="source_mi">1</span><span class="source_p">)</span></span>
+<span class="transition">when considering range: -0x80000000 <= value <= -2</span>
+<span class="transition">taking False path</span>
+<span class="lineno">707</span> <span id="trace4-line707" class="unreached-line">        <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">708</span> <span id="trace4-line708" class="unreached-line"></span>
+<span class="reached-lineno">709</span> <span id="trace4-line709" class="reached-line">    <span class="source_n">Py_BEGIN_ALLOW_THREADS</span></span>
+<span class="transition">releasing the GIL by calling PyEval_SaveThread()</span>
+<span class="reached-lineno">710</span> <span id="trace4-line710" class="reached-line">    <span class="source_n">status</span> <span class="source_o">=</span> <span class="source_n">rrd_xport</span><span class="source_p">(</span><span class="source_n">rrdtool_argc</span><span class="source_p">,</span> <span class="source_n">rrdtool_argv</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">xsize</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">start</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">end</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">step</span><span class="source_p">,</span></span>
+<span class="lineno">711</span> <span id="trace4-line711" class="unreached-line">                       <span class="source_o">&amp;</span><span class="source_n">col_cnt</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">legend_v</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">data</span><span class="source_p">);</span></span>
+<span class="reached-lineno">712</span> <span id="trace4-line712" class="reached-line">    <span class="source_n">Py_END_ALLOW_THREADS</span></span>
+<span class="transition">reacquiring the GIL by calling PyEval_RestoreThread()</span>
+<span class="lineno">713</span> <span id="trace4-line713" class="unreached-line"></span>
+<span class="reached-lineno">714</span> <span id="trace4-line714" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">status</span> <span class="source_o">==</span> <span class="source_o">-</span><span class="source_mi">1</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: -0x80000000 <= value <= -2</span>
+<span class="transition">taking False path</span>
+<span class="lineno">715</span> <span id="trace4-line715" class="unreached-line">        <span class="source_n">PyErr_SetString</span><span class="source_p">(</span><span class="source_n">rrdtool_OperationalError</span><span class="source_p">,</span> <span class="source_n">rrd_get_error</span><span class="source_p">());</span></span>
+<span class="lineno">716</span> <span id="trace4-line716" class="unreached-line">        <span class="source_n">rrd_clear_error</span><span class="source_p">();</span></span>
+<span class="lineno">717</span> <span id="trace4-line717" class="unreached-line">        <span class="source_n">ret</span> <span class="source_o">=</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">718</span> <span id="trace4-line718" class="unreached-line">    <span class="source_p">}</span> <span class="source_k">else</span> <span class="source_p">{</span></span>
+<span class="lineno">719</span> <span id="trace4-line719" class="unreached-line">        <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">meta_dict</span><span class="source_p">,</span> <span class="source_o">*</span><span class="source_n">data_list</span><span class="source_p">,</span> <span class="source_o">*</span><span class="source_n">legend_list</span><span class="source_p">,</span> <span class="source_o">*</span><span class="source_n">t</span><span class="source_p">;</span></span>
+<span class="lineno">720</span> <span id="trace4-line720" class="unreached-line">        <span class="source_n">rrd_value_t</span> <span class="source_n">dv</span><span class="source_p">;</span></span>
+<span class="reached-lineno">721</span> <span id="trace4-line721" class="reached-line">        <span class="source_kt">unsigned</span> <span class="source_kt">long</span> <span class="source_n">i</span><span class="source_p">,</span> <span class="source_n">j</span><span class="source_p">,</span> <span class="source_n">row_cnt</span> <span class="source_o">=</span> <span class="source_p">(</span><span class="source_n">end</span> <span class="source_o">-</span> <span class="source_n">start</span><span class="source_p">)</span> <span class="source_o">/</span> <span class="source_n">step</span><span class="source_p">;</span></span>
+<span class="lineno">722</span> <span id="trace4-line722" class="unreached-line"></span>
+<span class="reached-lineno">723</span> <span id="trace4-line723" class="reached-line">        <span class="source_n">ret</span> <span class="source_o">=</span> <span class="source_n">PyDict_New</span><span class="source_p">();</span></span>
+<span class="transition">when PyDict_New() succeeds</span>
+<span class="reached-lineno">724</span> <span id="trace4-line724" class="reached-line">        <span class="source_n">meta_dict</span> <span class="source_o">=</span> <span class="source_n">PyDict_New</span><span class="source_p">();</span></span>
+<span class="transition">when PyDict_New() succeeds</span>
+<span class="reached-lineno">725</span> <span id="trace4-line725" class="reached-line">        <span class="source_n">legend_list</span> <span class="source_o">=</span> <span class="source_n">PyList_New</span><span class="source_p">(</span><span class="source_n">col_cnt</span><span class="source_p">);</span></span>
+<span class="transition">when PyList_New() succeeds</span>
+<span class="reached-lineno">726</span> <span id="trace4-line726" class="reached-line">        <span class="source_n">data_list</span> <span class="source_o">=</span> <span class="source_n">PyList_New</span><span class="source_p">(</span><span class="source_n">row_cnt</span><span class="source_p">);</span></span>
+<span class="transition">when PyList_New() succeeds</span>
+<span class="lineno">727</span> <span id="trace4-line727" class="unreached-line"></span>
+<span class="reached-lineno">728</span> <span id="trace4-line728" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">ret</span><span class="source_p">,</span> <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;meta&quot;</span><span class="source_p">),</span> <span class="source_n">meta_dict</span><span class="source_p">);</span></span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="reached-lineno">729</span> <span id="trace4-line729" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">ret</span><span class="source_p">,</span> <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;data&quot;</span><span class="source_p">),</span> <span class="source_n">data_list</span><span class="source_p">);</span></span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">730</span> <span id="trace4-line730" class="unreached-line"></span>
+<span class="reached-lineno">731</span> <span id="trace4-line731" class="reached-line">        <span class="source_n">datai</span> <span class="source_o">=</span> <span class="source_n">data</span><span class="source_p">;</span></span>
+<span class="lineno">732</span> <span id="trace4-line732" class="unreached-line"></span>
+<span class="reached-lineno">733</span> <span id="trace4-line733" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="note">PyLongObject was allocated at:         PyDict_SetItem(meta_dict,</span>
+<span class="transition">ob_refcnt is now refs: 1 owned</span>
+<span class="transition">ob_refcnt is now refs: 1 owned, 1 borrowed</span>
+<span class="lineno">734</span> <span id="trace4-line734" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;start&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">735</span> <span id="trace4-line735" class="unreached-line">            <span class="source_n">PyRRD_Int_FromLong</span><span class="source_p">((</span><span class="source_kt">long</span><span class="source_p">)</span> <span class="source_n">start</span><span class="source_p">));</span></span>
+<span class="reached-lineno">736</span> <span id="trace4-line736" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">737</span> <span id="trace4-line737" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;end&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">738</span> <span id="trace4-line738" class="unreached-line">            <span class="source_n">PyRRD_Int_FromLong</span><span class="source_p">((</span><span class="source_kt">long</span><span class="source_p">)</span> <span class="source_n">end</span><span class="source_p">));</span></span>
+<span class="reached-lineno">739</span> <span id="trace4-line739" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">740</span> <span id="trace4-line740" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;step&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">741</span> <span id="trace4-line741" class="unreached-line">            <span class="source_n">PyRRD_Int_FromLong</span><span class="source_p">((</span><span class="source_kt">long</span><span class="source_p">)</span> <span class="source_n">step</span><span class="source_p">));</span></span>
+<span class="reached-lineno">742</span> <span id="trace4-line742" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">743</span> <span id="trace4-line743" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;rows&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">744</span> <span id="trace4-line744" class="unreached-line">            <span class="source_n">PyRRD_Int_FromLong</span><span class="source_p">((</span><span class="source_kt">long</span><span class="source_p">)</span> <span class="source_n">row_cnt</span><span class="source_p">));</span></span>
+<span class="reached-lineno">745</span> <span id="trace4-line745" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyLong_FromLong() succeeds</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">746</span> <span id="trace4-line746" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;columns&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">747</span> <span id="trace4-line747" class="unreached-line">            <span class="source_n">PyRRD_Int_FromLong</span><span class="source_p">((</span><span class="source_kt">long</span><span class="source_p">)</span> <span class="source_n">col_cnt</span><span class="source_p">));</span></span>
+<span class="reached-lineno">748</span> <span id="trace4-line748" class="reached-line">        <span class="source_n">PyDict_SetItem</span><span class="source_p">(</span><span class="source_n">meta_dict</span><span class="source_p">,</span></span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItem() succeeds</span>
+<span class="lineno">749</span> <span id="trace4-line749" class="unreached-line">            <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_s">&quot;legend&quot;</span><span class="source_p">),</span></span>
+<span class="lineno">750</span> <span id="trace4-line750" class="unreached-line">            <span class="source_n">legend_list</span><span class="source_p">);</span></span>
+<span class="lineno">751</span> <span id="trace4-line751" class="unreached-line"></span>
+<span class="reached-lineno">752</span> <span id="trace4-line752" class="reached-line">        <span class="source_k">for</span> <span class="source_p">(</span><span class="source_n">i</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span> <span class="source_n">i</span> <span class="source_o">&lt;</span> <span class="source_n">col_cnt</span><span class="source_p">;</span> <span class="source_n">i</span><span class="source_o">++</span><span class="source_p">)</span></span>
+<span class="transition">when taking True path</span>
+<span class="transition">when taking False path</span>
+<span class="reached-lineno">753</span> <span id="trace4-line753" class="reached-line">            <span class="source_n">PyList_SET_ITEM</span><span class="source_p">(</span><span class="source_n">legend_list</span><span class="source_p">,</span> <span class="source_n">i</span><span class="source_p">,</span> <span class="source_n">PyRRD_String_FromString</span><span class="source_p">(</span><span class="source_n">legend_v</span><span class="source_p">[</span><span class="source_n">i</span><span class="source_p">]));</span></span>
+<span class="transition">when treating unknown char * * from rrdtoolmodule.c:753 as non-NULL</span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="lineno">754</span> <span id="trace4-line754" class="unreached-line"></span>
+<span class="reached-lineno">755</span> <span id="trace4-line755" class="reached-line">        <span class="source_k">for</span> <span class="source_p">(</span><span class="source_n">i</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span> <span class="source_n">i</span> <span class="source_o">&lt;</span> <span class="source_n">row_cnt</span><span class="source_p">;</span> <span class="source_n">i</span><span class="source_o">++</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: 1 <= row_cnt <= 0xffffffffffffffff</span>
+<span class="transition">taking True path</span>
+<span class="transition">when considering row_cnt == (long unsigned int)1 from rrdtoolmodule.c:721</span>
+<span class="transition">taking False path</span>
+<span class="reached-lineno">756</span> <span id="trace4-line756" class="reached-line">            <span class="source_n">t</span> <span class="source_o">=</span> <span class="source_n">PyTuple_New</span><span class="source_p">(</span><span class="source_n">col_cnt</span><span class="source_p">);</span></span>
+<span class="transition">when PyTuple_New() succeeds</span>
+<span class="reached-lineno">757</span> <span id="trace4-line757" class="reached-line">            <span class="source_n">PyList_SET_ITEM</span><span class="source_p">(</span><span class="source_n">data_list</span><span class="source_p">,</span> <span class="source_n">i</span><span class="source_p">,</span> <span class="source_n">t</span><span class="source_p">);</span></span>
+<span class="lineno">758</span> <span id="trace4-line758" class="unreached-line"></span>
+<span class="reached-lineno">759</span> <span id="trace4-line759" class="reached-line">            <span class="source_k">for</span> <span class="source_p">(</span><span class="source_n">j</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span> <span class="source_n">j</span> <span class="source_o">&lt;</span> <span class="source_n">col_cnt</span><span class="source_p">;</span> <span class="source_n">j</span><span class="source_o">++</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when taking True path</span>
+<span class="transition">when taking False path</span>
+<span class="reached-lineno">760</span> <span id="trace4-line760" class="reached-line">                <span class="source_n">dv</span> <span class="source_o">=</span> <span class="source_o">*</span><span class="source_p">(</span><span class="source_n">datai</span><span class="source_o">++</span><span class="source_p">);</span></span>
+<span class="transition">when treating unknown rrd_value_t * * from rrdtoolmodule.c:710 as non-NULL</span>
+<span class="lineno">761</span> <span id="trace4-line761" class="unreached-line"></span>
+<span class="reached-lineno">762</span> <span id="trace4-line762" class="reached-line">                <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">isnan</span><span class="source_p">(</span><span class="source_n">dv</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="transition">when taking False path</span>
+<span class="lineno">763</span> <span id="trace4-line763" class="unreached-line">                    <span class="source_n">PyTuple_SET_ITEM</span><span class="source_p">(</span><span class="source_n">t</span><span class="source_p">,</span> <span class="source_n">j</span><span class="source_p">,</span> <span class="source_n">Py_None</span><span class="source_p">);</span></span>
+<span class="lineno">764</span> <span id="trace4-line764" class="unreached-line">                    <span class="source_n">Py_INCREF</span><span class="source_p">(</span><span class="source_n">Py_None</span><span class="source_p">);</span></span>
+<span class="lineno">765</span> <span id="trace4-line765" class="unreached-line">                <span class="source_p">}</span> <span class="source_k">else</span> <span class="source_p">{</span></span>
+<span class="reached-lineno">766</span> <span id="trace4-line766" class="reached-line">                    <span class="source_n">PyTuple_SET_ITEM</span><span class="source_p">(</span><span class="source_n">t</span><span class="source_p">,</span> <span class="source_n">j</span><span class="source_p">,</span> <span class="source_n">PyFloat_FromDouble</span><span class="source_p">((</span><span class="source_kt">double</span><span class="source_p">)</span> <span class="source_n">dv</span><span class="source_p">));</span></span>
+<span class="transition">when PyFloat_FromDouble() succeeds</span>
+<span class="lineno">767</span> <span id="trace4-line767" class="unreached-line">                <span class="source_p">}</span></span>
+<span class="lineno">768</span> <span id="trace4-line768" class="unreached-line">            <span class="source_p">}</span></span>
+<span class="lineno">769</span> <span id="trace4-line769" class="unreached-line">        <span class="source_p">}</span></span>
+<span class="lineno">770</span> <span id="trace4-line770" class="unreached-line"></span>
+<span class="reached-lineno">771</span> <span id="trace4-line771" class="reached-line">        <span class="source_k">for</span> <span class="source_p">(</span><span class="source_n">i</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span> <span class="source_n">i</span> <span class="source_o">&lt;</span> <span class="source_n">col_cnt</span><span class="source_p">;</span> <span class="source_n">i</span><span class="source_o">++</span><span class="source_p">)</span></span>
+<span class="transition">when taking True path</span>
+<span class="transition">when taking False path</span>
+<span class="reached-lineno">772</span> <span id="trace4-line772" class="reached-line">            <span class="source_n">rrd_freemem</span><span class="source_p">(</span><span class="source_n">legend_v</span><span class="source_p">[</span><span class="source_n">i</span><span class="source_p">]);</span></span>
+<span class="transition">when treating unknown char * * from rrdtoolmodule.c:772 as non-NULL</span>
+<span class="lineno">773</span> <span id="trace4-line773" class="unreached-line"></span>
+<span class="reached-lineno">774</span> <span id="trace4-line774" class="reached-line">        <span class="source_n">rrd_freemem</span><span class="source_p">(</span><span class="source_n">legend_v</span><span class="source_p">);</span></span>
+<span class="reached-lineno">775</span> <span id="trace4-line775" class="reached-line">        <span class="source_n">rrd_freemem</span><span class="source_p">(</span><span class="source_n">data</span><span class="source_p">);</span></span>
+<span class="lineno">776</span> <span id="trace4-line776" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">777</span> <span id="trace4-line777" class="unreached-line"></span>
+<span class="reached-lineno">778</span> <span id="trace4-line778" class="reached-line">    <span class="source_n">destroy_args</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">rrdtool_argv</span><span class="source_p">);</span></span>
+<span class="lineno">779</span> <span id="trace4-line779" class="unreached-line"></span>
+<span class="reached-lineno">780</span> <span id="trace4-line780" class="reached-line">    <span class="source_k">return</span> <span class="source_n">ret</span><span class="source_p">;</span></span>
+<span class="lineno">781</span> <span id="trace4-line781" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace4-line706',
+                     target:'trace4-line709',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line709',
+                     target:'trace4-line710',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line712',
+                     target:'trace4-line714',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line714',
+                     target:'trace4-line721',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line723',
+                     target:'trace4-line724',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line724',
+                     target:'trace4-line725',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line725',
+                     target:'trace4-line726',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line726',
+                     target:'trace4-line728',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line728',
+                     target:'trace4-line729',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line729',
+                     target:'trace4-line731',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line733',
+                     target:'trace4-line736',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line736',
+                     target:'trace4-line739',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line739',
+                     target:'trace4-line742',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line742',
+                     target:'trace4-line745',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line745',
+                     target:'trace4-line748',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line748',
+                     target:'trace4-line752',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line752',
+                     target:'trace4-line753',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line752',
+                     target:'trace4-line755',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line755',
+                     target:'trace4-line756',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line756',
+                     target:'trace4-line757',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line759',
+                     target:'trace4-line760',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line762',
+                     target:'trace4-line766',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line759',
+                     target:'trace4-line755',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line755',
+                     target:'trace4-line771',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line771',
+                     target:'trace4-line772',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line771',
+                     target:'trace4-line774',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+  </body>

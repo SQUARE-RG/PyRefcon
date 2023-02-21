@@ -1,0 +1,347 @@
+<html>
+  <head>
+    <title>text_layout_fallback</title>
+    <style type="text/css">
+.unreached-line {
+    #margin:1em;
+    #border:0.1em dotted #00aa00;
+
+    opacity:1.0;
+    filter:alpha(opacity=0);
+    #color:black;
+}
+
+.reached-line {
+    #margin:1em;
+    #border:0.1em dotted #00aa00;
+    border: 0.1em solid blue;
+    font-weight: bold;
+
+    opacity:1.0;
+    filter:alpha(opacity=0);
+    #color:black;
+}
+
+.reached-lineno {
+    border: 0.1em solid blue;
+    font-weight: bold;
+}
+
+pre {
+    #line-height:200%
+}
+
+._jsPlumb_connector { z-index: -2; }
+._jsPlumb_endpoint { z-index: -1; }
+
+.transition {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #ccc;
+    -moz-box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;
+    margin-left: 5em;
+    font-family: proportional;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.error {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #cc0000;
+    -moz-box-shadow: 2px 2px 2px #cc0000;
+    -webkit-box-shadow: 2px 2px 2px #cc0000;
+    box-shadow: 2px 2px 2px #cc0000;
+    margin-left: 5em;
+    color: red;
+    font-family: proportional;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.note {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #ccc;
+    -moz-box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;
+    margin-left: 5em;
+    font-family: proportional;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.hll { background-color: #ffffcc }
+.source_c { color: #408080; font-style: italic } /* Comment */
+.source_err { border: 1px solid #FF0000 } /* Error */
+.source_k { color: #008000; font-weight: bold } /* Keyword */
+.source_o { color: #666666 } /* Operator */
+.source_ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.source_cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.source_cp { color: #BC7A00 } /* Comment.Preproc */
+.source_cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.source_c1 { color: #408080; font-style: italic } /* Comment.Single */
+.source_cs { color: #408080; font-style: italic } /* Comment.Special */
+.source_gd { color: #A00000 } /* Generic.Deleted */
+.source_ge { font-style: italic } /* Generic.Emph */
+.source_gr { color: #FF0000 } /* Generic.Error */
+.source_gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.source_gi { color: #00A000 } /* Generic.Inserted */
+.source_go { color: #888888 } /* Generic.Output */
+.source_gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.source_gs { font-weight: bold } /* Generic.Strong */
+.source_gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.source_gt { color: #0044DD } /* Generic.Traceback */
+.source_kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.source_kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.source_kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.source_kp { color: #008000 } /* Keyword.Pseudo */
+.source_kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.source_kt { color: #B00040 } /* Keyword.Type */
+.source_m { color: #666666 } /* Literal.Number */
+.source_s { color: #BA2121 } /* Literal.String */
+.source_na { color: #7D9029 } /* Name.Attribute */
+.source_nb { color: #008000 } /* Name.Builtin */
+.source_nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.source_no { color: #880000 } /* Name.Constant */
+.source_nd { color: #AA22FF } /* Name.Decorator */
+.source_ni { color: #999999; font-weight: bold } /* Name.Entity */
+.source_ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.source_nf { color: #0000FF } /* Name.Function */
+.source_nl { color: #A0A000 } /* Name.Label */
+.source_nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.source_nt { color: #008000; font-weight: bold } /* Name.Tag */
+.source_nv { color: #19177C } /* Name.Variable */
+.source_ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.source_w { color: #bbbbbb } /* Text.Whitespace */
+.source_mb { color: #666666 } /* Literal.Number.Bin */
+.source_mf { color: #666666 } /* Literal.Number.Float */
+.source_mh { color: #666666 } /* Literal.Number.Hex */
+.source_mi { color: #666666 } /* Literal.Number.Integer */
+.source_mo { color: #666666 } /* Literal.Number.Oct */
+.source_sa { color: #BA2121 } /* Literal.String.Affix */
+.source_sb { color: #BA2121 } /* Literal.String.Backtick */
+.source_sc { color: #BA2121 } /* Literal.String.Char */
+.source_dl { color: #BA2121 } /* Literal.String.Delimiter */
+.source_sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.source_s2 { color: #BA2121 } /* Literal.String.Double */
+.source_se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.source_sh { color: #BA2121 } /* Literal.String.Heredoc */
+.source_si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.source_sx { color: #008000 } /* Literal.String.Other */
+.source_sr { color: #BB6688 } /* Literal.String.Regex */
+.source_s1 { color: #BA2121 } /* Literal.String.Single */
+.source_ss { color: #19177C } /* Literal.String.Symbol */
+.source_bp { color: #008000 } /* Name.Builtin.Pseudo */
+.source_fm { color: #0000FF } /* Name.Function.Magic */
+.source_vc { color: #19177C } /* Name.Variable.Class */
+.source_vg { color: #19177C } /* Name.Variable.Global */
+.source_vi { color: #19177C } /* Name.Variable.Instance */
+.source_vm { color: #19177C } /* Name.Variable.Magic */
+.source_il { color: #666666 } /* Literal.Number.Integer.Long */    </style>
+  </head>
+  <body>
+<script type="text/javascript" src="http://explorercanvas.googlecode.com/svn/trunk/excanvas.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://jsplumb.googlecode.com/files/jquery.jsPlumb-1.2.6-all-min.js"></script>
+<div id="report-0">
+<table>
+  <tr><td>File:</td> <td><b>src/_imagingft.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>text_layout_fallback</b></td></tr>
+  <tr><td>Error:</td> <td><b>memory leak: ob_refcnt of new ref from (unknown) geterror is 1 too high</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">373</span> <span id="trace0-line373" class="unreached-line"><span></span><span class="source_k">static</span> <span class="source_kt">size_t</span></span>
+<span class="lineno">374</span> <span id="trace0-line374" class="unreached-line"><span class="source_nf">text_layout_fallback</span><span class="source_p">(</span></span>
+<span class="lineno">375</span> <span id="trace0-line375" class="unreached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">string</span><span class="source_p">,</span></span>
+<span class="lineno">376</span> <span id="trace0-line376" class="unreached-line">    <span class="source_n">FontObject</span> <span class="source_o">*</span><span class="source_n">self</span><span class="source_p">,</span></span>
+<span class="lineno">377</span> <span id="trace0-line377" class="unreached-line">    <span class="source_k">const</span> <span class="source_kt">char</span> <span class="source_o">*</span><span class="source_n">dir</span><span class="source_p">,</span></span>
+<span class="lineno">378</span> <span id="trace0-line378" class="unreached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">features</span><span class="source_p">,</span></span>
+<span class="lineno">379</span> <span id="trace0-line379" class="unreached-line">    <span class="source_k">const</span> <span class="source_kt">char</span> <span class="source_o">*</span><span class="source_n">lang</span><span class="source_p">,</span></span>
+<span class="lineno">380</span> <span id="trace0-line380" class="unreached-line">    <span class="source_n">GlyphInfo</span> <span class="source_o">**</span><span class="source_n">glyph_info</span><span class="source_p">,</span></span>
+<span class="lineno">381</span> <span id="trace0-line381" class="unreached-line">    <span class="source_kt">int</span> <span class="source_n">mask</span><span class="source_p">,</span></span>
+<span class="lineno">382</span> <span id="trace0-line382" class="unreached-line">    <span class="source_kt">int</span> <span class="source_n">color</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">383</span> <span id="trace0-line383" class="unreached-line">    <span class="source_kt">int</span> <span class="source_n">error</span><span class="source_p">,</span> <span class="source_n">load_flags</span><span class="source_p">;</span></span>
+<span class="lineno">384</span> <span id="trace0-line384" class="unreached-line">    <span class="source_n">FT_ULong</span> <span class="source_n">ch</span><span class="source_p">;</span></span>
+<span class="lineno">385</span> <span id="trace0-line385" class="unreached-line">    <span class="source_n">Py_ssize_t</span> <span class="source_n">count</span><span class="source_p">;</span></span>
+<span class="lineno">386</span> <span id="trace0-line386" class="unreached-line">    <span class="source_n">FT_GlyphSlot</span> <span class="source_n">glyph</span><span class="source_p">;</span></span>
+<span class="reached-lineno">387</span> <span id="trace0-line387" class="reached-line">    <span class="source_n">FT_Bool</span> <span class="source_n">kerning</span> <span class="source_o">=</span> <span class="source_n">FT_HAS_KERNING</span><span class="source_p">(</span><span class="source_n">self</span><span class="source_o">-&gt;</span><span class="source_n">face</span><span class="source_p">);</span></span>
+<span class="transition">when treating unknown struct FT_FaceRec_ * from src/_imagingft.c:387 as non-NULL</span>
+<span class="reached-lineno">388</span> <span id="trace0-line388" class="reached-line">    <span class="source_n">FT_UInt</span> <span class="source_n">last_index</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span></span>
+<span class="lineno">389</span> <span id="trace0-line389" class="unreached-line">    <span class="source_kt">int</span> <span class="source_n">i</span><span class="source_p">;</span></span>
+<span class="lineno">390</span> <span id="trace0-line390" class="unreached-line"></span>
+<span class="reached-lineno">391</span> <span id="trace0-line391" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">features</span> <span class="source_o">!=</span> <span class="source_n">Py_None</span> <span class="source_o">||</span> <span class="source_n">dir</span> <span class="source_o">!=</span> <span class="source_nb">NULL</span> <span class="source_o">||</span> <span class="source_n">lang</span> <span class="source_o">!=</span> <span class="source_nb">NULL</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">taking True path</span>
+<span class="reached-lineno">392</span> <span id="trace0-line392" class="reached-line">        <span class="source_n">PyErr_SetString</span><span class="source_p">(</span></span>
+<span class="transition">calling PyErr_SetString()</span>
+<span class="lineno">393</span> <span id="trace0-line393" class="unreached-line">            <span class="source_n">PyExc_KeyError</span><span class="source_p">,</span></span>
+<span class="lineno">394</span> <span id="trace0-line394" class="unreached-line">            <span class="source_s">&quot;setting text direction, language or font features is not supported &quot;</span></span>
+<span class="lineno">395</span> <span id="trace0-line395" class="unreached-line">            <span class="source_s">&quot;without libraqm&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">396</span> <span id="trace0-line396" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="reached-lineno">397</span> <span id="trace0-line397" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">PyUnicode_Check</span><span class="source_p">(</span><span class="source_n">string</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: 1 <= value <= 0x10000000</span>
+<span class="transition">taking False path</span>
+<span class="lineno">398</span> <span id="trace0-line398" class="unreached-line">        <span class="source_n">PyErr_SetString</span><span class="source_p">(</span><span class="source_n">PyExc_TypeError</span><span class="source_p">,</span> <span class="source_s">&quot;expected string&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">399</span> <span id="trace0-line399" class="unreached-line">        <span class="source_k">return</span> <span class="source_mi">0</span><span class="source_p">;</span></span>
+<span class="lineno">400</span> <span id="trace0-line400" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">401</span> <span id="trace0-line401" class="unreached-line"></span>
+<span class="reached-lineno">402</span> <span id="trace0-line402" class="reached-line">    <span class="source_n">count</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span></span>
+<span class="reached-lineno">403</span> <span id="trace0-line403" class="reached-line">    <span class="source_k">while</span> <span class="source_p">(</span><span class="source_n">font_getchar</span><span class="source_p">(</span><span class="source_n">string</span><span class="source_p">,</span> <span class="source_n">count</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">ch</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: -0x80000000 <= value <= -1</span>
+<span class="transition">taking True path</span>
+<span class="transition">when considering value == (int)0 from src/_imagingft.c:403</span>
+<span class="transition">taking False path</span>
+<span class="reached-lineno">404</span> <span id="trace0-line404" class="reached-line">        <span class="source_n">count</span><span class="source_o">++</span><span class="source_p">;</span></span>
+<span class="lineno">405</span> <span id="trace0-line405" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="reached-lineno">406</span> <span id="trace0-line406" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">count</span> <span class="source_o">==</span> <span class="source_mi">0</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">taking False path</span>
+<span class="lineno">407</span> <span id="trace0-line407" class="unreached-line">        <span class="source_k">return</span> <span class="source_mi">0</span><span class="source_p">;</span></span>
+<span class="lineno">408</span> <span id="trace0-line408" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">409</span> <span id="trace0-line409" class="unreached-line"></span>
+<span class="reached-lineno">410</span> <span id="trace0-line410" class="reached-line">    <span class="source_p">(</span><span class="source_o">*</span><span class="source_n">glyph_info</span><span class="source_p">)</span> <span class="source_o">=</span> <span class="source_n">PyMem_New</span><span class="source_p">(</span><span class="source_n">GlyphInfo</span><span class="source_p">,</span> <span class="source_n">count</span><span class="source_p">);</span></span>
+<span class="transition">taking True path</span>
+<span class="transition">when PyMem_Malloc() succeeds</span>
+<span class="transition">when treating unknown struct GlyphInfo * * from src/_imagingft.c:380 as non-NULL</span>
+<span class="reached-lineno">411</span> <span id="trace0-line411" class="reached-line">    <span class="source_k">if</span> <span class="source_p">((</span><span class="source_o">*</span><span class="source_n">glyph_info</span><span class="source_p">)</span> <span class="source_o">==</span> <span class="source_nb">NULL</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">taking False path</span>
+<span class="lineno">412</span> <span id="trace0-line412" class="unreached-line">        <span class="source_n">PyErr_SetString</span><span class="source_p">(</span><span class="source_n">PyExc_MemoryError</span><span class="source_p">,</span> <span class="source_s">&quot;PyMem_New() failed&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">413</span> <span id="trace0-line413" class="unreached-line">        <span class="source_k">return</span> <span class="source_mi">0</span><span class="source_p">;</span></span>
+<span class="lineno">414</span> <span id="trace0-line414" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">415</span> <span id="trace0-line415" class="unreached-line"></span>
+<span class="reached-lineno">416</span> <span id="trace0-line416" class="reached-line">    <span class="source_n">load_flags</span> <span class="source_o">=</span> <span class="source_n">FT_LOAD_DEFAULT</span><span class="source_p">;</span></span>
+<span class="reached-lineno">417</span> <span id="trace0-line417" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">mask</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: -0x80000000 <= value <= -1</span>
+<span class="transition">taking True path</span>
+<span class="reached-lineno">418</span> <span id="trace0-line418" class="reached-line">        <span class="source_n">load_flags</span> <span class="source_o">|=</span> <span class="source_n">FT_LOAD_TARGET_MONO</span><span class="source_p">;</span></span>
+<span class="lineno">419</span> <span id="trace0-line419" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">420</span> <span id="trace0-line420" class="unreached-line"><span class="source_cp">#ifdef FT_LOAD_COLOR</span></span>
+<span class="reached-lineno">421</span> <span id="trace0-line421" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">color</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: -0x80000000 <= value <= -1</span>
+<span class="transition">taking True path</span>
+<span class="reached-lineno">422</span> <span id="trace0-line422" class="reached-line">        <span class="source_n">load_flags</span> <span class="source_o">|=</span> <span class="source_n">FT_LOAD_COLOR</span><span class="source_p">;</span></span>
+<span class="lineno">423</span> <span id="trace0-line423" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">424</span> <span id="trace0-line424" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="reached-lineno">425</span> <span id="trace0-line425" class="reached-line">    <span class="source_k">for</span> <span class="source_p">(</span><span class="source_n">i</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span> <span class="source_n">font_getchar</span><span class="source_p">(</span><span class="source_n">string</span><span class="source_p">,</span> <span class="source_n">i</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">ch</span><span class="source_p">);</span> <span class="source_n">i</span><span class="source_o">++</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: 1 <= value <= 0x7fffffff</span>
+<span class="transition">taking True path</span>
+<span class="reached-lineno">426</span> <span id="trace0-line426" class="reached-line">        <span class="source_p">(</span><span class="source_o">*</span><span class="source_n">glyph_info</span><span class="source_p">)[</span><span class="source_n">i</span><span class="source_p">].</span><span class="source_n">index</span> <span class="source_o">=</span> <span class="source_n">FT_Get_Char_Index</span><span class="source_p">(</span><span class="source_n">self</span><span class="source_o">-&gt;</span><span class="source_n">face</span><span class="source_p">,</span> <span class="source_n">ch</span><span class="source_p">);</span></span>
+<span class="reached-lineno">427</span> <span id="trace0-line427" class="reached-line">        <span class="source_n">error</span> <span class="source_o">=</span> <span class="source_n">FT_Load_Glyph</span><span class="source_p">(</span><span class="source_n">self</span><span class="source_o">-&gt;</span><span class="source_n">face</span><span class="source_p">,</span> <span class="source_p">(</span><span class="source_o">*</span><span class="source_n">glyph_info</span><span class="source_p">)[</span><span class="source_n">i</span><span class="source_p">].</span><span class="source_n">index</span><span class="source_p">,</span> <span class="source_n">load_flags</span><span class="source_p">);</span></span>
+<span class="reached-lineno">428</span> <span id="trace0-line428" class="reached-line">        <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">error</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: -0x80000000 <= value <= -1</span>
+<span class="transition">taking True path</span>
+<span class="reached-lineno">429</span> <span id="trace0-line429" class="reached-line">            <span class="source_n">geterror</span><span class="source_p">(</span><span class="source_n">error</span><span class="source_p">);</span></span>
+<span class="transition">when geterror() succeeds</span>
+<span class="note">new ref from (unknown) geterror was allocated at:             geterror(error);</span>
+<span class="transition">ob_refcnt is now refs: 1 owned</span>
+<span class="reached-lineno">430</span> <span id="trace0-line430" class="reached-line">            <span class="source_k">return</span> <span class="source_mi">0</span><span class="source_p">;</span></span>
+<span class="lineno">431</span> <span id="trace0-line431" class="unreached-line">        <span class="source_p">}</span></span>
+<span class="lineno">432</span> <span id="trace0-line432" class="unreached-line">        <span class="source_n">glyph</span> <span class="source_o">=</span> <span class="source_n">self</span><span class="source_o">-&gt;</span><span class="source_n">face</span><span class="source_o">-&gt;</span><span class="source_n">glyph</span><span class="source_p">;</span></span>
+<span class="lineno">433</span> <span id="trace0-line433" class="unreached-line">        <span class="source_p">(</span><span class="source_o">*</span><span class="source_n">glyph_info</span><span class="source_p">)[</span><span class="source_n">i</span><span class="source_p">].</span><span class="source_n">x_offset</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span></span>
+<span class="lineno">434</span> <span id="trace0-line434" class="unreached-line">        <span class="source_p">(</span><span class="source_o">*</span><span class="source_n">glyph_info</span><span class="source_p">)[</span><span class="source_n">i</span><span class="source_p">].</span><span class="source_n">y_offset</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span></span>
+<span class="lineno">435</span> <span id="trace0-line435" class="unreached-line">        <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">kerning</span> <span class="source_o">&amp;&amp;</span> <span class="source_n">last_index</span> <span class="source_o">&amp;&amp;</span> <span class="source_p">(</span><span class="source_o">*</span><span class="source_n">glyph_info</span><span class="source_p">)[</span><span class="source_n">i</span><span class="source_p">].</span><span class="source_n">index</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">436</span> <span id="trace0-line436" class="unreached-line">            <span class="source_n">FT_Vector</span> <span class="source_n">delta</span><span class="source_p">;</span></span>
+<span class="lineno">437</span> <span id="trace0-line437" class="unreached-line">            <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">FT_Get_Kerning</span><span class="source_p">(</span></span>
+<span class="lineno">438</span> <span id="trace0-line438" class="unreached-line">                    <span class="source_n">self</span><span class="source_o">-&gt;</span><span class="source_n">face</span><span class="source_p">,</span></span>
+<span class="lineno">439</span> <span id="trace0-line439" class="unreached-line">                    <span class="source_n">last_index</span><span class="source_p">,</span></span>
+<span class="lineno">440</span> <span id="trace0-line440" class="unreached-line">                    <span class="source_p">(</span><span class="source_o">*</span><span class="source_n">glyph_info</span><span class="source_p">)[</span><span class="source_n">i</span><span class="source_p">].</span><span class="source_n">index</span><span class="source_p">,</span></span>
+<span class="lineno">441</span> <span id="trace0-line441" class="unreached-line">                    <span class="source_n">ft_kerning_default</span><span class="source_p">,</span></span>
+<span class="lineno">442</span> <span id="trace0-line442" class="unreached-line">                    <span class="source_o">&amp;</span><span class="source_n">delta</span><span class="source_p">)</span> <span class="source_o">==</span> <span class="source_mi">0</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">443</span> <span id="trace0-line443" class="unreached-line">                <span class="source_p">(</span><span class="source_o">*</span><span class="source_n">glyph_info</span><span class="source_p">)[</span><span class="source_n">i</span> <span class="source_o">-</span> <span class="source_mi">1</span><span class="source_p">].</span><span class="source_n">x_advance</span> <span class="source_o">+=</span> <span class="source_n">PIXEL</span><span class="source_p">(</span><span class="source_n">delta</span><span class="source_p">.</span><span class="source_n">x</span><span class="source_p">);</span></span>
+<span class="lineno">444</span> <span id="trace0-line444" class="unreached-line">                <span class="source_p">(</span><span class="source_o">*</span><span class="source_n">glyph_info</span><span class="source_p">)[</span><span class="source_n">i</span> <span class="source_o">-</span> <span class="source_mi">1</span><span class="source_p">].</span><span class="source_n">y_advance</span> <span class="source_o">+=</span> <span class="source_n">PIXEL</span><span class="source_p">(</span><span class="source_n">delta</span><span class="source_p">.</span><span class="source_n">y</span><span class="source_p">);</span></span>
+<span class="lineno">445</span> <span id="trace0-line445" class="unreached-line">            <span class="source_p">}</span></span>
+<span class="lineno">446</span> <span id="trace0-line446" class="unreached-line">        <span class="source_p">}</span></span>
+<span class="lineno">447</span> <span id="trace0-line447" class="unreached-line"></span>
+<span class="lineno">448</span> <span id="trace0-line448" class="unreached-line">        <span class="source_p">(</span><span class="source_o">*</span><span class="source_n">glyph_info</span><span class="source_p">)[</span><span class="source_n">i</span><span class="source_p">].</span><span class="source_n">x_advance</span> <span class="source_o">=</span> <span class="source_n">glyph</span><span class="source_o">-&gt;</span><span class="source_n">metrics</span><span class="source_p">.</span><span class="source_n">horiAdvance</span><span class="source_p">;</span></span>
+<span class="lineno">449</span> <span id="trace0-line449" class="unreached-line">        <span class="source_c1">// y_advance is only used in ttb, which is not supported by basic layout</span></span>
+<span class="lineno">450</span> <span id="trace0-line450" class="unreached-line">        <span class="source_p">(</span><span class="source_o">*</span><span class="source_n">glyph_info</span><span class="source_p">)[</span><span class="source_n">i</span><span class="source_p">].</span><span class="source_n">y_advance</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span></span>
+<span class="lineno">451</span> <span id="trace0-line451" class="unreached-line">        <span class="source_n">last_index</span> <span class="source_o">=</span> <span class="source_p">(</span><span class="source_o">*</span><span class="source_n">glyph_info</span><span class="source_p">)[</span><span class="source_n">i</span><span class="source_p">].</span><span class="source_n">index</span><span class="source_p">;</span></span>
+<span class="lineno">452</span> <span id="trace0-line452" class="unreached-line">        <span class="source_p">(</span><span class="source_o">*</span><span class="source_n">glyph_info</span><span class="source_p">)[</span><span class="source_n">i</span><span class="source_p">].</span><span class="source_n">cluster</span> <span class="source_o">=</span> <span class="source_n">ch</span><span class="source_p">;</span></span>
+<span class="lineno">453</span> <span id="trace0-line453" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">454</span> <span id="trace0-line454" class="unreached-line">    <span class="source_k">return</span> <span class="source_n">count</span><span class="source_p">;</span></span>
+<span class="lineno">455</span> <span id="trace0-line455" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace0-line391',
+                     target:'trace0-line392',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line392',
+                     target:'trace0-line397',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line397',
+                     target:'trace0-line402',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line403',
+                     target:'trace0-line404',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line403',
+                     target:'trace0-line406',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line406',
+                     target:'trace0-line410',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line410',
+                     target:'trace0-line410',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line411',
+                     target:'trace0-line416',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line417',
+                     target:'trace0-line418',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line421',
+                     target:'trace0-line422',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line425',
+                     target:'trace0-line426',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line428',
+                     target:'trace0-line429',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line429',
+                     target:'trace0-line430',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+  </body>

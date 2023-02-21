@@ -1,0 +1,349 @@
+<html>
+  <head>
+    <title>setup_module</title>
+    <style type="text/css">
+.unreached-line {
+    #margin:1em;
+    #border:0.1em dotted #00aa00;
+
+    opacity:1.0;
+    filter:alpha(opacity=0);
+    #color:black;
+}
+
+.reached-line {
+    #margin:1em;
+    #border:0.1em dotted #00aa00;
+    border: 0.1em solid blue;
+    font-weight: bold;
+
+    opacity:1.0;
+    filter:alpha(opacity=0);
+    #color:black;
+}
+
+.reached-lineno {
+    border: 0.1em solid blue;
+    font-weight: bold;
+}
+
+pre {
+    #line-height:200%
+}
+
+._jsPlumb_connector { z-index: -2; }
+._jsPlumb_endpoint { z-index: -1; }
+
+.transition {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #ccc;
+    -moz-box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;
+    margin-left: 5em;
+    font-family: proportional;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.error {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #cc0000;
+    -moz-box-shadow: 2px 2px 2px #cc0000;
+    -webkit-box-shadow: 2px 2px 2px #cc0000;
+    box-shadow: 2px 2px 2px #cc0000;
+    margin-left: 5em;
+    color: red;
+    font-family: proportional;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.note {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #ccc;
+    -moz-box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;
+    margin-left: 5em;
+    font-family: proportional;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.hll { background-color: #ffffcc }
+.source_c { color: #408080; font-style: italic } /* Comment */
+.source_err { border: 1px solid #FF0000 } /* Error */
+.source_k { color: #008000; font-weight: bold } /* Keyword */
+.source_o { color: #666666 } /* Operator */
+.source_ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.source_cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.source_cp { color: #BC7A00 } /* Comment.Preproc */
+.source_cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.source_c1 { color: #408080; font-style: italic } /* Comment.Single */
+.source_cs { color: #408080; font-style: italic } /* Comment.Special */
+.source_gd { color: #A00000 } /* Generic.Deleted */
+.source_ge { font-style: italic } /* Generic.Emph */
+.source_gr { color: #FF0000 } /* Generic.Error */
+.source_gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.source_gi { color: #00A000 } /* Generic.Inserted */
+.source_go { color: #888888 } /* Generic.Output */
+.source_gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.source_gs { font-weight: bold } /* Generic.Strong */
+.source_gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.source_gt { color: #0044DD } /* Generic.Traceback */
+.source_kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.source_kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.source_kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.source_kp { color: #008000 } /* Keyword.Pseudo */
+.source_kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.source_kt { color: #B00040 } /* Keyword.Type */
+.source_m { color: #666666 } /* Literal.Number */
+.source_s { color: #BA2121 } /* Literal.String */
+.source_na { color: #7D9029 } /* Name.Attribute */
+.source_nb { color: #008000 } /* Name.Builtin */
+.source_nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.source_no { color: #880000 } /* Name.Constant */
+.source_nd { color: #AA22FF } /* Name.Decorator */
+.source_ni { color: #999999; font-weight: bold } /* Name.Entity */
+.source_ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.source_nf { color: #0000FF } /* Name.Function */
+.source_nl { color: #A0A000 } /* Name.Label */
+.source_nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.source_nt { color: #008000; font-weight: bold } /* Name.Tag */
+.source_nv { color: #19177C } /* Name.Variable */
+.source_ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.source_w { color: #bbbbbb } /* Text.Whitespace */
+.source_mb { color: #666666 } /* Literal.Number.Bin */
+.source_mf { color: #666666 } /* Literal.Number.Float */
+.source_mh { color: #666666 } /* Literal.Number.Hex */
+.source_mi { color: #666666 } /* Literal.Number.Integer */
+.source_mo { color: #666666 } /* Literal.Number.Oct */
+.source_sa { color: #BA2121 } /* Literal.String.Affix */
+.source_sb { color: #BA2121 } /* Literal.String.Backtick */
+.source_sc { color: #BA2121 } /* Literal.String.Char */
+.source_dl { color: #BA2121 } /* Literal.String.Delimiter */
+.source_sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.source_s2 { color: #BA2121 } /* Literal.String.Double */
+.source_se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.source_sh { color: #BA2121 } /* Literal.String.Heredoc */
+.source_si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.source_sx { color: #008000 } /* Literal.String.Other */
+.source_sr { color: #BB6688 } /* Literal.String.Regex */
+.source_s1 { color: #BA2121 } /* Literal.String.Single */
+.source_ss { color: #19177C } /* Literal.String.Symbol */
+.source_bp { color: #008000 } /* Name.Builtin.Pseudo */
+.source_fm { color: #0000FF } /* Name.Function.Magic */
+.source_vc { color: #19177C } /* Name.Variable.Class */
+.source_vg { color: #19177C } /* Name.Variable.Global */
+.source_vi { color: #19177C } /* Name.Variable.Instance */
+.source_vm { color: #19177C } /* Name.Variable.Magic */
+.source_il { color: #666666 } /* Literal.Number.Integer.Long */    </style>
+  </head>
+  <body>
+<script type="text/javascript" src="http://explorercanvas.googlecode.com/svn/trunk/excanvas.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://jsplumb.googlecode.com/files/jquery.jsPlumb-1.2.6-all-min.js"></script>
+<div id="report-0">
+<table>
+  <tr><td>File:</td> <td><b>src/_webp.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>setup_module</b></td></tr>
+  <tr><td>Error:</td> <td><b>memory leak: ob_refcnt of new ref from (unknown) PyUnicode_FromString is 1 too high</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">951</span> <span id="trace0-line951" class="unreached-line"><span></span><span class="source_k">static</span> <span class="source_kt">int</span></span>
+<span class="lineno">952</span> <span id="trace0-line952" class="unreached-line"><span class="source_nf">setup_module</span><span class="source_p">(</span><span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">m</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="reached-lineno">953</span> <span id="trace0-line953" class="reached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">d</span> <span class="source_o">=</span> <span class="source_n">PyModule_GetDict</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">);</span></span>
+<span class="reached-lineno">954</span> <span id="trace0-line954" class="reached-line">    <span class="source_n">addMuxFlagToModule</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">);</span></span>
+<span class="reached-lineno">955</span> <span id="trace0-line955" class="reached-line">    <span class="source_n">addAnimFlagToModule</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">);</span></span>
+<span class="reached-lineno">956</span> <span id="trace0-line956" class="reached-line">    <span class="source_n">addTransparencyFlagToModule</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">);</span></span>
+<span class="lineno">957</span> <span id="trace0-line957" class="unreached-line"></span>
+<span class="reached-lineno">958</span> <span id="trace0-line958" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span></span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItemString() succeeds</span>
+<span class="note">new ref from (unknown) PyUnicode_FromString was allocated at:     PyDict_SetItemString(</span>
+<span class="transition">ob_refcnt is now refs: 1 owned</span>
+<span class="transition">ob_refcnt is now refs: 1 owned, 1 borrowed</span>
+<span class="lineno">959</span> <span id="trace0-line959" class="unreached-line">        <span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;webpdecoder_version&quot;</span><span class="source_p">,</span> <span class="source_n">PyUnicode_FromString</span><span class="source_p">(</span><span class="source_n">WebPDecoderVersion_str</span><span class="source_p">()));</span></span>
+<span class="lineno">960</span> <span id="trace0-line960" class="unreached-line"></span>
+<span class="lineno">961</span> <span id="trace0-line961" class="unreached-line"><span class="source_cp">#ifdef HAVE_WEBPANIM</span></span>
+<span class="lineno">962</span> <span id="trace0-line962" class="unreached-line">    <span class="source_cm">/* Ready object types */</span></span>
+<span class="reached-lineno">963</span> <span id="trace0-line963" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">PyType_Ready</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">WebPAnimDecoder_Type</span><span class="source_p">)</span> <span class="source_o">&lt;</span> <span class="source_mi">0</span> <span class="source_o">||</span></span>
+<span class="transition">when PyType_Ready() succeeds</span>
+<span class="transition">taking False path</span>
+<span class="transition">taking False path</span>
+<span class="reached-lineno">964</span> <span id="trace0-line964" class="reached-line">        <span class="source_n">PyType_Ready</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">WebPAnimEncoder_Type</span><span class="source_p">)</span> <span class="source_o">&lt;</span> <span class="source_mi">0</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when PyType_Ready() succeeds</span>
+<span class="lineno">965</span> <span id="trace0-line965" class="unreached-line">        <span class="source_k">return</span> <span class="source_o">-</span><span class="source_mi">1</span><span class="source_p">;</span></span>
+<span class="lineno">966</span> <span id="trace0-line966" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">967</span> <span id="trace0-line967" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="reached-lineno">968</span> <span id="trace0-line968" class="reached-line">    <span class="source_k">return</span> <span class="source_mi">0</span><span class="source_p">;</span></span>
+<span class="error">memory leak: ob_refcnt of new ref from (unknown) PyUnicode_FromString is 1 too high</span>
+<span class="note">was expecting final owned ob_refcnt of new ref from (unknown) PyUnicode_FromString to be 0 since nothing references it but final ob_refcnt is refs: 1 owned, 1 borrowed</span>
+<span class="note">found 1 similar trace(s) to this</span>
+<span class="lineno">969</span> <span id="trace0-line969" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace0-line958',
+                     target:'trace0-line963',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line963',
+                     target:'trace0-line963',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line963',
+                     target:'trace0-line964',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line964',
+                     target:'trace0-line963',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line963',
+                     target:'trace0-line968',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+<div id="report-1">
+<table>
+  <tr><td>File:</td> <td><b>src/_webp.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>setup_module</b></td></tr>
+  <tr><td>Error:</td> <td><b>memory leak: ob_refcnt of new ref from (unknown) PyUnicode_FromString is 1 too high</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">951</span> <span id="trace1-line951" class="unreached-line"><span></span><span class="source_k">static</span> <span class="source_kt">int</span></span>
+<span class="lineno">952</span> <span id="trace1-line952" class="unreached-line"><span class="source_nf">setup_module</span><span class="source_p">(</span><span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">m</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="reached-lineno">953</span> <span id="trace1-line953" class="reached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">d</span> <span class="source_o">=</span> <span class="source_n">PyModule_GetDict</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">);</span></span>
+<span class="reached-lineno">954</span> <span id="trace1-line954" class="reached-line">    <span class="source_n">addMuxFlagToModule</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">);</span></span>
+<span class="reached-lineno">955</span> <span id="trace1-line955" class="reached-line">    <span class="source_n">addAnimFlagToModule</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">);</span></span>
+<span class="reached-lineno">956</span> <span id="trace1-line956" class="reached-line">    <span class="source_n">addTransparencyFlagToModule</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">);</span></span>
+<span class="lineno">957</span> <span id="trace1-line957" class="unreached-line"></span>
+<span class="reached-lineno">958</span> <span id="trace1-line958" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span></span>
+<span class="transition">when PyUnicode_FromString() succeeds</span>
+<span class="transition">when PyDict_SetItemString() succeeds</span>
+<span class="note">new ref from (unknown) PyUnicode_FromString was allocated at:     PyDict_SetItemString(</span>
+<span class="transition">ob_refcnt is now refs: 1 owned</span>
+<span class="transition">ob_refcnt is now refs: 1 owned, 1 borrowed</span>
+<span class="lineno">959</span> <span id="trace1-line959" class="unreached-line">        <span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;webpdecoder_version&quot;</span><span class="source_p">,</span> <span class="source_n">PyUnicode_FromString</span><span class="source_p">(</span><span class="source_n">WebPDecoderVersion_str</span><span class="source_p">()));</span></span>
+<span class="lineno">960</span> <span id="trace1-line960" class="unreached-line"></span>
+<span class="lineno">961</span> <span id="trace1-line961" class="unreached-line"><span class="source_cp">#ifdef HAVE_WEBPANIM</span></span>
+<span class="lineno">962</span> <span id="trace1-line962" class="unreached-line">    <span class="source_cm">/* Ready object types */</span></span>
+<span class="reached-lineno">963</span> <span id="trace1-line963" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">PyType_Ready</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">WebPAnimDecoder_Type</span><span class="source_p">)</span> <span class="source_o">&lt;</span> <span class="source_mi">0</span> <span class="source_o">||</span></span>
+<span class="transition">when PyType_Ready() succeeds</span>
+<span class="transition">taking False path</span>
+<span class="transition">taking True path</span>
+<span class="reached-lineno">964</span> <span id="trace1-line964" class="reached-line">        <span class="source_n">PyType_Ready</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">WebPAnimEncoder_Type</span><span class="source_p">)</span> <span class="source_o">&lt;</span> <span class="source_mi">0</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when PyType_Ready() fails</span>
+<span class="reached-lineno">965</span> <span id="trace1-line965" class="reached-line">        <span class="source_k">return</span> <span class="source_o">-</span><span class="source_mi">1</span><span class="source_p">;</span></span>
+<span class="error">memory leak: ob_refcnt of new ref from (unknown) PyUnicode_FromString is 1 too high</span>
+<span class="note">was expecting final owned ob_refcnt of new ref from (unknown) PyUnicode_FromString to be 0 since nothing references it but final ob_refcnt is refs: 1 owned, 1 borrowed</span>
+<span class="note">found 3 similar trace(s) to this</span>
+<span class="lineno">966</span> <span id="trace1-line966" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">967</span> <span id="trace1-line967" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">968</span> <span id="trace1-line968" class="unreached-line">    <span class="source_k">return</span> <span class="source_mi">0</span><span class="source_p">;</span></span>
+<span class="lineno">969</span> <span id="trace1-line969" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace1-line958',
+                     target:'trace1-line963',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line963',
+                     target:'trace1-line963',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line963',
+                     target:'trace1-line964',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line964',
+                     target:'trace1-line963',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line963',
+                     target:'trace1-line965',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+<div id="report-2">
+<table>
+  <tr><td>File:</td> <td><b>src/_webp.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>setup_module</b></td></tr>
+  <tr><td>Error:</td> <td><b>calling PyDict_SetItemString with NULL as argument 3 (D.17196) at src/_webp.c:958</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">951</span> <span id="trace2-line951" class="unreached-line"><span></span><span class="source_k">static</span> <span class="source_kt">int</span></span>
+<span class="lineno">952</span> <span id="trace2-line952" class="unreached-line"><span class="source_nf">setup_module</span><span class="source_p">(</span><span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">m</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="reached-lineno">953</span> <span id="trace2-line953" class="reached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">d</span> <span class="source_o">=</span> <span class="source_n">PyModule_GetDict</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">);</span></span>
+<span class="reached-lineno">954</span> <span id="trace2-line954" class="reached-line">    <span class="source_n">addMuxFlagToModule</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">);</span></span>
+<span class="reached-lineno">955</span> <span id="trace2-line955" class="reached-line">    <span class="source_n">addAnimFlagToModule</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">);</span></span>
+<span class="reached-lineno">956</span> <span id="trace2-line956" class="reached-line">    <span class="source_n">addTransparencyFlagToModule</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">);</span></span>
+<span class="lineno">957</span> <span id="trace2-line957" class="unreached-line"></span>
+<span class="reached-lineno">958</span> <span id="trace2-line958" class="reached-line">    <span class="source_n">PyDict_SetItemString</span><span class="source_p">(</span></span>
+<span class="transition">when PyUnicode_FromString() fails</span>
+<span class="error">calling PyDict_SetItemString with NULL as argument 3 (D.17196) at src/_webp.c:958</span>
+<span class="lineno">959</span> <span id="trace2-line959" class="unreached-line">        <span class="source_n">d</span><span class="source_p">,</span> <span class="source_s">&quot;webpdecoder_version&quot;</span><span class="source_p">,</span> <span class="source_n">PyUnicode_FromString</span><span class="source_p">(</span><span class="source_n">WebPDecoderVersion_str</span><span class="source_p">()));</span></span>
+<span class="lineno">960</span> <span id="trace2-line960" class="unreached-line"></span>
+<span class="lineno">961</span> <span id="trace2-line961" class="unreached-line"><span class="source_cp">#ifdef HAVE_WEBPANIM</span></span>
+<span class="lineno">962</span> <span id="trace2-line962" class="unreached-line">    <span class="source_cm">/* Ready object types */</span></span>
+<span class="lineno">963</span> <span id="trace2-line963" class="unreached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">PyType_Ready</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">WebPAnimDecoder_Type</span><span class="source_p">)</span> <span class="source_o">&lt;</span> <span class="source_mi">0</span> <span class="source_o">||</span></span>
+<span class="lineno">964</span> <span id="trace2-line964" class="unreached-line">        <span class="source_n">PyType_Ready</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">WebPAnimEncoder_Type</span><span class="source_p">)</span> <span class="source_o">&lt;</span> <span class="source_mi">0</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">965</span> <span id="trace2-line965" class="unreached-line">        <span class="source_k">return</span> <span class="source_o">-</span><span class="source_mi">1</span><span class="source_p">;</span></span>
+<span class="lineno">966</span> <span id="trace2-line966" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">967</span> <span id="trace2-line967" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">968</span> <span id="trace2-line968" class="unreached-line">    <span class="source_k">return</span> <span class="source_mi">0</span><span class="source_p">;</span></span>
+<span class="lineno">969</span> <span id="trace2-line969" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+  })
+</script>
+<hr/></div>
+  </body>

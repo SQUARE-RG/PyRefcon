@@ -1,0 +1,497 @@
+<!doctype html>
+<html>
+<head>
+<title>scipy/optimize/_lsap_module.c</title>
+
+<style type="text/css">
+body { color:#000000; background-color:#ffffff }
+body { font-family:Helvetica, sans-serif; font-size:10pt }
+h1 { font-size:14pt }
+.FileName { margin-top: 5px; margin-bottom: 5px; display: inline; }
+.FileNav { margin-left: 5px; margin-right: 5px; display: inline; }
+.FileNav a { text-decoration:none; font-size: larger; }
+.divider { margin-top: 30px; margin-bottom: 30px; height: 15px; }
+.divider { background-color: gray; }
+.code { border-collapse:collapse; width:100%; }
+.code { font-family: "Monospace", monospace; font-size:10pt }
+.code { line-height: 1.2em }
+.comment { color: green; font-style: oblique }
+.keyword { color: blue }
+.string_literal { color: red }
+.directive { color: darkmagenta }
+
+/* Macros and variables could have pop-up notes hidden by default.
+  - Macro pop-up:    expansion of the macro
+  - Variable pop-up: value (table) of the variable */
+.macro_popup, .variable_popup { display: none; }
+
+/* Pop-up appears on mouse-hover event. */
+.macro:hover .macro_popup, .variable:hover .variable_popup {
+  display: block;
+  padding: 2px;
+  -webkit-border-radius:5px;
+  -webkit-box-shadow:1px 1px 7px #000;
+  border-radius:5px;
+  box-shadow:1px 1px 7px #000;
+  position: absolute;
+  top: -1em;
+  left:10em;
+  z-index: 1
+}
+
+.macro_popup {
+  border: 2px solid red;
+  background-color:#FFF0F0;
+  font-weight: normal;
+}
+
+.variable_popup {
+  border: 2px solid blue;
+  background-color:#F0F0FF;
+  font-weight: bold;
+  font-family: Helvetica, sans-serif;
+  font-size: 9pt;
+}
+
+/* Pop-up notes needs a relative position as a base where they pops up. */
+.macro, .variable {
+  background-color: PaleGoldenRod;
+  position: relative;
+}
+.macro { color: DarkMagenta; }
+
+#tooltiphint {
+  position: fixed;
+  width: 50em;
+  margin-left: -25em;
+  left: 50%;
+  padding: 10px;
+  border: 1px solid #b0b0b0;
+  border-radius: 2px;
+  box-shadow: 1px 1px 7px black;
+  background-color: #c0c0c0;
+  z-index: 2;
+}
+
+.num { width:2.5em; padding-right:2ex; background-color:#eeeeee }
+.num { text-align:right; font-size:8pt }
+.num { color:#444444 }
+.line { padding-left: 1ex; border-left: 3px solid #ccc }
+.line { white-space: pre }
+.msg { -webkit-box-shadow:1px 1px 7px #000 }
+.msg { box-shadow:1px 1px 7px #000 }
+.msg { -webkit-border-radius:5px }
+.msg { border-radius:5px }
+.msg { font-family:Helvetica, sans-serif; font-size:8pt }
+.msg { float:left }
+.msg { padding:0.25em 1ex 0.25em 1ex }
+.msg { margin-top:10px; margin-bottom:10px }
+.msg { font-weight:bold }
+.msg { max-width:60em; word-wrap: break-word; white-space: pre-wrap }
+.msgT { padding:0x; spacing:0x }
+.msgEvent { background-color:#fff8b4; color:#000000 }
+.msgControl { background-color:#bbbbbb; color:#000000 }
+.msgNote { background-color:#ddeeff; color:#000000 }
+.mrange { background-color:#dfddf3 }
+.mrange { border-bottom:1px solid #6F9DBE }
+.PathIndex { font-weight: bold; padding:0px 5px; margin-right:5px; }
+.PathIndex { -webkit-border-radius:8px }
+.PathIndex { border-radius:8px }
+.PathIndexEvent { background-color:#bfba87 }
+.PathIndexControl { background-color:#8c8c8c }
+.PathIndexPopUp { background-color: #879abc; }
+.PathNav a { text-decoration:none; font-size: larger }
+.CodeInsertionHint { font-weight: bold; background-color: #10dd10 }
+.CodeRemovalHint { background-color:#de1010 }
+.CodeRemovalHint { border-bottom:1px solid #6F9DBE }
+.selected{ background-color:orange !important; }
+
+table.simpletable {
+  padding: 5px;
+  font-size:12pt;
+  margin:20px;
+  border-collapse: collapse; border-spacing: 0px;
+}
+td.rowname {
+  text-align: right;
+  vertical-align: top;
+  font-weight: bold;
+  color:#444444;
+  padding-right:2ex;
+}
+
+/* Hidden text. */
+input.spoilerhider + label {
+  cursor: pointer;
+  text-decoration: underline;
+  display: block;
+}
+input.spoilerhider {
+ display: none;
+}
+input.spoilerhider ~ .spoiler {
+  overflow: hidden;
+  margin: 10px auto 0;
+  height: 0;
+  opacity: 0;
+}
+input.spoilerhider:checked + label + .spoiler{
+  height: auto;
+  opacity: 1;
+}
+</style>
+</head>
+<body>
+<!-- BUGDESC PyObject ownership leak with reference count of 1 -->
+
+<!-- BUGTYPE Non-Zero Dead Object -->
+
+<!-- BUGCATEGORY Python Memory Error -->
+
+<!-- BUGFILE /home/alan/workspace/canalyze/test/python/scipy/scipy/optimize/_lsap_module.c -->
+
+<!-- FILENAME _lsap_module.c -->
+
+<!-- FUNCTIONNAME PyInit__lsap_module -->
+
+<!-- ISSUEHASHCONTENTOFLINEINCONTEXT 8efd82bc98b69cf0c2d8d9ea666fdf44 -->
+
+<!-- BUGLINE 121 -->
+
+<!-- BUGCOLUMN 9 -->
+
+<!-- BUGPATHLENGTH 5 -->
+
+<!-- BUGMETAEND -->
+<!-- REPORTHEADER -->
+<h3>Bug Summary</h3>
+<table class="simpletable">
+<tr><td class="rowname">File:</td><td>home/alan/workspace/canalyze/test/python/scipy/scipy/optimize/_lsap_module.c</td></tr>
+<tr><td class="rowname">Warning:</td><td><a href="#EndPath">line 121, column 9</a><br />PyObject ownership leak with reference count of 1</td></tr>
+
+</table>
+<!-- REPORTSUMMARYEXTRA -->
+<h3>Annotated Source Code</h3>
+<p>Press <a href="#" onclick="toggleHelp(); return false;">'?'</a>
+   to see keyboard shortcuts</p>
+<input type="checkbox" class="spoilerhider" id="showinvocation" />
+<label for="showinvocation" >Show analyzer invocation</label>
+<div class="spoiler">clang -cc1 -cc1 -triple x86_64-unknown-linux-gnu -analyze -disable-free -disable-llvm-verifier -discard-value-names -main-file-name _lsap_module.c -analyzer-store=region -analyzer-opt-analyze-nested-blocks -analyzer-checker=core -analyzer-checker=apiModeling -analyzer-checker=unix -analyzer-checker=deadcode -analyzer-checker=security.insecureAPI.UncheckedReturn -analyzer-checker=security.insecureAPI.getpw -analyzer-checker=security.insecureAPI.gets -analyzer-checker=security.insecureAPI.mktemp -analyzer-checker=security.insecureAPI.mkstemp -analyzer-checker=security.insecureAPI.vfork -analyzer-checker=nullability.NullPassedToNonnull -analyzer-checker=nullability.NullReturnedFromNonnull -analyzer-output plist -w -analyzer-output=html -analyzer-checker=python -analyzer-disable-checker=deadcode -analyzer-config prune-paths=true,suppress-c++-stdlib=true,suppress-null-return-paths=false,crosscheck-with-z3=true,model-path=/home/alan/temp/cpython/Python-3.8.5/Doc/build/models -analyzer-config experimental-enable-naive-ctu-analysis=true,ctu-dir=/home/alan/workspace/canalyze/test/python/scipy/csa-scan,ctu-index-name=/home/alan/workspace/canalyze/test/python/scipy/csa-scan/externalDefMap.txt,ctu-invocation-list=/home/alan/workspace/canalyze/test/python/scipy/csa-scan/invocations.yaml,display-ctu-progress=false -setup-static-analyzer -analyzer-config-compatibility-mode=true -mrelocation-model pic -pic-level 2 -fhalf-no-semantic-interposition -mframe-pointer=none -fmath-errno -fno-rounding-math -mconstructor-aliases -munwind-tables -target-cpu x86-64 -tune-cpu generic -debug-info-kind=limited -dwarf-version=4 -debugger-tuning=gdb -fcoverage-compilation-dir=/home/alan/workspace/canalyze/test/python/scipy -resource-dir /home/alan/workspace/llvm-project/build/NATIVE/lib/clang/13.0.0 -isystem /home/alan/temp/cpython/Python-3.8.5/Doc/build/python3.8 -D NDEBUG -D _FORTIFY_SOURCE=2 -D NPY_NO_DEPRECATED_API=NPY_1_9_API_VERSION -I scipy/_lib/src -I /usr/lib/python3/dist-packages/numpy/core/include -internal-isystem /home/alan/workspace/llvm-project/build/NATIVE/lib/clang/13.0.0/include -internal-isystem /usr/local/include -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/10/../../../../x86_64-linux-gnu/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -O2 -Wno-unused-result -Wsign-compare -Wall -Wformat -Werror=format-security -Wformat -Werror=format-security -Wdate-time -std=c99 -fdebug-compilation-dir=/home/alan/workspace/canalyze/test/python/scipy -ferror-limit 19 -fwrapv -pthread -stack-protector 2 -fgnuc-version=4.2.1 -vectorize-loops -vectorize-slp -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o /home/alan/workspace/canalyze/test/python/scipy/csa-scan/reports -x c scipy/optimize/_lsap_module.c
+</div>
+<div id='tooltiphint' hidden="true">
+  <p>Keyboard shortcuts: </p>
+  <ul>
+    <li>Use 'j/k' keys for keyboard navigation</li>
+    <li>Use 'Shift+S' to show/hide relevant lines</li>
+    <li>Use '?' to toggle this window</li>
+  </ul>
+  <a href="#" onclick="toggleHelp(); return false;">Close</a>
+</div>
+<script type='text/javascript'>
+var relevant_lines = {"1": {"117": 1, "118": 1, "119": 1, "120": 1, "121": 1, "122": 1}, "35720": {"1462": 1, "1463": 1, "1464": 1, "1465": 1, "1466": 1, "1467": 1, "1469": 1, "1470": 1}, "36064": {"5": 1, "6": 1}, "36066": {"5": 1}};
+
+var filterCounterexample = function (hide) {
+  var tables = document.getElementsByClassName("code");
+  for (var t=0; t<tables.length; t++) {
+    var table = tables[t];
+    var file_id = table.getAttribute("data-fileid");
+    var lines_in_fid = relevant_lines[file_id];
+    if (!lines_in_fid) {
+      lines_in_fid = {};
+    }
+    var lines = table.getElementsByClassName("codeline");
+    for (var i=0; i<lines.length; i++) {
+        var el = lines[i];
+        var lineNo = el.getAttribute("data-linenumber");
+        if (!lines_in_fid[lineNo]) {
+          if (hide) {
+            el.setAttribute("hidden", "");
+          } else {
+            el.removeAttribute("hidden");
+          }
+        }
+    }
+  }
+}
+
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return;
+  }
+  if (event.key == "S") {
+    var checked = document.getElementsByName("showCounterexample")[0].checked;
+    filterCounterexample(!checked);
+    document.getElementsByName("showCounterexample")[0].checked = !checked;
+  } else {
+    return;
+  }
+  event.preventDefault();
+}, true);
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelector('input[name="showCounterexample"]').onchange=
+        function (event) {
+      filterCounterexample(this.checked);
+    };
+});
+</script>
+
+<form>
+    <input type="checkbox" name="showCounterexample" id="showCounterexample" />
+    <label for="showCounterexample">
+       Show only relevant lines
+    </label>
+</form>
+
+<script type='text/javascript'>
+var digitMatcher = new RegExp("[0-9]+");
+
+var querySelectorAllArray = function(selector) {
+  return Array.prototype.slice.call(
+    document.querySelectorAll(selector));
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    querySelectorAllArray(".PathNav > a").forEach(
+        function(currentValue, currentIndex) {
+            var hrefValue = currentValue.getAttribute("href");
+            currentValue.onclick = function() {
+                scrollTo(document.querySelector(hrefValue));
+                return false;
+            };
+        });
+});
+
+var findNum = function() {
+    var s = document.querySelector(".selected");
+    if (!s || s.id == "EndPath") {
+        return 0;
+    }
+    var out = parseInt(digitMatcher.exec(s.id)[0]);
+    return out;
+};
+
+var scrollTo = function(el) {
+    querySelectorAllArray(".selected").forEach(function(s) {
+        s.classList.remove("selected");
+    });
+    el.classList.add("selected");
+    window.scrollBy(0, el.getBoundingClientRect().top -
+        (window.innerHeight / 2));
+}
+
+var move = function(num, up, numItems) {
+  if (num == 1 && up || num == numItems - 1 && !up) {
+    return 0;
+  } else if (num == 0 && up) {
+    return numItems - 1;
+  } else if (num == 0 && !up) {
+    return 1 % numItems;
+  }
+  return up ? num - 1 : num + 1;
+}
+
+var numToId = function(num) {
+  if (num == 0) {
+    return document.getElementById("EndPath")
+  }
+  return document.getElementById("Path" + num);
+};
+
+var navigateTo = function(up) {
+  var numItems = document.querySelectorAll(
+      ".line > .msgEvent, .line > .msgControl").length;
+  var currentSelected = findNum();
+  var newSelected = move(currentSelected, up, numItems);
+  var newEl = numToId(newSelected, numItems);
+
+  // Scroll element into center.
+  scrollTo(newEl);
+};
+
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return;
+  }
+  if (event.key == "j") {
+    navigateTo(/*up=*/false);
+  } else if (event.key == "k") {
+    navigateTo(/*up=*/true);
+  } else {
+    return;
+  }
+  event.preventDefault();
+}, true);
+</script>
+  
+<script type='text/javascript'>
+
+var toggleHelp = function() {
+    var hint = document.querySelector("#tooltiphint");
+    var attributeName = "hidden";
+    if (hint.hasAttribute(attributeName)) {
+      hint.removeAttribute(attributeName);
+    } else {
+      hint.setAttribute("hidden", "true");
+    }
+};
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return;
+  }
+  if (event.key == "?") {
+    toggleHelp();
+  } else {
+    return;
+  }
+  event.preventDefault();
+});
+</script>
+<div id=File1>
+<h4 class=FileName>scipy/optimize/_lsap_module.c</h4>
+<div class=FileNav><a href="#File36064">&#x2192;</a></div></div>
+<table class="code" data-fileid="1">
+<tr class="codeline" data-linenumber="1"><td class="num" id="LN1">1</td><td class="line"><span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="2"><td class="num" id="LN2">2</td><td class="line"><span class='comment'>Redistribution and use in source and binary forms, with or without</span></td></tr>
+<tr class="codeline" data-linenumber="3"><td class="num" id="LN3">3</td><td class="line"><span class='comment'>modification, are permitted provided that the following conditions</span></td></tr>
+<tr class="codeline" data-linenumber="4"><td class="num" id="LN4">4</td><td class="line"><span class='comment'>are met:</span></td></tr>
+<tr class="codeline" data-linenumber="5"><td class="num" id="LN5">5</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="6"><td class="num" id="LN6">6</td><td class="line"><span class='comment'>1. Redistributions of source code must retain the above copyright</span></td></tr>
+<tr class="codeline" data-linenumber="7"><td class="num" id="LN7">7</td><td class="line">   <span class='comment'>notice, this list of conditions and the following disclaimer.</span></td></tr>
+<tr class="codeline" data-linenumber="8"><td class="num" id="LN8">8</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="9"><td class="num" id="LN9">9</td><td class="line"><span class='comment'>2. Redistributions in binary form must reproduce the above</span></td></tr>
+<tr class="codeline" data-linenumber="10"><td class="num" id="LN10">10</td><td class="line">   <span class='comment'>copyright notice, this list of conditions and the following</span></td></tr>
+<tr class="codeline" data-linenumber="11"><td class="num" id="LN11">11</td><td class="line">   <span class='comment'>disclaimer in the documentation and/or other materials provided</span></td></tr>
+<tr class="codeline" data-linenumber="12"><td class="num" id="LN12">12</td><td class="line">   <span class='comment'>with the distribution.</span></td></tr>
+<tr class="codeline" data-linenumber="13"><td class="num" id="LN13">13</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="14"><td class="num" id="LN14">14</td><td class="line"><span class='comment'>3. Neither the name of the copyright holder nor the names of its</span></td></tr>
+<tr class="codeline" data-linenumber="15"><td class="num" id="LN15">15</td><td class="line">   <span class='comment'>contributors may be used to endorse or promote products derived</span></td></tr>
+<tr class="codeline" data-linenumber="16"><td class="num" id="LN16">16</td><td class="line">   <span class='comment'>from this software without specific prior written permission.</span></td></tr>
+<tr class="codeline" data-linenumber="17"><td class="num" id="LN17">17</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="18"><td class="num" id="LN18">18</td><td class="line"><span class='comment'>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span></td></tr>
+<tr class="codeline" data-linenumber="19"><td class="num" id="LN19">19</td><td class="line"><span class='comment'>"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span></td></tr>
+<tr class="codeline" data-linenumber="20"><td class="num" id="LN20">20</td><td class="line"><span class='comment'>LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span></td></tr>
+<tr class="codeline" data-linenumber="21"><td class="num" id="LN21">21</td><td class="line"><span class='comment'>A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span></td></tr>
+<tr class="codeline" data-linenumber="22"><td class="num" id="LN22">22</td><td class="line"><span class='comment'>OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span></td></tr>
+<tr class="codeline" data-linenumber="23"><td class="num" id="LN23">23</td><td class="line"><span class='comment'>SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span></td></tr>
+<tr class="codeline" data-linenumber="24"><td class="num" id="LN24">24</td><td class="line"><span class='comment'>LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span></td></tr>
+<tr class="codeline" data-linenumber="25"><td class="num" id="LN25">25</td><td class="line"><span class='comment'>DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span></td></tr>
+<tr class="codeline" data-linenumber="26"><td class="num" id="LN26">26</td><td class="line"><span class='comment'>THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span></td></tr>
+<tr class="codeline" data-linenumber="27"><td class="num" id="LN27">27</td><td class="line"><span class='comment'>(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span></td></tr>
+<tr class="codeline" data-linenumber="28"><td class="num" id="LN28">28</td><td class="line"><span class='comment'>OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span></td></tr>
+<tr class="codeline" data-linenumber="29"><td class="num" id="LN29">29</td><td class="line"><span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="30"><td class="num" id="LN30">30</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="31"><td class="num" id="LN31">31</td><td class="line"><span class='directive'>#include "numpy/arrayobject.h"</span></td></tr>
+<tr class="codeline" data-linenumber="32"><td class="num" id="LN32">32</td><td class="line"><span class='directive'>#include "numpy/ndarraytypes.h"</span></td></tr>
+<tr class="codeline" data-linenumber="33"><td class="num" id="LN33">33</td><td class="line"><span class='directive'>#include "rectangular_lsap/rectangular_lsap.h"</span></td></tr>
+<tr class="codeline" data-linenumber="34"><td class="num" id="LN34">34</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="35"><td class="num" id="LN35">35</td><td class="line"><span class='keyword'>static</span> PyObject*</td></tr>
+<tr class="codeline" data-linenumber="36"><td class="num" id="LN36">36</td><td class="line">calculate_assignment(PyObject* self, PyObject* args)</td></tr>
+<tr class="codeline" data-linenumber="37"><td class="num" id="LN37">37</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="38"><td class="num" id="LN38">38</td><td class="line">    PyObject* a = <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="39"><td class="num" id="LN39">39</td><td class="line">    PyObject* b = <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="40"><td class="num" id="LN40">40</td><td class="line">    PyObject* result = <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="41"><td class="num" id="LN41">41</td><td class="line">    PyObject* obj_cost = <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="42"><td class="num" id="LN42">42</td><td class="line">    <span class='keyword'>int</span> maximize = 0;</td></tr>
+<tr class="codeline" data-linenumber="43"><td class="num" id="LN43">43</td><td class="line">    <span class='keyword'>if</span> (!PyArg_ParseTuple(args, <span class='string_literal'>"Op"</span>, &amp;obj_cost, &amp;maximize))</td></tr>
+<tr class="codeline" data-linenumber="44"><td class="num" id="LN44">44</td><td class="line">        <span class='keyword'>return</span> <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="45"><td class="num" id="LN45">45</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="46"><td class="num" id="LN46">46</td><td class="line">    PyArrayObject* obj_cont =</td></tr>
+<tr class="codeline" data-linenumber="47"><td class="num" id="LN47">47</td><td class="line">      (PyArrayObject*)<span class='macro'>PyArray_ContiguousFromAny(obj_cost, NPY_DOUBLE, 0, 0)<span class='macro_popup'>(*(PyObject * (*)(PyObject *, PyArray_Descr *, int, int, int,<br> PyObject *)) PyArray_API[69])(obj_cost, (*(PyArray_Descr * (<br>*)(int)) PyArray_API[45])(NPY_DOUBLE), 0, 0, ((0x0001 | (0x0100<br> | 0x0400))), ((void*)0))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="48"><td class="num" id="LN48">48</td><td class="line">    <span class='keyword'>if</span> (!obj_cont) {</td></tr>
+<tr class="codeline" data-linenumber="49"><td class="num" id="LN49">49</td><td class="line">        <span class='keyword'>return</span> <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="50"><td class="num" id="LN50">50</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="51"><td class="num" id="LN51">51</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="52"><td class="num" id="LN52">52</td><td class="line">    <span class='keyword'>if</span> (PyArray_NDIM(obj_cont) != 2) {</td></tr>
+<tr class="codeline" data-linenumber="53"><td class="num" id="LN53">53</td><td class="line">        PyErr_Format(PyExc_ValueError,</td></tr>
+<tr class="codeline" data-linenumber="54"><td class="num" id="LN54">54</td><td class="line">                     <span class='string_literal'>"expected a matrix (2-D array), got a %d array"</span>,</td></tr>
+<tr class="codeline" data-linenumber="55"><td class="num" id="LN55">55</td><td class="line">                     PyArray_NDIM(obj_cont));</td></tr>
+<tr class="codeline" data-linenumber="56"><td class="num" id="LN56">56</td><td class="line">        <span class='keyword'>goto</span> cleanup;</td></tr>
+<tr class="codeline" data-linenumber="57"><td class="num" id="LN57">57</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="58"><td class="num" id="LN58">58</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="59"><td class="num" id="LN59">59</td><td class="line">    <span class='keyword'>double</span>* cost_matrix = (<span class='keyword'>double</span>*)PyArray_DATA(obj_cont);</td></tr>
+<tr class="codeline" data-linenumber="60"><td class="num" id="LN60">60</td><td class="line">    <span class='keyword'>if</span> (cost_matrix == <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="61"><td class="num" id="LN61">61</td><td class="line">        PyErr_SetString(PyExc_TypeError, <span class='string_literal'>"invalid cost matrix object"</span>);</td></tr>
+<tr class="codeline" data-linenumber="62"><td class="num" id="LN62">62</td><td class="line">        <span class='keyword'>goto</span> cleanup;</td></tr>
+<tr class="codeline" data-linenumber="63"><td class="num" id="LN63">63</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="64"><td class="num" id="LN64">64</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="65"><td class="num" id="LN65">65</td><td class="line">    npy_intp num_rows = PyArray_DIM(obj_cont, 0);</td></tr>
+<tr class="codeline" data-linenumber="66"><td class="num" id="LN66">66</td><td class="line">    npy_intp num_cols = PyArray_DIM(obj_cont, 1);</td></tr>
+<tr class="codeline" data-linenumber="67"><td class="num" id="LN67">67</td><td class="line">    npy_intp dim[1] = { num_rows &lt; num_cols ? num_rows : num_cols };</td></tr>
+<tr class="codeline" data-linenumber="68"><td class="num" id="LN68">68</td><td class="line">    a = <span class='macro'>PyArray_SimpleNew(1, dim, NPY_INT64)<span class='macro_popup'>(*(PyObject * (*)(PyTypeObject *, int, npy_intp const *, int,<br> npy_intp const *, void *, int, int, PyObject *)) PyArray_API<br>[93])(&amp;(*(PyTypeObject *)PyArray_API[2]), 1, dim, NPY_LONG<br>, ((void*)0), ((void*)0), 0, 0, ((void*)0))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="69"><td class="num" id="LN69">69</td><td class="line">    <span class='keyword'>if</span> (!a)</td></tr>
+<tr class="codeline" data-linenumber="70"><td class="num" id="LN70">70</td><td class="line">        <span class='keyword'>goto</span> cleanup;</td></tr>
+<tr class="codeline" data-linenumber="71"><td class="num" id="LN71">71</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="72"><td class="num" id="LN72">72</td><td class="line">    b = <span class='macro'>PyArray_SimpleNew(1, dim, NPY_INT64)<span class='macro_popup'>(*(PyObject * (*)(PyTypeObject *, int, npy_intp const *, int,<br> npy_intp const *, void *, int, int, PyObject *)) PyArray_API<br>[93])(&amp;(*(PyTypeObject *)PyArray_API[2]), 1, dim, NPY_LONG<br>, ((void*)0), ((void*)0), 0, 0, ((void*)0))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="73"><td class="num" id="LN73">73</td><td class="line">    <span class='keyword'>if</span> (!b)</td></tr>
+<tr class="codeline" data-linenumber="74"><td class="num" id="LN74">74</td><td class="line">        <span class='keyword'>goto</span> cleanup;</td></tr>
+<tr class="codeline" data-linenumber="75"><td class="num" id="LN75">75</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="76"><td class="num" id="LN76">76</td><td class="line">    <span class='keyword'>int</span> ret = solve_rectangular_linear_sum_assignment(</td></tr>
+<tr class="codeline" data-linenumber="77"><td class="num" id="LN77">77</td><td class="line">      num_rows, num_cols, cost_matrix, maximize,</td></tr>
+<tr class="codeline" data-linenumber="78"><td class="num" id="LN78">78</td><td class="line">      PyArray_DATA((PyArrayObject*)a),</td></tr>
+<tr class="codeline" data-linenumber="79"><td class="num" id="LN79">79</td><td class="line">      PyArray_DATA((PyArrayObject*)b));</td></tr>
+<tr class="codeline" data-linenumber="80"><td class="num" id="LN80">80</td><td class="line">    <span class='keyword'>if</span> (ret == <span class='macro'>RECTANGULAR_LSAP_INFEASIBLE<span class='macro_popup'>-1</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="81"><td class="num" id="LN81">81</td><td class="line">        PyErr_SetString(PyExc_ValueError, <span class='string_literal'>"cost matrix is infeasible"</span>);</td></tr>
+<tr class="codeline" data-linenumber="82"><td class="num" id="LN82">82</td><td class="line">        <span class='keyword'>goto</span> cleanup;</td></tr>
+<tr class="codeline" data-linenumber="83"><td class="num" id="LN83">83</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="84"><td class="num" id="LN84">84</td><td class="line">    <span class='keyword'>else</span> <span class='keyword'>if</span> (ret == <span class='macro'>RECTANGULAR_LSAP_INVALID<span class='macro_popup'>-2</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="85"><td class="num" id="LN85">85</td><td class="line">        PyErr_SetString(PyExc_ValueError,</td></tr>
+<tr class="codeline" data-linenumber="86"><td class="num" id="LN86">86</td><td class="line">                        <span class='string_literal'>"matrix contains invalid numeric entries"</span>);</td></tr>
+<tr class="codeline" data-linenumber="87"><td class="num" id="LN87">87</td><td class="line">        <span class='keyword'>goto</span> cleanup;</td></tr>
+<tr class="codeline" data-linenumber="88"><td class="num" id="LN88">88</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="89"><td class="num" id="LN89">89</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="90"><td class="num" id="LN90">90</td><td class="line">    result = Py_BuildValue(<span class='string_literal'>"OO"</span>, a, b);</td></tr>
+<tr class="codeline" data-linenumber="91"><td class="num" id="LN91">91</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="92"><td class="num" id="LN92">92</td><td class="line">cleanup:</td></tr>
+<tr class="codeline" data-linenumber="93"><td class="num" id="LN93">93</td><td class="line">    <span class='macro'>Py_XDECREF((PyObject*)obj_cont)<span class='macro_popup'>_Py_XDECREF(((PyObject*)((PyObject*)obj_cont)))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="94"><td class="num" id="LN94">94</td><td class="line">    <span class='macro'>Py_XDECREF(a)<span class='macro_popup'>_Py_XDECREF(((PyObject*)(a)))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="95"><td class="num" id="LN95">95</td><td class="line">    <span class='macro'>Py_XDECREF(b)<span class='macro_popup'>_Py_XDECREF(((PyObject*)(b)))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="96"><td class="num" id="LN96">96</td><td class="line">    <span class='keyword'>return</span> result;</td></tr>
+<tr class="codeline" data-linenumber="97"><td class="num" id="LN97">97</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="98"><td class="num" id="LN98">98</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="99"><td class="num" id="LN99">99</td><td class="line"><span class='keyword'>static</span> PyMethodDef lsap_module_methods[] = {</td></tr>
+<tr class="codeline" data-linenumber="100"><td class="num" id="LN100">100</td><td class="line">    { <span class='string_literal'>"calculate_assignment"</span>, calculate_assignment, <span class='macro'>METH_VARARGS<span class='macro_popup'>0x0001</span></span>,</td></tr>
+<tr class="codeline" data-linenumber="101"><td class="num" id="LN101">101</td><td class="line">      <span class='string_literal'>"Solves the rectangular linear sum assignment problem."</span> },</td></tr>
+<tr class="codeline" data-linenumber="102"><td class="num" id="LN102">102</td><td class="line">    { <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>, <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>, 0, <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span> }</td></tr>
+<tr class="codeline" data-linenumber="103"><td class="num" id="LN103">103</td><td class="line">};</td></tr>
+<tr class="codeline" data-linenumber="104"><td class="num" id="LN104">104</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="105"><td class="num" id="LN105">105</td><td class="line"><span class='keyword'>static</span> <span class='keyword'>struct</span> PyModuleDef moduledef = {</td></tr>
+<tr class="codeline" data-linenumber="106"><td class="num" id="LN106">106</td><td class="line">    <span class='macro'>PyModuleDef_HEAD_INIT<span class='macro_popup'>{ { 1, ((void*)0) }, ((void*)0), 0, ((void*)0), }</span></span>,</td></tr>
+<tr class="codeline" data-linenumber="107"><td class="num" id="LN107">107</td><td class="line">    <span class='string_literal'>"_lsap_module"</span>,</td></tr>
+<tr class="codeline" data-linenumber="108"><td class="num" id="LN108">108</td><td class="line">    <span class='string_literal'>"Solves the rectangular linear sum assignment."</span>,</td></tr>
+<tr class="codeline" data-linenumber="109"><td class="num" id="LN109">109</td><td class="line">    -1,</td></tr>
+<tr class="codeline" data-linenumber="110"><td class="num" id="LN110">110</td><td class="line">    lsap_module_methods,</td></tr>
+<tr class="codeline" data-linenumber="111"><td class="num" id="LN111">111</td><td class="line">    <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>,</td></tr>
+<tr class="codeline" data-linenumber="112"><td class="num" id="LN112">112</td><td class="line">    <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>,</td></tr>
+<tr class="codeline" data-linenumber="113"><td class="num" id="LN113">113</td><td class="line">    <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>,</td></tr>
+<tr class="codeline" data-linenumber="114"><td class="num" id="LN114">114</td><td class="line">    <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>,</td></tr>
+<tr class="codeline" data-linenumber="115"><td class="num" id="LN115">115</td><td class="line">};</td></tr>
+<tr class="codeline" data-linenumber="116"><td class="num" id="LN116">116</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="117"><td class="num" id="LN117">117</td><td class="line">PyObject*</td></tr>
+<tr class="codeline" data-linenumber="118"><td class="num" id="LN118">118</td><td class="line">PyInit__lsap_module(<span class='keyword'>void</span>)</td></tr>
+<tr class="codeline" data-linenumber="119"><td class="num" id="LN119">119</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="120"><td class="num" id="LN120">120</td><td class="line">    PyObject* m;</td></tr>
+<tr class="codeline" data-linenumber="121"><td class="num" id="LN121">121</td><td class="line">    m = <span class="mrange"><span class="mrange"><span class='macro'>PyModule_Create</span></span>(&amp;moduledef)<span class='macro_popup'>PyModule_Create2(&amp;moduledef, 1013)</span></span>;</td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path1" class="msg msgEvent" style="margin-left:9ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">1</div></td><td>Calling 'PyModule_Create2'</td><td><div class="PathNav"><a href="#Path2" title="Next event (2)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path3" class="msg msgEvent" style="margin-left:9ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">3</div></td><td><div class="PathNav"><a href="#Path2" title="Previous event (2)">&#x2190;</a></div></td><td>Returning from 'PyModule_Create2'</td><td><div class="PathNav"><a href="#Path4" title="Next event (4)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr><td class="num"></td><td class="line"><div id="EndPath" class="msg msgEvent" style="margin-left:9ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">5</div></td><td><div class="PathNav"><a href="#Path4" title="Previous event (4)">&#x2190;</a></div></td><td>PyObject ownership leak with reference count of 1</td></tr></table></div></td></tr>
+<tr class="codeline" data-linenumber="122"><td class="num" id="LN122">122</td><td class="line">    <span class='macro'>import_array()<span class='macro_popup'>{if (_import_array() &lt; 0) {PyErr_Print(); PyErr_SetString(<br>PyExc_ImportError, "numpy.core.multiarray failed to import");<br> return ((void*)0); } }</span></span>;</td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path4" class="msg msgControl" style="margin-left:5ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexControl">4</div></td><td><div class="PathNav"><a href="#Path3" title="Previous event (3)">&#x2190;</a></div></td><td>Taking true branch</td><td><div class="PathNav"><a href="#EndPath" title="Next event (5)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr class="codeline" data-linenumber="123"><td class="num" id="LN123">123</td><td class="line">    <span class='keyword'>return</span> m;</td></tr>
+<tr class="codeline" data-linenumber="124"><td class="num" id="LN124">124</td><td class="line">}</td></tr>
+</table><hr class=divider>
+<div id=File36064>
+<div class=FileNav><a href="#File1">&#x2190;</a></div><h4 class=FileName>/home/alan/temp/cpython/Python-3.8.5/Doc/build/models/PyModule_Create2.model</h4>
+</div>
+<table class="code" data-fileid="36064">
+<tr class="codeline" data-linenumber="1"><td class="num" id="LN1">1</td><td class="line"><span class='directive'>#ifndef PyModule_Create2</span></td></tr>
+<tr class="codeline" data-linenumber="2"><td class="num" id="LN2">2</td><td class="line"><span class='keyword'>struct</span> _object;</td></tr>
+<tr class="codeline" data-linenumber="3"><td class="num" id="LN3">3</td><td class="line"><span class='keyword'>typedef</span> <span class='keyword'>struct</span> _object PyObject;</td></tr>
+<tr class="codeline" data-linenumber="4"><td class="num" id="LN4">4</td><td class="line">PyObject* clang_analyzer_PyObject_New_Reference();</td></tr>
+<tr class="codeline" data-linenumber="5"><td class="num" id="LN5">5</td><td class="line">PyObject* PyModule_Create2(PyModuleDef *def, <span class='keyword'>int</span> module_api_version) {</td></tr>
+<tr class="codeline" data-linenumber="6"><td class="num" id="LN6">6</td><td class="line">  <span class='keyword'>return</span> <span class="mrange">clang_analyzer_PyObject_New_Reference()</span>;</td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path2" class="msg msgEvent" style="margin-left:10ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">2</div></td><td><div class="PathNav"><a href="#Path1" title="Previous event (1)">&#x2190;</a></div></td><td>Setting reference count to 1</td><td><div class="PathNav"><a href="#Path3" title="Next event (3)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr class="codeline" data-linenumber="7"><td class="num" id="LN7">7</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="8"><td class="num" id="LN8">8</td><td class="line"><span class='directive'>#else</span></td></tr>
+<tr class="codeline" data-linenumber="9"><td class="num" id="LN9">9</td><td class="line"><span class='directive'>#warning "API PyModule_Create2 is defined as a macro."</span></td></tr>
+<tr class="codeline" data-linenumber="10"><td class="num" id="LN10">10</td><td class="line"><span class='directive'>#endif</span></td></tr></table></body></html>

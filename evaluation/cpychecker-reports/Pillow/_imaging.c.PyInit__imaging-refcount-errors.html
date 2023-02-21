@@ -1,0 +1,266 @@
+<html>
+  <head>
+    <title>PyInit__imaging</title>
+    <style type="text/css">
+.unreached-line {
+    #margin:1em;
+    #border:0.1em dotted #00aa00;
+
+    opacity:1.0;
+    filter:alpha(opacity=0);
+    #color:black;
+}
+
+.reached-line {
+    #margin:1em;
+    #border:0.1em dotted #00aa00;
+    border: 0.1em solid blue;
+    font-weight: bold;
+
+    opacity:1.0;
+    filter:alpha(opacity=0);
+    #color:black;
+}
+
+.reached-lineno {
+    border: 0.1em solid blue;
+    font-weight: bold;
+}
+
+pre {
+    #line-height:200%
+}
+
+._jsPlumb_connector { z-index: -2; }
+._jsPlumb_endpoint { z-index: -1; }
+
+.transition {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #ccc;
+    -moz-box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;
+    margin-left: 5em;
+    font-family: proportional;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.error {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #cc0000;
+    -moz-box-shadow: 2px 2px 2px #cc0000;
+    -webkit-box-shadow: 2px 2px 2px #cc0000;
+    box-shadow: 2px 2px 2px #cc0000;
+    margin-left: 5em;
+    color: red;
+    font-family: proportional;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.note {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #ccc;
+    -moz-box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;
+    margin-left: 5em;
+    font-family: proportional;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.hll { background-color: #ffffcc }
+.source_c { color: #408080; font-style: italic } /* Comment */
+.source_err { border: 1px solid #FF0000 } /* Error */
+.source_k { color: #008000; font-weight: bold } /* Keyword */
+.source_o { color: #666666 } /* Operator */
+.source_ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.source_cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.source_cp { color: #BC7A00 } /* Comment.Preproc */
+.source_cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.source_c1 { color: #408080; font-style: italic } /* Comment.Single */
+.source_cs { color: #408080; font-style: italic } /* Comment.Special */
+.source_gd { color: #A00000 } /* Generic.Deleted */
+.source_ge { font-style: italic } /* Generic.Emph */
+.source_gr { color: #FF0000 } /* Generic.Error */
+.source_gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.source_gi { color: #00A000 } /* Generic.Inserted */
+.source_go { color: #888888 } /* Generic.Output */
+.source_gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.source_gs { font-weight: bold } /* Generic.Strong */
+.source_gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.source_gt { color: #0044DD } /* Generic.Traceback */
+.source_kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.source_kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.source_kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.source_kp { color: #008000 } /* Keyword.Pseudo */
+.source_kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.source_kt { color: #B00040 } /* Keyword.Type */
+.source_m { color: #666666 } /* Literal.Number */
+.source_s { color: #BA2121 } /* Literal.String */
+.source_na { color: #7D9029 } /* Name.Attribute */
+.source_nb { color: #008000 } /* Name.Builtin */
+.source_nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.source_no { color: #880000 } /* Name.Constant */
+.source_nd { color: #AA22FF } /* Name.Decorator */
+.source_ni { color: #999999; font-weight: bold } /* Name.Entity */
+.source_ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.source_nf { color: #0000FF } /* Name.Function */
+.source_nl { color: #A0A000 } /* Name.Label */
+.source_nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.source_nt { color: #008000; font-weight: bold } /* Name.Tag */
+.source_nv { color: #19177C } /* Name.Variable */
+.source_ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.source_w { color: #bbbbbb } /* Text.Whitespace */
+.source_mb { color: #666666 } /* Literal.Number.Bin */
+.source_mf { color: #666666 } /* Literal.Number.Float */
+.source_mh { color: #666666 } /* Literal.Number.Hex */
+.source_mi { color: #666666 } /* Literal.Number.Integer */
+.source_mo { color: #666666 } /* Literal.Number.Oct */
+.source_sa { color: #BA2121 } /* Literal.String.Affix */
+.source_sb { color: #BA2121 } /* Literal.String.Backtick */
+.source_sc { color: #BA2121 } /* Literal.String.Char */
+.source_dl { color: #BA2121 } /* Literal.String.Delimiter */
+.source_sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.source_s2 { color: #BA2121 } /* Literal.String.Double */
+.source_se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.source_sh { color: #BA2121 } /* Literal.String.Heredoc */
+.source_si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.source_sx { color: #008000 } /* Literal.String.Other */
+.source_sr { color: #BB6688 } /* Literal.String.Regex */
+.source_s1 { color: #BA2121 } /* Literal.String.Single */
+.source_ss { color: #19177C } /* Literal.String.Symbol */
+.source_bp { color: #008000 } /* Name.Builtin.Pseudo */
+.source_fm { color: #0000FF } /* Name.Function.Magic */
+.source_vc { color: #19177C } /* Name.Variable.Class */
+.source_vg { color: #19177C } /* Name.Variable.Global */
+.source_vi { color: #19177C } /* Name.Variable.Instance */
+.source_vm { color: #19177C } /* Name.Variable.Magic */
+.source_il { color: #666666 } /* Literal.Number.Integer.Long */    </style>
+  </head>
+  <body>
+<script type="text/javascript" src="http://explorercanvas.googlecode.com/svn/trunk/excanvas.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://jsplumb.googlecode.com/files/jquery.jsPlumb-1.2.6-all-min.js"></script>
+<div id="report-0">
+<table>
+  <tr><td>File:</td> <td><b>src/_imaging.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>PyInit__imaging</b></td></tr>
+  <tr><td>Error:</td> <td><b>memory leak: ob_refcnt of '*m' is 1 too high</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">4226</span> <span id="trace0-line4226" class="unreached-line"><span></span><span class="source_n">PyMODINIT_FUNC</span></span>
+<span class="lineno">4227</span> <span id="trace0-line4227" class="unreached-line"><span class="source_nf">PyInit__imaging</span><span class="source_p">(</span><span class="source_kt">void</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">4228</span> <span id="trace0-line4228" class="unreached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">m</span><span class="source_p">;</span></span>
+<span class="lineno">4229</span> <span id="trace0-line4229" class="unreached-line"></span>
+<span class="lineno">4230</span> <span id="trace0-line4230" class="unreached-line">    <span class="source_k">static</span> <span class="source_n">PyModuleDef</span> <span class="source_n">module_def</span> <span class="source_o">=</span> <span class="source_p">{</span></span>
+<span class="lineno">4231</span> <span id="trace0-line4231" class="unreached-line">        <span class="source_n">PyModuleDef_HEAD_INIT</span><span class="source_p">,</span></span>
+<span class="lineno">4232</span> <span id="trace0-line4232" class="unreached-line">        <span class="source_s">&quot;_imaging&quot;</span><span class="source_p">,</span> <span class="source_cm">/* m_name */</span></span>
+<span class="lineno">4233</span> <span id="trace0-line4233" class="unreached-line">        <span class="source_nb">NULL</span><span class="source_p">,</span>       <span class="source_cm">/* m_doc */</span></span>
+<span class="lineno">4234</span> <span id="trace0-line4234" class="unreached-line">        <span class="source_o">-</span><span class="source_mi">1</span><span class="source_p">,</span>         <span class="source_cm">/* m_size */</span></span>
+<span class="lineno">4235</span> <span id="trace0-line4235" class="unreached-line">        <span class="source_n">functions</span><span class="source_p">,</span>  <span class="source_cm">/* m_methods */</span></span>
+<span class="lineno">4236</span> <span id="trace0-line4236" class="unreached-line">    <span class="source_p">};</span></span>
+<span class="lineno">4237</span> <span id="trace0-line4237" class="unreached-line"></span>
+<span class="reached-lineno">4238</span> <span id="trace0-line4238" class="reached-line">    <span class="source_n">m</span> <span class="source_o">=</span> <span class="source_n">PyModule_Create</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">module_def</span><span class="source_p">);</span></span>
+<span class="transition">when PyModule_Create2() succeeds</span>
+<span class="note">'*m' was allocated at:     m = PyModule_Create(&module_def);</span>
+<span class="transition">ob_refcnt is now refs: 1 owned</span>
+<span class="lineno">4239</span> <span id="trace0-line4239" class="unreached-line"></span>
+<span class="reached-lineno">4240</span> <span id="trace0-line4240" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">setup_module</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">)</span> <span class="source_o">&lt;</span> <span class="source_mi">0</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: -0x80000000 <= value <= -1</span>
+<span class="transition">taking True path</span>
+<span class="reached-lineno">4241</span> <span id="trace0-line4241" class="reached-line">        <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="error">memory leak: ob_refcnt of '*m' is 1 too high</span>
+<span class="note">was expecting final owned ob_refcnt of '*m' to be 0 since nothing references it but final ob_refcnt is refs: 1 owned</span>
+<span class="lineno">4242</span> <span id="trace0-line4242" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">4243</span> <span id="trace0-line4243" class="unreached-line"></span>
+<span class="lineno">4244</span> <span id="trace0-line4244" class="unreached-line">    <span class="source_k">return</span> <span class="source_n">m</span><span class="source_p">;</span></span>
+<span class="lineno">4245</span> <span id="trace0-line4245" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace0-line4238',
+                     target:'trace0-line4240',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line4240',
+                     target:'trace0-line4241',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+<div id="report-1">
+<table>
+  <tr><td>File:</td> <td><b>src/_imaging.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>PyInit__imaging</b></td></tr>
+  <tr><td>Error:</td> <td><b>returning (PyObject*)NULL without setting an exception</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">4226</span> <span id="trace1-line4226" class="unreached-line"><span></span><span class="source_n">PyMODINIT_FUNC</span></span>
+<span class="lineno">4227</span> <span id="trace1-line4227" class="unreached-line"><span class="source_nf">PyInit__imaging</span><span class="source_p">(</span><span class="source_kt">void</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">4228</span> <span id="trace1-line4228" class="unreached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">m</span><span class="source_p">;</span></span>
+<span class="lineno">4229</span> <span id="trace1-line4229" class="unreached-line"></span>
+<span class="lineno">4230</span> <span id="trace1-line4230" class="unreached-line">    <span class="source_k">static</span> <span class="source_n">PyModuleDef</span> <span class="source_n">module_def</span> <span class="source_o">=</span> <span class="source_p">{</span></span>
+<span class="lineno">4231</span> <span id="trace1-line4231" class="unreached-line">        <span class="source_n">PyModuleDef_HEAD_INIT</span><span class="source_p">,</span></span>
+<span class="lineno">4232</span> <span id="trace1-line4232" class="unreached-line">        <span class="source_s">&quot;_imaging&quot;</span><span class="source_p">,</span> <span class="source_cm">/* m_name */</span></span>
+<span class="lineno">4233</span> <span id="trace1-line4233" class="unreached-line">        <span class="source_nb">NULL</span><span class="source_p">,</span>       <span class="source_cm">/* m_doc */</span></span>
+<span class="lineno">4234</span> <span id="trace1-line4234" class="unreached-line">        <span class="source_o">-</span><span class="source_mi">1</span><span class="source_p">,</span>         <span class="source_cm">/* m_size */</span></span>
+<span class="lineno">4235</span> <span id="trace1-line4235" class="unreached-line">        <span class="source_n">functions</span><span class="source_p">,</span>  <span class="source_cm">/* m_methods */</span></span>
+<span class="lineno">4236</span> <span id="trace1-line4236" class="unreached-line">    <span class="source_p">};</span></span>
+<span class="lineno">4237</span> <span id="trace1-line4237" class="unreached-line"></span>
+<span class="reached-lineno">4238</span> <span id="trace1-line4238" class="reached-line">    <span class="source_n">m</span> <span class="source_o">=</span> <span class="source_n">PyModule_Create</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">module_def</span><span class="source_p">);</span></span>
+<span class="transition">when PyModule_Create2() succeeds</span>
+<span class="lineno">4239</span> <span id="trace1-line4239" class="unreached-line"></span>
+<span class="reached-lineno">4240</span> <span id="trace1-line4240" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">setup_module</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">)</span> <span class="source_o">&lt;</span> <span class="source_mi">0</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: -0x80000000 <= value <= -1</span>
+<span class="transition">taking True path</span>
+<span class="reached-lineno">4241</span> <span id="trace1-line4241" class="reached-line">        <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="error">returning (PyObject*)NULL without setting an exception</span>
+<span class="lineno">4242</span> <span id="trace1-line4242" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">4243</span> <span id="trace1-line4243" class="unreached-line"></span>
+<span class="lineno">4244</span> <span id="trace1-line4244" class="unreached-line">    <span class="source_k">return</span> <span class="source_n">m</span><span class="source_p">;</span></span>
+<span class="lineno">4245</span> <span id="trace1-line4245" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace1-line4238',
+                     target:'trace1-line4240',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line4240',
+                     target:'trace1-line4241',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+  </body>

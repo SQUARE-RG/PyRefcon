@@ -1,0 +1,851 @@
+<html>
+  <head>
+    <title>PyInit_rrdtool</title>
+    <style type="text/css">
+.unreached-line {
+    #margin:1em;
+    #border:0.1em dotted #00aa00;
+
+    opacity:1.0;
+    filter:alpha(opacity=0);
+    #color:black;
+}
+
+.reached-line {
+    #margin:1em;
+    #border:0.1em dotted #00aa00;
+    border: 0.1em solid blue;
+    font-weight: bold;
+
+    opacity:1.0;
+    filter:alpha(opacity=0);
+    #color:black;
+}
+
+.reached-lineno {
+    border: 0.1em solid blue;
+    font-weight: bold;
+}
+
+pre {
+    #line-height:200%
+}
+
+._jsPlumb_connector { z-index: -2; }
+._jsPlumb_endpoint { z-index: -1; }
+
+.transition {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #ccc;
+    -moz-box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;
+    margin-left: 5em;
+    font-family: proportional;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.error {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #cc0000;
+    -moz-box-shadow: 2px 2px 2px #cc0000;
+    -webkit-box-shadow: 2px 2px 2px #cc0000;
+    box-shadow: 2px 2px 2px #cc0000;
+    margin-left: 5em;
+    color: red;
+    font-family: proportional;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.note {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #ccc;
+    -moz-box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;
+    margin-left: 5em;
+    font-family: proportional;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.hll { background-color: #ffffcc }
+.source_c { color: #408080; font-style: italic } /* Comment */
+.source_err { border: 1px solid #FF0000 } /* Error */
+.source_k { color: #008000; font-weight: bold } /* Keyword */
+.source_o { color: #666666 } /* Operator */
+.source_ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.source_cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.source_cp { color: #BC7A00 } /* Comment.Preproc */
+.source_cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.source_c1 { color: #408080; font-style: italic } /* Comment.Single */
+.source_cs { color: #408080; font-style: italic } /* Comment.Special */
+.source_gd { color: #A00000 } /* Generic.Deleted */
+.source_ge { font-style: italic } /* Generic.Emph */
+.source_gr { color: #FF0000 } /* Generic.Error */
+.source_gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.source_gi { color: #00A000 } /* Generic.Inserted */
+.source_go { color: #888888 } /* Generic.Output */
+.source_gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.source_gs { font-weight: bold } /* Generic.Strong */
+.source_gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.source_gt { color: #0044DD } /* Generic.Traceback */
+.source_kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.source_kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.source_kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.source_kp { color: #008000 } /* Keyword.Pseudo */
+.source_kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.source_kt { color: #B00040 } /* Keyword.Type */
+.source_m { color: #666666 } /* Literal.Number */
+.source_s { color: #BA2121 } /* Literal.String */
+.source_na { color: #7D9029 } /* Name.Attribute */
+.source_nb { color: #008000 } /* Name.Builtin */
+.source_nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.source_no { color: #880000 } /* Name.Constant */
+.source_nd { color: #AA22FF } /* Name.Decorator */
+.source_ni { color: #999999; font-weight: bold } /* Name.Entity */
+.source_ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.source_nf { color: #0000FF } /* Name.Function */
+.source_nl { color: #A0A000 } /* Name.Label */
+.source_nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.source_nt { color: #008000; font-weight: bold } /* Name.Tag */
+.source_nv { color: #19177C } /* Name.Variable */
+.source_ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.source_w { color: #bbbbbb } /* Text.Whitespace */
+.source_mb { color: #666666 } /* Literal.Number.Bin */
+.source_mf { color: #666666 } /* Literal.Number.Float */
+.source_mh { color: #666666 } /* Literal.Number.Hex */
+.source_mi { color: #666666 } /* Literal.Number.Integer */
+.source_mo { color: #666666 } /* Literal.Number.Oct */
+.source_sa { color: #BA2121 } /* Literal.String.Affix */
+.source_sb { color: #BA2121 } /* Literal.String.Backtick */
+.source_sc { color: #BA2121 } /* Literal.String.Char */
+.source_dl { color: #BA2121 } /* Literal.String.Delimiter */
+.source_sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.source_s2 { color: #BA2121 } /* Literal.String.Double */
+.source_se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.source_sh { color: #BA2121 } /* Literal.String.Heredoc */
+.source_si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.source_sx { color: #008000 } /* Literal.String.Other */
+.source_sr { color: #BB6688 } /* Literal.String.Regex */
+.source_s1 { color: #BA2121 } /* Literal.String.Single */
+.source_ss { color: #19177C } /* Literal.String.Symbol */
+.source_bp { color: #008000 } /* Name.Builtin.Pseudo */
+.source_fm { color: #0000FF } /* Name.Function.Magic */
+.source_vc { color: #19177C } /* Name.Variable.Class */
+.source_vg { color: #19177C } /* Name.Variable.Global */
+.source_vi { color: #19177C } /* Name.Variable.Instance */
+.source_vm { color: #19177C } /* Name.Variable.Magic */
+.source_il { color: #666666 } /* Literal.Number.Integer.Long */    </style>
+  </head>
+  <body>
+<script type="text/javascript" src="http://explorercanvas.googlecode.com/svn/trunk/excanvas.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://jsplumb.googlecode.com/files/jquery.jsPlumb-1.2.6-all-min.js"></script>
+<div id="report-0">
+<table>
+  <tr><td>File:</td> <td><b>rrdtoolmodule.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>PyInit_rrdtool</b></td></tr>
+  <tr><td>Error:</td> <td><b>memory leak: ob_refcnt of '*rrdtool_OperationalError' is 1 too high</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">1391</span> <span id="trace0-line1391" class="unreached-line"><span></span><span class="source_n">PyMODINIT_FUNC</span></span>
+<span class="lineno">1392</span> <span id="trace0-line1392" class="unreached-line"><span class="source_nf">PyInit_rrdtool</span><span class="source_p">(</span><span class="source_kt">void</span><span class="source_p">)</span></span>
+<span class="lineno">1393</span> <span id="trace0-line1393" class="unreached-line"><span class="source_cp">#else</span></span>
+<span class="lineno">1394</span> <span id="trace0-line1394" class="unreached-line"><span class="source_kt">void</span></span>
+<span class="lineno">1395</span> <span id="trace0-line1395" class="unreached-line"><span class="source_n">initrrdtool</span><span class="source_p">(</span><span class="source_kt">void</span><span class="source_p">)</span></span>
+<span class="lineno">1396</span> <span id="trace0-line1396" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1397</span> <span id="trace0-line1397" class="unreached-line"><span class="source_p">{</span></span>
+<span class="lineno">1398</span> <span id="trace0-line1398" class="unreached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">m</span><span class="source_p">;</span></span>
+<span class="lineno">1399</span> <span id="trace0-line1399" class="unreached-line"></span>
+<span class="reached-lineno">1400</span> <span id="trace0-line1400" class="reached-line">    <span class="source_n">PyDateTime_IMPORT</span><span class="source_p">;</span>  <span class="source_cm">/* initialize PyDateTime_ functions */</span></span>
+<span class="lineno">1401</span> <span id="trace0-line1401" class="unreached-line"></span>
+<span class="lineno">1402</span> <span id="trace0-line1402" class="unreached-line">    <span class="source_cm">/* make sure that the GIL has been created as we need to aquire it */</span></span>
+<span class="reached-lineno">1403</span> <span id="trace0-line1403" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">PyEval_ThreadsInitialized</span><span class="source_p">())</span></span>
+<span class="transition">when considering range: -0x80000000 <= value <= -1</span>
+<span class="transition">taking False path</span>
+<span class="lineno">1404</span> <span id="trace0-line1404" class="unreached-line">        <span class="source_n">PyEval_InitThreads</span><span class="source_p">();</span></span>
+<span class="lineno">1405</span> <span id="trace0-line1405" class="unreached-line"></span>
+<span class="lineno">1406</span> <span id="trace0-line1406" class="unreached-line"><span class="source_cp">#ifdef HAVE_PY3K</span></span>
+<span class="reached-lineno">1407</span> <span id="trace0-line1407" class="reached-line">    <span class="source_n">m</span> <span class="source_o">=</span> <span class="source_n">PyModule_Create</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">rrdtoolmodule</span><span class="source_p">);</span></span>
+<span class="transition">when PyModule_Create2() succeeds</span>
+<span class="lineno">1408</span> <span id="trace0-line1408" class="unreached-line"><span class="source_cp">#else</span></span>
+<span class="lineno">1409</span> <span id="trace0-line1409" class="unreached-line">    <span class="source_n">m</span> <span class="source_o">=</span> <span class="source_n">Py_InitModule3</span><span class="source_p">(</span><span class="source_s">&quot;rrdtool&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">1410</span> <span id="trace0-line1410" class="unreached-line">                       <span class="source_n">rrdtool_methods</span><span class="source_p">,</span></span>
+<span class="lineno">1411</span> <span id="trace0-line1411" class="unreached-line">                       <span class="source_s">&quot;Python bindings for rrdtool&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1412</span> <span id="trace0-line1412" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1413</span> <span id="trace0-line1413" class="unreached-line"></span>
+<span class="reached-lineno">1414</span> <span id="trace0-line1414" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">m</span> <span class="source_o">==</span> <span class="source_nb">NULL</span><span class="source_p">)</span></span>
+<span class="transition">taking False path</span>
+<span class="lineno">1415</span> <span id="trace0-line1415" class="unreached-line"><span class="source_cp">#ifdef HAVE_PY3K</span></span>
+<span class="lineno">1416</span> <span id="trace0-line1416" class="unreached-line">        <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">1417</span> <span id="trace0-line1417" class="unreached-line"><span class="source_cp">#else</span></span>
+<span class="lineno">1418</span> <span id="trace0-line1418" class="unreached-line">        <span class="source_k">return</span><span class="source_p">;</span></span>
+<span class="lineno">1419</span> <span id="trace0-line1419" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1420</span> <span id="trace0-line1420" class="unreached-line"></span>
+<span class="reached-lineno">1421</span> <span id="trace0-line1421" class="reached-line">    <span class="source_n">rrdtool_ProgrammingError</span> <span class="source_o">=</span> <span class="source_n">PyErr_NewException</span><span class="source_p">(</span><span class="source_s">&quot;rrdtool.ProgrammingError&quot;</span><span class="source_p">,</span></span>
+<span class="transition">when PyErr_NewException() succeeds</span>
+<span class="lineno">1422</span> <span id="trace0-line1422" class="unreached-line">                                                  <span class="source_nb">NULL</span><span class="source_p">,</span> <span class="source_nb">NULL</span><span class="source_p">);</span></span>
+<span class="reached-lineno">1423</span> <span id="trace0-line1423" class="reached-line">    <span class="source_n">Py_INCREF</span><span class="source_p">(</span><span class="source_n">rrdtool_ProgrammingError</span><span class="source_p">);</span></span>
+<span class="reached-lineno">1424</span> <span id="trace0-line1424" class="reached-line">    <span class="source_n">PyModule_AddObject</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">,</span> <span class="source_s">&quot;ProgrammingError&quot;</span><span class="source_p">,</span> <span class="source_n">rrdtool_ProgrammingError</span><span class="source_p">);</span></span>
+<span class="transition">when PyModule_AddObject() succeeds</span>
+<span class="lineno">1425</span> <span id="trace0-line1425" class="unreached-line"></span>
+<span class="reached-lineno">1426</span> <span id="trace0-line1426" class="reached-line">    <span class="source_n">rrdtool_OperationalError</span> <span class="source_o">=</span> <span class="source_n">PyErr_NewException</span><span class="source_p">(</span><span class="source_s">&quot;rrdtool.OperationalError&quot;</span><span class="source_p">,</span></span>
+<span class="transition">when PyErr_NewException() succeeds</span>
+<span class="note">'*rrdtool_OperationalError' was allocated at:     rrdtool_OperationalError = PyErr_NewException("rrdtool.OperationalError",</span>
+<span class="transition">ob_refcnt is now refs: 1 owned</span>
+<span class="transition">'*rrdtool_OperationalError' is now referenced by 1 non-stack value(s): rrdtool_OperationalError</span>
+<span class="lineno">1427</span> <span id="trace0-line1427" class="unreached-line">                                                  <span class="source_nb">NULL</span><span class="source_p">,</span> <span class="source_nb">NULL</span><span class="source_p">);</span></span>
+<span class="reached-lineno">1428</span> <span id="trace0-line1428" class="reached-line">    <span class="source_n">Py_INCREF</span><span class="source_p">(</span><span class="source_n">rrdtool_OperationalError</span><span class="source_p">);</span></span>
+<span class="transition">ob_refcnt is now refs: 2 owned</span>
+<span class="reached-lineno">1429</span> <span id="trace0-line1429" class="reached-line">    <span class="source_n">PyModule_AddObject</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">,</span> <span class="source_s">&quot;OperationalError&quot;</span><span class="source_p">,</span> <span class="source_n">rrdtool_OperationalError</span><span class="source_p">);</span></span>
+<span class="transition">when PyModule_AddObject() fails</span>
+<span class="reached-lineno">1430</span> <span id="trace0-line1430" class="reached-line">    <span class="source_n">PyModule_AddStringConstant</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">,</span> <span class="source_s">&quot;__version__&quot;</span><span class="source_p">,</span> <span class="source_n">_version</span><span class="source_p">);</span></span>
+<span class="transition">when PyModule_AddStringConstant() succeeds</span>
+<span class="lineno">1431</span> <span id="trace0-line1431" class="unreached-line"></span>
+<span class="lineno">1432</span> <span id="trace0-line1432" class="unreached-line"><span class="source_cp">#ifdef HAVE_PY3K</span></span>
+<span class="reached-lineno">1433</span> <span id="trace0-line1433" class="reached-line">    <span class="source_k">return</span> <span class="source_n">m</span><span class="source_p">;</span></span>
+<span class="error">memory leak: ob_refcnt of '*rrdtool_OperationalError' is 1 too high</span>
+<span class="note">was expecting final owned ob_refcnt of '*rrdtool_OperationalError' to be 1 due to object being referenced by: rrdtool_OperationalError but final ob_refcnt is refs: 2 owned</span>
+<span class="note">found 9 similar trace(s) to this</span>
+<span class="lineno">1434</span> <span id="trace0-line1434" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1435</span> <span id="trace0-line1435" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace0-line1403',
+                     target:'trace0-line1407',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1407',
+                     target:'trace0-line1414',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1414',
+                     target:'trace0-line1421',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1421',
+                     target:'trace0-line1421',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1424',
+                     target:'trace0-line1426',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1426',
+                     target:'trace0-line1426',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1429',
+                     target:'trace0-line1430',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1430',
+                     target:'trace0-line1433',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+<div id="report-1">
+<table>
+  <tr><td>File:</td> <td><b>rrdtoolmodule.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>PyInit_rrdtool</b></td></tr>
+  <tr><td>Error:</td> <td><b>dereferencing NULL (rrdtool_OperationalError.1->ob_refcnt) at rrdtoolmodule.c:1428</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">1391</span> <span id="trace1-line1391" class="unreached-line"><span></span><span class="source_n">PyMODINIT_FUNC</span></span>
+<span class="lineno">1392</span> <span id="trace1-line1392" class="unreached-line"><span class="source_nf">PyInit_rrdtool</span><span class="source_p">(</span><span class="source_kt">void</span><span class="source_p">)</span></span>
+<span class="lineno">1393</span> <span id="trace1-line1393" class="unreached-line"><span class="source_cp">#else</span></span>
+<span class="lineno">1394</span> <span id="trace1-line1394" class="unreached-line"><span class="source_kt">void</span></span>
+<span class="lineno">1395</span> <span id="trace1-line1395" class="unreached-line"><span class="source_n">initrrdtool</span><span class="source_p">(</span><span class="source_kt">void</span><span class="source_p">)</span></span>
+<span class="lineno">1396</span> <span id="trace1-line1396" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1397</span> <span id="trace1-line1397" class="unreached-line"><span class="source_p">{</span></span>
+<span class="lineno">1398</span> <span id="trace1-line1398" class="unreached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">m</span><span class="source_p">;</span></span>
+<span class="lineno">1399</span> <span id="trace1-line1399" class="unreached-line"></span>
+<span class="reached-lineno">1400</span> <span id="trace1-line1400" class="reached-line">    <span class="source_n">PyDateTime_IMPORT</span><span class="source_p">;</span>  <span class="source_cm">/* initialize PyDateTime_ functions */</span></span>
+<span class="lineno">1401</span> <span id="trace1-line1401" class="unreached-line"></span>
+<span class="lineno">1402</span> <span id="trace1-line1402" class="unreached-line">    <span class="source_cm">/* make sure that the GIL has been created as we need to aquire it */</span></span>
+<span class="reached-lineno">1403</span> <span id="trace1-line1403" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">PyEval_ThreadsInitialized</span><span class="source_p">())</span></span>
+<span class="transition">when considering range: -0x80000000 <= value <= -1</span>
+<span class="transition">taking False path</span>
+<span class="lineno">1404</span> <span id="trace1-line1404" class="unreached-line">        <span class="source_n">PyEval_InitThreads</span><span class="source_p">();</span></span>
+<span class="lineno">1405</span> <span id="trace1-line1405" class="unreached-line"></span>
+<span class="lineno">1406</span> <span id="trace1-line1406" class="unreached-line"><span class="source_cp">#ifdef HAVE_PY3K</span></span>
+<span class="reached-lineno">1407</span> <span id="trace1-line1407" class="reached-line">    <span class="source_n">m</span> <span class="source_o">=</span> <span class="source_n">PyModule_Create</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">rrdtoolmodule</span><span class="source_p">);</span></span>
+<span class="transition">when PyModule_Create2() succeeds</span>
+<span class="lineno">1408</span> <span id="trace1-line1408" class="unreached-line"><span class="source_cp">#else</span></span>
+<span class="lineno">1409</span> <span id="trace1-line1409" class="unreached-line">    <span class="source_n">m</span> <span class="source_o">=</span> <span class="source_n">Py_InitModule3</span><span class="source_p">(</span><span class="source_s">&quot;rrdtool&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">1410</span> <span id="trace1-line1410" class="unreached-line">                       <span class="source_n">rrdtool_methods</span><span class="source_p">,</span></span>
+<span class="lineno">1411</span> <span id="trace1-line1411" class="unreached-line">                       <span class="source_s">&quot;Python bindings for rrdtool&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1412</span> <span id="trace1-line1412" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1413</span> <span id="trace1-line1413" class="unreached-line"></span>
+<span class="reached-lineno">1414</span> <span id="trace1-line1414" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">m</span> <span class="source_o">==</span> <span class="source_nb">NULL</span><span class="source_p">)</span></span>
+<span class="transition">taking False path</span>
+<span class="lineno">1415</span> <span id="trace1-line1415" class="unreached-line"><span class="source_cp">#ifdef HAVE_PY3K</span></span>
+<span class="lineno">1416</span> <span id="trace1-line1416" class="unreached-line">        <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">1417</span> <span id="trace1-line1417" class="unreached-line"><span class="source_cp">#else</span></span>
+<span class="lineno">1418</span> <span id="trace1-line1418" class="unreached-line">        <span class="source_k">return</span><span class="source_p">;</span></span>
+<span class="lineno">1419</span> <span id="trace1-line1419" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1420</span> <span id="trace1-line1420" class="unreached-line"></span>
+<span class="reached-lineno">1421</span> <span id="trace1-line1421" class="reached-line">    <span class="source_n">rrdtool_ProgrammingError</span> <span class="source_o">=</span> <span class="source_n">PyErr_NewException</span><span class="source_p">(</span><span class="source_s">&quot;rrdtool.ProgrammingError&quot;</span><span class="source_p">,</span></span>
+<span class="transition">when PyErr_NewException() succeeds</span>
+<span class="lineno">1422</span> <span id="trace1-line1422" class="unreached-line">                                                  <span class="source_nb">NULL</span><span class="source_p">,</span> <span class="source_nb">NULL</span><span class="source_p">);</span></span>
+<span class="reached-lineno">1423</span> <span id="trace1-line1423" class="reached-line">    <span class="source_n">Py_INCREF</span><span class="source_p">(</span><span class="source_n">rrdtool_ProgrammingError</span><span class="source_p">);</span></span>
+<span class="reached-lineno">1424</span> <span id="trace1-line1424" class="reached-line">    <span class="source_n">PyModule_AddObject</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">,</span> <span class="source_s">&quot;ProgrammingError&quot;</span><span class="source_p">,</span> <span class="source_n">rrdtool_ProgrammingError</span><span class="source_p">);</span></span>
+<span class="transition">when PyModule_AddObject() succeeds</span>
+<span class="lineno">1425</span> <span id="trace1-line1425" class="unreached-line"></span>
+<span class="reached-lineno">1426</span> <span id="trace1-line1426" class="reached-line">    <span class="source_n">rrdtool_OperationalError</span> <span class="source_o">=</span> <span class="source_n">PyErr_NewException</span><span class="source_p">(</span><span class="source_s">&quot;rrdtool.OperationalError&quot;</span><span class="source_p">,</span></span>
+<span class="transition">when PyErr_NewException() fails</span>
+<span class="lineno">1427</span> <span id="trace1-line1427" class="unreached-line">                                                  <span class="source_nb">NULL</span><span class="source_p">,</span> <span class="source_nb">NULL</span><span class="source_p">);</span></span>
+<span class="reached-lineno">1428</span> <span id="trace1-line1428" class="reached-line">    <span class="source_n">Py_INCREF</span><span class="source_p">(</span><span class="source_n">rrdtool_OperationalError</span><span class="source_p">);</span></span>
+<span class="error">dereferencing NULL (rrdtool_OperationalError.1->ob_refcnt) at rrdtoolmodule.c:1428</span>
+<span class="note">found 5 similar trace(s) to this</span>
+<span class="lineno">1429</span> <span id="trace1-line1429" class="unreached-line">    <span class="source_n">PyModule_AddObject</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">,</span> <span class="source_s">&quot;OperationalError&quot;</span><span class="source_p">,</span> <span class="source_n">rrdtool_OperationalError</span><span class="source_p">);</span></span>
+<span class="lineno">1430</span> <span id="trace1-line1430" class="unreached-line">    <span class="source_n">PyModule_AddStringConstant</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">,</span> <span class="source_s">&quot;__version__&quot;</span><span class="source_p">,</span> <span class="source_n">_version</span><span class="source_p">);</span></span>
+<span class="lineno">1431</span> <span id="trace1-line1431" class="unreached-line"></span>
+<span class="lineno">1432</span> <span id="trace1-line1432" class="unreached-line"><span class="source_cp">#ifdef HAVE_PY3K</span></span>
+<span class="lineno">1433</span> <span id="trace1-line1433" class="unreached-line">    <span class="source_k">return</span> <span class="source_n">m</span><span class="source_p">;</span></span>
+<span class="lineno">1434</span> <span id="trace1-line1434" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1435</span> <span id="trace1-line1435" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace1-line1403',
+                     target:'trace1-line1407',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line1407',
+                     target:'trace1-line1414',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line1414',
+                     target:'trace1-line1421',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line1421',
+                     target:'trace1-line1421',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line1424',
+                     target:'trace1-line1426',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line1426',
+                     target:'trace1-line1426',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+<div id="report-2">
+<table>
+  <tr><td>File:</td> <td><b>rrdtoolmodule.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>PyInit_rrdtool</b></td></tr>
+  <tr><td>Error:</td> <td><b>memory leak: ob_refcnt of '*rrdtool_ProgrammingError' is 1 too high</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">1391</span> <span id="trace2-line1391" class="unreached-line"><span></span><span class="source_n">PyMODINIT_FUNC</span></span>
+<span class="lineno">1392</span> <span id="trace2-line1392" class="unreached-line"><span class="source_nf">PyInit_rrdtool</span><span class="source_p">(</span><span class="source_kt">void</span><span class="source_p">)</span></span>
+<span class="lineno">1393</span> <span id="trace2-line1393" class="unreached-line"><span class="source_cp">#else</span></span>
+<span class="lineno">1394</span> <span id="trace2-line1394" class="unreached-line"><span class="source_kt">void</span></span>
+<span class="lineno">1395</span> <span id="trace2-line1395" class="unreached-line"><span class="source_n">initrrdtool</span><span class="source_p">(</span><span class="source_kt">void</span><span class="source_p">)</span></span>
+<span class="lineno">1396</span> <span id="trace2-line1396" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1397</span> <span id="trace2-line1397" class="unreached-line"><span class="source_p">{</span></span>
+<span class="lineno">1398</span> <span id="trace2-line1398" class="unreached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">m</span><span class="source_p">;</span></span>
+<span class="lineno">1399</span> <span id="trace2-line1399" class="unreached-line"></span>
+<span class="reached-lineno">1400</span> <span id="trace2-line1400" class="reached-line">    <span class="source_n">PyDateTime_IMPORT</span><span class="source_p">;</span>  <span class="source_cm">/* initialize PyDateTime_ functions */</span></span>
+<span class="lineno">1401</span> <span id="trace2-line1401" class="unreached-line"></span>
+<span class="lineno">1402</span> <span id="trace2-line1402" class="unreached-line">    <span class="source_cm">/* make sure that the GIL has been created as we need to aquire it */</span></span>
+<span class="reached-lineno">1403</span> <span id="trace2-line1403" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">PyEval_ThreadsInitialized</span><span class="source_p">())</span></span>
+<span class="transition">when considering range: -0x80000000 <= value <= -1</span>
+<span class="transition">taking False path</span>
+<span class="lineno">1404</span> <span id="trace2-line1404" class="unreached-line">        <span class="source_n">PyEval_InitThreads</span><span class="source_p">();</span></span>
+<span class="lineno">1405</span> <span id="trace2-line1405" class="unreached-line"></span>
+<span class="lineno">1406</span> <span id="trace2-line1406" class="unreached-line"><span class="source_cp">#ifdef HAVE_PY3K</span></span>
+<span class="reached-lineno">1407</span> <span id="trace2-line1407" class="reached-line">    <span class="source_n">m</span> <span class="source_o">=</span> <span class="source_n">PyModule_Create</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">rrdtoolmodule</span><span class="source_p">);</span></span>
+<span class="transition">when PyModule_Create2() succeeds</span>
+<span class="lineno">1408</span> <span id="trace2-line1408" class="unreached-line"><span class="source_cp">#else</span></span>
+<span class="lineno">1409</span> <span id="trace2-line1409" class="unreached-line">    <span class="source_n">m</span> <span class="source_o">=</span> <span class="source_n">Py_InitModule3</span><span class="source_p">(</span><span class="source_s">&quot;rrdtool&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">1410</span> <span id="trace2-line1410" class="unreached-line">                       <span class="source_n">rrdtool_methods</span><span class="source_p">,</span></span>
+<span class="lineno">1411</span> <span id="trace2-line1411" class="unreached-line">                       <span class="source_s">&quot;Python bindings for rrdtool&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1412</span> <span id="trace2-line1412" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1413</span> <span id="trace2-line1413" class="unreached-line"></span>
+<span class="reached-lineno">1414</span> <span id="trace2-line1414" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">m</span> <span class="source_o">==</span> <span class="source_nb">NULL</span><span class="source_p">)</span></span>
+<span class="transition">taking False path</span>
+<span class="lineno">1415</span> <span id="trace2-line1415" class="unreached-line"><span class="source_cp">#ifdef HAVE_PY3K</span></span>
+<span class="lineno">1416</span> <span id="trace2-line1416" class="unreached-line">        <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">1417</span> <span id="trace2-line1417" class="unreached-line"><span class="source_cp">#else</span></span>
+<span class="lineno">1418</span> <span id="trace2-line1418" class="unreached-line">        <span class="source_k">return</span><span class="source_p">;</span></span>
+<span class="lineno">1419</span> <span id="trace2-line1419" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1420</span> <span id="trace2-line1420" class="unreached-line"></span>
+<span class="reached-lineno">1421</span> <span id="trace2-line1421" class="reached-line">    <span class="source_n">rrdtool_ProgrammingError</span> <span class="source_o">=</span> <span class="source_n">PyErr_NewException</span><span class="source_p">(</span><span class="source_s">&quot;rrdtool.ProgrammingError&quot;</span><span class="source_p">,</span></span>
+<span class="transition">when PyErr_NewException() succeeds</span>
+<span class="note">'*rrdtool_ProgrammingError' was allocated at:     rrdtool_ProgrammingError = PyErr_NewException("rrdtool.ProgrammingError",</span>
+<span class="transition">ob_refcnt is now refs: 1 owned</span>
+<span class="transition">'*rrdtool_ProgrammingError' is now referenced by 1 non-stack value(s): rrdtool_ProgrammingError</span>
+<span class="lineno">1422</span> <span id="trace2-line1422" class="unreached-line">                                                  <span class="source_nb">NULL</span><span class="source_p">,</span> <span class="source_nb">NULL</span><span class="source_p">);</span></span>
+<span class="reached-lineno">1423</span> <span id="trace2-line1423" class="reached-line">    <span class="source_n">Py_INCREF</span><span class="source_p">(</span><span class="source_n">rrdtool_ProgrammingError</span><span class="source_p">);</span></span>
+<span class="transition">ob_refcnt is now refs: 2 owned</span>
+<span class="reached-lineno">1424</span> <span id="trace2-line1424" class="reached-line">    <span class="source_n">PyModule_AddObject</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">,</span> <span class="source_s">&quot;ProgrammingError&quot;</span><span class="source_p">,</span> <span class="source_n">rrdtool_ProgrammingError</span><span class="source_p">);</span></span>
+<span class="transition">when PyModule_AddObject() fails</span>
+<span class="lineno">1425</span> <span id="trace2-line1425" class="unreached-line"></span>
+<span class="reached-lineno">1426</span> <span id="trace2-line1426" class="reached-line">    <span class="source_n">rrdtool_OperationalError</span> <span class="source_o">=</span> <span class="source_n">PyErr_NewException</span><span class="source_p">(</span><span class="source_s">&quot;rrdtool.OperationalError&quot;</span><span class="source_p">,</span></span>
+<span class="transition">when PyErr_NewException() succeeds</span>
+<span class="lineno">1427</span> <span id="trace2-line1427" class="unreached-line">                                                  <span class="source_nb">NULL</span><span class="source_p">,</span> <span class="source_nb">NULL</span><span class="source_p">);</span></span>
+<span class="reached-lineno">1428</span> <span id="trace2-line1428" class="reached-line">    <span class="source_n">Py_INCREF</span><span class="source_p">(</span><span class="source_n">rrdtool_OperationalError</span><span class="source_p">);</span></span>
+<span class="reached-lineno">1429</span> <span id="trace2-line1429" class="reached-line">    <span class="source_n">PyModule_AddObject</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">,</span> <span class="source_s">&quot;OperationalError&quot;</span><span class="source_p">,</span> <span class="source_n">rrdtool_OperationalError</span><span class="source_p">);</span></span>
+<span class="transition">when PyModule_AddObject() succeeds</span>
+<span class="reached-lineno">1430</span> <span id="trace2-line1430" class="reached-line">    <span class="source_n">PyModule_AddStringConstant</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">,</span> <span class="source_s">&quot;__version__&quot;</span><span class="source_p">,</span> <span class="source_n">_version</span><span class="source_p">);</span></span>
+<span class="transition">when PyModule_AddStringConstant() succeeds</span>
+<span class="lineno">1431</span> <span id="trace2-line1431" class="unreached-line"></span>
+<span class="lineno">1432</span> <span id="trace2-line1432" class="unreached-line"><span class="source_cp">#ifdef HAVE_PY3K</span></span>
+<span class="reached-lineno">1433</span> <span id="trace2-line1433" class="reached-line">    <span class="source_k">return</span> <span class="source_n">m</span><span class="source_p">;</span></span>
+<span class="error">memory leak: ob_refcnt of '*rrdtool_ProgrammingError' is 1 too high</span>
+<span class="note">was expecting final owned ob_refcnt of '*rrdtool_ProgrammingError' to be 1 due to object being referenced by: rrdtool_ProgrammingError but final ob_refcnt is refs: 2 owned</span>
+<span class="note">found 7 similar trace(s) to this</span>
+<span class="lineno">1434</span> <span id="trace2-line1434" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1435</span> <span id="trace2-line1435" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace2-line1403',
+                     target:'trace2-line1407',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line1407',
+                     target:'trace2-line1414',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line1414',
+                     target:'trace2-line1421',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line1421',
+                     target:'trace2-line1421',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line1424',
+                     target:'trace2-line1426',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line1426',
+                     target:'trace2-line1426',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line1429',
+                     target:'trace2-line1430',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace2-line1430',
+                     target:'trace2-line1433',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+<div id="report-3">
+<table>
+  <tr><td>File:</td> <td><b>rrdtoolmodule.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>PyInit_rrdtool</b></td></tr>
+  <tr><td>Error:</td> <td><b>dereferencing NULL (rrdtool_ProgrammingError.0->ob_refcnt) at rrdtoolmodule.c:1423</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">1391</span> <span id="trace3-line1391" class="unreached-line"><span></span><span class="source_n">PyMODINIT_FUNC</span></span>
+<span class="lineno">1392</span> <span id="trace3-line1392" class="unreached-line"><span class="source_nf">PyInit_rrdtool</span><span class="source_p">(</span><span class="source_kt">void</span><span class="source_p">)</span></span>
+<span class="lineno">1393</span> <span id="trace3-line1393" class="unreached-line"><span class="source_cp">#else</span></span>
+<span class="lineno">1394</span> <span id="trace3-line1394" class="unreached-line"><span class="source_kt">void</span></span>
+<span class="lineno">1395</span> <span id="trace3-line1395" class="unreached-line"><span class="source_n">initrrdtool</span><span class="source_p">(</span><span class="source_kt">void</span><span class="source_p">)</span></span>
+<span class="lineno">1396</span> <span id="trace3-line1396" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1397</span> <span id="trace3-line1397" class="unreached-line"><span class="source_p">{</span></span>
+<span class="lineno">1398</span> <span id="trace3-line1398" class="unreached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">m</span><span class="source_p">;</span></span>
+<span class="lineno">1399</span> <span id="trace3-line1399" class="unreached-line"></span>
+<span class="reached-lineno">1400</span> <span id="trace3-line1400" class="reached-line">    <span class="source_n">PyDateTime_IMPORT</span><span class="source_p">;</span>  <span class="source_cm">/* initialize PyDateTime_ functions */</span></span>
+<span class="lineno">1401</span> <span id="trace3-line1401" class="unreached-line"></span>
+<span class="lineno">1402</span> <span id="trace3-line1402" class="unreached-line">    <span class="source_cm">/* make sure that the GIL has been created as we need to aquire it */</span></span>
+<span class="reached-lineno">1403</span> <span id="trace3-line1403" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">PyEval_ThreadsInitialized</span><span class="source_p">())</span></span>
+<span class="transition">when considering range: -0x80000000 <= value <= -1</span>
+<span class="transition">taking False path</span>
+<span class="lineno">1404</span> <span id="trace3-line1404" class="unreached-line">        <span class="source_n">PyEval_InitThreads</span><span class="source_p">();</span></span>
+<span class="lineno">1405</span> <span id="trace3-line1405" class="unreached-line"></span>
+<span class="lineno">1406</span> <span id="trace3-line1406" class="unreached-line"><span class="source_cp">#ifdef HAVE_PY3K</span></span>
+<span class="reached-lineno">1407</span> <span id="trace3-line1407" class="reached-line">    <span class="source_n">m</span> <span class="source_o">=</span> <span class="source_n">PyModule_Create</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">rrdtoolmodule</span><span class="source_p">);</span></span>
+<span class="transition">when PyModule_Create2() succeeds</span>
+<span class="lineno">1408</span> <span id="trace3-line1408" class="unreached-line"><span class="source_cp">#else</span></span>
+<span class="lineno">1409</span> <span id="trace3-line1409" class="unreached-line">    <span class="source_n">m</span> <span class="source_o">=</span> <span class="source_n">Py_InitModule3</span><span class="source_p">(</span><span class="source_s">&quot;rrdtool&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">1410</span> <span id="trace3-line1410" class="unreached-line">                       <span class="source_n">rrdtool_methods</span><span class="source_p">,</span></span>
+<span class="lineno">1411</span> <span id="trace3-line1411" class="unreached-line">                       <span class="source_s">&quot;Python bindings for rrdtool&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1412</span> <span id="trace3-line1412" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1413</span> <span id="trace3-line1413" class="unreached-line"></span>
+<span class="reached-lineno">1414</span> <span id="trace3-line1414" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">m</span> <span class="source_o">==</span> <span class="source_nb">NULL</span><span class="source_p">)</span></span>
+<span class="transition">taking False path</span>
+<span class="lineno">1415</span> <span id="trace3-line1415" class="unreached-line"><span class="source_cp">#ifdef HAVE_PY3K</span></span>
+<span class="lineno">1416</span> <span id="trace3-line1416" class="unreached-line">        <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">1417</span> <span id="trace3-line1417" class="unreached-line"><span class="source_cp">#else</span></span>
+<span class="lineno">1418</span> <span id="trace3-line1418" class="unreached-line">        <span class="source_k">return</span><span class="source_p">;</span></span>
+<span class="lineno">1419</span> <span id="trace3-line1419" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1420</span> <span id="trace3-line1420" class="unreached-line"></span>
+<span class="reached-lineno">1421</span> <span id="trace3-line1421" class="reached-line">    <span class="source_n">rrdtool_ProgrammingError</span> <span class="source_o">=</span> <span class="source_n">PyErr_NewException</span><span class="source_p">(</span><span class="source_s">&quot;rrdtool.ProgrammingError&quot;</span><span class="source_p">,</span></span>
+<span class="transition">when PyErr_NewException() fails</span>
+<span class="lineno">1422</span> <span id="trace3-line1422" class="unreached-line">                                                  <span class="source_nb">NULL</span><span class="source_p">,</span> <span class="source_nb">NULL</span><span class="source_p">);</span></span>
+<span class="reached-lineno">1423</span> <span id="trace3-line1423" class="reached-line">    <span class="source_n">Py_INCREF</span><span class="source_p">(</span><span class="source_n">rrdtool_ProgrammingError</span><span class="source_p">);</span></span>
+<span class="error">dereferencing NULL (rrdtool_ProgrammingError.0->ob_refcnt) at rrdtoolmodule.c:1423</span>
+<span class="note">found 2 similar trace(s) to this</span>
+<span class="lineno">1424</span> <span id="trace3-line1424" class="unreached-line">    <span class="source_n">PyModule_AddObject</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">,</span> <span class="source_s">&quot;ProgrammingError&quot;</span><span class="source_p">,</span> <span class="source_n">rrdtool_ProgrammingError</span><span class="source_p">);</span></span>
+<span class="lineno">1425</span> <span id="trace3-line1425" class="unreached-line"></span>
+<span class="lineno">1426</span> <span id="trace3-line1426" class="unreached-line">    <span class="source_n">rrdtool_OperationalError</span> <span class="source_o">=</span> <span class="source_n">PyErr_NewException</span><span class="source_p">(</span><span class="source_s">&quot;rrdtool.OperationalError&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">1427</span> <span id="trace3-line1427" class="unreached-line">                                                  <span class="source_nb">NULL</span><span class="source_p">,</span> <span class="source_nb">NULL</span><span class="source_p">);</span></span>
+<span class="lineno">1428</span> <span id="trace3-line1428" class="unreached-line">    <span class="source_n">Py_INCREF</span><span class="source_p">(</span><span class="source_n">rrdtool_OperationalError</span><span class="source_p">);</span></span>
+<span class="lineno">1429</span> <span id="trace3-line1429" class="unreached-line">    <span class="source_n">PyModule_AddObject</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">,</span> <span class="source_s">&quot;OperationalError&quot;</span><span class="source_p">,</span> <span class="source_n">rrdtool_OperationalError</span><span class="source_p">);</span></span>
+<span class="lineno">1430</span> <span id="trace3-line1430" class="unreached-line">    <span class="source_n">PyModule_AddStringConstant</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">,</span> <span class="source_s">&quot;__version__&quot;</span><span class="source_p">,</span> <span class="source_n">_version</span><span class="source_p">);</span></span>
+<span class="lineno">1431</span> <span id="trace3-line1431" class="unreached-line"></span>
+<span class="lineno">1432</span> <span id="trace3-line1432" class="unreached-line"><span class="source_cp">#ifdef HAVE_PY3K</span></span>
+<span class="lineno">1433</span> <span id="trace3-line1433" class="unreached-line">    <span class="source_k">return</span> <span class="source_n">m</span><span class="source_p">;</span></span>
+<span class="lineno">1434</span> <span id="trace3-line1434" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1435</span> <span id="trace3-line1435" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace3-line1403',
+                     target:'trace3-line1407',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line1407',
+                     target:'trace3-line1414',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line1414',
+                     target:'trace3-line1421',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace3-line1421',
+                     target:'trace3-line1421',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+<div id="report-4">
+<table>
+  <tr><td>File:</td> <td><b>rrdtoolmodule.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>PyInit_rrdtool</b></td></tr>
+  <tr><td>Error:</td> <td><b>memory leak: ob_refcnt of '*rrdtool_OperationalError.1' is 1 too high</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">1391</span> <span id="trace4-line1391" class="unreached-line"><span></span><span class="source_n">PyMODINIT_FUNC</span></span>
+<span class="lineno">1392</span> <span id="trace4-line1392" class="unreached-line"><span class="source_nf">PyInit_rrdtool</span><span class="source_p">(</span><span class="source_kt">void</span><span class="source_p">)</span></span>
+<span class="lineno">1393</span> <span id="trace4-line1393" class="unreached-line"><span class="source_cp">#else</span></span>
+<span class="lineno">1394</span> <span id="trace4-line1394" class="unreached-line"><span class="source_kt">void</span></span>
+<span class="lineno">1395</span> <span id="trace4-line1395" class="unreached-line"><span class="source_n">initrrdtool</span><span class="source_p">(</span><span class="source_kt">void</span><span class="source_p">)</span></span>
+<span class="lineno">1396</span> <span id="trace4-line1396" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1397</span> <span id="trace4-line1397" class="unreached-line"><span class="source_p">{</span></span>
+<span class="lineno">1398</span> <span id="trace4-line1398" class="unreached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">m</span><span class="source_p">;</span></span>
+<span class="lineno">1399</span> <span id="trace4-line1399" class="unreached-line"></span>
+<span class="reached-lineno">1400</span> <span id="trace4-line1400" class="reached-line">    <span class="source_n">PyDateTime_IMPORT</span><span class="source_p">;</span>  <span class="source_cm">/* initialize PyDateTime_ functions */</span></span>
+<span class="lineno">1401</span> <span id="trace4-line1401" class="unreached-line"></span>
+<span class="lineno">1402</span> <span id="trace4-line1402" class="unreached-line">    <span class="source_cm">/* make sure that the GIL has been created as we need to aquire it */</span></span>
+<span class="reached-lineno">1403</span> <span id="trace4-line1403" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">PyEval_ThreadsInitialized</span><span class="source_p">())</span></span>
+<span class="transition">when considering value == (int)0 from rrdtoolmodule.c:1403</span>
+<span class="transition">taking True path</span>
+<span class="reached-lineno">1404</span> <span id="trace4-line1404" class="reached-line">        <span class="source_n">PyEval_InitThreads</span><span class="source_p">();</span></span>
+<span class="transition">calling PyEval_InitThreads()</span>
+<span class="lineno">1405</span> <span id="trace4-line1405" class="unreached-line"></span>
+<span class="lineno">1406</span> <span id="trace4-line1406" class="unreached-line"><span class="source_cp">#ifdef HAVE_PY3K</span></span>
+<span class="reached-lineno">1407</span> <span id="trace4-line1407" class="reached-line">    <span class="source_n">m</span> <span class="source_o">=</span> <span class="source_n">PyModule_Create</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">rrdtoolmodule</span><span class="source_p">);</span></span>
+<span class="transition">when PyModule_Create2() succeeds</span>
+<span class="lineno">1408</span> <span id="trace4-line1408" class="unreached-line"><span class="source_cp">#else</span></span>
+<span class="lineno">1409</span> <span id="trace4-line1409" class="unreached-line">    <span class="source_n">m</span> <span class="source_o">=</span> <span class="source_n">Py_InitModule3</span><span class="source_p">(</span><span class="source_s">&quot;rrdtool&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">1410</span> <span id="trace4-line1410" class="unreached-line">                       <span class="source_n">rrdtool_methods</span><span class="source_p">,</span></span>
+<span class="lineno">1411</span> <span id="trace4-line1411" class="unreached-line">                       <span class="source_s">&quot;Python bindings for rrdtool&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1412</span> <span id="trace4-line1412" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1413</span> <span id="trace4-line1413" class="unreached-line"></span>
+<span class="reached-lineno">1414</span> <span id="trace4-line1414" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">m</span> <span class="source_o">==</span> <span class="source_nb">NULL</span><span class="source_p">)</span></span>
+<span class="transition">taking False path</span>
+<span class="lineno">1415</span> <span id="trace4-line1415" class="unreached-line"><span class="source_cp">#ifdef HAVE_PY3K</span></span>
+<span class="lineno">1416</span> <span id="trace4-line1416" class="unreached-line">        <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">1417</span> <span id="trace4-line1417" class="unreached-line"><span class="source_cp">#else</span></span>
+<span class="lineno">1418</span> <span id="trace4-line1418" class="unreached-line">        <span class="source_k">return</span><span class="source_p">;</span></span>
+<span class="lineno">1419</span> <span id="trace4-line1419" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1420</span> <span id="trace4-line1420" class="unreached-line"></span>
+<span class="reached-lineno">1421</span> <span id="trace4-line1421" class="reached-line">    <span class="source_n">rrdtool_ProgrammingError</span> <span class="source_o">=</span> <span class="source_n">PyErr_NewException</span><span class="source_p">(</span><span class="source_s">&quot;rrdtool.ProgrammingError&quot;</span><span class="source_p">,</span></span>
+<span class="transition">when PyErr_NewException() succeeds</span>
+<span class="lineno">1422</span> <span id="trace4-line1422" class="unreached-line">                                                  <span class="source_nb">NULL</span><span class="source_p">,</span> <span class="source_nb">NULL</span><span class="source_p">);</span></span>
+<span class="reached-lineno">1423</span> <span id="trace4-line1423" class="reached-line">    <span class="source_n">Py_INCREF</span><span class="source_p">(</span><span class="source_n">rrdtool_ProgrammingError</span><span class="source_p">);</span></span>
+<span class="reached-lineno">1424</span> <span id="trace4-line1424" class="reached-line">    <span class="source_n">PyModule_AddObject</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">,</span> <span class="source_s">&quot;ProgrammingError&quot;</span><span class="source_p">,</span> <span class="source_n">rrdtool_ProgrammingError</span><span class="source_p">);</span></span>
+<span class="transition">when PyModule_AddObject() succeeds</span>
+<span class="lineno">1425</span> <span id="trace4-line1425" class="unreached-line"></span>
+<span class="reached-lineno">1426</span> <span id="trace4-line1426" class="reached-line">    <span class="source_n">rrdtool_OperationalError</span> <span class="source_o">=</span> <span class="source_n">PyErr_NewException</span><span class="source_p">(</span><span class="source_s">&quot;rrdtool.OperationalError&quot;</span><span class="source_p">,</span></span>
+<span class="transition">when PyErr_NewException() succeeds</span>
+<span class="note">'*rrdtool_OperationalError.1' was allocated at:     rrdtool_OperationalError = PyErr_NewException("rrdtool.OperationalError",</span>
+<span class="transition">ob_refcnt is now refs: 1 owned</span>
+<span class="transition">'*rrdtool_OperationalError.1' is now referenced by 1 non-stack value(s): rrdtool_OperationalError</span>
+<span class="lineno">1427</span> <span id="trace4-line1427" class="unreached-line">                                                  <span class="source_nb">NULL</span><span class="source_p">,</span> <span class="source_nb">NULL</span><span class="source_p">);</span></span>
+<span class="reached-lineno">1428</span> <span id="trace4-line1428" class="reached-line">    <span class="source_n">Py_INCREF</span><span class="source_p">(</span><span class="source_n">rrdtool_OperationalError</span><span class="source_p">);</span></span>
+<span class="transition">ob_refcnt is now refs: 2 owned</span>
+<span class="reached-lineno">1429</span> <span id="trace4-line1429" class="reached-line">    <span class="source_n">PyModule_AddObject</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">,</span> <span class="source_s">&quot;OperationalError&quot;</span><span class="source_p">,</span> <span class="source_n">rrdtool_OperationalError</span><span class="source_p">);</span></span>
+<span class="transition">when PyModule_AddObject() fails</span>
+<span class="reached-lineno">1430</span> <span id="trace4-line1430" class="reached-line">    <span class="source_n">PyModule_AddStringConstant</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">,</span> <span class="source_s">&quot;__version__&quot;</span><span class="source_p">,</span> <span class="source_n">_version</span><span class="source_p">);</span></span>
+<span class="transition">when PyModule_AddStringConstant() succeeds</span>
+<span class="lineno">1431</span> <span id="trace4-line1431" class="unreached-line"></span>
+<span class="lineno">1432</span> <span id="trace4-line1432" class="unreached-line"><span class="source_cp">#ifdef HAVE_PY3K</span></span>
+<span class="reached-lineno">1433</span> <span id="trace4-line1433" class="reached-line">    <span class="source_k">return</span> <span class="source_n">m</span><span class="source_p">;</span></span>
+<span class="error">memory leak: ob_refcnt of '*rrdtool_OperationalError.1' is 1 too high</span>
+<span class="note">was expecting final owned ob_refcnt of '*rrdtool_OperationalError.1' to be 1 due to object being referenced by: rrdtool_OperationalError but final ob_refcnt is refs: 2 owned</span>
+<span class="note">found 1 similar trace(s) to this</span>
+<span class="lineno">1434</span> <span id="trace4-line1434" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1435</span> <span id="trace4-line1435" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace4-line1403',
+                     target:'trace4-line1404',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line1404',
+                     target:'trace4-line1407',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line1407',
+                     target:'trace4-line1414',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line1414',
+                     target:'trace4-line1421',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line1421',
+                     target:'trace4-line1421',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line1424',
+                     target:'trace4-line1426',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line1426',
+                     target:'trace4-line1426',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line1429',
+                     target:'trace4-line1430',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace4-line1430',
+                     target:'trace4-line1433',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+<div id="report-5">
+<table>
+  <tr><td>File:</td> <td><b>rrdtoolmodule.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>PyInit_rrdtool</b></td></tr>
+  <tr><td>Error:</td> <td><b>memory leak: ob_refcnt of '*rrdtool_ProgrammingError.0' is 1 too high</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">1391</span> <span id="trace5-line1391" class="unreached-line"><span></span><span class="source_n">PyMODINIT_FUNC</span></span>
+<span class="lineno">1392</span> <span id="trace5-line1392" class="unreached-line"><span class="source_nf">PyInit_rrdtool</span><span class="source_p">(</span><span class="source_kt">void</span><span class="source_p">)</span></span>
+<span class="lineno">1393</span> <span id="trace5-line1393" class="unreached-line"><span class="source_cp">#else</span></span>
+<span class="lineno">1394</span> <span id="trace5-line1394" class="unreached-line"><span class="source_kt">void</span></span>
+<span class="lineno">1395</span> <span id="trace5-line1395" class="unreached-line"><span class="source_n">initrrdtool</span><span class="source_p">(</span><span class="source_kt">void</span><span class="source_p">)</span></span>
+<span class="lineno">1396</span> <span id="trace5-line1396" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1397</span> <span id="trace5-line1397" class="unreached-line"><span class="source_p">{</span></span>
+<span class="lineno">1398</span> <span id="trace5-line1398" class="unreached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">m</span><span class="source_p">;</span></span>
+<span class="lineno">1399</span> <span id="trace5-line1399" class="unreached-line"></span>
+<span class="reached-lineno">1400</span> <span id="trace5-line1400" class="reached-line">    <span class="source_n">PyDateTime_IMPORT</span><span class="source_p">;</span>  <span class="source_cm">/* initialize PyDateTime_ functions */</span></span>
+<span class="lineno">1401</span> <span id="trace5-line1401" class="unreached-line"></span>
+<span class="lineno">1402</span> <span id="trace5-line1402" class="unreached-line">    <span class="source_cm">/* make sure that the GIL has been created as we need to aquire it */</span></span>
+<span class="reached-lineno">1403</span> <span id="trace5-line1403" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">PyEval_ThreadsInitialized</span><span class="source_p">())</span></span>
+<span class="transition">when considering value == (int)0 from rrdtoolmodule.c:1403</span>
+<span class="transition">taking True path</span>
+<span class="reached-lineno">1404</span> <span id="trace5-line1404" class="reached-line">        <span class="source_n">PyEval_InitThreads</span><span class="source_p">();</span></span>
+<span class="transition">calling PyEval_InitThreads()</span>
+<span class="lineno">1405</span> <span id="trace5-line1405" class="unreached-line"></span>
+<span class="lineno">1406</span> <span id="trace5-line1406" class="unreached-line"><span class="source_cp">#ifdef HAVE_PY3K</span></span>
+<span class="reached-lineno">1407</span> <span id="trace5-line1407" class="reached-line">    <span class="source_n">m</span> <span class="source_o">=</span> <span class="source_n">PyModule_Create</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">rrdtoolmodule</span><span class="source_p">);</span></span>
+<span class="transition">when PyModule_Create2() succeeds</span>
+<span class="lineno">1408</span> <span id="trace5-line1408" class="unreached-line"><span class="source_cp">#else</span></span>
+<span class="lineno">1409</span> <span id="trace5-line1409" class="unreached-line">    <span class="source_n">m</span> <span class="source_o">=</span> <span class="source_n">Py_InitModule3</span><span class="source_p">(</span><span class="source_s">&quot;rrdtool&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">1410</span> <span id="trace5-line1410" class="unreached-line">                       <span class="source_n">rrdtool_methods</span><span class="source_p">,</span></span>
+<span class="lineno">1411</span> <span id="trace5-line1411" class="unreached-line">                       <span class="source_s">&quot;Python bindings for rrdtool&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1412</span> <span id="trace5-line1412" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1413</span> <span id="trace5-line1413" class="unreached-line"></span>
+<span class="reached-lineno">1414</span> <span id="trace5-line1414" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">m</span> <span class="source_o">==</span> <span class="source_nb">NULL</span><span class="source_p">)</span></span>
+<span class="transition">taking False path</span>
+<span class="lineno">1415</span> <span id="trace5-line1415" class="unreached-line"><span class="source_cp">#ifdef HAVE_PY3K</span></span>
+<span class="lineno">1416</span> <span id="trace5-line1416" class="unreached-line">        <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">1417</span> <span id="trace5-line1417" class="unreached-line"><span class="source_cp">#else</span></span>
+<span class="lineno">1418</span> <span id="trace5-line1418" class="unreached-line">        <span class="source_k">return</span><span class="source_p">;</span></span>
+<span class="lineno">1419</span> <span id="trace5-line1419" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1420</span> <span id="trace5-line1420" class="unreached-line"></span>
+<span class="reached-lineno">1421</span> <span id="trace5-line1421" class="reached-line">    <span class="source_n">rrdtool_ProgrammingError</span> <span class="source_o">=</span> <span class="source_n">PyErr_NewException</span><span class="source_p">(</span><span class="source_s">&quot;rrdtool.ProgrammingError&quot;</span><span class="source_p">,</span></span>
+<span class="transition">when PyErr_NewException() succeeds</span>
+<span class="note">'*rrdtool_ProgrammingError.0' was allocated at:     rrdtool_ProgrammingError = PyErr_NewException("rrdtool.ProgrammingError",</span>
+<span class="transition">ob_refcnt is now refs: 1 owned</span>
+<span class="transition">'*rrdtool_ProgrammingError.0' is now referenced by 1 non-stack value(s): rrdtool_ProgrammingError</span>
+<span class="lineno">1422</span> <span id="trace5-line1422" class="unreached-line">                                                  <span class="source_nb">NULL</span><span class="source_p">,</span> <span class="source_nb">NULL</span><span class="source_p">);</span></span>
+<span class="reached-lineno">1423</span> <span id="trace5-line1423" class="reached-line">    <span class="source_n">Py_INCREF</span><span class="source_p">(</span><span class="source_n">rrdtool_ProgrammingError</span><span class="source_p">);</span></span>
+<span class="transition">ob_refcnt is now refs: 2 owned</span>
+<span class="reached-lineno">1424</span> <span id="trace5-line1424" class="reached-line">    <span class="source_n">PyModule_AddObject</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">,</span> <span class="source_s">&quot;ProgrammingError&quot;</span><span class="source_p">,</span> <span class="source_n">rrdtool_ProgrammingError</span><span class="source_p">);</span></span>
+<span class="transition">when PyModule_AddObject() fails</span>
+<span class="lineno">1425</span> <span id="trace5-line1425" class="unreached-line"></span>
+<span class="reached-lineno">1426</span> <span id="trace5-line1426" class="reached-line">    <span class="source_n">rrdtool_OperationalError</span> <span class="source_o">=</span> <span class="source_n">PyErr_NewException</span><span class="source_p">(</span><span class="source_s">&quot;rrdtool.OperationalError&quot;</span><span class="source_p">,</span></span>
+<span class="transition">when PyErr_NewException() succeeds</span>
+<span class="lineno">1427</span> <span id="trace5-line1427" class="unreached-line">                                                  <span class="source_nb">NULL</span><span class="source_p">,</span> <span class="source_nb">NULL</span><span class="source_p">);</span></span>
+<span class="reached-lineno">1428</span> <span id="trace5-line1428" class="reached-line">    <span class="source_n">Py_INCREF</span><span class="source_p">(</span><span class="source_n">rrdtool_OperationalError</span><span class="source_p">);</span></span>
+<span class="reached-lineno">1429</span> <span id="trace5-line1429" class="reached-line">    <span class="source_n">PyModule_AddObject</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">,</span> <span class="source_s">&quot;OperationalError&quot;</span><span class="source_p">,</span> <span class="source_n">rrdtool_OperationalError</span><span class="source_p">);</span></span>
+<span class="transition">when PyModule_AddObject() succeeds</span>
+<span class="reached-lineno">1430</span> <span id="trace5-line1430" class="reached-line">    <span class="source_n">PyModule_AddStringConstant</span><span class="source_p">(</span><span class="source_n">m</span><span class="source_p">,</span> <span class="source_s">&quot;__version__&quot;</span><span class="source_p">,</span> <span class="source_n">_version</span><span class="source_p">);</span></span>
+<span class="transition">when PyModule_AddStringConstant() succeeds</span>
+<span class="lineno">1431</span> <span id="trace5-line1431" class="unreached-line"></span>
+<span class="lineno">1432</span> <span id="trace5-line1432" class="unreached-line"><span class="source_cp">#ifdef HAVE_PY3K</span></span>
+<span class="reached-lineno">1433</span> <span id="trace5-line1433" class="reached-line">    <span class="source_k">return</span> <span class="source_n">m</span><span class="source_p">;</span></span>
+<span class="error">memory leak: ob_refcnt of '*rrdtool_ProgrammingError.0' is 1 too high</span>
+<span class="note">was expecting final owned ob_refcnt of '*rrdtool_ProgrammingError.0' to be 1 due to object being referenced by: rrdtool_ProgrammingError but final ob_refcnt is refs: 2 owned</span>
+<span class="note">found 3 similar trace(s) to this</span>
+<span class="lineno">1434</span> <span id="trace5-line1434" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1435</span> <span id="trace5-line1435" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace5-line1403',
+                     target:'trace5-line1404',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace5-line1404',
+                     target:'trace5-line1407',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace5-line1407',
+                     target:'trace5-line1414',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace5-line1414',
+                     target:'trace5-line1421',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace5-line1421',
+                     target:'trace5-line1421',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace5-line1424',
+                     target:'trace5-line1426',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace5-line1426',
+                     target:'trace5-line1426',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace5-line1429',
+                     target:'trace5-line1430',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace5-line1430',
+                     target:'trace5-line1433',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+  </body>

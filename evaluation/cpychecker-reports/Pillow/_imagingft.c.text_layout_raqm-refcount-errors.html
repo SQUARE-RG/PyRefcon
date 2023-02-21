@@ -1,0 +1,439 @@
+<html>
+  <head>
+    <title>text_layout_raqm</title>
+    <style type="text/css">
+.unreached-line {
+    #margin:1em;
+    #border:0.1em dotted #00aa00;
+
+    opacity:1.0;
+    filter:alpha(opacity=0);
+    #color:black;
+}
+
+.reached-line {
+    #margin:1em;
+    #border:0.1em dotted #00aa00;
+    border: 0.1em solid blue;
+    font-weight: bold;
+
+    opacity:1.0;
+    filter:alpha(opacity=0);
+    #color:black;
+}
+
+.reached-lineno {
+    border: 0.1em solid blue;
+    font-weight: bold;
+}
+
+pre {
+    #line-height:200%
+}
+
+._jsPlumb_connector { z-index: -2; }
+._jsPlumb_endpoint { z-index: -1; }
+
+.transition {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #ccc;
+    -moz-box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;
+    margin-left: 5em;
+    font-family: proportional;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.error {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #cc0000;
+    -moz-box-shadow: 2px 2px 2px #cc0000;
+    -webkit-box-shadow: 2px 2px 2px #cc0000;
+    box-shadow: 2px 2px 2px #cc0000;
+    margin-left: 5em;
+    color: red;
+    font-family: proportional;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.note {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #ccc;
+    -moz-box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;
+    margin-left: 5em;
+    font-family: proportional;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.hll { background-color: #ffffcc }
+.source_c { color: #408080; font-style: italic } /* Comment */
+.source_err { border: 1px solid #FF0000 } /* Error */
+.source_k { color: #008000; font-weight: bold } /* Keyword */
+.source_o { color: #666666 } /* Operator */
+.source_ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.source_cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.source_cp { color: #BC7A00 } /* Comment.Preproc */
+.source_cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.source_c1 { color: #408080; font-style: italic } /* Comment.Single */
+.source_cs { color: #408080; font-style: italic } /* Comment.Special */
+.source_gd { color: #A00000 } /* Generic.Deleted */
+.source_ge { font-style: italic } /* Generic.Emph */
+.source_gr { color: #FF0000 } /* Generic.Error */
+.source_gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.source_gi { color: #00A000 } /* Generic.Inserted */
+.source_go { color: #888888 } /* Generic.Output */
+.source_gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.source_gs { font-weight: bold } /* Generic.Strong */
+.source_gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.source_gt { color: #0044DD } /* Generic.Traceback */
+.source_kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.source_kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.source_kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.source_kp { color: #008000 } /* Keyword.Pseudo */
+.source_kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.source_kt { color: #B00040 } /* Keyword.Type */
+.source_m { color: #666666 } /* Literal.Number */
+.source_s { color: #BA2121 } /* Literal.String */
+.source_na { color: #7D9029 } /* Name.Attribute */
+.source_nb { color: #008000 } /* Name.Builtin */
+.source_nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.source_no { color: #880000 } /* Name.Constant */
+.source_nd { color: #AA22FF } /* Name.Decorator */
+.source_ni { color: #999999; font-weight: bold } /* Name.Entity */
+.source_ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.source_nf { color: #0000FF } /* Name.Function */
+.source_nl { color: #A0A000 } /* Name.Label */
+.source_nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.source_nt { color: #008000; font-weight: bold } /* Name.Tag */
+.source_nv { color: #19177C } /* Name.Variable */
+.source_ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.source_w { color: #bbbbbb } /* Text.Whitespace */
+.source_mb { color: #666666 } /* Literal.Number.Bin */
+.source_mf { color: #666666 } /* Literal.Number.Float */
+.source_mh { color: #666666 } /* Literal.Number.Hex */
+.source_mi { color: #666666 } /* Literal.Number.Integer */
+.source_mo { color: #666666 } /* Literal.Number.Oct */
+.source_sa { color: #BA2121 } /* Literal.String.Affix */
+.source_sb { color: #BA2121 } /* Literal.String.Backtick */
+.source_sc { color: #BA2121 } /* Literal.String.Char */
+.source_dl { color: #BA2121 } /* Literal.String.Delimiter */
+.source_sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.source_s2 { color: #BA2121 } /* Literal.String.Double */
+.source_se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.source_sh { color: #BA2121 } /* Literal.String.Heredoc */
+.source_si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.source_sx { color: #008000 } /* Literal.String.Other */
+.source_sr { color: #BB6688 } /* Literal.String.Regex */
+.source_s1 { color: #BA2121 } /* Literal.String.Single */
+.source_ss { color: #19177C } /* Literal.String.Symbol */
+.source_bp { color: #008000 } /* Name.Builtin.Pseudo */
+.source_fm { color: #0000FF } /* Name.Function.Magic */
+.source_vc { color: #19177C } /* Name.Variable.Class */
+.source_vg { color: #19177C } /* Name.Variable.Global */
+.source_vi { color: #19177C } /* Name.Variable.Instance */
+.source_vm { color: #19177C } /* Name.Variable.Magic */
+.source_il { color: #666666 } /* Literal.Number.Integer.Long */    </style>
+  </head>
+  <body>
+<script type="text/javascript" src="http://explorercanvas.googlecode.com/svn/trunk/excanvas.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://jsplumb.googlecode.com/files/jquery.jsPlumb-1.2.6-all-min.js"></script>
+<div id="report-0">
+<table>
+  <tr><td>File:</td> <td><b>src/_imagingft.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>text_layout_raqm</b></td></tr>
+  <tr><td>Error:</td> <td><b>memory leak: ob_refcnt of '*seq' is 1 too high</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">226</span> <span id="trace0-line226" class="unreached-line"><span></span><span class="source_k">static</span> <span class="source_kt">size_t</span></span>
+<span class="lineno">227</span> <span id="trace0-line227" class="unreached-line"><span class="source_nf">text_layout_raqm</span><span class="source_p">(</span></span>
+<span class="lineno">228</span> <span id="trace0-line228" class="unreached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">string</span><span class="source_p">,</span></span>
+<span class="lineno">229</span> <span id="trace0-line229" class="unreached-line">    <span class="source_n">FontObject</span> <span class="source_o">*</span><span class="source_n">self</span><span class="source_p">,</span></span>
+<span class="lineno">230</span> <span id="trace0-line230" class="unreached-line">    <span class="source_k">const</span> <span class="source_kt">char</span> <span class="source_o">*</span><span class="source_n">dir</span><span class="source_p">,</span></span>
+<span class="lineno">231</span> <span id="trace0-line231" class="unreached-line">    <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">features</span><span class="source_p">,</span></span>
+<span class="lineno">232</span> <span id="trace0-line232" class="unreached-line">    <span class="source_k">const</span> <span class="source_kt">char</span> <span class="source_o">*</span><span class="source_n">lang</span><span class="source_p">,</span></span>
+<span class="lineno">233</span> <span id="trace0-line233" class="unreached-line">    <span class="source_n">GlyphInfo</span> <span class="source_o">**</span><span class="source_n">glyph_info</span><span class="source_p">,</span></span>
+<span class="lineno">234</span> <span id="trace0-line234" class="unreached-line">    <span class="source_kt">int</span> <span class="source_n">mask</span><span class="source_p">,</span></span>
+<span class="lineno">235</span> <span id="trace0-line235" class="unreached-line">    <span class="source_kt">int</span> <span class="source_n">color</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="reached-lineno">236</span> <span id="trace0-line236" class="reached-line">    <span class="source_kt">size_t</span> <span class="source_n">i</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">,</span> <span class="source_n">count</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">,</span> <span class="source_n">start</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span></span>
+<span class="lineno">237</span> <span id="trace0-line237" class="unreached-line">    <span class="source_n">raqm_t</span> <span class="source_o">*</span><span class="source_n">rq</span><span class="source_p">;</span></span>
+<span class="reached-lineno">238</span> <span id="trace0-line238" class="reached-line">    <span class="source_n">raqm_glyph_t</span> <span class="source_o">*</span><span class="source_n">glyphs</span> <span class="source_o">=</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">239</span> <span id="trace0-line239" class="unreached-line">    <span class="source_n">raqm_direction_t</span> <span class="source_n">direction</span><span class="source_p">;</span></span>
+<span class="lineno">240</span> <span id="trace0-line240" class="unreached-line"></span>
+<span class="reached-lineno">241</span> <span id="trace0-line241" class="reached-line">    <span class="source_n">rq</span> <span class="source_o">=</span> <span class="source_n">raqm_create</span><span class="source_p">();</span></span>
+<span class="reached-lineno">242</span> <span id="trace0-line242" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">rq</span> <span class="source_o">==</span> <span class="source_nb">NULL</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when treating unknown struct raqm_t * from src/_imagingft.c:241 as non-NULL</span>
+<span class="transition">taking False path</span>
+<span class="lineno">243</span> <span id="trace0-line243" class="unreached-line">        <span class="source_n">PyErr_SetString</span><span class="source_p">(</span><span class="source_n">PyExc_ValueError</span><span class="source_p">,</span> <span class="source_s">&quot;raqm_create() failed.&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">244</span> <span id="trace0-line244" class="unreached-line">        <span class="source_k">goto</span> <span class="source_n">failed</span><span class="source_p">;</span></span>
+<span class="lineno">245</span> <span id="trace0-line245" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">246</span> <span id="trace0-line246" class="unreached-line"></span>
+<span class="reached-lineno">247</span> <span id="trace0-line247" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">PyUnicode_Check</span><span class="source_p">(</span><span class="source_n">string</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: 1 <= value <= 0x10000000</span>
+<span class="transition">taking True path</span>
+<span class="reached-lineno">248</span> <span id="trace0-line248" class="reached-line">        <span class="source_n">Py_UCS4</span> <span class="source_o">*</span><span class="source_n">text</span> <span class="source_o">=</span> <span class="source_n">PyUnicode_AsUCS4Copy</span><span class="source_p">(</span><span class="source_n">string</span><span class="source_p">);</span></span>
+<span class="reached-lineno">249</span> <span id="trace0-line249" class="reached-line">        <span class="source_n">Py_ssize_t</span> <span class="source_n">size</span> <span class="source_o">=</span> <span class="source_n">PyUnicode_GET_LENGTH</span><span class="source_p">(</span><span class="source_n">string</span><span class="source_p">);</span></span>
+<span class="reached-lineno">250</span> <span id="trace0-line250" class="reached-line">        <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">text</span> <span class="source_o">||</span> <span class="source_o">!</span><span class="source_n">size</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when treating unknown Py_UCS4 * from src/_imagingft.c:248 as non-NULL</span>
+<span class="transition">when considering range: -0x8000000000000000 <= value <= -1</span>
+<span class="transition">taking False path</span>
+<span class="lineno">251</span> <span id="trace0-line251" class="unreached-line">            <span class="source_cm">/* return 0 and clean up, no glyphs==no size,</span></span>
+<span class="lineno">252</span> <span id="trace0-line252" class="unreached-line"><span class="source_cm">               and raqm fails with empty strings */</span></span>
+<span class="lineno">253</span> <span id="trace0-line253" class="unreached-line">            <span class="source_k">goto</span> <span class="source_n">failed</span><span class="source_p">;</span></span>
+<span class="lineno">254</span> <span id="trace0-line254" class="unreached-line">        <span class="source_p">}</span></span>
+<span class="reached-lineno">255</span> <span id="trace0-line255" class="reached-line">        <span class="source_kt">int</span> <span class="source_n">set_text</span> <span class="source_o">=</span> <span class="source_n">raqm_set_text</span><span class="source_p">(</span><span class="source_n">rq</span><span class="source_p">,</span> <span class="source_n">text</span><span class="source_p">,</span> <span class="source_n">size</span><span class="source_p">);</span></span>
+<span class="reached-lineno">256</span> <span id="trace0-line256" class="reached-line">        <span class="source_n">PyMem_Free</span><span class="source_p">(</span><span class="source_n">text</span><span class="source_p">);</span></span>
+<span class="transition">calling PyMem_Free on Region('heap-region-26')</span>
+<span class="reached-lineno">257</span> <span id="trace0-line257" class="reached-line">        <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">set_text</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when taking False path</span>
+<span class="lineno">258</span> <span id="trace0-line258" class="unreached-line">            <span class="source_n">PyErr_SetString</span><span class="source_p">(</span><span class="source_n">PyExc_ValueError</span><span class="source_p">,</span> <span class="source_s">&quot;raqm_set_text() failed&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">259</span> <span id="trace0-line259" class="unreached-line">            <span class="source_k">goto</span> <span class="source_n">failed</span><span class="source_p">;</span></span>
+<span class="lineno">260</span> <span id="trace0-line260" class="unreached-line">        <span class="source_p">}</span></span>
+<span class="reached-lineno">261</span> <span id="trace0-line261" class="reached-line">        <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">lang</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when taking True path</span>
+<span class="reached-lineno">262</span> <span id="trace0-line262" class="reached-line">            <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">raqm_set_language</span><span class="source_p">(</span><span class="source_n">rq</span><span class="source_p">,</span> <span class="source_n">lang</span><span class="source_p">,</span> <span class="source_n">start</span><span class="source_p">,</span> <span class="source_n">size</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="transition">when taking False path</span>
+<span class="lineno">263</span> <span id="trace0-line263" class="unreached-line">                <span class="source_n">PyErr_SetString</span><span class="source_p">(</span><span class="source_n">PyExc_ValueError</span><span class="source_p">,</span> <span class="source_s">&quot;raqm_set_language() failed&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">264</span> <span id="trace0-line264" class="unreached-line">                <span class="source_k">goto</span> <span class="source_n">failed</span><span class="source_p">;</span></span>
+<span class="lineno">265</span> <span id="trace0-line265" class="unreached-line">            <span class="source_p">}</span></span>
+<span class="lineno">266</span> <span id="trace0-line266" class="unreached-line">        <span class="source_p">}</span></span>
+<span class="lineno">267</span> <span id="trace0-line267" class="unreached-line">    <span class="source_p">}</span> <span class="source_k">else</span> <span class="source_p">{</span></span>
+<span class="lineno">268</span> <span id="trace0-line268" class="unreached-line">        <span class="source_n">PyErr_SetString</span><span class="source_p">(</span><span class="source_n">PyExc_TypeError</span><span class="source_p">,</span> <span class="source_s">&quot;expected string&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">269</span> <span id="trace0-line269" class="unreached-line">        <span class="source_k">goto</span> <span class="source_n">failed</span><span class="source_p">;</span></span>
+<span class="lineno">270</span> <span id="trace0-line270" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">271</span> <span id="trace0-line271" class="unreached-line"></span>
+<span class="reached-lineno">272</span> <span id="trace0-line272" class="reached-line">    <span class="source_n">direction</span> <span class="source_o">=</span> <span class="source_n">RAQM_DIRECTION_DEFAULT</span><span class="source_p">;</span></span>
+<span class="reached-lineno">273</span> <span id="trace0-line273" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">dir</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when taking True path</span>
+<span class="reached-lineno">274</span> <span id="trace0-line274" class="reached-line">        <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">strcmp</span><span class="source_p">(</span><span class="source_n">dir</span><span class="source_p">,</span> <span class="source_s">&quot;rtl&quot;</span><span class="source_p">)</span> <span class="source_o">==</span> <span class="source_mi">0</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: -0x80000000 <= value <= -1</span>
+<span class="transition">taking False path</span>
+<span class="lineno">275</span> <span id="trace0-line275" class="unreached-line">            <span class="source_n">direction</span> <span class="source_o">=</span> <span class="source_n">RAQM_DIRECTION_RTL</span><span class="source_p">;</span></span>
+<span class="reached-lineno">276</span> <span id="trace0-line276" class="reached-line">        <span class="source_p">}</span> <span class="source_k">else</span> <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">strcmp</span><span class="source_p">(</span><span class="source_n">dir</span><span class="source_p">,</span> <span class="source_s">&quot;ltr&quot;</span><span class="source_p">)</span> <span class="source_o">==</span> <span class="source_mi">0</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when considering value == (int)0 from src/_imagingft.c:276</span>
+<span class="transition">taking True path</span>
+<span class="reached-lineno">277</span> <span id="trace0-line277" class="reached-line">            <span class="source_n">direction</span> <span class="source_o">=</span> <span class="source_n">RAQM_DIRECTION_LTR</span><span class="source_p">;</span></span>
+<span class="lineno">278</span> <span id="trace0-line278" class="unreached-line">        <span class="source_p">}</span> <span class="source_k">else</span> <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">strcmp</span><span class="source_p">(</span><span class="source_n">dir</span><span class="source_p">,</span> <span class="source_s">&quot;ttb&quot;</span><span class="source_p">)</span> <span class="source_o">==</span> <span class="source_mi">0</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">279</span> <span id="trace0-line279" class="unreached-line">            <span class="source_n">direction</span> <span class="source_o">=</span> <span class="source_n">RAQM_DIRECTION_TTB</span><span class="source_p">;</span></span>
+<span class="lineno">280</span> <span id="trace0-line280" class="unreached-line"><span class="source_cp">#if !defined(RAQM_VERSION_ATLEAST)</span></span>
+<span class="lineno">281</span> <span id="trace0-line281" class="unreached-line">            <span class="source_cm">/* RAQM_VERSION_ATLEAST was added in Raqm 0.7.0 */</span></span>
+<span class="lineno">282</span> <span id="trace0-line282" class="unreached-line">            <span class="source_n">PyErr_SetString</span><span class="source_p">(</span></span>
+<span class="lineno">283</span> <span id="trace0-line283" class="unreached-line">                <span class="source_n">PyExc_ValueError</span><span class="source_p">,</span></span>
+<span class="lineno">284</span> <span id="trace0-line284" class="unreached-line">                <span class="source_s">&quot;libraqm 0.7 or greater required for &#39;ttb&#39; direction&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">285</span> <span id="trace0-line285" class="unreached-line">            <span class="source_k">goto</span> <span class="source_n">failed</span><span class="source_p">;</span></span>
+<span class="lineno">286</span> <span id="trace0-line286" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">287</span> <span id="trace0-line287" class="unreached-line">        <span class="source_p">}</span> <span class="source_k">else</span> <span class="source_p">{</span></span>
+<span class="lineno">288</span> <span id="trace0-line288" class="unreached-line">            <span class="source_n">PyErr_SetString</span><span class="source_p">(</span></span>
+<span class="lineno">289</span> <span id="trace0-line289" class="unreached-line">                <span class="source_n">PyExc_ValueError</span><span class="source_p">,</span> <span class="source_s">&quot;direction must be either &#39;rtl&#39;, &#39;ltr&#39; or &#39;ttb&#39;&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">290</span> <span id="trace0-line290" class="unreached-line">            <span class="source_k">goto</span> <span class="source_n">failed</span><span class="source_p">;</span></span>
+<span class="lineno">291</span> <span id="trace0-line291" class="unreached-line">        <span class="source_p">}</span></span>
+<span class="lineno">292</span> <span id="trace0-line292" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">293</span> <span id="trace0-line293" class="unreached-line"></span>
+<span class="reached-lineno">294</span> <span id="trace0-line294" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">raqm_set_par_direction</span><span class="source_p">(</span><span class="source_n">rq</span><span class="source_p">,</span> <span class="source_n">direction</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="transition">when taking False path</span>
+<span class="lineno">295</span> <span id="trace0-line295" class="unreached-line">        <span class="source_n">PyErr_SetString</span><span class="source_p">(</span><span class="source_n">PyExc_ValueError</span><span class="source_p">,</span> <span class="source_s">&quot;raqm_set_par_direction() failed&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">296</span> <span id="trace0-line296" class="unreached-line">        <span class="source_k">goto</span> <span class="source_n">failed</span><span class="source_p">;</span></span>
+<span class="lineno">297</span> <span id="trace0-line297" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">298</span> <span id="trace0-line298" class="unreached-line"></span>
+<span class="reached-lineno">299</span> <span id="trace0-line299" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">features</span> <span class="source_o">!=</span> <span class="source_n">Py_None</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">taking True path</span>
+<span class="lineno">300</span> <span id="trace0-line300" class="unreached-line">        <span class="source_kt">int</span> <span class="source_n">j</span><span class="source_p">,</span> <span class="source_n">len</span><span class="source_p">;</span></span>
+<span class="reached-lineno">301</span> <span id="trace0-line301" class="reached-line">        <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">seq</span> <span class="source_o">=</span> <span class="source_n">PySequence_Fast</span><span class="source_p">(</span><span class="source_n">features</span><span class="source_p">,</span> <span class="source_s">&quot;expected a sequence&quot;</span><span class="source_p">);</span></span>
+<span class="transition">when PySequence_Fast() succeeds</span>
+<span class="note">'*seq' was allocated at:         PyObject *seq = PySequence_Fast(features, "expected a sequence");</span>
+<span class="transition">ob_refcnt is now refs: 1 owned</span>
+<span class="reached-lineno">302</span> <span id="trace0-line302" class="reached-line">        <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">seq</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">taking False path</span>
+<span class="lineno">303</span> <span id="trace0-line303" class="unreached-line">            <span class="source_k">goto</span> <span class="source_n">failed</span><span class="source_p">;</span></span>
+<span class="lineno">304</span> <span id="trace0-line304" class="unreached-line">        <span class="source_p">}</span></span>
+<span class="lineno">305</span> <span id="trace0-line305" class="unreached-line"></span>
+<span class="reached-lineno">306</span> <span id="trace0-line306" class="reached-line">        <span class="source_n">len</span> <span class="source_o">=</span> <span class="source_n">PySequence_Size</span><span class="source_p">(</span><span class="source_n">seq</span><span class="source_p">);</span></span>
+<span class="transition">when PySequence_Size() succeeds</span>
+<span class="reached-lineno">307</span> <span id="trace0-line307" class="reached-line">        <span class="source_k">for</span> <span class="source_p">(</span><span class="source_n">j</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span> <span class="source_n">j</span> <span class="source_o">&lt;</span> <span class="source_n">len</span><span class="source_p">;</span> <span class="source_n">j</span><span class="source_o">++</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when considering len == (Py_ssize_t)0 from src/_imagingft.c:306</span>
+<span class="transition">taking False path</span>
+<span class="lineno">308</span> <span id="trace0-line308" class="unreached-line">            <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">item</span> <span class="source_o">=</span> <span class="source_n">PySequence_Fast_GET_ITEM</span><span class="source_p">(</span><span class="source_n">seq</span><span class="source_p">,</span> <span class="source_n">j</span><span class="source_p">);</span></span>
+<span class="lineno">309</span> <span id="trace0-line309" class="unreached-line">            <span class="source_kt">char</span> <span class="source_o">*</span><span class="source_n">feature</span> <span class="source_o">=</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">310</span> <span id="trace0-line310" class="unreached-line">            <span class="source_n">Py_ssize_t</span> <span class="source_n">size</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span></span>
+<span class="lineno">311</span> <span id="trace0-line311" class="unreached-line">            <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">bytes</span><span class="source_p">;</span></span>
+<span class="lineno">312</span> <span id="trace0-line312" class="unreached-line"></span>
+<span class="lineno">313</span> <span id="trace0-line313" class="unreached-line">            <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">PyUnicode_Check</span><span class="source_p">(</span><span class="source_n">item</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="lineno">314</span> <span id="trace0-line314" class="unreached-line">                <span class="source_n">PyErr_SetString</span><span class="source_p">(</span><span class="source_n">PyExc_TypeError</span><span class="source_p">,</span> <span class="source_s">&quot;expected a string&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">315</span> <span id="trace0-line315" class="unreached-line">                <span class="source_k">goto</span> <span class="source_n">failed</span><span class="source_p">;</span></span>
+<span class="lineno">316</span> <span id="trace0-line316" class="unreached-line">            <span class="source_p">}</span></span>
+<span class="lineno">317</span> <span id="trace0-line317" class="unreached-line"></span>
+<span class="lineno">318</span> <span id="trace0-line318" class="unreached-line">            <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">PyUnicode_Check</span><span class="source_p">(</span><span class="source_n">item</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="lineno">319</span> <span id="trace0-line319" class="unreached-line">                <span class="source_n">bytes</span> <span class="source_o">=</span> <span class="source_n">PyUnicode_AsUTF8String</span><span class="source_p">(</span><span class="source_n">item</span><span class="source_p">);</span></span>
+<span class="lineno">320</span> <span id="trace0-line320" class="unreached-line">                <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">bytes</span> <span class="source_o">==</span> <span class="source_nb">NULL</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">321</span> <span id="trace0-line321" class="unreached-line">                    <span class="source_k">goto</span> <span class="source_n">failed</span><span class="source_p">;</span></span>
+<span class="lineno">322</span> <span id="trace0-line322" class="unreached-line">                <span class="source_p">}</span></span>
+<span class="lineno">323</span> <span id="trace0-line323" class="unreached-line">                <span class="source_n">feature</span> <span class="source_o">=</span> <span class="source_n">PyBytes_AS_STRING</span><span class="source_p">(</span><span class="source_n">bytes</span><span class="source_p">);</span></span>
+<span class="lineno">324</span> <span id="trace0-line324" class="unreached-line">                <span class="source_n">size</span> <span class="source_o">=</span> <span class="source_n">PyBytes_GET_SIZE</span><span class="source_p">(</span><span class="source_n">bytes</span><span class="source_p">);</span></span>
+<span class="lineno">325</span> <span id="trace0-line325" class="unreached-line">            <span class="source_p">}</span></span>
+<span class="lineno">326</span> <span id="trace0-line326" class="unreached-line">            <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">raqm_add_font_feature</span><span class="source_p">(</span><span class="source_n">rq</span><span class="source_p">,</span> <span class="source_n">feature</span><span class="source_p">,</span> <span class="source_n">size</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="lineno">327</span> <span id="trace0-line327" class="unreached-line">                <span class="source_n">PyErr_SetString</span><span class="source_p">(</span><span class="source_n">PyExc_ValueError</span><span class="source_p">,</span> <span class="source_s">&quot;raqm_add_font_feature() failed&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">328</span> <span id="trace0-line328" class="unreached-line">                <span class="source_k">goto</span> <span class="source_n">failed</span><span class="source_p">;</span></span>
+<span class="lineno">329</span> <span id="trace0-line329" class="unreached-line">            <span class="source_p">}</span></span>
+<span class="lineno">330</span> <span id="trace0-line330" class="unreached-line">        <span class="source_p">}</span></span>
+<span class="lineno">331</span> <span id="trace0-line331" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">332</span> <span id="trace0-line332" class="unreached-line"></span>
+<span class="reached-lineno">333</span> <span id="trace0-line333" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">raqm_set_freetype_face</span><span class="source_p">(</span><span class="source_n">rq</span><span class="source_p">,</span> <span class="source_n">self</span><span class="source_o">-&gt;</span><span class="source_n">face</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="transition">when taking True path</span>
+<span class="reached-lineno">334</span> <span id="trace0-line334" class="reached-line">        <span class="source_n">PyErr_SetString</span><span class="source_p">(</span><span class="source_n">PyExc_RuntimeError</span><span class="source_p">,</span> <span class="source_s">&quot;raqm_set_freetype_face() failed.&quot;</span><span class="source_p">);</span></span>
+<span class="transition">calling PyErr_SetString()</span>
+<span class="lineno">335</span> <span id="trace0-line335" class="unreached-line">        <span class="source_k">goto</span> <span class="source_n">failed</span><span class="source_p">;</span></span>
+<span class="lineno">336</span> <span id="trace0-line336" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">337</span> <span id="trace0-line337" class="unreached-line"></span>
+<span class="lineno">338</span> <span id="trace0-line338" class="unreached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">raqm_layout</span><span class="source_p">(</span><span class="source_n">rq</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="lineno">339</span> <span id="trace0-line339" class="unreached-line">        <span class="source_n">PyErr_SetString</span><span class="source_p">(</span><span class="source_n">PyExc_RuntimeError</span><span class="source_p">,</span> <span class="source_s">&quot;raqm_layout() failed.&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">340</span> <span id="trace0-line340" class="unreached-line">        <span class="source_k">goto</span> <span class="source_n">failed</span><span class="source_p">;</span></span>
+<span class="lineno">341</span> <span id="trace0-line341" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">342</span> <span id="trace0-line342" class="unreached-line"></span>
+<span class="lineno">343</span> <span id="trace0-line343" class="unreached-line">    <span class="source_n">glyphs</span> <span class="source_o">=</span> <span class="source_n">raqm_get_glyphs</span><span class="source_p">(</span><span class="source_n">rq</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">count</span><span class="source_p">);</span></span>
+<span class="lineno">344</span> <span id="trace0-line344" class="unreached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">glyphs</span> <span class="source_o">==</span> <span class="source_nb">NULL</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">345</span> <span id="trace0-line345" class="unreached-line">        <span class="source_n">PyErr_SetString</span><span class="source_p">(</span><span class="source_n">PyExc_ValueError</span><span class="source_p">,</span> <span class="source_s">&quot;raqm_get_glyphs() failed.&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">346</span> <span id="trace0-line346" class="unreached-line">        <span class="source_n">count</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span></span>
+<span class="lineno">347</span> <span id="trace0-line347" class="unreached-line">        <span class="source_k">goto</span> <span class="source_n">failed</span><span class="source_p">;</span></span>
+<span class="lineno">348</span> <span id="trace0-line348" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">349</span> <span id="trace0-line349" class="unreached-line"></span>
+<span class="lineno">350</span> <span id="trace0-line350" class="unreached-line">    <span class="source_p">(</span><span class="source_o">*</span><span class="source_n">glyph_info</span><span class="source_p">)</span> <span class="source_o">=</span> <span class="source_n">PyMem_New</span><span class="source_p">(</span><span class="source_n">GlyphInfo</span><span class="source_p">,</span> <span class="source_n">count</span><span class="source_p">);</span></span>
+<span class="lineno">351</span> <span id="trace0-line351" class="unreached-line">    <span class="source_k">if</span> <span class="source_p">((</span><span class="source_o">*</span><span class="source_n">glyph_info</span><span class="source_p">)</span> <span class="source_o">==</span> <span class="source_nb">NULL</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">352</span> <span id="trace0-line352" class="unreached-line">        <span class="source_n">PyErr_SetString</span><span class="source_p">(</span><span class="source_n">PyExc_MemoryError</span><span class="source_p">,</span> <span class="source_s">&quot;PyMem_New() failed&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">353</span> <span id="trace0-line353" class="unreached-line">        <span class="source_n">count</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span></span>
+<span class="lineno">354</span> <span id="trace0-line354" class="unreached-line">        <span class="source_k">goto</span> <span class="source_n">failed</span><span class="source_p">;</span></span>
+<span class="lineno">355</span> <span id="trace0-line355" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">356</span> <span id="trace0-line356" class="unreached-line"></span>
+<span class="lineno">357</span> <span id="trace0-line357" class="unreached-line">    <span class="source_k">for</span> <span class="source_p">(</span><span class="source_n">i</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span> <span class="source_n">i</span> <span class="source_o">&lt;</span> <span class="source_n">count</span><span class="source_p">;</span> <span class="source_n">i</span><span class="source_o">++</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">358</span> <span id="trace0-line358" class="unreached-line">        <span class="source_p">(</span><span class="source_o">*</span><span class="source_n">glyph_info</span><span class="source_p">)[</span><span class="source_n">i</span><span class="source_p">].</span><span class="source_n">index</span> <span class="source_o">=</span> <span class="source_n">glyphs</span><span class="source_p">[</span><span class="source_n">i</span><span class="source_p">].</span><span class="source_n">index</span><span class="source_p">;</span></span>
+<span class="lineno">359</span> <span id="trace0-line359" class="unreached-line">        <span class="source_p">(</span><span class="source_o">*</span><span class="source_n">glyph_info</span><span class="source_p">)[</span><span class="source_n">i</span><span class="source_p">].</span><span class="source_n">x_offset</span> <span class="source_o">=</span> <span class="source_n">glyphs</span><span class="source_p">[</span><span class="source_n">i</span><span class="source_p">].</span><span class="source_n">x_offset</span><span class="source_p">;</span></span>
+<span class="lineno">360</span> <span id="trace0-line360" class="unreached-line">        <span class="source_p">(</span><span class="source_o">*</span><span class="source_n">glyph_info</span><span class="source_p">)[</span><span class="source_n">i</span><span class="source_p">].</span><span class="source_n">x_advance</span> <span class="source_o">=</span> <span class="source_n">glyphs</span><span class="source_p">[</span><span class="source_n">i</span><span class="source_p">].</span><span class="source_n">x_advance</span><span class="source_p">;</span></span>
+<span class="lineno">361</span> <span id="trace0-line361" class="unreached-line">        <span class="source_p">(</span><span class="source_o">*</span><span class="source_n">glyph_info</span><span class="source_p">)[</span><span class="source_n">i</span><span class="source_p">].</span><span class="source_n">y_offset</span> <span class="source_o">=</span> <span class="source_n">glyphs</span><span class="source_p">[</span><span class="source_n">i</span><span class="source_p">].</span><span class="source_n">y_offset</span><span class="source_p">;</span></span>
+<span class="lineno">362</span> <span id="trace0-line362" class="unreached-line">        <span class="source_p">(</span><span class="source_o">*</span><span class="source_n">glyph_info</span><span class="source_p">)[</span><span class="source_n">i</span><span class="source_p">].</span><span class="source_n">y_advance</span> <span class="source_o">=</span> <span class="source_n">glyphs</span><span class="source_p">[</span><span class="source_n">i</span><span class="source_p">].</span><span class="source_n">y_advance</span><span class="source_p">;</span></span>
+<span class="lineno">363</span> <span id="trace0-line363" class="unreached-line">        <span class="source_p">(</span><span class="source_o">*</span><span class="source_n">glyph_info</span><span class="source_p">)[</span><span class="source_n">i</span><span class="source_p">].</span><span class="source_n">cluster</span> <span class="source_o">=</span> <span class="source_n">glyphs</span><span class="source_p">[</span><span class="source_n">i</span><span class="source_p">].</span><span class="source_n">cluster</span><span class="source_p">;</span></span>
+<span class="lineno">364</span> <span id="trace0-line364" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">365</span> <span id="trace0-line365" class="unreached-line"></span>
+<span class="lineno">366</span> <span id="trace0-line366" class="unreached-line"><span class="source_nl">failed</span><span class="source_p">:</span></span>
+<span class="reached-lineno">367</span> <span id="trace0-line367" class="reached-line">    <span class="source_n">raqm_destroy</span><span class="source_p">(</span><span class="source_n">rq</span><span class="source_p">);</span></span>
+<span class="reached-lineno">368</span> <span id="trace0-line368" class="reached-line">    <span class="source_k">return</span> <span class="source_n">count</span><span class="source_p">;</span></span>
+<span class="transition">returning</span>
+<span class="error">memory leak: ob_refcnt of '*seq' is 1 too high</span>
+<span class="note">was expecting final owned ob_refcnt of '*seq' to be 0 since nothing references it but final ob_refcnt is refs: 1 owned</span>
+<span class="note">found 6 similar trace(s) to this</span>
+<span class="lineno">369</span> <span id="trace0-line369" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace0-line242',
+                     target:'trace0-line247',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line247',
+                     target:'trace0-line248',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line250',
+                     target:'trace0-line255',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line256',
+                     target:'trace0-line257',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line257',
+                     target:'trace0-line261',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line261',
+                     target:'trace0-line262',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line262',
+                     target:'trace0-line272',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line273',
+                     target:'trace0-line274',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line274',
+                     target:'trace0-line276',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line276',
+                     target:'trace0-line277',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line294',
+                     target:'trace0-line299',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line299',
+                     target:'trace0-line301',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line301',
+                     target:'trace0-line302',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line302',
+                     target:'trace0-line306',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line306',
+                     target:'trace0-line306',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line307',
+                     target:'trace0-line333',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line333',
+                     target:'trace0-line334',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line334',
+                     target:'trace0-line0',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+  </body>

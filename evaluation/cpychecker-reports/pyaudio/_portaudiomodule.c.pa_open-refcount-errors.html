@@ -1,0 +1,612 @@
+<html>
+  <head>
+    <title>pa_open</title>
+    <style type="text/css">
+.unreached-line {
+    #margin:1em;
+    #border:0.1em dotted #00aa00;
+
+    opacity:1.0;
+    filter:alpha(opacity=0);
+    #color:black;
+}
+
+.reached-line {
+    #margin:1em;
+    #border:0.1em dotted #00aa00;
+    border: 0.1em solid blue;
+    font-weight: bold;
+
+    opacity:1.0;
+    filter:alpha(opacity=0);
+    #color:black;
+}
+
+.reached-lineno {
+    border: 0.1em solid blue;
+    font-weight: bold;
+}
+
+pre {
+    #line-height:200%
+}
+
+._jsPlumb_connector { z-index: -2; }
+._jsPlumb_endpoint { z-index: -1; }
+
+.transition {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #ccc;
+    -moz-box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;
+    margin-left: 5em;
+    font-family: proportional;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.error {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #cc0000;
+    -moz-box-shadow: 2px 2px 2px #cc0000;
+    -webkit-box-shadow: 2px 2px 2px #cc0000;
+    box-shadow: 2px 2px 2px #cc0000;
+    margin-left: 5em;
+    color: red;
+    font-family: proportional;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.note {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #ccc;
+    -moz-box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;
+    margin-left: 5em;
+    font-family: proportional;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.hll { background-color: #ffffcc }
+.source_c { color: #408080; font-style: italic } /* Comment */
+.source_err { border: 1px solid #FF0000 } /* Error */
+.source_k { color: #008000; font-weight: bold } /* Keyword */
+.source_o { color: #666666 } /* Operator */
+.source_ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.source_cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.source_cp { color: #BC7A00 } /* Comment.Preproc */
+.source_cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.source_c1 { color: #408080; font-style: italic } /* Comment.Single */
+.source_cs { color: #408080; font-style: italic } /* Comment.Special */
+.source_gd { color: #A00000 } /* Generic.Deleted */
+.source_ge { font-style: italic } /* Generic.Emph */
+.source_gr { color: #FF0000 } /* Generic.Error */
+.source_gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.source_gi { color: #00A000 } /* Generic.Inserted */
+.source_go { color: #888888 } /* Generic.Output */
+.source_gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.source_gs { font-weight: bold } /* Generic.Strong */
+.source_gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.source_gt { color: #0044DD } /* Generic.Traceback */
+.source_kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.source_kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.source_kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.source_kp { color: #008000 } /* Keyword.Pseudo */
+.source_kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.source_kt { color: #B00040 } /* Keyword.Type */
+.source_m { color: #666666 } /* Literal.Number */
+.source_s { color: #BA2121 } /* Literal.String */
+.source_na { color: #7D9029 } /* Name.Attribute */
+.source_nb { color: #008000 } /* Name.Builtin */
+.source_nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.source_no { color: #880000 } /* Name.Constant */
+.source_nd { color: #AA22FF } /* Name.Decorator */
+.source_ni { color: #999999; font-weight: bold } /* Name.Entity */
+.source_ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.source_nf { color: #0000FF } /* Name.Function */
+.source_nl { color: #A0A000 } /* Name.Label */
+.source_nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.source_nt { color: #008000; font-weight: bold } /* Name.Tag */
+.source_nv { color: #19177C } /* Name.Variable */
+.source_ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.source_w { color: #bbbbbb } /* Text.Whitespace */
+.source_mb { color: #666666 } /* Literal.Number.Bin */
+.source_mf { color: #666666 } /* Literal.Number.Float */
+.source_mh { color: #666666 } /* Literal.Number.Hex */
+.source_mi { color: #666666 } /* Literal.Number.Integer */
+.source_mo { color: #666666 } /* Literal.Number.Oct */
+.source_sa { color: #BA2121 } /* Literal.String.Affix */
+.source_sb { color: #BA2121 } /* Literal.String.Backtick */
+.source_sc { color: #BA2121 } /* Literal.String.Char */
+.source_dl { color: #BA2121 } /* Literal.String.Delimiter */
+.source_sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.source_s2 { color: #BA2121 } /* Literal.String.Double */
+.source_se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.source_sh { color: #BA2121 } /* Literal.String.Heredoc */
+.source_si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.source_sx { color: #008000 } /* Literal.String.Other */
+.source_sr { color: #BB6688 } /* Literal.String.Regex */
+.source_s1 { color: #BA2121 } /* Literal.String.Single */
+.source_ss { color: #19177C } /* Literal.String.Symbol */
+.source_bp { color: #008000 } /* Name.Builtin.Pseudo */
+.source_fm { color: #0000FF } /* Name.Function.Magic */
+.source_vc { color: #19177C } /* Name.Variable.Class */
+.source_vg { color: #19177C } /* Name.Variable.Global */
+.source_vi { color: #19177C } /* Name.Variable.Instance */
+.source_vm { color: #19177C } /* Name.Variable.Magic */
+.source_il { color: #666666 } /* Literal.Number.Integer.Long */    </style>
+  </head>
+  <body>
+<script type="text/javascript" src="http://explorercanvas.googlecode.com/svn/trunk/excanvas.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://jsplumb.googlecode.com/files/jquery.jsPlumb-1.2.6-all-min.js"></script>
+<div id="report-0">
+<table>
+  <tr><td>File:</td> <td><b>src/_portaudiomodule.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>pa_open</b></td></tr>
+  <tr><td>Error:</td> <td><b>memory leak: ob_refcnt of new ref from call to Py_BuildValue is 1 too high</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">1647</span> <span id="trace0-line1647" class="unreached-line"><span></span><span class="source_k">static</span> <span class="source_n">PyObject</span> <span class="source_o">*</span></span>
+<span class="lineno">1648</span> <span id="trace0-line1648" class="unreached-line"><span class="source_nf">pa_open</span><span class="source_p">(</span><span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">self</span><span class="source_p">,</span> <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">args</span><span class="source_p">,</span> <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">kwargs</span><span class="source_p">)</span></span>
+<span class="lineno">1649</span> <span id="trace0-line1649" class="unreached-line"><span class="source_p">{</span></span>
+<span class="lineno">1650</span> <span id="trace0-line1650" class="unreached-line">  <span class="source_kt">int</span> <span class="source_n">rate</span><span class="source_p">,</span> <span class="source_n">channels</span><span class="source_p">;</span></span>
+<span class="lineno">1651</span> <span id="trace0-line1651" class="unreached-line">  <span class="source_kt">int</span> <span class="source_n">input</span><span class="source_p">,</span> <span class="source_n">output</span><span class="source_p">,</span> <span class="source_n">frames_per_buffer</span><span class="source_p">;</span></span>
+<span class="reached-lineno">1652</span> <span id="trace0-line1652" class="reached-line">  <span class="source_kt">int</span> <span class="source_n">input_device_index</span> <span class="source_o">=</span> <span class="source_o">-</span><span class="source_mi">1</span><span class="source_p">;</span></span>
+<span class="reached-lineno">1653</span> <span id="trace0-line1653" class="reached-line">  <span class="source_kt">int</span> <span class="source_n">output_device_index</span> <span class="source_o">=</span> <span class="source_o">-</span><span class="source_mi">1</span><span class="source_p">;</span></span>
+<span class="reached-lineno">1654</span> <span id="trace0-line1654" class="reached-line">  <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">input_device_index_arg</span> <span class="source_o">=</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="reached-lineno">1655</span> <span id="trace0-line1655" class="reached-line">  <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">output_device_index_arg</span> <span class="source_o">=</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="reached-lineno">1656</span> <span id="trace0-line1656" class="reached-line">  <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">stream_callback</span> <span class="source_o">=</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">1657</span> <span id="trace0-line1657" class="unreached-line">  <span class="source_n">PaSampleFormat</span> <span class="source_n">format</span><span class="source_p">;</span></span>
+<span class="lineno">1658</span> <span id="trace0-line1658" class="unreached-line">  <span class="source_n">PaError</span> <span class="source_n">err</span><span class="source_p">;</span></span>
+<span class="lineno">1659</span> <span id="trace0-line1659" class="unreached-line">  <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">input_device_index_long</span><span class="source_p">;</span></span>
+<span class="lineno">1660</span> <span id="trace0-line1660" class="unreached-line">  <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">output_device_index_long</span><span class="source_p">;</span></span>
+<span class="reached-lineno">1661</span> <span id="trace0-line1661" class="reached-line">  <span class="source_n">PaStreamParameters</span> <span class="source_o">*</span><span class="source_n">outputParameters</span> <span class="source_o">=</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="reached-lineno">1662</span> <span id="trace0-line1662" class="reached-line">  <span class="source_n">PaStreamParameters</span> <span class="source_o">*</span><span class="source_n">inputParameters</span> <span class="source_o">=</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="reached-lineno">1663</span> <span id="trace0-line1663" class="reached-line">  <span class="source_n">PaStream</span> <span class="source_o">*</span><span class="source_n">stream</span> <span class="source_o">=</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="reached-lineno">1664</span> <span id="trace0-line1664" class="reached-line">  <span class="source_n">PaStreamInfo</span> <span class="source_o">*</span><span class="source_n">streamInfo</span> <span class="source_o">=</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="reached-lineno">1665</span> <span id="trace0-line1665" class="reached-line">  <span class="source_n">PyAudioCallbackContext</span> <span class="source_o">*</span><span class="source_n">context</span> <span class="source_o">=</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">1666</span> <span id="trace0-line1666" class="unreached-line">  <span class="source_n">_pyAudio_Stream</span> <span class="source_o">*</span><span class="source_n">streamObject</span><span class="source_p">;</span></span>
+<span class="lineno">1667</span> <span id="trace0-line1667" class="unreached-line"></span>
+<span class="lineno">1668</span> <span id="trace0-line1668" class="unreached-line">  <span class="source_cm">/* pass in rate, channel, width */</span></span>
+<span class="lineno">1669</span> <span id="trace0-line1669" class="unreached-line">  <span class="source_k">static</span> <span class="source_kt">char</span> <span class="source_o">*</span><span class="source_n">kwlist</span><span class="source_p">[]</span> <span class="source_o">=</span> <span class="source_p">{</span><span class="source_s">&quot;rate&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">1670</span> <span id="trace0-line1670" class="unreached-line">			   <span class="source_s">&quot;channels&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">1671</span> <span id="trace0-line1671" class="unreached-line">			   <span class="source_s">&quot;format&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">1672</span> <span id="trace0-line1672" class="unreached-line">			   <span class="source_s">&quot;input&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">1673</span> <span id="trace0-line1673" class="unreached-line">			   <span class="source_s">&quot;output&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">1674</span> <span id="trace0-line1674" class="unreached-line">			   <span class="source_s">&quot;input_device_index&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">1675</span> <span id="trace0-line1675" class="unreached-line">			   <span class="source_s">&quot;output_device_index&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">1676</span> <span id="trace0-line1676" class="unreached-line">			   <span class="source_s">&quot;frames_per_buffer&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">1677</span> <span id="trace0-line1677" class="unreached-line">			   <span class="source_s">&quot;input_host_api_specific_stream_info&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">1678</span> <span id="trace0-line1678" class="unreached-line">			   <span class="source_s">&quot;output_host_api_specific_stream_info&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">1679</span> <span id="trace0-line1679" class="unreached-line">			   <span class="source_s">&quot;stream_callback&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">1680</span> <span id="trace0-line1680" class="unreached-line">			   <span class="source_nb">NULL</span><span class="source_p">};</span></span>
+<span class="lineno">1681</span> <span id="trace0-line1681" class="unreached-line"></span>
+<span class="lineno">1682</span> <span id="trace0-line1682" class="unreached-line"><span class="source_cp">#ifdef MACOSX</span></span>
+<span class="lineno">1683</span> <span id="trace0-line1683" class="unreached-line">  <span class="source_n">_pyAudio_MacOSX_hostApiSpecificStreamInfo</span> <span class="source_o">*</span><span class="source_n">inputHostSpecificStreamInfo</span> <span class="source_o">=</span></span>
+<span class="lineno">1684</span> <span id="trace0-line1684" class="unreached-line">      <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">1685</span> <span id="trace0-line1685" class="unreached-line">  <span class="source_n">_pyAudio_MacOSX_hostApiSpecificStreamInfo</span> <span class="source_o">*</span><span class="source_n">outputHostSpecificStreamInfo</span> <span class="source_o">=</span></span>
+<span class="lineno">1686</span> <span id="trace0-line1686" class="unreached-line">      <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">1687</span> <span id="trace0-line1687" class="unreached-line"><span class="source_cp">#else</span></span>
+<span class="lineno">1688</span> <span id="trace0-line1688" class="unreached-line">  <span class="source_cm">/* mostly ignored...*/</span></span>
+<span class="reached-lineno">1689</span> <span id="trace0-line1689" class="reached-line">  <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">inputHostSpecificStreamInfo</span> <span class="source_o">=</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="reached-lineno">1690</span> <span id="trace0-line1690" class="reached-line">  <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">outputHostSpecificStreamInfo</span> <span class="source_o">=</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">1691</span> <span id="trace0-line1691" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1692</span> <span id="trace0-line1692" class="unreached-line"></span>
+<span class="lineno">1693</span> <span id="trace0-line1693" class="unreached-line">  <span class="source_cm">/* default to neither output nor input */</span></span>
+<span class="reached-lineno">1694</span> <span id="trace0-line1694" class="reached-line">  <span class="source_n">input</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span></span>
+<span class="reached-lineno">1695</span> <span id="trace0-line1695" class="reached-line">  <span class="source_n">output</span> <span class="source_o">=</span> <span class="source_mi">0</span><span class="source_p">;</span></span>
+<span class="reached-lineno">1696</span> <span id="trace0-line1696" class="reached-line">  <span class="source_n">frames_per_buffer</span> <span class="source_o">=</span> <span class="source_n">DEFAULT_FRAMES_PER_BUFFER</span><span class="source_p">;</span></span>
+<span class="lineno">1697</span> <span id="trace0-line1697" class="unreached-line"></span>
+<span class="reached-lineno">1698</span> <span id="trace0-line1698" class="reached-line">  <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">PyArg_ParseTupleAndKeywords</span><span class="source_p">(</span><span class="source_n">args</span><span class="source_p">,</span> <span class="source_n">kwargs</span><span class="source_p">,</span></span>
+<span class="transition">when PyArg_ParseTupleAndKeywords() succeeds</span>
+<span class="transition">taking False path</span>
+<span class="lineno">1699</span> <span id="trace0-line1699" class="unreached-line"><span class="source_cp">#ifdef MACOSX</span></span>
+<span class="lineno">1700</span> <span id="trace0-line1700" class="unreached-line">				   <span class="source_s">&quot;iik|iiOOiO!O!O&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">1701</span> <span id="trace0-line1701" class="unreached-line"><span class="source_cp">#else</span></span>
+<span class="lineno">1702</span> <span id="trace0-line1702" class="unreached-line">				   <span class="source_s">&quot;iik|iiOOiOOO&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">1703</span> <span id="trace0-line1703" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1704</span> <span id="trace0-line1704" class="unreached-line">				   <span class="source_n">kwlist</span><span class="source_p">,</span></span>
+<span class="lineno">1705</span> <span id="trace0-line1705" class="unreached-line">				   <span class="source_o">&amp;</span><span class="source_n">rate</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">channels</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">format</span><span class="source_p">,</span></span>
+<span class="lineno">1706</span> <span id="trace0-line1706" class="unreached-line">				   <span class="source_o">&amp;</span><span class="source_n">input</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">output</span><span class="source_p">,</span></span>
+<span class="lineno">1707</span> <span id="trace0-line1707" class="unreached-line">				   <span class="source_o">&amp;</span><span class="source_n">input_device_index_arg</span><span class="source_p">,</span></span>
+<span class="lineno">1708</span> <span id="trace0-line1708" class="unreached-line">				   <span class="source_o">&amp;</span><span class="source_n">output_device_index_arg</span><span class="source_p">,</span></span>
+<span class="lineno">1709</span> <span id="trace0-line1709" class="unreached-line">				   <span class="source_o">&amp;</span><span class="source_n">frames_per_buffer</span><span class="source_p">,</span></span>
+<span class="lineno">1710</span> <span id="trace0-line1710" class="unreached-line"><span class="source_cp">#ifdef MACOSX</span></span>
+<span class="lineno">1711</span> <span id="trace0-line1711" class="unreached-line">				   <span class="source_o">&amp;</span><span class="source_n">_pyAudio_MacOSX_hostApiSpecificStreamInfoType</span><span class="source_p">,</span></span>
+<span class="lineno">1712</span> <span id="trace0-line1712" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1713</span> <span id="trace0-line1713" class="unreached-line">				   <span class="source_o">&amp;</span><span class="source_n">inputHostSpecificStreamInfo</span><span class="source_p">,</span></span>
+<span class="lineno">1714</span> <span id="trace0-line1714" class="unreached-line"><span class="source_cp">#ifdef MACOSX</span></span>
+<span class="lineno">1715</span> <span id="trace0-line1715" class="unreached-line">				   <span class="source_o">&amp;</span><span class="source_n">_pyAudio_MacOSX_hostApiSpecificStreamInfoType</span><span class="source_p">,</span></span>
+<span class="lineno">1716</span> <span id="trace0-line1716" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1717</span> <span id="trace0-line1717" class="unreached-line">				   <span class="source_o">&amp;</span><span class="source_n">outputHostSpecificStreamInfo</span><span class="source_p">,</span></span>
+<span class="lineno">1718</span> <span id="trace0-line1718" class="unreached-line">                                   <span class="source_o">&amp;</span><span class="source_n">stream_callback</span><span class="source_p">))</span></span>
+<span class="lineno">1719</span> <span id="trace0-line1719" class="unreached-line"></span>
+<span class="lineno">1720</span> <span id="trace0-line1720" class="unreached-line">    <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">1721</span> <span id="trace0-line1721" class="unreached-line"></span>
+<span class="reached-lineno">1722</span> <span id="trace0-line1722" class="reached-line">  <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">stream_callback</span> <span class="source_o">&amp;&amp;</span> <span class="source_p">(</span><span class="source_n">PyCallable_Check</span><span class="source_p">(</span><span class="source_n">stream_callback</span><span class="source_p">)</span> <span class="source_o">==</span> <span class="source_mi">0</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="transition">taking True path</span>
+<span class="transition">when PyCallable_Check() returns 1 (true)</span>
+<span class="transition">taking False path</span>
+<span class="lineno">1723</span> <span id="trace0-line1723" class="unreached-line">      <span class="source_n">PyErr_SetString</span><span class="source_p">(</span><span class="source_n">PyExc_TypeError</span><span class="source_p">,</span> <span class="source_s">&quot;stream_callback must be callable&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1724</span> <span id="trace0-line1724" class="unreached-line">      <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">1725</span> <span id="trace0-line1725" class="unreached-line">  <span class="source_p">}</span></span>
+<span class="lineno">1726</span> <span id="trace0-line1726" class="unreached-line"></span>
+<span class="lineno">1727</span> <span id="trace0-line1727" class="unreached-line">  <span class="source_cm">/* check to see if device indices were specified */</span></span>
+<span class="reached-lineno">1728</span> <span id="trace0-line1728" class="reached-line">  <span class="source_k">if</span> <span class="source_p">((</span><span class="source_n">input_device_index_arg</span> <span class="source_o">==</span> <span class="source_nb">NULL</span><span class="source_p">)</span> <span class="source_o">||</span></span>
+<span class="transition">taking False path</span>
+<span class="transition">taking False path</span>
+<span class="reached-lineno">1729</span> <span id="trace0-line1729" class="reached-line">      <span class="source_p">(</span><span class="source_n">input_device_index_arg</span> <span class="source_o">==</span> <span class="source_n">Py_None</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="lineno">1730</span> <span id="trace0-line1730" class="unreached-line"></span>
+<span class="lineno">1731</span> <span id="trace0-line1731" class="unreached-line"><span class="source_cp">#ifdef VERBOSE</span></span>
+<span class="lineno">1732</span> <span id="trace0-line1732" class="unreached-line">    <span class="source_n">printf</span><span class="source_p">(</span><span class="source_s">&quot;Using default input device</span><span class="source_se">\n</span><span class="source_s">&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1733</span> <span id="trace0-line1733" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1734</span> <span id="trace0-line1734" class="unreached-line"></span>
+<span class="lineno">1735</span> <span id="trace0-line1735" class="unreached-line">    <span class="source_n">input_device_index</span> <span class="source_o">=</span> <span class="source_o">-</span><span class="source_mi">1</span><span class="source_p">;</span></span>
+<span class="lineno">1736</span> <span id="trace0-line1736" class="unreached-line"></span>
+<span class="lineno">1737</span> <span id="trace0-line1737" class="unreached-line">  <span class="source_p">}</span> <span class="source_k">else</span> <span class="source_p">{</span></span>
+<span class="lineno">1738</span> <span id="trace0-line1738" class="unreached-line">    <span class="source_c1">// Support both Python 2 and Python 3 by using PyNumber_Check</span></span>
+<span class="reached-lineno">1739</span> <span id="trace0-line1739" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">PyNumber_Check</span><span class="source_p">(</span><span class="source_n">input_device_index_arg</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: -0x80000000 <= value <= -1</span>
+<span class="transition">taking False path</span>
+<span class="lineno">1740</span> <span id="trace0-line1740" class="unreached-line">      <span class="source_n">PyErr_SetString</span><span class="source_p">(</span><span class="source_n">PyExc_ValueError</span><span class="source_p">,</span></span>
+<span class="lineno">1741</span> <span id="trace0-line1741" class="unreached-line">		      <span class="source_s">&quot;input_device_index must be integer (or None)&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1742</span> <span id="trace0-line1742" class="unreached-line">      <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">1743</span> <span id="trace0-line1743" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">1744</span> <span id="trace0-line1744" class="unreached-line"></span>
+<span class="reached-lineno">1745</span> <span id="trace0-line1745" class="reached-line">    <span class="source_n">input_device_index_long</span> <span class="source_o">=</span></span>
+<span class="transition">when PyNumber_Long() succeeds</span>
+<span class="reached-lineno">1746</span> <span id="trace0-line1746" class="reached-line">      <span class="source_n">PyNumber_Long</span><span class="source_p">(</span><span class="source_n">input_device_index_arg</span><span class="source_p">);</span></span>
+<span class="lineno">1747</span> <span id="trace0-line1747" class="unreached-line"></span>
+<span class="reached-lineno">1748</span> <span id="trace0-line1748" class="reached-line">    <span class="source_n">input_device_index</span> <span class="source_o">=</span> <span class="source_p">(</span><span class="source_kt">int</span><span class="source_p">)</span> <span class="source_n">PyLong_AsLong</span><span class="source_p">(</span><span class="source_n">input_device_index_long</span><span class="source_p">);</span></span>
+<span class="reached-lineno">1749</span> <span id="trace0-line1749" class="reached-line">    <span class="source_n">Py_DECREF</span><span class="source_p">(</span><span class="source_n">input_device_index_long</span><span class="source_p">);</span></span>
+<span class="transition">when taking True path</span>
+<span class="lineno">1750</span> <span id="trace0-line1750" class="unreached-line"></span>
+<span class="lineno">1751</span> <span id="trace0-line1751" class="unreached-line"><span class="source_cp">#ifdef VERBOSE</span></span>
+<span class="lineno">1752</span> <span id="trace0-line1752" class="unreached-line">    <span class="source_n">printf</span><span class="source_p">(</span><span class="source_s">&quot;Using input device index number: %d</span><span class="source_se">\n</span><span class="source_s">&quot;</span><span class="source_p">,</span> <span class="source_n">input_device_index</span><span class="source_p">);</span></span>
+<span class="lineno">1753</span> <span id="trace0-line1753" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1754</span> <span id="trace0-line1754" class="unreached-line">  <span class="source_p">}</span></span>
+<span class="lineno">1755</span> <span id="trace0-line1755" class="unreached-line"></span>
+<span class="reached-lineno">1756</span> <span id="trace0-line1756" class="reached-line">  <span class="source_k">if</span> <span class="source_p">((</span><span class="source_n">output_device_index_arg</span> <span class="source_o">==</span> <span class="source_nb">NULL</span><span class="source_p">)</span> <span class="source_o">||</span></span>
+<span class="transition">taking False path</span>
+<span class="transition">taking False path</span>
+<span class="reached-lineno">1757</span> <span id="trace0-line1757" class="reached-line">      <span class="source_p">(</span><span class="source_n">output_device_index_arg</span> <span class="source_o">==</span> <span class="source_n">Py_None</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="lineno">1758</span> <span id="trace0-line1758" class="unreached-line"></span>
+<span class="lineno">1759</span> <span id="trace0-line1759" class="unreached-line"><span class="source_cp">#ifdef VERBOSE</span></span>
+<span class="lineno">1760</span> <span id="trace0-line1760" class="unreached-line">    <span class="source_n">printf</span><span class="source_p">(</span><span class="source_s">&quot;Using default output device</span><span class="source_se">\n</span><span class="source_s">&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1761</span> <span id="trace0-line1761" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1762</span> <span id="trace0-line1762" class="unreached-line"></span>
+<span class="lineno">1763</span> <span id="trace0-line1763" class="unreached-line">    <span class="source_n">output_device_index</span> <span class="source_o">=</span> <span class="source_o">-</span><span class="source_mi">1</span><span class="source_p">;</span></span>
+<span class="lineno">1764</span> <span id="trace0-line1764" class="unreached-line"></span>
+<span class="lineno">1765</span> <span id="trace0-line1765" class="unreached-line">  <span class="source_p">}</span> <span class="source_k">else</span> <span class="source_p">{</span></span>
+<span class="lineno">1766</span> <span id="trace0-line1766" class="unreached-line">    <span class="source_c1">// Support both Python 2 and Python 3 by using PyNumber_Check</span></span>
+<span class="reached-lineno">1767</span> <span id="trace0-line1767" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">PyNumber_Check</span><span class="source_p">(</span><span class="source_n">output_device_index_arg</span><span class="source_p">))</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: -0x80000000 <= value <= -1</span>
+<span class="transition">taking False path</span>
+<span class="lineno">1768</span> <span id="trace0-line1768" class="unreached-line">      <span class="source_n">PyErr_SetString</span><span class="source_p">(</span><span class="source_n">PyExc_ValueError</span><span class="source_p">,</span></span>
+<span class="lineno">1769</span> <span id="trace0-line1769" class="unreached-line">		      <span class="source_s">&quot;output_device_index must be integer (or None)&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1770</span> <span id="trace0-line1770" class="unreached-line">      <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">1771</span> <span id="trace0-line1771" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">1772</span> <span id="trace0-line1772" class="unreached-line"></span>
+<span class="reached-lineno">1773</span> <span id="trace0-line1773" class="reached-line">    <span class="source_n">output_device_index_long</span> <span class="source_o">=</span></span>
+<span class="transition">when PyNumber_Long() succeeds</span>
+<span class="reached-lineno">1774</span> <span id="trace0-line1774" class="reached-line">      <span class="source_n">PyNumber_Long</span><span class="source_p">(</span><span class="source_n">output_device_index_arg</span><span class="source_p">);</span></span>
+<span class="reached-lineno">1775</span> <span id="trace0-line1775" class="reached-line">    <span class="source_n">output_device_index</span> <span class="source_o">=</span> <span class="source_p">(</span><span class="source_kt">int</span><span class="source_p">)</span> <span class="source_n">PyLong_AsLong</span><span class="source_p">(</span><span class="source_n">output_device_index_long</span><span class="source_p">);</span></span>
+<span class="reached-lineno">1776</span> <span id="trace0-line1776" class="reached-line">    <span class="source_n">Py_DECREF</span><span class="source_p">(</span><span class="source_n">output_device_index_long</span><span class="source_p">);</span></span>
+<span class="transition">when taking True path</span>
+<span class="lineno">1777</span> <span id="trace0-line1777" class="unreached-line"></span>
+<span class="lineno">1778</span> <span id="trace0-line1778" class="unreached-line"><span class="source_cp">#ifdef VERBOSE</span></span>
+<span class="lineno">1779</span> <span id="trace0-line1779" class="unreached-line">    <span class="source_n">printf</span><span class="source_p">(</span><span class="source_s">&quot;Using output device index number: %d</span><span class="source_se">\n</span><span class="source_s">&quot;</span><span class="source_p">,</span> <span class="source_n">output_device_index</span><span class="source_p">);</span></span>
+<span class="lineno">1780</span> <span id="trace0-line1780" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1781</span> <span id="trace0-line1781" class="unreached-line">  <span class="source_p">}</span></span>
+<span class="lineno">1782</span> <span id="trace0-line1782" class="unreached-line"></span>
+<span class="lineno">1783</span> <span id="trace0-line1783" class="unreached-line">  <span class="source_cm">/* sanity checks */</span></span>
+<span class="reached-lineno">1784</span> <span id="trace0-line1784" class="reached-line">  <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">input</span> <span class="source_o">==</span> <span class="source_mi">0</span> <span class="source_o">&amp;&amp;</span> <span class="source_n">output</span> <span class="source_o">==</span> <span class="source_mi">0</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: -0x80000000 <= value <= -1</span>
+<span class="transition">taking False path</span>
+<span class="lineno">1785</span> <span id="trace0-line1785" class="unreached-line">    <span class="source_n">PyErr_SetString</span><span class="source_p">(</span><span class="source_n">PyExc_ValueError</span><span class="source_p">,</span> <span class="source_s">&quot;Must specify either input or output&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1786</span> <span id="trace0-line1786" class="unreached-line">    <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">1787</span> <span id="trace0-line1787" class="unreached-line">  <span class="source_p">}</span></span>
+<span class="lineno">1788</span> <span id="trace0-line1788" class="unreached-line"></span>
+<span class="reached-lineno">1789</span> <span id="trace0-line1789" class="reached-line">  <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">channels</span> <span class="source_o">&lt;</span> <span class="source_mi">1</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: 1 <= value <= 0x7fffffff</span>
+<span class="transition">taking False path</span>
+<span class="lineno">1790</span> <span id="trace0-line1790" class="unreached-line">    <span class="source_n">PyErr_SetString</span><span class="source_p">(</span><span class="source_n">PyExc_ValueError</span><span class="source_p">,</span> <span class="source_s">&quot;Invalid audio channels&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1791</span> <span id="trace0-line1791" class="unreached-line">    <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">1792</span> <span id="trace0-line1792" class="unreached-line">  <span class="source_p">}</span></span>
+<span class="lineno">1793</span> <span id="trace0-line1793" class="unreached-line"></span>
+<span class="reached-lineno">1794</span> <span id="trace0-line1794" class="reached-line">  <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">output</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: -0x80000000 <= value <= -1</span>
+<span class="transition">taking True path</span>
+<span class="reached-lineno">1795</span> <span id="trace0-line1795" class="reached-line">    <span class="source_n">outputParameters</span> <span class="source_o">=</span></span>
+<span class="lineno">1796</span> <span id="trace0-line1796" class="unreached-line">      <span class="source_p">(</span><span class="source_n">PaStreamParameters</span> <span class="source_o">*</span><span class="source_p">)</span> <span class="source_n">malloc</span><span class="source_p">(</span><span class="source_k">sizeof</span><span class="source_p">(</span><span class="source_n">PaStreamParameters</span><span class="source_p">));</span></span>
+<span class="lineno">1797</span> <span id="trace0-line1797" class="unreached-line"></span>
+<span class="lineno">1798</span> <span id="trace0-line1798" class="unreached-line"></span>
+<span class="reached-lineno">1799</span> <span id="trace0-line1799" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">output_device_index</span> <span class="source_o">&lt;</span> <span class="source_mi">0</span><span class="source_p">)</span></span>
+<span class="transition">when considering range: -0x8000000000000000 <= value <= -1</span>
+<span class="transition">taking True path</span>
+<span class="lineno">1800</span> <span id="trace0-line1800" class="unreached-line">      <span class="source_cm">/* default output device */</span></span>
+<span class="reached-lineno">1801</span> <span id="trace0-line1801" class="reached-line">      <span class="source_n">outputParameters</span><span class="source_o">-&gt;</span><span class="source_n">device</span> <span class="source_o">=</span> <span class="source_n">Pa_GetDefaultOutputDevice</span><span class="source_p">();</span></span>
+<span class="transition">when treating unknown void * from src/_portaudiomodule.c:1795 as non-NULL</span>
+<span class="lineno">1802</span> <span id="trace0-line1802" class="unreached-line">    <span class="source_k">else</span></span>
+<span class="lineno">1803</span> <span id="trace0-line1803" class="unreached-line">      <span class="source_n">outputParameters</span><span class="source_o">-&gt;</span><span class="source_n">device</span> <span class="source_o">=</span> <span class="source_n">output_device_index</span><span class="source_p">;</span></span>
+<span class="lineno">1804</span> <span id="trace0-line1804" class="unreached-line"></span>
+<span class="lineno">1805</span> <span id="trace0-line1805" class="unreached-line">    <span class="source_cm">/* final check -- ensure that there is a default device */</span></span>
+<span class="reached-lineno">1806</span> <span id="trace0-line1806" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">outputParameters</span><span class="source_o">-&gt;</span><span class="source_n">device</span> <span class="source_o">&lt;</span> <span class="source_mi">0</span> <span class="source_o">||</span></span>
+<span class="transition">when considering range: 0 <= value <= 0x7fffffff</span>
+<span class="transition">taking False path</span>
+<span class="transition">when taking False path</span>
+<span class="reached-lineno">1807</span> <span id="trace0-line1807" class="reached-line">        <span class="source_n">outputParameters</span><span class="source_o">-&gt;</span><span class="source_n">device</span> <span class="source_o">&gt;=</span> <span class="source_n">Pa_GetDeviceCount</span><span class="source_p">())</span> <span class="source_p">{</span></span>
+<span class="lineno">1808</span> <span id="trace0-line1808" class="unreached-line">      <span class="source_n">free</span><span class="source_p">(</span><span class="source_n">outputParameters</span><span class="source_p">);</span></span>
+<span class="lineno">1809</span> <span id="trace0-line1809" class="unreached-line">      <span class="source_n">PyErr_SetObject</span><span class="source_p">(</span><span class="source_n">PyExc_IOError</span><span class="source_p">,</span></span>
+<span class="lineno">1810</span> <span id="trace0-line1810" class="unreached-line">		      <span class="source_n">Py_BuildValue</span><span class="source_p">(</span><span class="source_s">&quot;(s,i)&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">1811</span> <span id="trace0-line1811" class="unreached-line">				    <span class="source_s">&quot;Invalid output device &quot;</span></span>
+<span class="lineno">1812</span> <span id="trace0-line1812" class="unreached-line">				    <span class="source_s">&quot;(no default output device)&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">1813</span> <span id="trace0-line1813" class="unreached-line">				    <span class="source_n">paInvalidDevice</span><span class="source_p">));</span></span>
+<span class="lineno">1814</span> <span id="trace0-line1814" class="unreached-line">      <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">1815</span> <span id="trace0-line1815" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">1816</span> <span id="trace0-line1816" class="unreached-line"></span>
+<span class="reached-lineno">1817</span> <span id="trace0-line1817" class="reached-line">    <span class="source_n">outputParameters</span><span class="source_o">-&gt;</span><span class="source_n">channelCount</span> <span class="source_o">=</span> <span class="source_n">channels</span><span class="source_p">;</span></span>
+<span class="reached-lineno">1818</span> <span id="trace0-line1818" class="reached-line">    <span class="source_n">outputParameters</span><span class="source_o">-&gt;</span><span class="source_n">sampleFormat</span> <span class="source_o">=</span> <span class="source_n">format</span><span class="source_p">;</span></span>
+<span class="reached-lineno">1819</span> <span id="trace0-line1819" class="reached-line">    <span class="source_n">outputParameters</span><span class="source_o">-&gt;</span><span class="source_n">suggestedLatency</span> <span class="source_o">=</span></span>
+<span class="reached-lineno">1820</span> <span id="trace0-line1820" class="reached-line">      <span class="source_n">Pa_GetDeviceInfo</span><span class="source_p">(</span><span class="source_n">outputParameters</span><span class="source_o">-&gt;</span><span class="source_n">device</span><span class="source_p">)</span><span class="source_o">-&gt;</span><span class="source_n">defaultLowOutputLatency</span><span class="source_p">;</span></span>
+<span class="transition">when treating unknown const struct PaDeviceInfo * from src/_portaudiomodule.c:1820 as non-NULL</span>
+<span class="reached-lineno">1821</span> <span id="trace0-line1821" class="reached-line">    <span class="source_n">outputParameters</span><span class="source_o">-&gt;</span><span class="source_n">hostApiSpecificStreamInfo</span> <span class="source_o">=</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">1822</span> <span id="trace0-line1822" class="unreached-line"></span>
+<span class="lineno">1823</span> <span id="trace0-line1823" class="unreached-line"><span class="source_cp">#ifdef MACOSX</span></span>
+<span class="lineno">1824</span> <span id="trace0-line1824" class="unreached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">outputHostSpecificStreamInfo</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">1825</span> <span id="trace0-line1825" class="unreached-line">      <span class="source_n">outputParameters</span><span class="source_o">-&gt;</span><span class="source_n">hostApiSpecificStreamInfo</span> <span class="source_o">=</span></span>
+<span class="lineno">1826</span> <span id="trace0-line1826" class="unreached-line">	<span class="source_n">outputHostSpecificStreamInfo</span><span class="source_o">-&gt;</span><span class="source_n">paMacCoreStreamInfo</span><span class="source_p">;</span></span>
+<span class="lineno">1827</span> <span id="trace0-line1827" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">1828</span> <span id="trace0-line1828" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1829</span> <span id="trace0-line1829" class="unreached-line"></span>
+<span class="lineno">1830</span> <span id="trace0-line1830" class="unreached-line">  <span class="source_p">}</span></span>
+<span class="lineno">1831</span> <span id="trace0-line1831" class="unreached-line"></span>
+<span class="reached-lineno">1832</span> <span id="trace0-line1832" class="reached-line">  <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">input</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">taking True path</span>
+<span class="reached-lineno">1833</span> <span id="trace0-line1833" class="reached-line">    <span class="source_n">inputParameters</span> <span class="source_o">=</span></span>
+<span class="lineno">1834</span> <span id="trace0-line1834" class="unreached-line">      <span class="source_p">(</span><span class="source_n">PaStreamParameters</span> <span class="source_o">*</span><span class="source_p">)</span> <span class="source_n">malloc</span><span class="source_p">(</span><span class="source_k">sizeof</span><span class="source_p">(</span><span class="source_n">PaStreamParameters</span><span class="source_p">));</span></span>
+<span class="lineno">1835</span> <span id="trace0-line1835" class="unreached-line"></span>
+<span class="reached-lineno">1836</span> <span id="trace0-line1836" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">input_device_index</span> <span class="source_o">&lt;</span> <span class="source_mi">0</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: -0x8000000000000000 <= value <= -1</span>
+<span class="transition">taking True path</span>
+<span class="lineno">1837</span> <span id="trace0-line1837" class="unreached-line">      <span class="source_cm">/* default output device */</span></span>
+<span class="reached-lineno">1838</span> <span id="trace0-line1838" class="reached-line">      <span class="source_n">inputParameters</span><span class="source_o">-&gt;</span><span class="source_n">device</span> <span class="source_o">=</span> <span class="source_n">Pa_GetDefaultInputDevice</span><span class="source_p">();</span></span>
+<span class="transition">when treating unknown void * from src/_portaudiomodule.c:1833 as non-NULL</span>
+<span class="lineno">1839</span> <span id="trace0-line1839" class="unreached-line">    <span class="source_p">}</span> <span class="source_k">else</span> <span class="source_p">{</span></span>
+<span class="lineno">1840</span> <span id="trace0-line1840" class="unreached-line">      <span class="source_n">inputParameters</span><span class="source_o">-&gt;</span><span class="source_n">device</span> <span class="source_o">=</span> <span class="source_n">input_device_index</span><span class="source_p">;</span></span>
+<span class="lineno">1841</span> <span id="trace0-line1841" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">1842</span> <span id="trace0-line1842" class="unreached-line"></span>
+<span class="lineno">1843</span> <span id="trace0-line1843" class="unreached-line">    <span class="source_cm">/* final check -- ensure that there is a default device */</span></span>
+<span class="reached-lineno">1844</span> <span id="trace0-line1844" class="reached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">inputParameters</span><span class="source_o">-&gt;</span><span class="source_n">device</span> <span class="source_o">&lt;</span> <span class="source_mi">0</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when considering range: -0x80000000 <= value <= -1</span>
+<span class="transition">taking True path</span>
+<span class="reached-lineno">1845</span> <span id="trace0-line1845" class="reached-line">      <span class="source_n">free</span><span class="source_p">(</span><span class="source_n">inputParameters</span><span class="source_p">);</span></span>
+<span class="reached-lineno">1846</span> <span id="trace0-line1846" class="reached-line">      <span class="source_n">PyErr_SetObject</span><span class="source_p">(</span><span class="source_n">PyExc_IOError</span><span class="source_p">,</span></span>
+<span class="transition">when Py_BuildValue() succeeds</span>
+<span class="transition">calling PyErr_SetObject()</span>
+<span class="note">new ref from call to Py_BuildValue was allocated at:       PyErr_SetObject(PyExc_IOError,</span>
+<span class="transition">ob_refcnt is now refs: 1 owned</span>
+<span class="transition">ob_refcnt is now refs: 1 owned, 1 borrowed</span>
+<span class="lineno">1847</span> <span id="trace0-line1847" class="unreached-line">		      <span class="source_n">Py_BuildValue</span><span class="source_p">(</span><span class="source_s">&quot;(s,i)&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">1848</span> <span id="trace0-line1848" class="unreached-line">				    <span class="source_s">&quot;Invalid input device &quot;</span></span>
+<span class="lineno">1849</span> <span id="trace0-line1849" class="unreached-line">				    <span class="source_s">&quot;(no default output device)&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">1850</span> <span id="trace0-line1850" class="unreached-line">				    <span class="source_n">paInvalidDevice</span><span class="source_p">));</span></span>
+<span class="reached-lineno">1851</span> <span id="trace0-line1851" class="reached-line">      <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">1852</span> <span id="trace0-line1852" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">1853</span> <span id="trace0-line1853" class="unreached-line"></span>
+<span class="lineno">1854</span> <span id="trace0-line1854" class="unreached-line">    <span class="source_n">inputParameters</span><span class="source_o">-&gt;</span><span class="source_n">channelCount</span> <span class="source_o">=</span> <span class="source_n">channels</span><span class="source_p">;</span></span>
+<span class="lineno">1855</span> <span id="trace0-line1855" class="unreached-line">    <span class="source_n">inputParameters</span><span class="source_o">-&gt;</span><span class="source_n">sampleFormat</span> <span class="source_o">=</span> <span class="source_n">format</span><span class="source_p">;</span></span>
+<span class="lineno">1856</span> <span id="trace0-line1856" class="unreached-line">    <span class="source_n">inputParameters</span><span class="source_o">-&gt;</span><span class="source_n">suggestedLatency</span> <span class="source_o">=</span></span>
+<span class="lineno">1857</span> <span id="trace0-line1857" class="unreached-line">      <span class="source_n">Pa_GetDeviceInfo</span><span class="source_p">(</span><span class="source_n">inputParameters</span><span class="source_o">-&gt;</span><span class="source_n">device</span><span class="source_p">)</span><span class="source_o">-&gt;</span><span class="source_n">defaultLowInputLatency</span><span class="source_p">;</span></span>
+<span class="lineno">1858</span> <span id="trace0-line1858" class="unreached-line">    <span class="source_n">inputParameters</span><span class="source_o">-&gt;</span><span class="source_n">hostApiSpecificStreamInfo</span> <span class="source_o">=</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">1859</span> <span id="trace0-line1859" class="unreached-line"></span>
+<span class="lineno">1860</span> <span id="trace0-line1860" class="unreached-line"><span class="source_cp">#ifdef MACOSX</span></span>
+<span class="lineno">1861</span> <span id="trace0-line1861" class="unreached-line">    <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">inputHostSpecificStreamInfo</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">1862</span> <span id="trace0-line1862" class="unreached-line">      <span class="source_n">inputParameters</span><span class="source_o">-&gt;</span><span class="source_n">hostApiSpecificStreamInfo</span> <span class="source_o">=</span></span>
+<span class="lineno">1863</span> <span id="trace0-line1863" class="unreached-line">	<span class="source_n">inputHostSpecificStreamInfo</span><span class="source_o">-&gt;</span><span class="source_n">paMacCoreStreamInfo</span><span class="source_p">;</span></span>
+<span class="lineno">1864</span> <span id="trace0-line1864" class="unreached-line">    <span class="source_p">}</span></span>
+<span class="lineno">1865</span> <span id="trace0-line1865" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1866</span> <span id="trace0-line1866" class="unreached-line"></span>
+<span class="lineno">1867</span> <span id="trace0-line1867" class="unreached-line">  <span class="source_p">}</span></span>
+<span class="lineno">1868</span> <span id="trace0-line1868" class="unreached-line"></span>
+<span class="lineno">1869</span> <span id="trace0-line1869" class="unreached-line">  <span class="source_c1">// Handle callback mode:</span></span>
+<span class="lineno">1870</span> <span id="trace0-line1870" class="unreached-line">  <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">stream_callback</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">1871</span> <span id="trace0-line1871" class="unreached-line">    <span class="source_n">Py_INCREF</span><span class="source_p">(</span><span class="source_n">stream_callback</span><span class="source_p">);</span></span>
+<span class="lineno">1872</span> <span id="trace0-line1872" class="unreached-line">    <span class="source_n">context</span> <span class="source_o">=</span> <span class="source_p">(</span><span class="source_n">PyAudioCallbackContext</span> <span class="source_o">*</span><span class="source_p">)</span> <span class="source_n">malloc</span><span class="source_p">(</span><span class="source_k">sizeof</span><span class="source_p">(</span><span class="source_n">PyAudioCallbackContext</span><span class="source_p">));</span></span>
+<span class="lineno">1873</span> <span id="trace0-line1873" class="unreached-line">    <span class="source_n">context</span><span class="source_o">-&gt;</span><span class="source_n">callback</span> <span class="source_o">=</span> <span class="source_p">(</span><span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_p">)</span> <span class="source_n">stream_callback</span><span class="source_p">;</span></span>
+<span class="lineno">1874</span> <span id="trace0-line1874" class="unreached-line">    <span class="source_n">context</span><span class="source_o">-&gt;</span><span class="source_n">main_thread_id</span> <span class="source_o">=</span> <span class="source_n">PyThreadState_Get</span><span class="source_p">()</span><span class="source_o">-&gt;</span><span class="source_n">thread_id</span><span class="source_p">;</span></span>
+<span class="lineno">1875</span> <span id="trace0-line1875" class="unreached-line">    <span class="source_n">context</span><span class="source_o">-&gt;</span><span class="source_n">frame_size</span> <span class="source_o">=</span> <span class="source_n">Pa_GetSampleSize</span><span class="source_p">(</span><span class="source_n">format</span><span class="source_p">)</span> <span class="source_o">*</span> <span class="source_n">channels</span><span class="source_p">;</span></span>
+<span class="lineno">1876</span> <span id="trace0-line1876" class="unreached-line">  <span class="source_p">}</span></span>
+<span class="lineno">1877</span> <span id="trace0-line1877" class="unreached-line"></span>
+<span class="lineno">1878</span> <span id="trace0-line1878" class="unreached-line">  <span class="source_n">err</span> <span class="source_o">=</span> <span class="source_n">Pa_OpenStream</span><span class="source_p">(</span><span class="source_o">&amp;</span><span class="source_n">stream</span><span class="source_p">,</span></span>
+<span class="lineno">1879</span> <span id="trace0-line1879" class="unreached-line">		      <span class="source_cm">/* input/output parameters */</span></span>
+<span class="lineno">1880</span> <span id="trace0-line1880" class="unreached-line">		      <span class="source_cm">/* NULL values are ignored */</span></span>
+<span class="lineno">1881</span> <span id="trace0-line1881" class="unreached-line">		      <span class="source_n">inputParameters</span><span class="source_p">,</span></span>
+<span class="lineno">1882</span> <span id="trace0-line1882" class="unreached-line">		      <span class="source_n">outputParameters</span><span class="source_p">,</span></span>
+<span class="lineno">1883</span> <span id="trace0-line1883" class="unreached-line">		      <span class="source_cm">/* Samples Per Second */</span></span>
+<span class="lineno">1884</span> <span id="trace0-line1884" class="unreached-line">		      <span class="source_n">rate</span><span class="source_p">,</span></span>
+<span class="lineno">1885</span> <span id="trace0-line1885" class="unreached-line">		      <span class="source_cm">/* allocate frames in the buffer */</span></span>
+<span class="lineno">1886</span> <span id="trace0-line1886" class="unreached-line">		      <span class="source_n">frames_per_buffer</span><span class="source_p">,</span></span>
+<span class="lineno">1887</span> <span id="trace0-line1887" class="unreached-line">		      <span class="source_cm">/* we won&#39;t output out of range samples</span></span>
+<span class="lineno">1888</span> <span id="trace0-line1888" class="unreached-line"><span class="source_cm">			 so don&#39;t bother clipping them */</span></span>
+<span class="lineno">1889</span> <span id="trace0-line1889" class="unreached-line">		      <span class="source_n">paClipOff</span><span class="source_p">,</span></span>
+<span class="lineno">1890</span> <span id="trace0-line1890" class="unreached-line">		      <span class="source_cm">/* callback, if specified */</span></span>
+<span class="lineno">1891</span> <span id="trace0-line1891" class="unreached-line">		      <span class="source_p">(</span><span class="source_n">stream_callback</span><span class="source_p">)</span><span class="source_o">?</span><span class="source_p">(</span><span class="source_n">_stream_callback_cfunction</span><span class="source_p">)</span><span class="source_o">:</span><span class="source_p">(</span><span class="source_nb">NULL</span><span class="source_p">),</span></span>
+<span class="lineno">1892</span> <span id="trace0-line1892" class="unreached-line">		      <span class="source_cm">/* callback userData, if applicable */</span></span>
+<span class="lineno">1893</span> <span id="trace0-line1893" class="unreached-line">		      <span class="source_n">context</span><span class="source_p">);</span></span>
+<span class="lineno">1894</span> <span id="trace0-line1894" class="unreached-line"></span>
+<span class="lineno">1895</span> <span id="trace0-line1895" class="unreached-line">  <span class="source_k">if</span> <span class="source_p">(</span><span class="source_n">err</span> <span class="source_o">!=</span> <span class="source_n">paNoError</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">1896</span> <span id="trace0-line1896" class="unreached-line"></span>
+<span class="lineno">1897</span> <span id="trace0-line1897" class="unreached-line"><span class="source_cp">#ifdef VERBOSE</span></span>
+<span class="lineno">1898</span> <span id="trace0-line1898" class="unreached-line">    <span class="source_n">fprintf</span><span class="source_p">(</span><span class="source_n">stderr</span><span class="source_p">,</span> <span class="source_s">&quot;An error occured while using the portaudio stream</span><span class="source_se">\n</span><span class="source_s">&quot;</span><span class="source_p">);</span></span>
+<span class="lineno">1899</span> <span id="trace0-line1899" class="unreached-line">    <span class="source_n">fprintf</span><span class="source_p">(</span><span class="source_n">stderr</span><span class="source_p">,</span> <span class="source_s">&quot;Error number: %d</span><span class="source_se">\n</span><span class="source_s">&quot;</span><span class="source_p">,</span> <span class="source_n">err</span><span class="source_p">);</span></span>
+<span class="lineno">1900</span> <span id="trace0-line1900" class="unreached-line">    <span class="source_n">fprintf</span><span class="source_p">(</span><span class="source_n">stderr</span><span class="source_p">,</span> <span class="source_s">&quot;Error message: %s</span><span class="source_se">\n</span><span class="source_s">&quot;</span><span class="source_p">,</span> <span class="source_n">Pa_GetErrorText</span><span class="source_p">(</span><span class="source_n">err</span><span class="source_p">));</span></span>
+<span class="lineno">1901</span> <span id="trace0-line1901" class="unreached-line"><span class="source_cp">#endif</span></span>
+<span class="lineno">1902</span> <span id="trace0-line1902" class="unreached-line"></span>
+<span class="lineno">1903</span> <span id="trace0-line1903" class="unreached-line">    <span class="source_n">PyErr_SetObject</span><span class="source_p">(</span><span class="source_n">PyExc_IOError</span><span class="source_p">,</span></span>
+<span class="lineno">1904</span> <span id="trace0-line1904" class="unreached-line">		    <span class="source_n">Py_BuildValue</span><span class="source_p">(</span><span class="source_s">&quot;(s,i)&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">1905</span> <span id="trace0-line1905" class="unreached-line">				  <span class="source_n">Pa_GetErrorText</span><span class="source_p">(</span><span class="source_n">err</span><span class="source_p">),</span> <span class="source_n">err</span><span class="source_p">));</span></span>
+<span class="lineno">1906</span> <span id="trace0-line1906" class="unreached-line">    <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">1907</span> <span id="trace0-line1907" class="unreached-line">  <span class="source_p">}</span></span>
+<span class="lineno">1908</span> <span id="trace0-line1908" class="unreached-line"></span>
+<span class="lineno">1909</span> <span id="trace0-line1909" class="unreached-line">  <span class="source_n">streamInfo</span> <span class="source_o">=</span> <span class="source_p">(</span><span class="source_n">PaStreamInfo</span> <span class="source_o">*</span><span class="source_p">)</span> <span class="source_n">Pa_GetStreamInfo</span><span class="source_p">(</span><span class="source_n">stream</span><span class="source_p">);</span></span>
+<span class="lineno">1910</span> <span id="trace0-line1910" class="unreached-line">  <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">streamInfo</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="lineno">1911</span> <span id="trace0-line1911" class="unreached-line">    <span class="source_cm">/* Pa_Terminate(); */</span></span>
+<span class="lineno">1912</span> <span id="trace0-line1912" class="unreached-line">    <span class="source_n">PyErr_SetObject</span><span class="source_p">(</span><span class="source_n">PyExc_IOError</span><span class="source_p">,</span></span>
+<span class="lineno">1913</span> <span id="trace0-line1913" class="unreached-line">		    <span class="source_n">Py_BuildValue</span><span class="source_p">(</span><span class="source_s">&quot;(s,i)&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">1914</span> <span id="trace0-line1914" class="unreached-line"> 				  <span class="source_s">&quot;Could not get stream information&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">1915</span> <span id="trace0-line1915" class="unreached-line">				  <span class="source_n">paInternalError</span><span class="source_p">));</span></span>
+<span class="lineno">1916</span> <span id="trace0-line1916" class="unreached-line">    <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">1917</span> <span id="trace0-line1917" class="unreached-line">  <span class="source_p">}</span></span>
+<span class="lineno">1918</span> <span id="trace0-line1918" class="unreached-line"></span>
+<span class="lineno">1919</span> <span id="trace0-line1919" class="unreached-line">  <span class="source_n">streamObject</span> <span class="source_o">=</span> <span class="source_n">_create_Stream_object</span><span class="source_p">();</span></span>
+<span class="lineno">1920</span> <span id="trace0-line1920" class="unreached-line">  <span class="source_n">streamObject</span><span class="source_o">-&gt;</span><span class="source_n">stream</span> <span class="source_o">=</span> <span class="source_n">stream</span><span class="source_p">;</span></span>
+<span class="lineno">1921</span> <span id="trace0-line1921" class="unreached-line">  <span class="source_n">streamObject</span><span class="source_o">-&gt;</span><span class="source_n">inputParameters</span> <span class="source_o">=</span> <span class="source_n">inputParameters</span><span class="source_p">;</span></span>
+<span class="lineno">1922</span> <span id="trace0-line1922" class="unreached-line">  <span class="source_n">streamObject</span><span class="source_o">-&gt;</span><span class="source_n">outputParameters</span> <span class="source_o">=</span> <span class="source_n">outputParameters</span><span class="source_p">;</span></span>
+<span class="lineno">1923</span> <span id="trace0-line1923" class="unreached-line">  <span class="source_n">streamObject</span><span class="source_o">-&gt;</span><span class="source_n">is_open</span> <span class="source_o">=</span> <span class="source_mi">1</span><span class="source_p">;</span></span>
+<span class="lineno">1924</span> <span id="trace0-line1924" class="unreached-line">  <span class="source_n">streamObject</span><span class="source_o">-&gt;</span><span class="source_n">streamInfo</span> <span class="source_o">=</span> <span class="source_n">streamInfo</span><span class="source_p">;</span></span>
+<span class="lineno">1925</span> <span id="trace0-line1925" class="unreached-line">  <span class="source_n">streamObject</span><span class="source_o">-&gt;</span><span class="source_n">callbackContext</span> <span class="source_o">=</span> <span class="source_n">context</span><span class="source_p">;</span></span>
+<span class="lineno">1926</span> <span id="trace0-line1926" class="unreached-line"></span>
+<span class="lineno">1927</span> <span id="trace0-line1927" class="unreached-line">  <span class="source_k">return</span> <span class="source_p">(</span><span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_p">)</span> <span class="source_n">streamObject</span><span class="source_p">;</span></span>
+<span class="lineno">1928</span> <span id="trace0-line1928" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace0-line1698',
+                     target:'trace0-line1698',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1698',
+                     target:'trace0-line1722',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1722',
+                     target:'trace0-line1722',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1722',
+                     target:'trace0-line1722',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1722',
+                     target:'trace0-line1728',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1728',
+                     target:'trace0-line1729',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1728',
+                     target:'trace0-line1739',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1739',
+                     target:'trace0-line1746',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1745',
+                     target:'trace0-line1748',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1756',
+                     target:'trace0-line1757',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1756',
+                     target:'trace0-line1767',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1767',
+                     target:'trace0-line1774',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1773',
+                     target:'trace0-line1775',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1784',
+                     target:'trace0-line1789',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1789',
+                     target:'trace0-line1794',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1794',
+                     target:'trace0-line1795',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1799',
+                     target:'trace0-line1801',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1806',
+                     target:'trace0-line1807',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1806',
+                     target:'trace0-line1817',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1832',
+                     target:'trace0-line1833',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1836',
+                     target:'trace0-line1838',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1844',
+                     target:'trace0-line1845',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1846',
+                     target:'trace0-line1851',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+  </body>

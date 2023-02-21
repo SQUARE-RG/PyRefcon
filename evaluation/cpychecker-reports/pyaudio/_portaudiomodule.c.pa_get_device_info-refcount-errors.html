@@ -1,0 +1,296 @@
+<html>
+  <head>
+    <title>pa_get_device_info</title>
+    <style type="text/css">
+.unreached-line {
+    #margin:1em;
+    #border:0.1em dotted #00aa00;
+
+    opacity:1.0;
+    filter:alpha(opacity=0);
+    #color:black;
+}
+
+.reached-line {
+    #margin:1em;
+    #border:0.1em dotted #00aa00;
+    border: 0.1em solid blue;
+    font-weight: bold;
+
+    opacity:1.0;
+    filter:alpha(opacity=0);
+    #color:black;
+}
+
+.reached-lineno {
+    border: 0.1em solid blue;
+    font-weight: bold;
+}
+
+pre {
+    #line-height:200%
+}
+
+._jsPlumb_connector { z-index: -2; }
+._jsPlumb_endpoint { z-index: -1; }
+
+.transition {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #ccc;
+    -moz-box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;
+    margin-left: 5em;
+    font-family: proportional;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.error {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #cc0000;
+    -moz-box-shadow: 2px 2px 2px #cc0000;
+    -webkit-box-shadow: 2px 2px 2px #cc0000;
+    box-shadow: 2px 2px 2px #cc0000;
+    margin-left: 5em;
+    color: red;
+    font-family: proportional;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.note {
+    #border: 0.1em dotted #ddffdd;
+    #padding: 1em;
+    border: 0.1em solid #ccc;
+    -moz-box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;
+    margin-left: 5em;
+    font-family: proportional;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 90%;
+}
+
+.hll { background-color: #ffffcc }
+.source_c { color: #408080; font-style: italic } /* Comment */
+.source_err { border: 1px solid #FF0000 } /* Error */
+.source_k { color: #008000; font-weight: bold } /* Keyword */
+.source_o { color: #666666 } /* Operator */
+.source_ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.source_cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.source_cp { color: #BC7A00 } /* Comment.Preproc */
+.source_cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.source_c1 { color: #408080; font-style: italic } /* Comment.Single */
+.source_cs { color: #408080; font-style: italic } /* Comment.Special */
+.source_gd { color: #A00000 } /* Generic.Deleted */
+.source_ge { font-style: italic } /* Generic.Emph */
+.source_gr { color: #FF0000 } /* Generic.Error */
+.source_gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.source_gi { color: #00A000 } /* Generic.Inserted */
+.source_go { color: #888888 } /* Generic.Output */
+.source_gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.source_gs { font-weight: bold } /* Generic.Strong */
+.source_gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.source_gt { color: #0044DD } /* Generic.Traceback */
+.source_kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.source_kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.source_kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.source_kp { color: #008000 } /* Keyword.Pseudo */
+.source_kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.source_kt { color: #B00040 } /* Keyword.Type */
+.source_m { color: #666666 } /* Literal.Number */
+.source_s { color: #BA2121 } /* Literal.String */
+.source_na { color: #7D9029 } /* Name.Attribute */
+.source_nb { color: #008000 } /* Name.Builtin */
+.source_nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.source_no { color: #880000 } /* Name.Constant */
+.source_nd { color: #AA22FF } /* Name.Decorator */
+.source_ni { color: #999999; font-weight: bold } /* Name.Entity */
+.source_ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.source_nf { color: #0000FF } /* Name.Function */
+.source_nl { color: #A0A000 } /* Name.Label */
+.source_nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.source_nt { color: #008000; font-weight: bold } /* Name.Tag */
+.source_nv { color: #19177C } /* Name.Variable */
+.source_ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.source_w { color: #bbbbbb } /* Text.Whitespace */
+.source_mb { color: #666666 } /* Literal.Number.Bin */
+.source_mf { color: #666666 } /* Literal.Number.Float */
+.source_mh { color: #666666 } /* Literal.Number.Hex */
+.source_mi { color: #666666 } /* Literal.Number.Integer */
+.source_mo { color: #666666 } /* Literal.Number.Oct */
+.source_sa { color: #BA2121 } /* Literal.String.Affix */
+.source_sb { color: #BA2121 } /* Literal.String.Backtick */
+.source_sc { color: #BA2121 } /* Literal.String.Char */
+.source_dl { color: #BA2121 } /* Literal.String.Delimiter */
+.source_sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.source_s2 { color: #BA2121 } /* Literal.String.Double */
+.source_se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.source_sh { color: #BA2121 } /* Literal.String.Heredoc */
+.source_si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.source_sx { color: #008000 } /* Literal.String.Other */
+.source_sr { color: #BB6688 } /* Literal.String.Regex */
+.source_s1 { color: #BA2121 } /* Literal.String.Single */
+.source_ss { color: #19177C } /* Literal.String.Symbol */
+.source_bp { color: #008000 } /* Name.Builtin.Pseudo */
+.source_fm { color: #0000FF } /* Name.Function.Magic */
+.source_vc { color: #19177C } /* Name.Variable.Class */
+.source_vg { color: #19177C } /* Name.Variable.Global */
+.source_vi { color: #19177C } /* Name.Variable.Instance */
+.source_vm { color: #19177C } /* Name.Variable.Magic */
+.source_il { color: #666666 } /* Literal.Number.Integer.Long */    </style>
+  </head>
+  <body>
+<script type="text/javascript" src="http://explorercanvas.googlecode.com/svn/trunk/excanvas.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://jsplumb.googlecode.com/files/jquery.jsPlumb-1.2.6-all-min.js"></script>
+<div id="report-0">
+<table>
+  <tr><td>File:</td> <td><b>src/_portaudiomodule.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>pa_get_device_info</b></td></tr>
+  <tr><td>Error:</td> <td><b>dereferencing NULL (py_info->devInfo) at src/_portaudiomodule.c:1483</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">1462</span> <span id="trace0-line1462" class="unreached-line"><span></span><span class="source_k">static</span> <span class="source_n">PyObject</span> <span class="source_o">*</span></span>
+<span class="lineno">1463</span> <span id="trace0-line1463" class="unreached-line"><span class="source_nf">pa_get_device_info</span><span class="source_p">(</span><span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">self</span><span class="source_p">,</span> <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">args</span><span class="source_p">)</span></span>
+<span class="lineno">1464</span> <span id="trace0-line1464" class="unreached-line"><span class="source_p">{</span></span>
+<span class="lineno">1465</span> <span id="trace0-line1465" class="unreached-line">  <span class="source_n">PaDeviceIndex</span> <span class="source_n">index</span><span class="source_p">;</span></span>
+<span class="lineno">1466</span> <span id="trace0-line1466" class="unreached-line">  <span class="source_n">PaDeviceInfo</span><span class="source_o">*</span> <span class="source_n">_info</span><span class="source_p">;</span></span>
+<span class="lineno">1467</span> <span id="trace0-line1467" class="unreached-line">  <span class="source_n">_pyAudio_paDeviceInfo</span><span class="source_o">*</span> <span class="source_n">py_info</span><span class="source_p">;</span></span>
+<span class="lineno">1468</span> <span id="trace0-line1468" class="unreached-line"></span>
+<span class="reached-lineno">1469</span> <span id="trace0-line1469" class="reached-line">  <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">PyArg_ParseTuple</span><span class="source_p">(</span><span class="source_n">args</span><span class="source_p">,</span> <span class="source_s">&quot;i&quot;</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">index</span><span class="source_p">))</span></span>
+<span class="transition">when PyArg_ParseTuple() succeeds</span>
+<span class="transition">taking False path</span>
+<span class="lineno">1470</span> <span id="trace0-line1470" class="unreached-line">    <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">1471</span> <span id="trace0-line1471" class="unreached-line"></span>
+<span class="reached-lineno">1472</span> <span id="trace0-line1472" class="reached-line">  <span class="source_n">_info</span> <span class="source_o">=</span> <span class="source_p">(</span><span class="source_n">PaDeviceInfo</span> <span class="source_o">*</span><span class="source_p">)</span> <span class="source_n">Pa_GetDeviceInfo</span><span class="source_p">(</span><span class="source_n">index</span><span class="source_p">);</span></span>
+<span class="lineno">1473</span> <span id="trace0-line1473" class="unreached-line"></span>
+<span class="reached-lineno">1474</span> <span id="trace0-line1474" class="reached-line">  <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">_info</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when treating unknown const struct PaDeviceInfo * from src/_portaudiomodule.c:1472 as non-NULL</span>
+<span class="transition">taking False path</span>
+<span class="lineno">1475</span> <span id="trace0-line1475" class="unreached-line">    <span class="source_n">PyErr_SetObject</span><span class="source_p">(</span><span class="source_n">PyExc_IOError</span><span class="source_p">,</span></span>
+<span class="lineno">1476</span> <span id="trace0-line1476" class="unreached-line">		    <span class="source_n">Py_BuildValue</span><span class="source_p">(</span><span class="source_s">&quot;(s,i)&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">1477</span> <span id="trace0-line1477" class="unreached-line">				  <span class="source_s">&quot;Invalid device info&quot;</span><span class="source_p">,</span> <span class="source_n">paInvalidDevice</span><span class="source_p">));</span></span>
+<span class="lineno">1478</span> <span id="trace0-line1478" class="unreached-line">    <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">1479</span> <span id="trace0-line1479" class="unreached-line">  <span class="source_p">}</span></span>
+<span class="lineno">1480</span> <span id="trace0-line1480" class="unreached-line"></span>
+<span class="reached-lineno">1481</span> <span id="trace0-line1481" class="reached-line">  <span class="source_n">py_info</span> <span class="source_o">=</span> <span class="source_n">_create_paDeviceInfo_object</span><span class="source_p">();</span></span>
+<span class="transition">when _create_paDeviceInfo_object() fails</span>
+<span class="reached-lineno">1482</span> <span id="trace0-line1482" class="reached-line">  <span class="source_n">py_info</span><span class="source_o">-&gt;</span><span class="source_n">devInfo</span> <span class="source_o">=</span> <span class="source_n">_info</span><span class="source_p">;</span></span>
+<span class="error">dereferencing NULL (py_info->devInfo) at src/_portaudiomodule.c:1483</span>
+<span class="lineno">1483</span> <span id="trace0-line1483" class="unreached-line">  <span class="source_k">return</span> <span class="source_p">(</span><span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_p">)</span> <span class="source_n">py_info</span><span class="source_p">;</span></span>
+<span class="lineno">1484</span> <span id="trace0-line1484" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace0-line1469',
+                     target:'trace0-line1469',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1469',
+                     target:'trace0-line1472',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1474',
+                     target:'trace0-line1481',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace0-line1481',
+                     target:'trace0-line1482',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+<div id="report-1">
+<table>
+  <tr><td>File:</td> <td><b>src/_portaudiomodule.c</b></td></tr>
+  <tr><td>Function:</td> <td><b>pa_get_device_info</b></td></tr>
+  <tr><td>Error:</td> <td><b>memory leak: ob_refcnt of new ref from call to Py_BuildValue is 1 too high</b></td></tr>
+</table>
+<div class="highlight"><pre><span class="lineno">1462</span> <span id="trace1-line1462" class="unreached-line"><span></span><span class="source_k">static</span> <span class="source_n">PyObject</span> <span class="source_o">*</span></span>
+<span class="lineno">1463</span> <span id="trace1-line1463" class="unreached-line"><span class="source_nf">pa_get_device_info</span><span class="source_p">(</span><span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">self</span><span class="source_p">,</span> <span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_n">args</span><span class="source_p">)</span></span>
+<span class="lineno">1464</span> <span id="trace1-line1464" class="unreached-line"><span class="source_p">{</span></span>
+<span class="lineno">1465</span> <span id="trace1-line1465" class="unreached-line">  <span class="source_n">PaDeviceIndex</span> <span class="source_n">index</span><span class="source_p">;</span></span>
+<span class="lineno">1466</span> <span id="trace1-line1466" class="unreached-line">  <span class="source_n">PaDeviceInfo</span><span class="source_o">*</span> <span class="source_n">_info</span><span class="source_p">;</span></span>
+<span class="lineno">1467</span> <span id="trace1-line1467" class="unreached-line">  <span class="source_n">_pyAudio_paDeviceInfo</span><span class="source_o">*</span> <span class="source_n">py_info</span><span class="source_p">;</span></span>
+<span class="lineno">1468</span> <span id="trace1-line1468" class="unreached-line"></span>
+<span class="reached-lineno">1469</span> <span id="trace1-line1469" class="reached-line">  <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">PyArg_ParseTuple</span><span class="source_p">(</span><span class="source_n">args</span><span class="source_p">,</span> <span class="source_s">&quot;i&quot;</span><span class="source_p">,</span> <span class="source_o">&amp;</span><span class="source_n">index</span><span class="source_p">))</span></span>
+<span class="transition">when PyArg_ParseTuple() succeeds</span>
+<span class="transition">taking False path</span>
+<span class="lineno">1470</span> <span id="trace1-line1470" class="unreached-line">    <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">1471</span> <span id="trace1-line1471" class="unreached-line"></span>
+<span class="reached-lineno">1472</span> <span id="trace1-line1472" class="reached-line">  <span class="source_n">_info</span> <span class="source_o">=</span> <span class="source_p">(</span><span class="source_n">PaDeviceInfo</span> <span class="source_o">*</span><span class="source_p">)</span> <span class="source_n">Pa_GetDeviceInfo</span><span class="source_p">(</span><span class="source_n">index</span><span class="source_p">);</span></span>
+<span class="lineno">1473</span> <span id="trace1-line1473" class="unreached-line"></span>
+<span class="reached-lineno">1474</span> <span id="trace1-line1474" class="reached-line">  <span class="source_k">if</span> <span class="source_p">(</span><span class="source_o">!</span><span class="source_n">_info</span><span class="source_p">)</span> <span class="source_p">{</span></span>
+<span class="transition">when treating unknown const struct PaDeviceInfo * from src/_portaudiomodule.c:1472 as NULL</span>
+<span class="transition">taking True path</span>
+<span class="reached-lineno">1475</span> <span id="trace1-line1475" class="reached-line">    <span class="source_n">PyErr_SetObject</span><span class="source_p">(</span><span class="source_n">PyExc_IOError</span><span class="source_p">,</span></span>
+<span class="transition">when Py_BuildValue() succeeds</span>
+<span class="transition">calling PyErr_SetObject()</span>
+<span class="note">new ref from call to Py_BuildValue was allocated at:     PyErr_SetObject(PyExc_IOError,</span>
+<span class="transition">ob_refcnt is now refs: 1 owned</span>
+<span class="transition">ob_refcnt is now refs: 1 owned, 1 borrowed</span>
+<span class="lineno">1476</span> <span id="trace1-line1476" class="unreached-line">		    <span class="source_n">Py_BuildValue</span><span class="source_p">(</span><span class="source_s">&quot;(s,i)&quot;</span><span class="source_p">,</span></span>
+<span class="lineno">1477</span> <span id="trace1-line1477" class="unreached-line">				  <span class="source_s">&quot;Invalid device info&quot;</span><span class="source_p">,</span> <span class="source_n">paInvalidDevice</span><span class="source_p">));</span></span>
+<span class="reached-lineno">1478</span> <span id="trace1-line1478" class="reached-line">    <span class="source_k">return</span> <span class="source_nb">NULL</span><span class="source_p">;</span></span>
+<span class="lineno">1479</span> <span id="trace1-line1479" class="unreached-line">  <span class="source_p">}</span></span>
+<span class="lineno">1480</span> <span id="trace1-line1480" class="unreached-line"></span>
+<span class="lineno">1481</span> <span id="trace1-line1481" class="unreached-line">  <span class="source_n">py_info</span> <span class="source_o">=</span> <span class="source_n">_create_paDeviceInfo_object</span><span class="source_p">();</span></span>
+<span class="lineno">1482</span> <span id="trace1-line1482" class="unreached-line">  <span class="source_n">py_info</span><span class="source_o">-&gt;</span><span class="source_n">devInfo</span> <span class="source_o">=</span> <span class="source_n">_info</span><span class="source_p">;</span></span>
+<span class="lineno">1483</span> <span id="trace1-line1483" class="unreached-line">  <span class="source_k">return</span> <span class="source_p">(</span><span class="source_n">PyObject</span> <span class="source_o">*</span><span class="source_p">)</span> <span class="source_n">py_info</span><span class="source_p">;</span></span>
+<span class="lineno">1484</span> <span id="trace1-line1484" class="unreached-line"><span class="source_p">}</span></span>
+</pre></div>
+
+<script type="text/javascript">
+  jsPlumb.bind("ready", function() {
+    /* Set up defaults: */
+    jsPlumb.Defaults.Connector = [ "Bezier", 1 ];
+    jsPlumb.Defaults.Connector = [ "Straight" ];
+    jsPlumb.Defaults.PaintStyle = { strokeStyle:"blue", lineWidth:1 };
+    jsPlumb.Defaults.EndpointStyle = { radius:2, fillStyle:"red" };
+    jsPlumb.Defaults.Anchors =  [ "BottomCenter", "TopCenter" ];
+
+    /* Add lines: */
+    jsPlumb.connect({source:'trace1-line1469',
+                     target:'trace1-line1469',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line1469',
+                     target:'trace1-line1472',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line1474',
+                     target:'trace1-line1475',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+    jsPlumb.connect({source:'trace1-line1475',
+                     target:'trace1-line1478',
+                     label:'',
+                     overlays:[['PlainArrow', { width:10, length:10, location:1.0 }]]
+                   });
+  })
+</script>
+<hr/></div>
+  </body>
