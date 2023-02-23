@@ -43,7 +43,15 @@ as the corresponding columns in file `evaluation/pyrefcon-reports.csv`. The HTML
 bug report files presented in column *report* are stored in path
 `evaluation/cpychecker-reports/<project>/xxxxxx.html`.  And the last column shows
 whether the report is a *unique* report that *PyRefcon* does not report, or it
-is a *common* report that *PyRefcon* also reports.
+is a *common* report that *PyRefcon* also reports. The common true positives
+comparison of *PyRefcon* and *CpyChecker* is shown in Figure 9a.
+
+### Comparison with *Pungi* and *RID*
+
+In Section 5.3, we also mentioned the literal comparison with *Pungi* and *RID*
+through their comparisons with *CpyChecker*. The detailed information of this
+comparison shown in Figure 9b is presented in file
+`evaluation/pungi-and-rid.md`.
 
 ### Resource Consumption of *PyRefcon*
 
