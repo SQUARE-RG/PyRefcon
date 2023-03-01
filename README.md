@@ -1,6 +1,12 @@
 PyRefcon
 ========
 
+Implementation
+--------------
+
+The source code and executable tool of *PyRefcon* is in sub-directory
+`pyrefcon`.
+
 Experimental Results
 --------------------
 

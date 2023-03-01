@@ -1,0 +1,40 @@
+#!/usr/lib/llvm-16/bin/clang-query -f
+set output diag
+set bind-root false
+
+let isNotInSystemHeader unless(isExpansionInSystemHeader())
+let isPythonObjectStructDecl recordDecl(isStruct(), hasName("_object"))
+let isPyObjectDecl typedefDecl(hasType(hasDeclaration(isPythonObjectStructDecl)))
+
+let hasPyObjectPtrType hasType(pointsTo(anyOf(isPythonObjectStructDecl, isPyObjectDecl)))
+
+let decrefCall callExpr(anyOf(
+      isExpandedFromMacro("Py_DECREF"),
+      isExpandedFromMacro("Py_XDECREF"),
+      isExpandedFromMacro("Py_CLEAR")))
+
+match cxxRecordDecl(
+  isNotInSystemHeader,
+  has(fieldDecl(isPrivate(), hasPyObjectPtrType).bind("field")),
+  unless(has(fieldDecl(unless(hasPyObjectPtrType)))),
+  has(cxxConstructorDecl(
+      parameterCountIs(1),
+      hasParameter(0, hasPyObjectPtrType),
+      hasAnyConstructorInitializer(forField(
+          fieldDecl(isPrivate(), hasPyObjectPtrType).bind("init")))
+      ).bind("ctor")),
+  has(cxxMethodDecl(
+      isPublic(),
+      hasBody(hasDescendant(returnStmt(hasReturnValue(
+              ignoringParenImpCasts(memberExpr(hasDeclaration(
+                    fieldDecl(isPrivate(), hasPyObjectPtrType).bind("observe")
+                    ))))).bind("getter"))))),
+  has(cxxDestructorDecl(
+      isPublic(),
+      hasBody(hasDescendant(anyOf(
+            decrefCall.bind("decref"),
+            callExpr(callee(functionDecl(hasBody(hasDescendant(decrefCall.bind("decref"))))))
+            )))).bind("dtor"))
+  ).bind("monitor")
+# where count(monitor) == count(field) == count(init) == count(observe)
+#       and observe is field is init

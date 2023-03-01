@@ -1,0 +1,70 @@
+diff --git a/torch/csrc/utils/object_ptr.cpp b/torch/csrc/utils/object_ptr.cpp
+index c475be1d6d..470a6e36ec 100644
+--- a/torch/csrc/utils/object_ptr.cpp
++++ b/torch/csrc/utils/object_ptr.cpp
+@@ -1,11 +1,12 @@
+ #include <torch/csrc/utils/object_ptr.h>
+ 
+ #include <torch/csrc/python_headers.h>
+ 
+ template<>
+ void THPPointer<PyObject>::free() {
+   if (ptr)
+     Py_DECREF(ptr);
++  clang_analyzer_PyObject_Monitor_Assign(this, nullptr);
+ }
+ 
+ template class THPPointer<PyObject>;
+diff --git a/torch/csrc/utils/object_ptr.h b/torch/csrc/utils/object_ptr.h
+index c27f35ad99..ecf2d35964 100644
+--- a/torch/csrc/utils/object_ptr.h
++++ b/torch/csrc/utils/object_ptr.h
+@@ -1,38 +1,42 @@
+ #pragma once
+ 
+ #include <torch/csrc/python_headers.h>
+ 
++namespace {
++void clang_analyzer_PyObject_Monitor_Assign(const void *, PyObject *);
++}
++
+ template<class T>
+ class THPPointer {
+ public:
+-  THPPointer(): ptr(nullptr) {};
+-  explicit THPPointer(T *ptr) noexcept : ptr(ptr) {};
+-  THPPointer(THPPointer &&p) noexcept { free(); ptr = p.ptr; p.ptr = nullptr; };
++  THPPointer(): ptr(nullptr) {clang_analyzer_PyObject_Monitor_Assign(this, ptr);};
++  explicit THPPointer(T *ptr) noexcept : ptr(ptr) {clang_analyzer_PyObject_Monitor_Assign(this, ptr);};
++  THPPointer(THPPointer &&p) noexcept { free(); ptr = p.ptr;clang_analyzer_PyObject_Monitor_Assign(this, p.ptr); p.ptr = nullptr;clang_analyzer_PyObject_Monitor_Assign(&p, nullptr); };
+ 
+   ~THPPointer() { free(); };
+   T * get() { return ptr; }
+   const T * get() const { return ptr; }
+-  T * release() { T *tmp = ptr; ptr = nullptr; return tmp; }
++  T * release() { T *tmp = ptr; ptr = nullptr;clang_analyzer_PyObject_Monitor_Assign(this, ptr); return tmp; }
+   operator T*() { return ptr; }
+-  THPPointer& operator =(T *new_ptr) noexcept { free(); ptr = new_ptr; return *this; }
+-  THPPointer& operator =(THPPointer &&p) noexcept { free(); ptr = p.ptr; p.ptr = nullptr; return *this; }
++  THPPointer& operator =(T *new_ptr) noexcept { free(); ptr = new_ptr;clang_analyzer_PyObject_Monitor_Assign(this, new_ptr); return *this; }
++  THPPointer& operator =(THPPointer &&p) noexcept { free(); ptr = p.ptr;clang_analyzer_PyObject_Monitor_Assign(this, p.ptr); p.ptr = nullptr;clang_analyzer_PyObject_Monitor_Assign(&p, nullptr); return *this; }
+   T * operator ->() { return ptr; }
+   explicit operator bool() const { return ptr != nullptr; }
+ 
+ private:
+   void free();
+   T *ptr = nullptr;
+ };
+ 
+ /**
+  * An RAII-style, owning pointer to a PyObject.  You must protect
+  * destruction of this object with the GIL.
+  *
+  * WARNING: Think twice before putting this as a field in a C++
+  * struct.  This class does NOT take out the GIL on destruction,
+  * so if you will need to ensure that the destructor of your struct
+  * is either (a) always invoked when the GIL is taken or (b) takes
+  * out the GIL itself.  Easiest way to avoid this problem is to
+  * not use THPPointer in this situation.
+  */
+ using THPObjectPtr = THPPointer<PyObject>;
