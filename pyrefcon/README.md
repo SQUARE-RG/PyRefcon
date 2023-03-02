@@ -8,3 +8,4 @@ This directory contains the source code of the analyzer.
 - Two diff files `pytorch_update.diff` and `scipy_update.diff` present the updates in *SciPy* and *PyTorch* for applying refcount monitor to these two projects.
 
 The executable tool of *PyRefcon* and its usage documentations are stored in file `PyRefcon.tar.xz`.
+The analyzer is built on Ubuntu 20.04 with Z3 plugin enabled.
