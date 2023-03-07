@@ -1,0 +1,421 @@
+<!doctype html>
+<html>
+<head>
+<title>../torch/csrc/utils/tensor_layouts.cpp</title>
+
+<style type="text/css">
+body { color:#000000; background-color:#ffffff }
+body { font-family:Helvetica, sans-serif; font-size:10pt }
+h1 { font-size:14pt }
+.FileName { margin-top: 5px; margin-bottom: 5px; display: inline; }
+.FileNav { margin-left: 5px; margin-right: 5px; display: inline; }
+.FileNav a { text-decoration:none; font-size: larger; }
+.divider { margin-top: 30px; margin-bottom: 30px; height: 15px; }
+.divider { background-color: gray; }
+.code { border-collapse:collapse; width:100%; }
+.code { font-family: "Monospace", monospace; font-size:10pt }
+.code { line-height: 1.2em }
+.comment { color: green; font-style: oblique }
+.keyword { color: blue }
+.string_literal { color: red }
+.directive { color: darkmagenta }
+
+/* Macros and variables could have pop-up notes hidden by default.
+  - Macro pop-up:    expansion of the macro
+  - Variable pop-up: value (table) of the variable */
+.macro_popup, .variable_popup { display: none; }
+
+/* Pop-up appears on mouse-hover event. */
+.macro:hover .macro_popup, .variable:hover .variable_popup {
+  display: block;
+  padding: 2px;
+  -webkit-border-radius:5px;
+  -webkit-box-shadow:1px 1px 7px #000;
+  border-radius:5px;
+  box-shadow:1px 1px 7px #000;
+  position: absolute;
+  top: -1em;
+  left:10em;
+  z-index: 1
+}
+
+.macro_popup {
+  border: 2px solid red;
+  background-color:#FFF0F0;
+  font-weight: normal;
+}
+
+.variable_popup {
+  border: 2px solid blue;
+  background-color:#F0F0FF;
+  font-weight: bold;
+  font-family: Helvetica, sans-serif;
+  font-size: 9pt;
+}
+
+/* Pop-up notes needs a relative position as a base where they pops up. */
+.macro, .variable {
+  background-color: PaleGoldenRod;
+  position: relative;
+}
+.macro { color: DarkMagenta; }
+
+#tooltiphint {
+  position: fixed;
+  width: 50em;
+  margin-left: -25em;
+  left: 50%;
+  padding: 10px;
+  border: 1px solid #b0b0b0;
+  border-radius: 2px;
+  box-shadow: 1px 1px 7px black;
+  background-color: #c0c0c0;
+  z-index: 2;
+}
+
+.num { width:2.5em; padding-right:2ex; background-color:#eeeeee }
+.num { text-align:right; font-size:8pt }
+.num { color:#444444 }
+.line { padding-left: 1ex; border-left: 3px solid #ccc }
+.line { white-space: pre }
+.msg { -webkit-box-shadow:1px 1px 7px #000 }
+.msg { box-shadow:1px 1px 7px #000 }
+.msg { -webkit-border-radius:5px }
+.msg { border-radius:5px }
+.msg { font-family:Helvetica, sans-serif; font-size:8pt }
+.msg { float:left }
+.msg { padding:0.25em 1ex 0.25em 1ex }
+.msg { margin-top:10px; margin-bottom:10px }
+.msg { font-weight:bold }
+.msg { max-width:60em; word-wrap: break-word; white-space: pre-wrap }
+.msgT { padding:0x; spacing:0x }
+.msgEvent { background-color:#fff8b4; color:#000000 }
+.msgControl { background-color:#bbbbbb; color:#000000 }
+.msgNote { background-color:#ddeeff; color:#000000 }
+.mrange { background-color:#dfddf3 }
+.mrange { border-bottom:1px solid #6F9DBE }
+.PathIndex { font-weight: bold; padding:0px 5px; margin-right:5px; }
+.PathIndex { -webkit-border-radius:8px }
+.PathIndex { border-radius:8px }
+.PathIndexEvent { background-color:#bfba87 }
+.PathIndexControl { background-color:#8c8c8c }
+.PathIndexPopUp { background-color: #879abc; }
+.PathNav a { text-decoration:none; font-size: larger }
+.CodeInsertionHint { font-weight: bold; background-color: #10dd10 }
+.CodeRemovalHint { background-color:#de1010 }
+.CodeRemovalHint { border-bottom:1px solid #6F9DBE }
+.selected{ background-color:orange !important; }
+
+table.simpletable {
+  padding: 5px;
+  font-size:12pt;
+  margin:20px;
+  border-collapse: collapse; border-spacing: 0px;
+}
+td.rowname {
+  text-align: right;
+  vertical-align: top;
+  font-weight: bold;
+  color:#444444;
+  padding-right:2ex;
+}
+
+/* Hidden text. */
+input.spoilerhider + label {
+  cursor: pointer;
+  text-decoration: underline;
+  display: block;
+}
+input.spoilerhider {
+ display: none;
+}
+input.spoilerhider ~ .spoiler {
+  overflow: hidden;
+  margin: 10px auto 0;
+  height: 0;
+  opacity: 0;
+}
+input.spoilerhider:checked + label + .spoiler{
+  height: auto;
+  opacity: 1;
+}
+</style>
+</head>
+<body>
+<!-- BUGDESC PyObject ownership leak with reference count of 1 -->
+
+<!-- BUGTYPE Non-Zero Dead Object -->
+
+<!-- BUGCATEGORY Python Memory Error -->
+
+<!-- BUGFILE /home/alan/workspace/canalyze/test/python/pytorch/build/../torch/csrc/utils/tensor_layouts.cpp -->
+
+<!-- FILENAME tensor_layouts.cpp -->
+
+<!-- FUNCTIONNAME initializeLayouts -->
+
+<!-- ISSUEHASHCONTENTOFLINEINCONTEXT 6b12b3982c97a494ac34bb39e23e6ad6 -->
+
+<!-- BUGLINE 13 -->
+
+<!-- BUGCOLUMN 36 -->
+
+<!-- BUGPATHLENGTH 7 -->
+
+<!-- BUGMETAEND -->
+<!-- REPORTHEADER -->
+<h3>Bug Summary</h3>
+<table class="simpletable">
+<tr><td class="rowname">File:</td><td>build/../torch/csrc/utils/tensor_layouts.cpp</td></tr>
+<tr><td class="rowname">Warning:</td><td><a href="#EndPath">line 13, column 36</a><br />PyObject ownership leak with reference count of 1</td></tr>
+
+</table>
+<!-- REPORTSUMMARYEXTRA -->
+<h3>Annotated Source Code</h3>
+<p>Press <a href="#" onclick="toggleHelp(); return false;">'?'</a>
+   to see keyboard shortcuts</p>
+<input type="checkbox" class="spoilerhider" id="showinvocation" />
+<label for="showinvocation" >Show analyzer invocation</label>
+<div class="spoiler">clang -cc1 -cc1 -triple x86_64-unknown-linux-gnu -analyze -disable-free -disable-llvm-verifier -discard-value-names -main-file-name tensor_layouts.cpp -analyzer-store=region -analyzer-opt-analyze-nested-blocks -analyzer-checker=core -analyzer-checker=apiModeling -analyzer-checker=unix -analyzer-checker=deadcode -analyzer-checker=cplusplus -analyzer-checker=security.insecureAPI.UncheckedReturn -analyzer-checker=security.insecureAPI.getpw -analyzer-checker=security.insecureAPI.gets -analyzer-checker=security.insecureAPI.mktemp -analyzer-checker=security.insecureAPI.mkstemp -analyzer-checker=security.insecureAPI.vfork -analyzer-checker=nullability.NullPassedToNonnull -analyzer-checker=nullability.NullReturnedFromNonnull -analyzer-output plist -w -analyzer-output=html -analyzer-checker=python -analyzer-disable-checker=deadcode -analyzer-config prune-paths=true,suppress-c++-stdlib=true,suppress-inlined-defensive-checks=false,suppress-null-return-paths=false,crosscheck-with-z3=true,model-path=/home/alan/temp/cpython/Python-3.8.5/Doc/build/models -analyzer-config experimental-enable-naive-ctu-analysis=true,ctu-dir=/home/alan/workspace/canalyze/test/python/pytorch/csa-scan,ctu-index-name=/home/alan/workspace/canalyze/test/python/pytorch/csa-scan/externalDefMap.txt,ctu-invocation-list=/home/alan/workspace/canalyze/test/python/pytorch/csa-scan/invocations.yaml,display-ctu-progress=false -setup-static-analyzer -analyzer-config-compatibility-mode=true -mrelocation-model pic -pic-level 2 -fhalf-no-semantic-interposition -mframe-pointer=none -relaxed-aliasing -fno-rounding-math -ffp-exception-behavior=ignore -mconstructor-aliases -munwind-tables -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fcoverage-compilation-dir=/home/alan/workspace/canalyze/test/python/pytorch/build -resource-dir /home/alan/workspace/llvm-project/build/NATIVE/lib/clang/13.0.0 -isystem third_party/gloo -isystem ../cmake/../third_party/gloo -isystem ../cmake/../third_party/googletest/googlemock/include -isystem ../cmake/../third_party/googletest/googletest/include -isystem ../third_party/protobuf/src -isystem ../third_party/gemmlowp -isystem ../third_party/neon2sse -isystem ../third_party/XNNPACK/include -isystem ../third_party -isystem ../cmake/../third_party/eigen -isystem /home/alan/temp/cpython/Python-3.8.5/Doc/build/python3.8 -isystem /usr/lib/python3/dist-packages/numpy/core/include -isystem ../cmake/../third_party/pybind11/include -isystem /usr/lib/x86_64-linux-gnu/openmpi/include/openmpi -isystem /usr/lib/x86_64-linux-gnu/openmpi/include -isystem ../third_party/ideep/mkl-dnn/include -isystem ../third_party/ideep/include -D BUILDING_TESTS -D FMT_HEADER_ONLY=1 -D HAVE_MALLOC_USABLE_SIZE=1 -D HAVE_MMAP=1 -D HAVE_SHM_OPEN=1 -D HAVE_SHM_UNLINK=1 -D MINIZ_DISABLE_ZIP_READER_CRC32_CHECKS -D ONNXIFI_ENABLE_EXT=1 -D ONNX_ML=1 -D ONNX_NAMESPACE=onnx_torch -D THP_BUILD_MAIN_LIB -D USE_C10D -D USE_C10D_GLOO -D USE_C10D_MPI -D USE_DISTRIBUTED -D USE_EXTERNAL_MZCRC -D USE_NUMPY -D USE_RPC -D USE_TENSORPIPE -D USE_VALGRIND -D _FILE_OFFSET_BITS=64 -D torch_python_EXPORTS -I aten/src -I ../aten/src -I . -I ../ -I ../cmake/../third_party/benchmark/include -I caffe2/contrib/aten -I ../third_party/onnx -I third_party/onnx -I ../third_party/foxi -I third_party/foxi -I ../torch/.. -I ../torch/../aten/src -I ../torch/../aten/src/TH -I caffe2/aten/src -I third_party -I ../torch/../third_party/valgrind-headers -I ../torch/../third_party/gloo -I ../torch/../third_party/onnx -I ../torch/csrc -I ../torch/csrc/api/include -I ../torch/lib -I ../torch/lib/libshm -I ../torch/csrc/distributed -I ../torch/csrc/api -I ../c10/.. -I third_party/ideep/mkl-dnn/include -I ../third_party/ideep/mkl-dnn/src/../include -I ../torch/lib/libshm/../../../torch/lib -I ../third_party/fmt/include -D USE_PTHREADPOOL -D NDEBUG -D USE_KINETO -D LIBKINETO_NOCUPTI -D USE_FBGEMM -D USE_QNNPACK -D USE_PYTORCH_QNNPACK -D USE_XNNPACK -D SYMBOLICATE_MOBILE_DEBUG_HANDLE -D HAVE_AVX_CPU_DEFINITION -D HAVE_AVX2_CPU_DEFINITION -D NDEBUG -D NDEBUG -D CAFFE2_USE_GLOO -D HAVE_GCC_GET_CPUID -D USE_AVX -D USE_AVX2 -D TH_HAVE_THREAD -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/10/../../../../include/c++/10 -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/10/../../../../include/x86_64-linux-gnu/c++/10 -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/10/../../../../include/c++/10/backward -internal-isystem /home/alan/workspace/llvm-project/build/NATIVE/lib/clang/13.0.0/include -internal-isystem /usr/local/include -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/10/../../../../x86_64-linux-gnu/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -O3 -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -Wno-unused-but-set-variable -Wno-maybe-uninitialized -Werror=format -Werror=cast-function-type -Wno-stringop-overflow -Wno-write-strings -Wno-strict-aliasing -w -std=gnu++14 -fdeprecated-macro -fdebug-compilation-dir=/home/alan/workspace/canalyze/test/python/pytorch/build -ferror-limit 19 -fvisibility-inlines-hidden -fopenmp -fopenmp-cuda-parallel-target-regions -pthread -fgnuc-version=4.2.1 -fcxx-exceptions -fexceptions -faligned-allocation -fcolor-diagnostics -vectorize-loops -vectorize-slp -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o /home/alan/workspace/canalyze/test/python/pytorch/csa-scan/reports -x c++ ../torch/csrc/utils/tensor_layouts.cpp
+</div>
+<div id='tooltiphint' hidden="true">
+  <p>Keyboard shortcuts: </p>
+  <ul>
+    <li>Use 'j/k' keys for keyboard navigation</li>
+    <li>Use 'Shift+S' to show/hide relevant lines</li>
+    <li>Use '?' to toggle this window</li>
+  </ul>
+  <a href="#" onclick="toggleHelp(); return false;">Close</a>
+</div>
+<script type='text/javascript'>
+var relevant_lines = {"1": {"12": 1, "13": 1, "14": 1, "16": 1, "17": 1, "18": 1, "19": 1}, "2765": {"525": 1}, "46255": {"9": 1, "12": 1, "16": 1}, "46273": {"5": 1, "6": 1}, "46275": {"13": 1, "14": 1, "15": 1, "16": 1, "17": 1, "18": 1, "19": 1, "20": 1, "21": 1, "22": 1}, "105241": {"13": 1, "15": 1}, "112545": {"6": 1, "7": 1}, "112555": {"1": 1}, "112557": {"6": 1}};
+
+var filterCounterexample = function (hide) {
+  var tables = document.getElementsByClassName("code");
+  for (var t=0; t<tables.length; t++) {
+    var table = tables[t];
+    var file_id = table.getAttribute("data-fileid");
+    var lines_in_fid = relevant_lines[file_id];
+    if (!lines_in_fid) {
+      lines_in_fid = {};
+    }
+    var lines = table.getElementsByClassName("codeline");
+    for (var i=0; i<lines.length; i++) {
+        var el = lines[i];
+        var lineNo = el.getAttribute("data-linenumber");
+        if (!lines_in_fid[lineNo]) {
+          if (hide) {
+            el.setAttribute("hidden", "");
+          } else {
+            el.removeAttribute("hidden");
+          }
+        }
+    }
+  }
+}
+
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return;
+  }
+  if (event.key == "S") {
+    var checked = document.getElementsByName("showCounterexample")[0].checked;
+    filterCounterexample(!checked);
+    document.getElementsByName("showCounterexample")[0].checked = !checked;
+  } else {
+    return;
+  }
+  event.preventDefault();
+}, true);
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelector('input[name="showCounterexample"]').onchange=
+        function (event) {
+      filterCounterexample(this.checked);
+    };
+});
+</script>
+
+<form>
+    <input type="checkbox" name="showCounterexample" id="showCounterexample" />
+    <label for="showCounterexample">
+       Show only relevant lines
+    </label>
+</form>
+
+<script type='text/javascript'>
+var digitMatcher = new RegExp("[0-9]+");
+
+var querySelectorAllArray = function(selector) {
+  return Array.prototype.slice.call(
+    document.querySelectorAll(selector));
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    querySelectorAllArray(".PathNav > a").forEach(
+        function(currentValue, currentIndex) {
+            var hrefValue = currentValue.getAttribute("href");
+            currentValue.onclick = function() {
+                scrollTo(document.querySelector(hrefValue));
+                return false;
+            };
+        });
+});
+
+var findNum = function() {
+    var s = document.querySelector(".selected");
+    if (!s || s.id == "EndPath") {
+        return 0;
+    }
+    var out = parseInt(digitMatcher.exec(s.id)[0]);
+    return out;
+};
+
+var scrollTo = function(el) {
+    querySelectorAllArray(".selected").forEach(function(s) {
+        s.classList.remove("selected");
+    });
+    el.classList.add("selected");
+    window.scrollBy(0, el.getBoundingClientRect().top -
+        (window.innerHeight / 2));
+}
+
+var move = function(num, up, numItems) {
+  if (num == 1 && up || num == numItems - 1 && !up) {
+    return 0;
+  } else if (num == 0 && up) {
+    return numItems - 1;
+  } else if (num == 0 && !up) {
+    return 1 % numItems;
+  }
+  return up ? num - 1 : num + 1;
+}
+
+var numToId = function(num) {
+  if (num == 0) {
+    return document.getElementById("EndPath")
+  }
+  return document.getElementById("Path" + num);
+};
+
+var navigateTo = function(up) {
+  var numItems = document.querySelectorAll(
+      ".line > .msgEvent, .line > .msgControl").length;
+  var currentSelected = findNum();
+  var newSelected = move(currentSelected, up, numItems);
+  var newEl = numToId(newSelected, numItems);
+
+  // Scroll element into center.
+  scrollTo(newEl);
+};
+
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return;
+  }
+  if (event.key == "j") {
+    navigateTo(/*up=*/false);
+  } else if (event.key == "k") {
+    navigateTo(/*up=*/true);
+  } else {
+    return;
+  }
+  event.preventDefault();
+}, true);
+</script>
+  
+<script type='text/javascript'>
+
+var toggleHelp = function() {
+    var hint = document.querySelector("#tooltiphint");
+    var attributeName = "hidden";
+    if (hint.hasAttribute(attributeName)) {
+      hint.removeAttribute(attributeName);
+    } else {
+      hint.setAttribute("hidden", "true");
+    }
+};
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return;
+  }
+  if (event.key == "?") {
+    toggleHelp();
+  } else {
+    return;
+  }
+  event.preventDefault();
+});
+</script>
+<div id=File1>
+<h4 class=FileName>../torch/csrc/utils/tensor_layouts.cpp</h4>
+<div class=FileNav><a href="#File46273">&#x2192;</a></div></div>
+<table class="code" data-fileid="1">
+<tr class="codeline" data-linenumber="1"><td class="num" id="LN1">1</td><td class="line"><span class='directive'>#include &lt;ATen/Layout.h&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="2"><td class="num" id="LN2">2</td><td class="line"><span class='directive'>#include &lt;c10/core/ScalarType.h&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="3"><td class="num" id="LN3">3</td><td class="line"><span class='directive'>#include &lt;torch/csrc/DynamicTypes.h&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="4"><td class="num" id="LN4">4</td><td class="line"><span class='directive'>#include &lt;torch/csrc/Exceptions.h&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="5"><td class="num" id="LN5">5</td><td class="line"><span class='directive'>#include &lt;torch/csrc/Layout.h&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="6"><td class="num" id="LN6">6</td><td class="line"><span class='directive'>#include &lt;torch/csrc/python_headers.h&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="7"><td class="num" id="LN7">7</td><td class="line"><span class='directive'>#include &lt;torch/csrc/utils/object_ptr.h&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="8"><td class="num" id="LN8">8</td><td class="line"><span class='directive'>#include &lt;torch/csrc/utils/tensor_layouts.h&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="9"><td class="num" id="LN9">9</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="10"><td class="num" id="LN10">10</td><td class="line"><span class='keyword'>namespace</span> torch { <span class='keyword'>namespace</span> utils {</td></tr>
+<tr class="codeline" data-linenumber="11"><td class="num" id="LN11">11</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="12"><td class="num" id="LN12">12</td><td class="line"><span class='keyword'>void</span> initializeLayouts() {</td></tr>
+<tr class="codeline" data-linenumber="13"><td class="num" id="LN13">13</td><td class="line">  <span class='keyword'>auto</span> torch_module = THPObjectPtr(<span class="mrange"><span class="mrange">PyImport_ImportModule(<span class='string_literal'>"torch"</span>)</span></span>);</td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path1" class="msg msgEvent" style="margin-left:36ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">1</div></td><td>Calling 'PyImport_ImportModule'</td><td><div class="PathNav"><a href="#Path2" title="Next event (2)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path3" class="msg msgEvent" style="margin-left:36ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">3</div></td><td><div class="PathNav"><a href="#Path2" title="Previous event (2)">&#x2190;</a></div></td><td>Returning from 'PyImport_ImportModule'</td><td><div class="PathNav"><a href="#Path4" title="Next event (4)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr><td class="num"></td><td class="line"><div id="EndPath" class="msg msgEvent" style="margin-left:36ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">7</div></td><td><div class="PathNav"><a href="#Path6" title="Previous event (6)">&#x2190;</a></div></td><td>PyObject ownership leak with reference count of 1</td></tr></table></div></td></tr>
+<tr class="codeline" data-linenumber="14"><td class="num" id="LN14">14</td><td class="line">  <span class='keyword'>if</span> (<span class="mrange">!torch_module</span>) <span class='keyword'>throw</span> python_error();</td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path4" class="msg msgEvent" style="margin-left:7ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">4</div></td><td><div class="PathNav"><a href="#Path3" title="Previous event (3)">&#x2190;</a></div></td><td>Assuming the condition is false</td><td><div class="PathNav"><a href="#Path5" title="Next event (5)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path5" class="msg msgControl" style="margin-left:3ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexControl">5</div></td><td><div class="PathNav"><a href="#Path4" title="Previous event (4)">&#x2190;</a></div></td><td>Taking false branch</td><td><div class="PathNav"><a href="#Path6" title="Next event (6)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr class="codeline" data-linenumber="15"><td class="num" id="LN15">15</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="16"><td class="num" id="LN16">16</td><td class="line">  PyObject* strided_layout = THPLayout_New(at::Layout::Strided, <span class='string_literal'>"torch.strided"</span>);</td></tr>
+<tr class="codeline" data-linenumber="17"><td class="num" id="LN17">17</td><td class="line">  <span class='macro'>Py_INCREF(strided_layout)<span class='macro_popup'>_Py_INCREF(((PyObject*)(strided_layout)))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="18"><td class="num" id="LN18">18</td><td class="line">  <span class='keyword'>if</span> (PyModule_AddObject(torch_module, <span class='string_literal'>"strided"</span>, strided_layout) != 0) {</td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path6" class="msg msgControl" style="margin-left:3ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexControl">6</div></td><td><div class="PathNav"><a href="#Path5" title="Previous event (5)">&#x2190;</a></div></td><td>Taking true branch</td><td><div class="PathNav"><a href="#EndPath" title="Next event (7)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr class="codeline" data-linenumber="19"><td class="num" id="LN19">19</td><td class="line">    <span class='keyword'>throw</span> python_error();</td></tr>
+<tr class="codeline" data-linenumber="20"><td class="num" id="LN20">20</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="21"><td class="num" id="LN21">21</td><td class="line">  registerLayoutObject((THPLayout*)strided_layout, at::Layout::Strided);</td></tr>
+<tr class="codeline" data-linenumber="22"><td class="num" id="LN22">22</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="23"><td class="num" id="LN23">23</td><td class="line">  PyObject* sparse_coo_layout = THPLayout_New(at::Layout::Sparse, <span class='string_literal'>"torch.sparse_coo"</span>);</td></tr>
+<tr class="codeline" data-linenumber="24"><td class="num" id="LN24">24</td><td class="line">  <span class='macro'>Py_INCREF(sparse_coo_layout)<span class='macro_popup'>_Py_INCREF(((PyObject*)(sparse_coo_layout)))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="25"><td class="num" id="LN25">25</td><td class="line">  <span class='keyword'>if</span> (PyModule_AddObject(torch_module, <span class='string_literal'>"sparse_coo"</span>, sparse_coo_layout) != 0) {</td></tr>
+<tr class="codeline" data-linenumber="26"><td class="num" id="LN26">26</td><td class="line">    <span class='keyword'>throw</span> python_error();</td></tr>
+<tr class="codeline" data-linenumber="27"><td class="num" id="LN27">27</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="28"><td class="num" id="LN28">28</td><td class="line">  registerLayoutObject((THPLayout*)sparse_coo_layout, at::Layout::Sparse);</td></tr>
+<tr class="codeline" data-linenumber="29"><td class="num" id="LN29">29</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="30"><td class="num" id="LN30">30</td><td class="line">  PyObject* sparse_csr_layout =</td></tr>
+<tr class="codeline" data-linenumber="31"><td class="num" id="LN31">31</td><td class="line">      THPLayout_New(at::Layout::SparseCsr, <span class='string_literal'>"torch.sparse_csr"</span>);</td></tr>
+<tr class="codeline" data-linenumber="32"><td class="num" id="LN32">32</td><td class="line">  <span class='macro'>Py_INCREF(sparse_csr_layout)<span class='macro_popup'>_Py_INCREF(((PyObject*)(sparse_csr_layout)))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="33"><td class="num" id="LN33">33</td><td class="line">  <span class='keyword'>if</span> (PyModule_AddObject(torch_module, <span class='string_literal'>"sparse_csr"</span>, sparse_csr_layout) != 0) {</td></tr>
+<tr class="codeline" data-linenumber="34"><td class="num" id="LN34">34</td><td class="line">    <span class='keyword'>throw</span> python_error();</td></tr>
+<tr class="codeline" data-linenumber="35"><td class="num" id="LN35">35</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="36"><td class="num" id="LN36">36</td><td class="line">  registerLayoutObject((THPLayout*)sparse_csr_layout, at::Layout::SparseCsr);</td></tr>
+<tr class="codeline" data-linenumber="37"><td class="num" id="LN37">37</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="38"><td class="num" id="LN38">38</td><td class="line">  PyObject* mkldnn_layout = THPLayout_New(at::Layout::Mkldnn, <span class='string_literal'>"torch._mkldnn"</span>);</td></tr>
+<tr class="codeline" data-linenumber="39"><td class="num" id="LN39">39</td><td class="line">  <span class='macro'>Py_INCREF(mkldnn_layout)<span class='macro_popup'>_Py_INCREF(((PyObject*)(mkldnn_layout)))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="40"><td class="num" id="LN40">40</td><td class="line">  <span class='keyword'>if</span> (PyModule_AddObject(torch_module, <span class='string_literal'>"_mkldnn"</span>, mkldnn_layout) != 0) {</td></tr>
+<tr class="codeline" data-linenumber="41"><td class="num" id="LN41">41</td><td class="line">    <span class='keyword'>throw</span> python_error();</td></tr>
+<tr class="codeline" data-linenumber="42"><td class="num" id="LN42">42</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="43"><td class="num" id="LN43">43</td><td class="line">  registerLayoutObject((THPLayout*)mkldnn_layout, at::Layout::Mkldnn);</td></tr>
+<tr class="codeline" data-linenumber="44"><td class="num" id="LN44">44</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="45"><td class="num" id="LN45">45</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="46"><td class="num" id="LN46">46</td><td class="line">}} <span class='comment'>// namespace torch::utils</span></td></tr>
+</table><hr class=divider>
+<div id=File46273>
+<div class=FileNav><a href="#File1">&#x2190;</a></div><h4 class=FileName>/home/alan/temp/cpython/Python-3.8.5/Doc/build/models/PyImport_ImportModule.model</h4>
+</div>
+<table class="code" data-fileid="46273">
+<tr class="codeline" data-linenumber="1"><td class="num" id="LN1">1</td><td class="line"><span class='directive'>#ifndef PyImport_ImportModule</span></td></tr>
+<tr class="codeline" data-linenumber="2"><td class="num" id="LN2">2</td><td class="line"><span class='keyword'>struct</span> _object;</td></tr>
+<tr class="codeline" data-linenumber="3"><td class="num" id="LN3">3</td><td class="line"><span class='keyword'>typedef</span> <span class='keyword'>struct</span> _object PyObject;</td></tr>
+<tr class="codeline" data-linenumber="4"><td class="num" id="LN4">4</td><td class="line">PyObject* clang_analyzer_PyObject_New_Reference();</td></tr>
+<tr class="codeline" data-linenumber="5"><td class="num" id="LN5">5</td><td class="line">PyObject* PyImport_ImportModule(<span class='keyword'>const</span> <span class='keyword'>char</span> *name) {</td></tr>
+<tr class="codeline" data-linenumber="6"><td class="num" id="LN6">6</td><td class="line">  <span class='keyword'>return</span> <span class="mrange">clang_analyzer_PyObject_New_Reference()</span>;</td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path2" class="msg msgEvent" style="margin-left:10ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">2</div></td><td><div class="PathNav"><a href="#Path1" title="Previous event (1)">&#x2190;</a></div></td><td>Setting reference count to 1</td><td><div class="PathNav"><a href="#Path3" title="Next event (3)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr class="codeline" data-linenumber="7"><td class="num" id="LN7">7</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="8"><td class="num" id="LN8">8</td><td class="line"><span class='directive'>#else</span></td></tr>
+<tr class="codeline" data-linenumber="9"><td class="num" id="LN9">9</td><td class="line"><span class='directive'>#warning "API PyImport_ImportModule is defined as a macro."</span></td></tr>
+<tr class="codeline" data-linenumber="10"><td class="num" id="LN10">10</td><td class="line"><span class='directive'>#endif</span></td></tr></table></body></html>

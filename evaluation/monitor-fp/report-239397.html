@@ -1,0 +1,562 @@
+<!doctype html>
+<html>
+<head>
+<title>../torch/csrc/autograd/python_hook.cpp</title>
+
+<style type="text/css">
+body { color:#000000; background-color:#ffffff }
+body { font-family:Helvetica, sans-serif; font-size:10pt }
+h1 { font-size:14pt }
+.FileName { margin-top: 5px; margin-bottom: 5px; display: inline; }
+.FileNav { margin-left: 5px; margin-right: 5px; display: inline; }
+.FileNav a { text-decoration:none; font-size: larger; }
+.divider { margin-top: 30px; margin-bottom: 30px; height: 15px; }
+.divider { background-color: gray; }
+.code { border-collapse:collapse; width:100%; }
+.code { font-family: "Monospace", monospace; font-size:10pt }
+.code { line-height: 1.2em }
+.comment { color: green; font-style: oblique }
+.keyword { color: blue }
+.string_literal { color: red }
+.directive { color: darkmagenta }
+
+/* Macros and variables could have pop-up notes hidden by default.
+  - Macro pop-up:    expansion of the macro
+  - Variable pop-up: value (table) of the variable */
+.macro_popup, .variable_popup { display: none; }
+
+/* Pop-up appears on mouse-hover event. */
+.macro:hover .macro_popup, .variable:hover .variable_popup {
+  display: block;
+  padding: 2px;
+  -webkit-border-radius:5px;
+  -webkit-box-shadow:1px 1px 7px #000;
+  border-radius:5px;
+  box-shadow:1px 1px 7px #000;
+  position: absolute;
+  top: -1em;
+  left:10em;
+  z-index: 1
+}
+
+.macro_popup {
+  border: 2px solid red;
+  background-color:#FFF0F0;
+  font-weight: normal;
+}
+
+.variable_popup {
+  border: 2px solid blue;
+  background-color:#F0F0FF;
+  font-weight: bold;
+  font-family: Helvetica, sans-serif;
+  font-size: 9pt;
+}
+
+/* Pop-up notes needs a relative position as a base where they pops up. */
+.macro, .variable {
+  background-color: PaleGoldenRod;
+  position: relative;
+}
+.macro { color: DarkMagenta; }
+
+#tooltiphint {
+  position: fixed;
+  width: 50em;
+  margin-left: -25em;
+  left: 50%;
+  padding: 10px;
+  border: 1px solid #b0b0b0;
+  border-radius: 2px;
+  box-shadow: 1px 1px 7px black;
+  background-color: #c0c0c0;
+  z-index: 2;
+}
+
+.num { width:2.5em; padding-right:2ex; background-color:#eeeeee }
+.num { text-align:right; font-size:8pt }
+.num { color:#444444 }
+.line { padding-left: 1ex; border-left: 3px solid #ccc }
+.line { white-space: pre }
+.msg { -webkit-box-shadow:1px 1px 7px #000 }
+.msg { box-shadow:1px 1px 7px #000 }
+.msg { -webkit-border-radius:5px }
+.msg { border-radius:5px }
+.msg { font-family:Helvetica, sans-serif; font-size:8pt }
+.msg { float:left }
+.msg { padding:0.25em 1ex 0.25em 1ex }
+.msg { margin-top:10px; margin-bottom:10px }
+.msg { font-weight:bold }
+.msg { max-width:60em; word-wrap: break-word; white-space: pre-wrap }
+.msgT { padding:0x; spacing:0x }
+.msgEvent { background-color:#fff8b4; color:#000000 }
+.msgControl { background-color:#bbbbbb; color:#000000 }
+.msgNote { background-color:#ddeeff; color:#000000 }
+.mrange { background-color:#dfddf3 }
+.mrange { border-bottom:1px solid #6F9DBE }
+.PathIndex { font-weight: bold; padding:0px 5px; margin-right:5px; }
+.PathIndex { -webkit-border-radius:8px }
+.PathIndex { border-radius:8px }
+.PathIndexEvent { background-color:#bfba87 }
+.PathIndexControl { background-color:#8c8c8c }
+.PathIndexPopUp { background-color: #879abc; }
+.PathNav a { text-decoration:none; font-size: larger }
+.CodeInsertionHint { font-weight: bold; background-color: #10dd10 }
+.CodeRemovalHint { background-color:#de1010 }
+.CodeRemovalHint { border-bottom:1px solid #6F9DBE }
+.selected{ background-color:orange !important; }
+
+table.simpletable {
+  padding: 5px;
+  font-size:12pt;
+  margin:20px;
+  border-collapse: collapse; border-spacing: 0px;
+}
+td.rowname {
+  text-align: right;
+  vertical-align: top;
+  font-weight: bold;
+  color:#444444;
+  padding-right:2ex;
+}
+
+/* Hidden text. */
+input.spoilerhider + label {
+  cursor: pointer;
+  text-decoration: underline;
+  display: block;
+}
+input.spoilerhider {
+ display: none;
+}
+input.spoilerhider ~ .spoiler {
+  overflow: hidden;
+  margin: 10px auto 0;
+  height: 0;
+  opacity: 0;
+}
+input.spoilerhider:checked + label + .spoiler{
+  height: auto;
+  opacity: 1;
+}
+</style>
+</head>
+<body>
+<!-- BUGDESC PyObject ownership leak with reference count of 1 -->
+
+<!-- BUGTYPE Non-Zero Dead Object -->
+
+<!-- BUGCATEGORY Python Memory Error -->
+
+<!-- BUGFILE /home/alan/workspace/canalyze/test/python/pytorch/build/../torch/csrc/autograd/python_hook.cpp -->
+
+<!-- FILENAME python_hook.cpp -->
+
+<!-- FUNCTIONNAME wrap_variables -->
+
+<!-- ISSUEHASHCONTENTOFLINEINCONTEXT 06293f494b2a7d738c830176c5f343b4 -->
+
+<!-- BUGLINE 105 -->
+
+<!-- BUGCOLUMN 22 -->
+
+<!-- BUGPATHLENGTH 9 -->
+
+<!-- BUGMETAEND -->
+<!-- REPORTHEADER -->
+<h3>Bug Summary</h3>
+<table class="simpletable">
+<tr><td class="rowname">File:</td><td>build/../torch/csrc/autograd/python_hook.cpp</td></tr>
+<tr><td class="rowname">Warning:</td><td><a href="#EndPath">line 105, column 22</a><br />PyObject ownership leak with reference count of 1</td></tr>
+
+</table>
+<!-- REPORTSUMMARYEXTRA -->
+<h3>Annotated Source Code</h3>
+<p>Press <a href="#" onclick="toggleHelp(); return false;">'?'</a>
+   to see keyboard shortcuts</p>
+<input type="checkbox" class="spoilerhider" id="showinvocation" />
+<label for="showinvocation" >Show analyzer invocation</label>
+<div class="spoiler">clang -cc1 -cc1 -triple x86_64-unknown-linux-gnu -analyze -disable-free -disable-llvm-verifier -discard-value-names -main-file-name python_hook.cpp -analyzer-store=region -analyzer-opt-analyze-nested-blocks -analyzer-checker=core -analyzer-checker=apiModeling -analyzer-checker=unix -analyzer-checker=deadcode -analyzer-checker=cplusplus -analyzer-checker=security.insecureAPI.UncheckedReturn -analyzer-checker=security.insecureAPI.getpw -analyzer-checker=security.insecureAPI.gets -analyzer-checker=security.insecureAPI.mktemp -analyzer-checker=security.insecureAPI.mkstemp -analyzer-checker=security.insecureAPI.vfork -analyzer-checker=nullability.NullPassedToNonnull -analyzer-checker=nullability.NullReturnedFromNonnull -analyzer-output plist -w -analyzer-output=html -analyzer-checker=python -analyzer-disable-checker=deadcode -analyzer-config prune-paths=true,suppress-c++-stdlib=true,suppress-inlined-defensive-checks=false,suppress-null-return-paths=false,crosscheck-with-z3=true,model-path=/home/alan/temp/cpython/Python-3.8.5/Doc/build/models -analyzer-config experimental-enable-naive-ctu-analysis=true,ctu-dir=/home/alan/workspace/canalyze/test/python/pytorch/csa-scan,ctu-index-name=/home/alan/workspace/canalyze/test/python/pytorch/csa-scan/externalDefMap.txt,ctu-invocation-list=/home/alan/workspace/canalyze/test/python/pytorch/csa-scan/invocations.yaml,display-ctu-progress=false -setup-static-analyzer -analyzer-config-compatibility-mode=true -mrelocation-model pic -pic-level 2 -fhalf-no-semantic-interposition -mframe-pointer=none -relaxed-aliasing -fno-rounding-math -ffp-exception-behavior=ignore -mconstructor-aliases -munwind-tables -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fcoverage-compilation-dir=/home/alan/workspace/canalyze/test/python/pytorch/build -resource-dir /home/alan/workspace/llvm-project/build/NATIVE/lib/clang/13.0.0 -isystem third_party/gloo -isystem ../cmake/../third_party/gloo -isystem ../cmake/../third_party/googletest/googlemock/include -isystem ../cmake/../third_party/googletest/googletest/include -isystem ../third_party/protobuf/src -isystem ../third_party/gemmlowp -isystem ../third_party/neon2sse -isystem ../third_party/XNNPACK/include -isystem ../third_party -isystem ../cmake/../third_party/eigen -isystem /home/alan/temp/cpython/Python-3.8.5/Doc/build/python3.8 -isystem /usr/lib/python3/dist-packages/numpy/core/include -isystem ../cmake/../third_party/pybind11/include -isystem /usr/lib/x86_64-linux-gnu/openmpi/include/openmpi -isystem /usr/lib/x86_64-linux-gnu/openmpi/include -isystem ../third_party/ideep/mkl-dnn/include -isystem ../third_party/ideep/include -D BUILDING_TESTS -D FMT_HEADER_ONLY=1 -D HAVE_MALLOC_USABLE_SIZE=1 -D HAVE_MMAP=1 -D HAVE_SHM_OPEN=1 -D HAVE_SHM_UNLINK=1 -D MINIZ_DISABLE_ZIP_READER_CRC32_CHECKS -D ONNXIFI_ENABLE_EXT=1 -D ONNX_ML=1 -D ONNX_NAMESPACE=onnx_torch -D THP_BUILD_MAIN_LIB -D USE_C10D -D USE_C10D_GLOO -D USE_C10D_MPI -D USE_DISTRIBUTED -D USE_EXTERNAL_MZCRC -D USE_NUMPY -D USE_RPC -D USE_TENSORPIPE -D USE_VALGRIND -D _FILE_OFFSET_BITS=64 -D torch_python_EXPORTS -I aten/src -I ../aten/src -I . -I ../ -I ../cmake/../third_party/benchmark/include -I caffe2/contrib/aten -I ../third_party/onnx -I third_party/onnx -I ../third_party/foxi -I third_party/foxi -I ../torch/.. -I ../torch/../aten/src -I ../torch/../aten/src/TH -I caffe2/aten/src -I third_party -I ../torch/../third_party/valgrind-headers -I ../torch/../third_party/gloo -I ../torch/../third_party/onnx -I ../torch/csrc -I ../torch/csrc/api/include -I ../torch/lib -I ../torch/lib/libshm -I ../torch/csrc/distributed -I ../torch/csrc/api -I ../c10/.. -I third_party/ideep/mkl-dnn/include -I ../third_party/ideep/mkl-dnn/src/../include -I ../torch/lib/libshm/../../../torch/lib -I ../third_party/fmt/include -D USE_PTHREADPOOL -D NDEBUG -D USE_KINETO -D LIBKINETO_NOCUPTI -D USE_FBGEMM -D USE_QNNPACK -D USE_PYTORCH_QNNPACK -D USE_XNNPACK -D SYMBOLICATE_MOBILE_DEBUG_HANDLE -D HAVE_AVX_CPU_DEFINITION -D HAVE_AVX2_CPU_DEFINITION -D NDEBUG -D NDEBUG -D CAFFE2_USE_GLOO -D HAVE_GCC_GET_CPUID -D USE_AVX -D USE_AVX2 -D TH_HAVE_THREAD -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/10/../../../../include/c++/10 -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/10/../../../../include/x86_64-linux-gnu/c++/10 -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/10/../../../../include/c++/10/backward -internal-isystem /home/alan/workspace/llvm-project/build/NATIVE/lib/clang/13.0.0/include -internal-isystem /usr/local/include -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/10/../../../../x86_64-linux-gnu/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -O3 -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -Wno-unused-but-set-variable -Wno-maybe-uninitialized -Werror=format -Werror=cast-function-type -Wno-stringop-overflow -Wno-write-strings -Wno-strict-aliasing -w -std=gnu++14 -fdeprecated-macro -fdebug-compilation-dir=/home/alan/workspace/canalyze/test/python/pytorch/build -ferror-limit 19 -fvisibility-inlines-hidden -fopenmp -fopenmp-cuda-parallel-target-regions -pthread -fgnuc-version=4.2.1 -fcxx-exceptions -fexceptions -faligned-allocation -fcolor-diagnostics -vectorize-loops -vectorize-slp -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o /home/alan/workspace/canalyze/test/python/pytorch/csa-scan/reports -x c++ ../torch/csrc/autograd/python_hook.cpp
+</div>
+<div id='tooltiphint' hidden="true">
+  <p>Keyboard shortcuts: </p>
+  <ul>
+    <li>Use 'j/k' keys for keyboard navigation</li>
+    <li>Use 'Shift+S' to show/hide relevant lines</li>
+    <li>Use '?' to toggle this window</li>
+  </ul>
+  <a href="#" onclick="toggleHelp(); return false;">Close</a>
+</div>
+<script type='text/javascript'>
+var relevant_lines = {"1": {"75": 1, "76": 1, "77": 1, "78": 1, "79": 1, "81": 1, "102": 1, "103": 1, "104": 1, "105": 1, "106": 1, "107": 1, "108": 1, "109": 1}, "33721": {"252": 1, "253": 1, "254": 1, "255": 1, "259": 1, "261": 1}, "34905": {"89": 1, "111": 1}, "68863": {"252": 1, "253": 1, "262": 1, "263": 1, "278": 1, "334": 1, "335": 1, "348": 1, "349": 1}, "72091": {"17": 1, "19": 1}, "91190": {"9": 1, "16": 1}, "91191": {"98": 1, "102": 1}, "91192": {"2117": 1, "2118": 1, "2119": 1, "2121": 1, "2130": 1, "2139": 1, "2142": 1, "2146": 1, "2149": 1, "2150": 1}, "91194": {"469": 1, "479": 1}, "91195": {"314": 1, "453": 1, "454": 1}, "93370": {"96": 1, "221": 1, "222": 1, "223": 1, "256": 1, "257": 1, "258": 1, "264": 1, "265": 1, "267": 1, "269": 1, "270": 1, "271": 1, "283": 1, "284": 1, "285": 1, "289": 1, "291": 1, "293": 1, "294": 1, "296": 1, "303": 1, "305": 1, "306": 1, "307": 1, "308": 1, "309": 1, "311": 1}, "93822": {"39": 1, "40": 1, "41": 1, "60": 1, "61": 1, "62": 1, "68": 1, "69": 1, "72": 1, "74": 1, "77": 1, "78": 1, "79": 1, "80": 1, "81": 1, "82": 1, "84": 1, "87": 1, "90": 1, "237": 1, "238": 1, "239": 1, "245": 1, "246": 1, "249": 1, "251": 1, "254": 1, "255": 1, "256": 1, "257": 1, "259": 1, "261": 1, "263": 1, "266": 1, "268": 1, "271": 1, "274": 1, "443": 1, "444": 1, "445": 1, "451": 1, "452": 1, "455": 1, "457": 1, "460": 1, "461": 1, "462": 1, "463": 1, "464": 1, "466": 1, "467": 1, "468": 1, "471": 1, "473": 1, "476": 1, "479": 1, "480": 1}, "186244": {"5": 1}, "186246": {"5": 1}, "186248": {"1": 1}, "186250": {"5": 1, "6": 1}};
+
+var filterCounterexample = function (hide) {
+  var tables = document.getElementsByClassName("code");
+  for (var t=0; t<tables.length; t++) {
+    var table = tables[t];
+    var file_id = table.getAttribute("data-fileid");
+    var lines_in_fid = relevant_lines[file_id];
+    if (!lines_in_fid) {
+      lines_in_fid = {};
+    }
+    var lines = table.getElementsByClassName("codeline");
+    for (var i=0; i<lines.length; i++) {
+        var el = lines[i];
+        var lineNo = el.getAttribute("data-linenumber");
+        if (!lines_in_fid[lineNo]) {
+          if (hide) {
+            el.setAttribute("hidden", "");
+          } else {
+            el.removeAttribute("hidden");
+          }
+        }
+    }
+  }
+}
+
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return;
+  }
+  if (event.key == "S") {
+    var checked = document.getElementsByName("showCounterexample")[0].checked;
+    filterCounterexample(!checked);
+    document.getElementsByName("showCounterexample")[0].checked = !checked;
+  } else {
+    return;
+  }
+  event.preventDefault();
+}, true);
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelector('input[name="showCounterexample"]').onchange=
+        function (event) {
+      filterCounterexample(this.checked);
+    };
+});
+</script>
+
+<form>
+    <input type="checkbox" name="showCounterexample" id="showCounterexample" />
+    <label for="showCounterexample">
+       Show only relevant lines
+    </label>
+</form>
+
+<script type='text/javascript'>
+var digitMatcher = new RegExp("[0-9]+");
+
+var querySelectorAllArray = function(selector) {
+  return Array.prototype.slice.call(
+    document.querySelectorAll(selector));
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    querySelectorAllArray(".PathNav > a").forEach(
+        function(currentValue, currentIndex) {
+            var hrefValue = currentValue.getAttribute("href");
+            currentValue.onclick = function() {
+                scrollTo(document.querySelector(hrefValue));
+                return false;
+            };
+        });
+});
+
+var findNum = function() {
+    var s = document.querySelector(".selected");
+    if (!s || s.id == "EndPath") {
+        return 0;
+    }
+    var out = parseInt(digitMatcher.exec(s.id)[0]);
+    return out;
+};
+
+var scrollTo = function(el) {
+    querySelectorAllArray(".selected").forEach(function(s) {
+        s.classList.remove("selected");
+    });
+    el.classList.add("selected");
+    window.scrollBy(0, el.getBoundingClientRect().top -
+        (window.innerHeight / 2));
+}
+
+var move = function(num, up, numItems) {
+  if (num == 1 && up || num == numItems - 1 && !up) {
+    return 0;
+  } else if (num == 0 && up) {
+    return numItems - 1;
+  } else if (num == 0 && !up) {
+    return 1 % numItems;
+  }
+  return up ? num - 1 : num + 1;
+}
+
+var numToId = function(num) {
+  if (num == 0) {
+    return document.getElementById("EndPath")
+  }
+  return document.getElementById("Path" + num);
+};
+
+var navigateTo = function(up) {
+  var numItems = document.querySelectorAll(
+      ".line > .msgEvent, .line > .msgControl").length;
+  var currentSelected = findNum();
+  var newSelected = move(currentSelected, up, numItems);
+  var newEl = numToId(newSelected, numItems);
+
+  // Scroll element into center.
+  scrollTo(newEl);
+};
+
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return;
+  }
+  if (event.key == "j") {
+    navigateTo(/*up=*/false);
+  } else if (event.key == "k") {
+    navigateTo(/*up=*/true);
+  } else {
+    return;
+  }
+  event.preventDefault();
+}, true);
+</script>
+  
+<script type='text/javascript'>
+
+var toggleHelp = function() {
+    var hint = document.querySelector("#tooltiphint");
+    var attributeName = "hidden";
+    if (hint.hasAttribute(attributeName)) {
+      hint.removeAttribute(attributeName);
+    } else {
+      hint.setAttribute("hidden", "true");
+    }
+};
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return;
+  }
+  if (event.key == "?") {
+    toggleHelp();
+  } else {
+    return;
+  }
+  event.preventDefault();
+});
+</script>
+<div id=File1>
+<h4 class=FileName>../torch/csrc/autograd/python_hook.cpp</h4>
+<div class=FileNav><a href="#File186250">&#x2192;</a></div></div>
+<table class="code" data-fileid="1">
+<tr class="codeline" data-linenumber="1"><td class="num" id="LN1">1</td><td class="line"><span class='directive'>#include &lt;torch/csrc/autograd/python_hook.h&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="2"><td class="num" id="LN2">2</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="3"><td class="num" id="LN3">3</td><td class="line"><span class='directive'>#include &lt;c10/util/irange.h&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="4"><td class="num" id="LN4">4</td><td class="line"><span class='directive'>#include &lt;pybind11/pybind11.h&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="5"><td class="num" id="LN5">5</td><td class="line"><span class='directive'>#include &lt;torch/csrc/THP.h&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="6"><td class="num" id="LN6">6</td><td class="line"><span class='directive'>#include &lt;torch/csrc/autograd/python_variable.h&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="7"><td class="num" id="LN7">7</td><td class="line"><span class='directive'>#include &lt;torch/csrc/utils/object_ptr.h&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="8"><td class="num" id="LN8">8</td><td class="line"><span class='directive'>#include &lt;torch/csrc/utils/python_strings.h&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="9"><td class="num" id="LN9">9</td><td class="line"><span class='directive'>#include &lt;torch/csrc/Exceptions.h&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="10"><td class="num" id="LN10">10</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="11"><td class="num" id="LN11">11</td><td class="line"><span class='directive'>#include &lt;sstream&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="12"><td class="num" id="LN12">12</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="13"><td class="num" id="LN13">13</td><td class="line"><span class='keyword'>using</span> torch::autograd::variable_list;</td></tr>
+<tr class="codeline" data-linenumber="14"><td class="num" id="LN14">14</td><td class="line"><span class='keyword'>using</span> torch::autograd::Variable;</td></tr>
+<tr class="codeline" data-linenumber="15"><td class="num" id="LN15">15</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="16"><td class="num" id="LN16">16</td><td class="line"><span class='keyword'>static</span> PyObject* wrap_variables(<span class='keyword'>const</span> variable_list&amp; c_variables);</td></tr>
+<tr class="codeline" data-linenumber="17"><td class="num" id="LN17">17</td><td class="line"><span class='keyword'>static</span> variable_list unwrap_variables(PyObject* py_variables);</td></tr>
+<tr class="codeline" data-linenumber="18"><td class="num" id="LN18">18</td><td class="line"><span class='keyword'>static</span> std::string hook_name(PyObject* hook);</td></tr>
+<tr class="codeline" data-linenumber="19"><td class="num" id="LN19">19</td><td class="line"><span class='keyword'>static</span> <span class='keyword'>void</span> check_result(PyObject* original, PyObject* result, PyObject* hook);</td></tr>
+<tr class="codeline" data-linenumber="20"><td class="num" id="LN20">20</td><td class="line"><span class='keyword'>static</span> <span class='keyword'>void</span> check_single_result(PyObject* original, PyObject* result, PyObject* hook);</td></tr>
+<tr class="codeline" data-linenumber="21"><td class="num" id="LN21">21</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="22"><td class="num" id="LN22">22</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="23"><td class="num" id="LN23">23</td><td class="line"><span class='keyword'>namespace</span> torch { <span class='keyword'>namespace</span> autograd {</td></tr>
+<tr class="codeline" data-linenumber="24"><td class="num" id="LN24">24</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="25"><td class="num" id="LN25">25</td><td class="line">PyFunctionPreHook::PyFunctionPreHook(PyObject* dict, <span class='keyword'>int</span> value_idx)</td></tr>
+<tr class="codeline" data-linenumber="26"><td class="num" id="LN26">26</td><td class="line">  : dict(dict)</td></tr>
+<tr class="codeline" data-linenumber="27"><td class="num" id="LN27">27</td><td class="line">  , value_idx(value_idx)</td></tr>
+<tr class="codeline" data-linenumber="28"><td class="num" id="LN28">28</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="29"><td class="num" id="LN29">29</td><td class="line">  <span class='macro'>Py_INCREF(dict)<span class='macro_popup'>_Py_INCREF(((PyObject*)(dict)))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="30"><td class="num" id="LN30">30</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="31"><td class="num" id="LN31">31</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="32"><td class="num" id="LN32">32</td><td class="line">PyFunctionPreHook::~PyFunctionPreHook() {</td></tr>
+<tr class="codeline" data-linenumber="33"><td class="num" id="LN33">33</td><td class="line">  <span class='comment'>// If python is already dead, leak the wrapped python objects</span></td></tr>
+<tr class="codeline" data-linenumber="34"><td class="num" id="LN34">34</td><td class="line">  <span class='keyword'>if</span> (Py_IsInitialized()) {</td></tr>
+<tr class="codeline" data-linenumber="35"><td class="num" id="LN35">35</td><td class="line">    pybind11::gil_scoped_acquire gil;</td></tr>
+<tr class="codeline" data-linenumber="36"><td class="num" id="LN36">36</td><td class="line">    <span class='macro'>Py_DECREF(dict)<span class='macro_popup'>_Py_DECREF(((PyObject*)(dict)))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="37"><td class="num" id="LN37">37</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="38"><td class="num" id="LN38">38</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="39"><td class="num" id="LN39">39</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="40"><td class="num" id="LN40">40</td><td class="line"><span class='keyword'>auto</span> PyFunctionPreHook::<span class='keyword'>operator</span>()(<span class='keyword'>const</span> variable_list&amp; values) -&gt; variable_list</td></tr>
+<tr class="codeline" data-linenumber="41"><td class="num" id="LN41">41</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="42"><td class="num" id="LN42">42</td><td class="line">  pybind11::gil_scoped_acquire gil;</td></tr>
+<tr class="codeline" data-linenumber="43"><td class="num" id="LN43">43</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="44"><td class="num" id="LN44">44</td><td class="line">  THPObjectPtr value(THPVariable_Wrap(values.at(value_idx)));</td></tr>
+<tr class="codeline" data-linenumber="45"><td class="num" id="LN45">45</td><td class="line">  <span class='keyword'>if</span> (!value) <span class='keyword'>throw</span> python_error();</td></tr>
+<tr class="codeline" data-linenumber="46"><td class="num" id="LN46">46</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="47"><td class="num" id="LN47">47</td><td class="line">  <span class='comment'>// NOLINTNEXTLINE(cppcoreguidelines-init-variables)</span></td></tr>
+<tr class="codeline" data-linenumber="48"><td class="num" id="LN48">48</td><td class="line">  PyObject *key, *hook;</td></tr>
+<tr class="codeline" data-linenumber="49"><td class="num" id="LN49">49</td><td class="line">  Py_ssize_t pos = 0;</td></tr>
+<tr class="codeline" data-linenumber="50"><td class="num" id="LN50">50</td><td class="line">  <span class='keyword'>while</span> (PyDict_Next(dict, &amp;pos, &amp;key, &amp;hook)) {</td></tr>
+<tr class="codeline" data-linenumber="51"><td class="num" id="LN51">51</td><td class="line">    THPObjectPtr res(PyObject_CallFunctionObjArgs(hook, value.get(), <span class='keyword'>nullptr</span>));</td></tr>
+<tr class="codeline" data-linenumber="52"><td class="num" id="LN52">52</td><td class="line">    <span class='keyword'>if</span> (!res) <span class='keyword'>throw</span> python_error();</td></tr>
+<tr class="codeline" data-linenumber="53"><td class="num" id="LN53">53</td><td class="line">    <span class='keyword'>if</span> (res == <span class='macro'>Py_None<span class='macro_popup'>(&amp;_Py_NoneStruct)</span></span>) <span class='keyword'>continue</span>;</td></tr>
+<tr class="codeline" data-linenumber="54"><td class="num" id="LN54">54</td><td class="line">    check_single_result(value.get(), res.get(), hook);</td></tr>
+<tr class="codeline" data-linenumber="55"><td class="num" id="LN55">55</td><td class="line">    value = std::move(res);</td></tr>
+<tr class="codeline" data-linenumber="56"><td class="num" id="LN56">56</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="57"><td class="num" id="LN57">57</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="58"><td class="num" id="LN58">58</td><td class="line">  variable_list results(values);</td></tr>
+<tr class="codeline" data-linenumber="59"><td class="num" id="LN59">59</td><td class="line">  <span class='keyword'>if</span> (value != <span class='macro'>Py_None<span class='macro_popup'>(&amp;_Py_NoneStruct)</span></span>) results[value_idx] = THPVariable_Unpack(value.get());</td></tr>
+<tr class="codeline" data-linenumber="60"><td class="num" id="LN60">60</td><td class="line">  <span class='keyword'>return</span> results;</td></tr>
+<tr class="codeline" data-linenumber="61"><td class="num" id="LN61">61</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="62"><td class="num" id="LN62">62</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="63"><td class="num" id="LN63">63</td><td class="line">PyFunctionPostHook::PyFunctionPostHook(PyObject* dict) : dict(dict) {</td></tr>
+<tr class="codeline" data-linenumber="64"><td class="num" id="LN64">64</td><td class="line">  <span class='macro'>Py_INCREF(dict)<span class='macro_popup'>_Py_INCREF(((PyObject*)(dict)))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="65"><td class="num" id="LN65">65</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="66"><td class="num" id="LN66">66</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="67"><td class="num" id="LN67">67</td><td class="line">PyFunctionPostHook::~PyFunctionPostHook() {</td></tr>
+<tr class="codeline" data-linenumber="68"><td class="num" id="LN68">68</td><td class="line">  <span class='comment'>// If python is already dead, leak the wrapped python objects</span></td></tr>
+<tr class="codeline" data-linenumber="69"><td class="num" id="LN69">69</td><td class="line">  <span class='keyword'>if</span> (Py_IsInitialized()) {</td></tr>
+<tr class="codeline" data-linenumber="70"><td class="num" id="LN70">70</td><td class="line">    pybind11::gil_scoped_acquire gil;</td></tr>
+<tr class="codeline" data-linenumber="71"><td class="num" id="LN71">71</td><td class="line">    <span class='macro'>Py_DECREF(dict)<span class='macro_popup'>_Py_DECREF(((PyObject*)(dict)))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="72"><td class="num" id="LN72">72</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="73"><td class="num" id="LN73">73</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="74"><td class="num" id="LN74">74</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="75"><td class="num" id="LN75">75</td><td class="line"><span class='keyword'>auto</span> PyFunctionPostHook::<span class='keyword'>operator</span>()(</td></tr>
+<tr class="codeline" data-linenumber="76"><td class="num" id="LN76">76</td><td class="line">    <span class='keyword'>const</span> variable_list&amp; _outputs, <span class='comment'>/* grad_inputs */</span></td></tr>
+<tr class="codeline" data-linenumber="77"><td class="num" id="LN77">77</td><td class="line">    <span class='keyword'>const</span> variable_list&amp; _inputs <span class='comment'>/* grad_outputs */</span>) -&gt; variable_list</td></tr>
+<tr class="codeline" data-linenumber="78"><td class="num" id="LN78">78</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="79"><td class="num" id="LN79">79</td><td class="line">  pybind11::gil_scoped_acquire gil;</td></tr>
+<tr class="codeline" data-linenumber="80"><td class="num" id="LN80">80</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="81"><td class="num" id="LN81">81</td><td class="line">  THPObjectPtr outputs(<span class="mrange">wrap_variables(_outputs)</span>);</td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path1" class="msg msgEvent" style="margin-left:24ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">1</div></td><td>Calling 'wrap_variables'</td><td><div class="PathNav"><a href="#Path2" title="Next event (2)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr class="codeline" data-linenumber="82"><td class="num" id="LN82">82</td><td class="line">  THPObjectPtr inputs(wrap_variables(_inputs));</td></tr>
+<tr class="codeline" data-linenumber="83"><td class="num" id="LN83">83</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="84"><td class="num" id="LN84">84</td><td class="line">  <span class='comment'>// NOLINTNEXTLINE(cppcoreguidelines-init-variables)</span></td></tr>
+<tr class="codeline" data-linenumber="85"><td class="num" id="LN85">85</td><td class="line">  PyObject *key, *hook;</td></tr>
+<tr class="codeline" data-linenumber="86"><td class="num" id="LN86">86</td><td class="line">  Py_ssize_t pos = 0;</td></tr>
+<tr class="codeline" data-linenumber="87"><td class="num" id="LN87">87</td><td class="line">  <span class='keyword'>while</span> (PyDict_Next(dict, &amp;pos, &amp;key, &amp;hook)) {</td></tr>
+<tr class="codeline" data-linenumber="88"><td class="num" id="LN88">88</td><td class="line">    THPObjectPtr res(PyObject_CallFunctionObjArgs(</td></tr>
+<tr class="codeline" data-linenumber="89"><td class="num" id="LN89">89</td><td class="line">        hook, outputs.get(), inputs.get(), <span class='keyword'>nullptr</span>));</td></tr>
+<tr class="codeline" data-linenumber="90"><td class="num" id="LN90">90</td><td class="line">    <span class='keyword'>if</span> (!res) <span class='keyword'>throw</span> python_error();</td></tr>
+<tr class="codeline" data-linenumber="91"><td class="num" id="LN91">91</td><td class="line">    <span class='keyword'>if</span> (res == <span class='macro'>Py_None<span class='macro_popup'>(&amp;_Py_NoneStruct)</span></span>) <span class='keyword'>continue</span>;</td></tr>
+<tr class="codeline" data-linenumber="92"><td class="num" id="LN92">92</td><td class="line">    check_result(outputs, res, hook);</td></tr>
+<tr class="codeline" data-linenumber="93"><td class="num" id="LN93">93</td><td class="line">    outputs = std::move(res);</td></tr>
+<tr class="codeline" data-linenumber="94"><td class="num" id="LN94">94</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="95"><td class="num" id="LN95">95</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="96"><td class="num" id="LN96">96</td><td class="line">  <span class='keyword'>return</span> unwrap_variables(outputs.get());</td></tr>
+<tr class="codeline" data-linenumber="97"><td class="num" id="LN97">97</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="98"><td class="num" id="LN98">98</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="99"><td class="num" id="LN99">99</td><td class="line">}} <span class='comment'>// namespace torch::autograd</span></td></tr>
+<tr class="codeline" data-linenumber="100"><td class="num" id="LN100">100</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="101"><td class="num" id="LN101">101</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="102"><td class="num" id="LN102">102</td><td class="line"><span class='keyword'>static</span> PyObject *wrap_variables(<span class='keyword'>const</span> variable_list&amp; c_variables)</td></tr>
+<tr class="codeline" data-linenumber="103"><td class="num" id="LN103">103</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="104"><td class="num" id="LN104">104</td><td class="line">  size_t num_vars = c_variables.size();</td></tr>
+<tr class="codeline" data-linenumber="105"><td class="num" id="LN105">105</td><td class="line">  THPObjectPtr tuple(<span class="mrange"><span class="mrange">PyTuple_New(num_vars)</span></span>);</td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path2" class="msg msgEvent" style="margin-left:22ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">2</div></td><td><div class="PathNav"><a href="#Path1" title="Previous event (1)">&#x2190;</a></div></td><td>Calling 'PyTuple_New'</td><td><div class="PathNav"><a href="#Path3" title="Next event (3)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path4" class="msg msgEvent" style="margin-left:22ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">4</div></td><td><div class="PathNav"><a href="#Path3" title="Previous event (3)">&#x2190;</a></div></td><td>Returning from 'PyTuple_New'</td><td><div class="PathNav"><a href="#Path5" title="Next event (5)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr><td class="num"></td><td class="line"><div id="EndPath" class="msg msgEvent" style="margin-left:22ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">9</div></td><td><div class="PathNav"><a href="#Path8" title="Previous event (8)">&#x2190;</a></div></td><td>PyObject ownership leak with reference count of 1</td></tr></table></div></td></tr>
+<tr class="codeline" data-linenumber="106"><td class="num" id="LN106">106</td><td class="line">  <span class='keyword'>if</span> (<span class="mrange">!tuple</span>) <span class='keyword'>throw</span> python_error();</td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path5" class="msg msgEvent" style="margin-left:7ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">5</div></td><td><div class="PathNav"><a href="#Path4" title="Previous event (4)">&#x2190;</a></div></td><td>Assuming the condition is false</td><td><div class="PathNav"><a href="#Path6" title="Next event (6)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path6" class="msg msgControl" style="margin-left:3ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexControl">6</div></td><td><div class="PathNav"><a href="#Path5" title="Previous event (5)">&#x2190;</a></div></td><td>Taking false branch</td><td><div class="PathNav"><a href="#Path7" title="Next event (7)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr class="codeline" data-linenumber="107"><td class="num" id="LN107">107</td><td class="line">  <span class='keyword'>for</span> (<span class='keyword'>const</span> <span class='keyword'>auto</span> i : c10::irange(num_vars)) {</td></tr>
+<tr class="codeline" data-linenumber="108"><td class="num" id="LN108">108</td><td class="line">    THPObjectPtr var(THPVariable_Wrap(c_variables[i]));</td></tr>
+<tr class="codeline" data-linenumber="109"><td class="num" id="LN109">109</td><td class="line">    <span class='keyword'>if</span> (<span class="mrange">!var</span>) <span class='keyword'>throw</span> python_error();</td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path7" class="msg msgEvent" style="margin-left:9ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">7</div></td><td><div class="PathNav"><a href="#Path6" title="Previous event (6)">&#x2190;</a></div></td><td>Assuming the condition is true</td><td><div class="PathNav"><a href="#Path8" title="Next event (8)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path8" class="msg msgControl" style="margin-left:5ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexControl">8</div></td><td><div class="PathNav"><a href="#Path7" title="Previous event (7)">&#x2190;</a></div></td><td>Taking true branch</td><td><div class="PathNav"><a href="#EndPath" title="Next event (9)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr class="codeline" data-linenumber="110"><td class="num" id="LN110">110</td><td class="line">    <span class='macro'>PyTuple_SET_ITEM(tuple.get(), i, var.release())<span class='macro_popup'>PyTuple_SetItem(tuple.get(), i, var.release())</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="111"><td class="num" id="LN111">111</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="112"><td class="num" id="LN112">112</td><td class="line">  <span class='keyword'>return</span> tuple.release();</td></tr>
+<tr class="codeline" data-linenumber="113"><td class="num" id="LN113">113</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="114"><td class="num" id="LN114">114</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="115"><td class="num" id="LN115">115</td><td class="line"><span class='keyword'>static</span> variable_list unwrap_variables(PyObject* py_variables)  {</td></tr>
+<tr class="codeline" data-linenumber="116"><td class="num" id="LN116">116</td><td class="line">  variable_list results(<span class='macro'>PyTuple_GET_SIZE(py_variables)<span class='macro_popup'>(((PyVarObject*)(((PyTupleObject *)(py_variables))))-&gt;ob_size<br>)</span></span>);</td></tr>
+<tr class="codeline" data-linenumber="117"><td class="num" id="LN117">117</td><td class="line">  <span class='keyword'>for</span>(<span class='keyword'>const</span> <span class='keyword'>auto</span> i : c10::irange(results.size())) {</td></tr>
+<tr class="codeline" data-linenumber="118"><td class="num" id="LN118">118</td><td class="line">    PyObject* item = <span class='macro'>PyTuple_GET_ITEM(py_variables, i)<span class='macro_popup'>(((PyTupleObject *)(py_variables))-&gt;ob_item[i])</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="119"><td class="num" id="LN119">119</td><td class="line">    <span class='keyword'>if</span> (item == <span class='macro'>Py_None<span class='macro_popup'>(&amp;_Py_NoneStruct)</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="120"><td class="num" id="LN120">120</td><td class="line">      <span class='keyword'>continue</span>;</td></tr>
+<tr class="codeline" data-linenumber="121"><td class="num" id="LN121">121</td><td class="line">    } <span class='keyword'>else</span> <span class='keyword'>if</span> (THPVariable_Check(item)) {</td></tr>
+<tr class="codeline" data-linenumber="122"><td class="num" id="LN122">122</td><td class="line">      results[i] = THPVariable_Unpack(item);</td></tr>
+<tr class="codeline" data-linenumber="123"><td class="num" id="LN123">123</td><td class="line">    } <span class='keyword'>else</span> {</td></tr>
+<tr class="codeline" data-linenumber="124"><td class="num" id="LN124">124</td><td class="line">      <span class='comment'>// this should never happen, but just in case...</span></td></tr>
+<tr class="codeline" data-linenumber="125"><td class="num" id="LN125">125</td><td class="line">      std::stringstream ss;</td></tr>
+<tr class="codeline" data-linenumber="126"><td class="num" id="LN126">126</td><td class="line">      ss &lt;&lt; <span class='string_literal'>"expected variable but got "</span> &lt;&lt; <span class='macro'>Py_TYPE(item)<span class='macro_popup'>(((PyObject*)(item))-&gt;ob_type)</span></span>-&gt;tp_name;</td></tr>
+<tr class="codeline" data-linenumber="127"><td class="num" id="LN127">127</td><td class="line">      <span class='keyword'>throw</span> std::runtime_error(ss.str());</td></tr>
+<tr class="codeline" data-linenumber="128"><td class="num" id="LN128">128</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="129"><td class="num" id="LN129">129</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="130"><td class="num" id="LN130">130</td><td class="line">  <span class='keyword'>return</span> results;</td></tr>
+<tr class="codeline" data-linenumber="131"><td class="num" id="LN131">131</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="132"><td class="num" id="LN132">132</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="133"><td class="num" id="LN133">133</td><td class="line"><span class='keyword'>static</span> <span class='keyword'>void</span> check_result(PyObject* prev, PyObject* result, PyObject* hook) {</td></tr>
+<tr class="codeline" data-linenumber="134"><td class="num" id="LN134">134</td><td class="line">  <span class='keyword'>if</span> (!<span class='macro'>PyTuple_Check(result)<span class='macro_popup'>((((((PyObject*)(result))-&gt;ob_type))-&gt;tp_flags &amp; ((<br>1UL &lt;&lt; 26))) != 0)</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="135"><td class="num" id="LN135">135</td><td class="line">    PyErr_Format(PyExc_TypeError, <span class='string_literal'>"expected tuple, but hook returned '%s'"</span>,</td></tr>
+<tr class="codeline" data-linenumber="136"><td class="num" id="LN136">136</td><td class="line">        <span class='macro'>THPUtils_typename(result)<span class='macro_popup'>((((PyObject*)(result))-&gt;ob_type)-&gt;tp_name)</span></span>);</td></tr>
+<tr class="codeline" data-linenumber="137"><td class="num" id="LN137">137</td><td class="line">    <span class='keyword'>throw</span> python_error();</td></tr>
+<tr class="codeline" data-linenumber="138"><td class="num" id="LN138">138</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="139"><td class="num" id="LN139">139</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="140"><td class="num" id="LN140">140</td><td class="line">  <span class='keyword'>auto</span> prev_size = <span class='macro'>PyTuple_GET_SIZE(prev)<span class='macro_popup'>(((PyVarObject*)(((PyTupleObject *)(prev))))-&gt;ob_size)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="141"><td class="num" id="LN141">141</td><td class="line">  <span class='keyword'>auto</span> result_size = <span class='macro'>PyTuple_GET_SIZE(result)<span class='macro_popup'>(((PyVarObject*)(((PyTupleObject *)(result))))-&gt;ob_size)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="142"><td class="num" id="LN142">142</td><td class="line">  <span class='keyword'>if</span> (prev_size != result_size) {</td></tr>
+<tr class="codeline" data-linenumber="143"><td class="num" id="LN143">143</td><td class="line">    std::stringstream ss;</td></tr>
+<tr class="codeline" data-linenumber="144"><td class="num" id="LN144">144</td><td class="line">    <span class='keyword'>auto</span> name = hook_name(hook);</td></tr>
+<tr class="codeline" data-linenumber="145"><td class="num" id="LN145">145</td><td class="line">    ss &lt;&lt; <span class='string_literal'>"hook '"</span> &lt;&lt; name &lt;&lt; <span class='string_literal'>"' has returned an incorrect number "</span>;</td></tr>
+<tr class="codeline" data-linenumber="146"><td class="num" id="LN146">146</td><td class="line">    ss &lt;&lt; <span class='string_literal'>"of values (got "</span> &lt;&lt; result_size &lt;&lt; <span class='string_literal'>", but expected "</span>;</td></tr>
+<tr class="codeline" data-linenumber="147"><td class="num" id="LN147">147</td><td class="line">    ss &lt;&lt; prev_size &lt;&lt; <span class='string_literal'>")"</span>;</td></tr>
+<tr class="codeline" data-linenumber="148"><td class="num" id="LN148">148</td><td class="line">    <span class='keyword'>throw</span> std::runtime_error(ss.str());</td></tr>
+<tr class="codeline" data-linenumber="149"><td class="num" id="LN149">149</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="150"><td class="num" id="LN150">150</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="151"><td class="num" id="LN151">151</td><td class="line">  <span class='keyword'>for</span> (<span class='keyword'>const</span> <span class='keyword'>auto</span> i : c10::irange(prev_size)) {</td></tr>
+<tr class="codeline" data-linenumber="152"><td class="num" id="LN152">152</td><td class="line">    check_single_result(<span class='macro'>PyTuple_GET_ITEM(prev, i)<span class='macro_popup'>(((PyTupleObject *)(prev))-&gt;ob_item[i])</span></span>, <span class='macro'>PyTuple_GET_ITEM(result, i)<span class='macro_popup'>(((PyTupleObject *)(result))-&gt;ob_item[i])</span></span>, hook);</td></tr>
+<tr class="codeline" data-linenumber="153"><td class="num" id="LN153">153</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="154"><td class="num" id="LN154">154</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="155"><td class="num" id="LN155">155</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="156"><td class="num" id="LN156">156</td><td class="line"><span class='keyword'>static</span> <span class='keyword'>void</span> check_single_result(PyObject* _original, PyObject* _result, PyObject* hook) {</td></tr>
+<tr class="codeline" data-linenumber="157"><td class="num" id="LN157">157</td><td class="line">  <span class='keyword'>if</span> (_result == <span class='macro'>Py_None<span class='macro_popup'>(&amp;_Py_NoneStruct)</span></span>) <span class='keyword'>return</span>;</td></tr>
+<tr class="codeline" data-linenumber="158"><td class="num" id="LN158">158</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="159"><td class="num" id="LN159">159</td><td class="line">  <span class='keyword'>if</span> (_original == <span class='macro'>Py_None<span class='macro_popup'>(&amp;_Py_NoneStruct)</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="160"><td class="num" id="LN160">160</td><td class="line">    <span class='keyword'>throw</span> std::runtime_error(<span class='string_literal'>"can't replace a None gradient with a non-None value"</span>);</td></tr>
+<tr class="codeline" data-linenumber="161"><td class="num" id="LN161">161</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="162"><td class="num" id="LN162">162</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="163"><td class="num" id="LN163">163</td><td class="line">  <span class='keyword'>if</span> (!PyObject_IsInstance(_result, THPVariableClass)) {</td></tr>
+<tr class="codeline" data-linenumber="164"><td class="num" id="LN164">164</td><td class="line">    PyErr_Format(PyExc_TypeError, <span class='string_literal'>"expected Variable, but hook returned '%s'"</span>,</td></tr>
+<tr class="codeline" data-linenumber="165"><td class="num" id="LN165">165</td><td class="line">        <span class='macro'>THPUtils_typename(_result)<span class='macro_popup'>((((PyObject*)(_result))-&gt;ob_type)-&gt;tp_name)</span></span>);</td></tr>
+<tr class="codeline" data-linenumber="166"><td class="num" id="LN166">166</td><td class="line">    <span class='keyword'>throw</span> python_error();</td></tr>
+<tr class="codeline" data-linenumber="167"><td class="num" id="LN167">167</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="168"><td class="num" id="LN168">168</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="169"><td class="num" id="LN169">169</td><td class="line">  <span class='keyword'>const</span> <span class='keyword'>auto</span>&amp; original = THPVariable_Unpack(_original);</td></tr>
+<tr class="codeline" data-linenumber="170"><td class="num" id="LN170">170</td><td class="line">  <span class='keyword'>const</span> <span class='keyword'>auto</span>&amp; result = THPVariable_Unpack(_result);</td></tr>
+<tr class="codeline" data-linenumber="171"><td class="num" id="LN171">171</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="172"><td class="num" id="LN172">172</td><td class="line">  torch::autograd::check_variable_result(original, result, hook_name(hook));</td></tr>
+<tr class="codeline" data-linenumber="173"><td class="num" id="LN173">173</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="174"><td class="num" id="LN174">174</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="175"><td class="num" id="LN175">175</td><td class="line"><span class='keyword'>static</span> std::string hook_name(PyObject* hook) {</td></tr>
+<tr class="codeline" data-linenumber="176"><td class="num" id="LN176">176</td><td class="line">  <span class='keyword'>if</span> (PyObject_HasAttrString(hook, <span class='string_literal'>"__name__"</span>)) {</td></tr>
+<tr class="codeline" data-linenumber="177"><td class="num" id="LN177">177</td><td class="line">    THPObjectPtr name(PyObject_GetAttrString(hook, <span class='string_literal'>"__name__"</span>));</td></tr>
+<tr class="codeline" data-linenumber="178"><td class="num" id="LN178">178</td><td class="line">    <span class='keyword'>if</span> (!name) <span class='keyword'>throw</span> python_error();</td></tr>
+<tr class="codeline" data-linenumber="179"><td class="num" id="LN179">179</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="180"><td class="num" id="LN180">180</td><td class="line">    <span class='keyword'>if</span> (name &amp;&amp; THPUtils_checkString(name.get())) {</td></tr>
+<tr class="codeline" data-linenumber="181"><td class="num" id="LN181">181</td><td class="line">      <span class='keyword'>return</span> THPUtils_unpackString(name.get());</td></tr>
+<tr class="codeline" data-linenumber="182"><td class="num" id="LN182">182</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="183"><td class="num" id="LN183">183</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="184"><td class="num" id="LN184">184</td><td class="line">  <span class='keyword'>return</span> <span class='string_literal'>"&lt;unknown&gt;"</span>;</td></tr>
+<tr class="codeline" data-linenumber="185"><td class="num" id="LN185">185</td><td class="line">}</td></tr>
+</table><hr class=divider>
+<div id=File186250>
+<div class=FileNav><a href="#File1">&#x2190;</a></div><h4 class=FileName>/home/alan/temp/cpython/Python-3.8.5/Doc/build/models/PyTuple_New.model</h4>
+</div>
+<table class="code" data-fileid="186250">
+<tr class="codeline" data-linenumber="1"><td class="num" id="LN1">1</td><td class="line"><span class='directive'>#ifndef PyTuple_New</span></td></tr>
+<tr class="codeline" data-linenumber="2"><td class="num" id="LN2">2</td><td class="line"><span class='keyword'>struct</span> _object;</td></tr>
+<tr class="codeline" data-linenumber="3"><td class="num" id="LN3">3</td><td class="line"><span class='keyword'>typedef</span> <span class='keyword'>struct</span> _object PyObject;</td></tr>
+<tr class="codeline" data-linenumber="4"><td class="num" id="LN4">4</td><td class="line">PyObject* clang_analyzer_PyObject_New_Reference();</td></tr>
+<tr class="codeline" data-linenumber="5"><td class="num" id="LN5">5</td><td class="line">PyObject* PyTuple_New(Py_ssize_t len) {</td></tr>
+<tr class="codeline" data-linenumber="6"><td class="num" id="LN6">6</td><td class="line">  <span class='keyword'>return</span> <span class="mrange">clang_analyzer_PyObject_New_Reference()</span>;</td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path3" class="msg msgEvent" style="margin-left:10ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">3</div></td><td><div class="PathNav"><a href="#Path2" title="Previous event (2)">&#x2190;</a></div></td><td>Setting reference count to 1</td><td><div class="PathNav"><a href="#Path4" title="Next event (4)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr class="codeline" data-linenumber="7"><td class="num" id="LN7">7</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="8"><td class="num" id="LN8">8</td><td class="line"><span class='directive'>#else</span></td></tr>
+<tr class="codeline" data-linenumber="9"><td class="num" id="LN9">9</td><td class="line"><span class='directive'>#warning "API PyTuple_New is defined as a macro."</span></td></tr>
+<tr class="codeline" data-linenumber="10"><td class="num" id="LN10">10</td><td class="line"><span class='directive'>#endif</span></td></tr></table></body></html>
