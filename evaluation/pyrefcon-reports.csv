@@ -119,17 +119,17 @@ NumPy,RL,numpy/core/src/umath/umathmodule.c,initumath,286,4,report-afba91.html,T
 NumPy,RL,numpy/core/src/umath/umathmodule.c,initumath,287,4,report-08c0c8.html,TP,created passed to non-stealing,https://github.com/numpy/numpy/issues/21532,issued,1
 NumPy,RL,numpy/fft/_pocketfft.c,PyInit__pocketfft_internal,2372,7,report-ab547b.html,TP,leak on error handling branch,https://github.com/numpy/numpy/issues/21532,issued,1
 NumPy,RL,numpy/linalg/lapack_litemodule.c,PyInit_lapack_lite,396,7,report-9bedd0.html,TP,leak on error handling branch,https://github.com/numpy/numpy/issues/21532,issued,1
-NumPy,UaR,numpy/core/src/multiarray/ctors.c,PyArray_FromAny,1681,55,report-adaa87.html,TP,use after decrement on captured,https://github.com/numpy/numpy/issues/19878,fixed,1,-,infer
-NumPy,UaR,numpy/core/src/multiarray/ctors.c,PyArray_Zeros,2870,16,report-0b2473.html,TP,use after decrement on captured,https://github.com/numpy/numpy/issues/19859,fixed,4,-,infer
+NumPy,UaR,numpy/core/src/multiarray/ctors.c,PyArray_FromAny,1681,55,report-adaa87.html,TP,use after decrement on captured,https://github.com/numpy/numpy/issues/19878,fixed,1
+NumPy,UaR,numpy/core/src/multiarray/ctors.c,PyArray_Zeros,2870,16,report-0b2473.html,TP,use after decrement on captured,https://github.com/numpy/numpy/issues/19859,fixed,4
 NumPy,UaR,numpy/core/src/multiarray/descriptor.c,arraydescr_names_set,2204,19,report-1cd19d.html,TP,use after created passed to decrease,https://github.com/numpy/numpy/issues/19851,fixed,1
 NumPy,UaR,numpy/core/src/umath/ufunc_object.c,_get_normalized_typetup,4637,64,report-edd85d.html,TP,use after created passed to decrease,https://github.com/numpy/numpy/issues/19848,confirmed,1
 NumPy,UaR,numpy/core/src/_simd/_simd.c,PyInit__simd,67,19,report-d20a89.html,TP,use after created passed to steal,-,closed,1
 NumPy,UaR,numpy/core/src/multiarray/descriptor.c,_convert_from_array_descr,527,56,report-03c8b1.html,TP,use after created passed to steal,-,closed,5
-NumPy,UaR,numpy/core/src/multiarray/descriptor.c,_convert_from_array_descr,589,63,report-1cb399.html,TP,use after created passed to steal,-,closed,6,-,infer
+NumPy,UaR,numpy/core/src/multiarray/descriptor.c,_convert_from_array_descr,589,63,report-1cb399.html,TP,use after created passed to steal,-,closed,6
 NumPy,UaR,numpy/core/src/multiarray/descriptor.c,_convert_from_list,697,60,report-14801d.html,TP,use after created passed to steal,https://github.com/numpy/numpy/issues/19847,closed,1
-NumPy,UaR,numpy/core/src/multiarray/descriptor.c,_convert_from_dict,1157,29,report-37fc0d.html,TP,use after created passed to steal,-,closed,1,-,infer
-NumPy,UaR,numpy/core/src/multiarray/descriptor.c,_convert_from_dict,1199,40,report-ed62a9.html,TP,use after created passed to steal,-,closed,1,-,infer
-NumPy,UaR,numpy/core/src/multiarray/descriptor.c,_convert_from_dict,1208,32,report-936d5b.html,TP,use after created passed to steal,-,closed,1,-,infer
+NumPy,UaR,numpy/core/src/multiarray/descriptor.c,_convert_from_dict,1157,29,report-37fc0d.html,TP,use after created passed to steal,-,closed,1
+NumPy,UaR,numpy/core/src/multiarray/descriptor.c,_convert_from_dict,1199,40,report-ed62a9.html,TP,use after created passed to steal,-,closed,1
+NumPy,UaR,numpy/core/src/multiarray/descriptor.c,_convert_from_dict,1208,32,report-936d5b.html,TP,use after created passed to steal,-,closed,1
 NumPy,UaR,numpy/core/src/multiarray/descriptor.c,arraydescr_setstate,2895,61,report-a6f290.html,TP,use after created passed to steal,-,closed,1
 NumPy,UaR,numpy/core/src/multiarray/descriptor.c,arraydescr_field_subset_view,3410,23,report-089bdc.html,TP,use after created passed to steal,-,closed,4
 PyTorch,RL,torch/csrc/Layout.cpp,initializeLayouts,22,14,report-e2a925.html,TP,created passed to non-stealing,https://github.com/pytorch/pytorch/issues/77839,confirmed,1
@@ -142,7 +142,7 @@ SciPy,RL,scipy/integrate/_quadpackmodule.c,PyInit__quadpack,33,5,report-77bbba.h
 SciPy,RL,scipy/interpolate/_rbfinterp_pythran.cpp,PyInit__rbfinterp_pythran,2301,9,report-52c40a.html,TP,pure leak,-,Function deleted,1
 SciPy,RL,scipy/interpolate/src/_fitpackmodule.c,PyInit__fitpack,1554,5,report-a43576.html,TP,leak on error handling branch,https://github.com/scipy/scipy/issues/16231,fixed,1
 SciPy,RL,scipy/ndimage/src/_ctest.c,py_filter2d,90,17,report-3e77e6.html,TP,leak on error handling branch,https://github.com/scipy/scipy/issues/16236,fixed,1
-SciPy,RL,scipy/ndimage/src/nd_image.c,Py_FindObjects,888,28,report-c5db6d.html,TP,leak on error handling branch,https://github.com/scipy/scipy/issues/16235,fixed,1,-,CVE?
+SciPy,RL,scipy/ndimage/src/nd_image.c,Py_FindObjects,888,28,report-c5db6d.html,TP,leak on error handling branch,https://github.com/scipy/scipy/issues/16235,fixed,1
 SciPy,RL,scipy/ndimage/src/nd_image.c,PyInit__nd_image,1184,5,report-3eb20e.html,TP,leak on error handling branch,https://github.com/scipy/scipy/issues/16231,fixed,1
 SciPy,RL,scipy/optimize/_group_columns.cpp,PyInit__group_columns,631,9,report-72ee50.html,TP,created passed to non-stealing,-,Function deleted,1
 SciPy,RL,scipy/optimize/_lsap_module.c,PyInit__lsap_module,121,5,report-e2207c.html,TP,leak on error handling branch,https://github.com/scipy/scipy/issues/16231,fixed,1
