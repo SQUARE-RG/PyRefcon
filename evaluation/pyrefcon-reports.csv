@@ -200,45 +200,45 @@ Numba,UaR,numba/_devicearray.cpp,PyInit__devicearray,136,20,report-e42cca.html,T
 Pillow,RL,src/Tk/tkImaging.c,fname2char,371,12,report-c6d448.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6319,fixed,2
 Pillow,RL,src/_imaging.c,_getxy,1122,17,report-e70944.html,FP,unmodeled behavior,-,False positive,1
 Pillow,RL,src/_imaging.c,_getxy,1136,19,report-c40445.html,FP,unmodeled behavior,-,False positive,1
-Pillow,RL,src/_imaging.c,_get_stats,3758,8,report-1b7403.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
-Pillow,RL,src/_imaging.c,_get_stats,3760,8,report-6fa78e.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
-Pillow,RL,src/_imaging.c,_get_stats,3762,8,report-b43c87.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
-Pillow,RL,src/_imaging.c,_get_stats,3764,8,report-1640ab.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
-Pillow,RL,src/_imaging.c,_get_stats,3765,8,report-78d881.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
-Pillow,RL,src/_imaging.c,_get_stats,3766,8,report-6acded.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
-Pillow,RL,src/_imaging.c,setup_module,4139,13,report-15cbc4.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
-Pillow,RL,src/_imaging.c,setup_module,4147,13,report-a78d30.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
-Pillow,RL,src/_imaging.c,setup_module,4157,13,report-446850.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
-Pillow,RL,src/_imaging.c,setup_module,4172,13,report-3c8041.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
-Pillow,RL,src/_imaging.c,setup_module,4190,13,report-1abe89.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
-Pillow,RL,src/_imaging.c,setup_module,4198,13,report-b9e74a.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
-Pillow,RL,src/_imaging.c,setup_module,4221,13,report-be23b5.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
-Pillow,RL,src/_imaging.c,PyInit__imaging,4238,5,report-3fa97f.html,TP,leak on error handling branch,https://github.com/python-pillow/Pillow/issues/6322,issued,1
-Pillow,RL,src/_imagingcms.c,_is_intent_supported,936,20,report-1e988b.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
-Pillow,RL,src/_imagingcms.c,_is_intent_supported,937,20,report-0ef1f7.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
-Pillow,RL,src/_imagingcms.c,setup_module,1531,7,report-e4a37b.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
-Pillow,RL,src/_imagingcms.c,setup_module,1533,7,report-dc5fd5.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
+Pillow,RL,src/_imaging.c,_get_stats,3758,8,report-1b7403.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,fixed,1
+Pillow,RL,src/_imaging.c,_get_stats,3760,8,report-6fa78e.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,fixed,1
+Pillow,RL,src/_imaging.c,_get_stats,3762,8,report-b43c87.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,fixed,1
+Pillow,RL,src/_imaging.c,_get_stats,3764,8,report-1640ab.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,fixed,1
+Pillow,RL,src/_imaging.c,_get_stats,3765,8,report-78d881.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,fixed,1
+Pillow,RL,src/_imaging.c,_get_stats,3766,8,report-6acded.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,fixed,1
+Pillow,RL,src/_imaging.c,setup_module,4139,13,report-15cbc4.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,fixed,1
+Pillow,RL,src/_imaging.c,setup_module,4147,13,report-a78d30.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,fixed,1
+Pillow,RL,src/_imaging.c,setup_module,4157,13,report-446850.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,fixed,1
+Pillow,RL,src/_imaging.c,setup_module,4172,13,report-3c8041.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,fixed,1
+Pillow,RL,src/_imaging.c,setup_module,4190,13,report-1abe89.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,fixed,1
+Pillow,RL,src/_imaging.c,setup_module,4198,13,report-b9e74a.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,fixed,1
+Pillow,RL,src/_imaging.c,setup_module,4221,13,report-be23b5.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,fixed,1
+Pillow,RL,src/_imaging.c,PyInit__imaging,4238,5,report-3fa97f.html,TP,leak on error handling branch,https://github.com/python-pillow/Pillow/issues/6322,fixed,1
+Pillow,RL,src/_imagingcms.c,_is_intent_supported,936,20,report-1e988b.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,fixed,1
+Pillow,RL,src/_imagingcms.c,_is_intent_supported,937,20,report-0ef1f7.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,fixed,1
+Pillow,RL,src/_imagingcms.c,setup_module,1531,7,report-e4a37b.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,fixed,1
+Pillow,RL,src/_imagingcms.c,setup_module,1533,7,report-dc5fd5.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,fixed,1
 Pillow,RL,src/_imagingft.c,text_layout_raqm,301,36,report-3d6af5.html,TP,pure leak,https://github.com/python-pillow/Pillow/issues/6321,fixed,1
 Pillow,RL,src/_imagingft.c,text_layout_raqm,319,45,report-54b828.html,TP,pure leak,https://github.com/python-pillow/Pillow/issues/6321,fixed,1
-Pillow,RL,src/_imagingft.c,font_getvarnames,1075,10,report-60bc38.html,TP,leak on error handling branch,https://github.com/python-pillow/Pillow/issues/6322,issued,1
-Pillow,RL,src/_imagingft.c,font_getvaraxes,1118,12,report-775d14.html,TP,leak on error handling branch,https://github.com/python-pillow/Pillow/issues/6322,issued,1
-Pillow,RL,src/_imagingft.c,font_getvaraxes,1122,12,report-379efb.html,TP,leak on error handling branch,https://github.com/python-pillow/Pillow/issues/6322,issued,1
-Pillow,RL,src/_imagingft.c,font_getvaraxes,1124,8,report-611fdf.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
-Pillow,RL,src/_imagingft.c,font_getvaraxes,1125,8,report-7c0d23.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
-Pillow,RL,src/_imagingft.c,font_getvaraxes,1127,8,report-b84747.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
-Pillow,RL,src/_imagingft.c,font_getvaraxes,1136,17,report-fce490.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
-Pillow,RL,src/_imagingft.c,setup_module,1351,7,report-d17f14.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
-Pillow,RL,src/_imagingft.c,setup_module,1366,9,report-e80f52.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
-Pillow,RL,src/_imagingft.c,setup_module,1372,9,report-21a68f.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
-Pillow,RL,src/_imagingmorph.c,match,138,6,report-8cc0d2.html,TP,leak on error handling branch,https://github.com/python-pillow/Pillow/issues/6322,issued,1
-Pillow,RL,src/_imagingmorph.c,match,195,19,report-29a870.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
-Pillow,RL,src/_imagingmorph.c,get_on_pixels,215,6,report-239db5.html,TP,leak on error handling branch,https://github.com/python-pillow/Pillow/issues/6322,issued,1
-Pillow,RL,src/_imagingmorph.c,get_on_pixels,231,12,report-fddf55.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
-Pillow,RL,src/_imagingmorph.c,setup_module,243,5,report-3c802a.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
-Pillow,RL,src/_imagingtk.c,PyInit__imagingtk,77,5,report-bc9c58.html,TP,leak on error handling branch,https://github.com/python-pillow/Pillow/issues/6322,issued,1
-Pillow,RL,src/_webp.c,addTransparencyFlagToModule,948,6,report-213466.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
-Pillow,RL,src/_webp.c,setup_module,959,5,report-71bbbc.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,issued,1
-Pillow,RL,src/_webp.c,PyInit__webp,983,5,report-e4ed93.html,TP,leak on error handling branch,https://github.com/python-pillow/Pillow/issues/6322,issued,1
+Pillow,RL,src/_imagingft.c,font_getvarnames,1075,10,report-60bc38.html,TP,leak on error handling branch,https://github.com/python-pillow/Pillow/issues/6322,fixed,1
+Pillow,RL,src/_imagingft.c,font_getvaraxes,1118,12,report-775d14.html,TP,leak on error handling branch,https://github.com/python-pillow/Pillow/issues/6322,fixed,1
+Pillow,RL,src/_imagingft.c,font_getvaraxes,1122,12,report-379efb.html,TP,leak on error handling branch,https://github.com/python-pillow/Pillow/issues/6322,fixed,1
+Pillow,RL,src/_imagingft.c,font_getvaraxes,1124,8,report-611fdf.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,fixed,1
+Pillow,RL,src/_imagingft.c,font_getvaraxes,1125,8,report-7c0d23.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,fixed,1
+Pillow,RL,src/_imagingft.c,font_getvaraxes,1127,8,report-b84747.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,fixed,1
+Pillow,RL,src/_imagingft.c,font_getvaraxes,1136,17,report-fce490.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,fixed,1
+Pillow,RL,src/_imagingft.c,setup_module,1351,7,report-d17f14.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,fixed,1
+Pillow,RL,src/_imagingft.c,setup_module,1366,9,report-e80f52.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,fixed,1
+Pillow,RL,src/_imagingft.c,setup_module,1372,9,report-21a68f.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,fixed,1
+Pillow,RL,src/_imagingmorph.c,match,138,6,report-8cc0d2.html,TP,leak on error handling branch,https://github.com/python-pillow/Pillow/issues/6322,fixed,1
+Pillow,RL,src/_imagingmorph.c,match,195,19,report-29a870.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,fixed,1
+Pillow,RL,src/_imagingmorph.c,get_on_pixels,215,6,report-239db5.html,TP,leak on error handling branch,https://github.com/python-pillow/Pillow/issues/6322,fixed,1
+Pillow,RL,src/_imagingmorph.c,get_on_pixels,231,12,report-fddf55.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,fixed,1
+Pillow,RL,src/_imagingmorph.c,setup_module,243,5,report-3c802a.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,fixed,1
+Pillow,RL,src/_imagingtk.c,PyInit__imagingtk,77,5,report-bc9c58.html,TP,leak on error handling branch,https://github.com/python-pillow/Pillow/issues/6322,fixed,1
+Pillow,RL,src/_webp.c,addTransparencyFlagToModule,948,6,report-213466.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,fixed,1
+Pillow,RL,src/_webp.c,setup_module,959,5,report-71bbbc.html,TP,created passed to non-stealing,https://github.com/python-pillow/Pillow/issues/6323,fixed,1
+Pillow,RL,src/_webp.c,PyInit__webp,983,5,report-e4ed93.html,TP,leak on error handling branch,https://github.com/python-pillow/Pillow/issues/6322,fixed,1
 Pillow,RL,src/encode.c,PyImaging_JpegEncoderNew,60,26,report-b75e6e.html,FP,incomplete path,-,False positive,1
 Pillow,RL,src/encode.c,_encode,131,12,report-738827.html,FP,unmodeled behavior,-,False positive,1
 TensorFlow,UaR,tensorflow/python/eager/pywrap_tensor.cc,EagerTensor_shape_tuple,618,22,report-378fc6.html,TP,use after decrement on captured,https://github.com/tensorflow/tensorflow/issues/52085,confirmed,1
